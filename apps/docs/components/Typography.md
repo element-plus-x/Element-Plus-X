@@ -29,7 +29,8 @@ npm i vue-element-plus-x
 import { ref } from 'vue'
 import { Typography } from 'vue-element-plus-x'
 
-const yourContent = ref('# Hello, World!\nThis is a **Markdown** example.')
+const yourContent = ref('# Hello, world!\nThis is a **Markdown** example.')
+
 </script>
 
 <template>
@@ -57,20 +58,25 @@ const yourContent = ref('# Hello, World!\nThis is a **Markdown** example.')
 
 ---
 
+### 开启了打字机效果，并设置step属性每次渲染3个字符
 ```vue
 <script setup>
 import { ref } from 'vue'
 import Typography from 'vue-element-plus-x'
 
 const yourContent = ref('# Hello, World!\nThis is a **Markdown** example.')
+const stepNumber = ref(3)
 </script>
 
 <template>
-  <Typography :content="yourContent" :is-markdown="true" :typing="true" />
+  <Typography :content="yourContent" :is-markdown="true" :typing="true" 
+  :step = "stepNumber" />
 </template>
 ```
 
+
 ## 六、功能详细介绍
+
 
 ### 1. 普通文本打字效果
 
@@ -82,21 +88,28 @@ import { ref } from 'vue'
 import Typography from 'vue-element-plus-x'
 
 const plainText = ref('This is a plain text example.')
+const yourStep = ref(3)
+const yourSuffix = 'z'
 </script>
 
 <template>
-  <Typography :content="plainText" :typing="true" />
+  <Typography :content="plainText" :typing="true" :isMarkdown = 'false' />
+
+  <Typography :content="plainText" :typing="true" :suffix = "yourSuffix" />
 </template>
 ```
 
 ### 2. Markdown 内容展示与打字效果
 
-当 `isMarkdown` 为 `true` 时，组件会将 `content` 中的 Markdown 内容渲染为 HTML，并支持代码高亮。同样，你可以通过设置 `typing` 为 `true` 来开启打字动画。
+当 `isMarkdown` 为 `true` 时，组件会将 `content` 中的 Markdown 内容渲染为 HTML，并支持代码高亮。同样，你可以通过设置 `typing` 为 `true` 来开启打字动画,同时可以调整 `step` 和 `suffix` 来控制打字速度和光标后缀。
 
 ```vue
 <script setup>
 import { ref } from 'vue'
 import Typography from 'vue-element-plus-x'
+
+const yourSuffix = ref('😁')
+const yourStep = ref(1)
 
 const markdownText = ref(`
 # Markdown Example
@@ -112,7 +125,7 @@ function hello() {
 </script>
 
 <template>
-  <Typography :content="markdownText" :is-markdown="true" :typing="true" />
+  <Typography :content="markdownText" :is-markdown="true" :typing="true" :suffix = "yourSuffix" :step = "yourStep" />
 </template>
 ```
 
