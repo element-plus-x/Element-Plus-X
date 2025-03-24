@@ -2,6 +2,7 @@
 import UseBubble from './components/demo-useBubble.vue'
 import UseBubbleList from './components/demo-useBubbleList.vue'
 import UseSender from './components/demo-useSender.vue'
+import UseTypewriter from './components/demo-useTypewrite.vue'
 </script>
 
 <template>
@@ -25,6 +26,9 @@ import UseSender from './components/demo-useSender.vue'
       </el-tab-pane>
       <el-tab-pane label="Sender">
         <UseSender />
+      </el-tab-pane>
+      <el-tab-pane label="Typewrite">
+        <UseTypewriter />
       </el-tab-pane>
     </el-tabs>
   </div>
