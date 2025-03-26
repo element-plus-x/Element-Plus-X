@@ -46,7 +46,7 @@ function onContentMouseDown(e: MouseEvent) {
 /* 内容容器聚焦 结束 */
 
 /* 头部显示隐藏 开始 */
-const visiableHeader = ref(false)
+const visibleHeader = ref(false)
 function openHeader() {
   if (!slots.header) {
     return false
@@ -54,7 +54,7 @@ function openHeader() {
   if (props.readOnly) {
     return false
   }
-  visiableHeader.value = true
+  visibleHeader.value = true
 }
 function closeHeader() {
   if (!slots.header) {
@@ -63,7 +63,7 @@ function closeHeader() {
   if (props.readOnly) {
     return false
   }
-  visiableHeader.value = false
+  visibleHeader.value = false
 }
 /* 头部显示隐藏 结束 */
 
@@ -126,7 +126,7 @@ function stopRecognition() {
 
 /* 输入框事件 开始 */
 function submit() {
-  if (props.readOnly) {
+  if (props.readOnly || props.loading) {
     return false
   }
   emits('submit', value.value)
@@ -272,7 +272,7 @@ defineExpose({
     >
       <!-- 头部容器 -->
       <Transition name="slide">
-        <div v-if="visiableHeader" class="el-sender-header-wrap">
+        <div v-if="visibleHeader" class="el-sender-header-wrap">
           <div v-if="$slots.header" class="el-sender-header">
             <slot name="header" />
           </div>
