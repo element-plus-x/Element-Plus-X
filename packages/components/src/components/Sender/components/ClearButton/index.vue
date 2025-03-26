@@ -1,4 +1,11 @@
 <!-- ClearButton 清理按钮 -->
+<script setup lang="ts">
+import { Brush } from '@element-plus/icons-vue'
+import { defineEmits } from 'vue'
+
+const emit = defineEmits(['clear'])
+</script>
+
 <template>
   <div class="el-send-button">
     <el-button circle @click="emit('clear')">
@@ -6,12 +13,6 @@
     </el-button>
   </div>
 </template>
-
-<script setup lang="ts">
-import { defineEmits } from "vue";
-import { Brush } from "@element-plus/icons-vue";
-const emit = defineEmits(["clear"]);
-</script>
 
 <style scoped lang="scss">
 .el-send-button {

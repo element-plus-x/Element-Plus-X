@@ -14,31 +14,22 @@
     "dev": "npm run dev:playground",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "lint": "oxlint ./packages && eslint .",
+    "lint": "turbo run lint",
     "lint:fix": "oxlint ./packages --fix && eslint . --fix",
-    "lint:ic": "eslint --inspect-config"
-  },
-  "dependencies": {
-    "esno": "^4.8.0"
+    "lint:ic": "eslint --inspect-config",
+    "eslint:fix": "eslint --fix"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.10.2",
     "@changesets/cli": "^2.28.1",
     "@commitlint/config-conventional": "^19.8.0",
-    "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.13.11",
     "cz-git": "^1.11.1",
     "eslint": "^9.23.0",
     "eslint-plugin-oxlint": "^0.16.2",
+    "oxlint": "^0.16.3",
     "prettier": "^3.5.3",
-    "rimraf": "^6.0.1",
-    "sass": "^1.86.0",
     "turbo": "^2.4.4",
-    "typescript": "5.8.2",
-    "unocss": "66.1.0-beta.6",
-    "vite-plugin-eslint": "^1.8.1",
-    "vite-plugin-lib-inject-css": "^2.2.1",
-    "vue-element-plus-x": "^1.0.3"
+    "typescript": "5.8.2"
   },
   "config": {
     "commitizen": {

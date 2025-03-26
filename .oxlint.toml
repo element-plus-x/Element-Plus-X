@@ -1,9 +1,0 @@
-# 启用 Vue3 专用规则
-enable = ["correctness", "suspicious", "vue"]
-
-# 自定义规则覆盖
-[correctness]
-noUnusedVariables = "error"
-
-[vue]
-noMissingKeysInVFor = "error"

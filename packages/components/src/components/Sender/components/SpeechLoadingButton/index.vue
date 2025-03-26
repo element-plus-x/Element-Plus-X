@@ -1,4 +1,8 @@
 <!-- SpeechLoadingButton 语音loading 按钮 -->
+<script setup lang="ts">
+import loading from './loading.vue'
+</script>
+
 <template>
   <div class="el-send-button">
     <el-button circle>
@@ -6,10 +10,6 @@
     </el-button>
   </div>
 </template>
-
-<script setup lang="ts">
-import loading from "./loading.vue";
-</script>
 
 <style scoped lang="scss">
 .el-send-button {

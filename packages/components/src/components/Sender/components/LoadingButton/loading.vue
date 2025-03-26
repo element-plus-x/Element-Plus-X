@@ -1,3 +1,5 @@
+<script setup lang="ts"></script>
+
 <template>
   <svg
     viewBox="0 0 1000 1000"
@@ -35,7 +37,5 @@
     </circle>
   </svg>
 </template>
-
-<script setup lang="ts"></script>
 
 <style scoped></style>

@@ -8,7 +8,8 @@
     "preview": "vitepress preview"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "vue-element-plus-x": "workspace:^"
   },
   "devDependencies": {
     "vitepress": "^1.6.3"

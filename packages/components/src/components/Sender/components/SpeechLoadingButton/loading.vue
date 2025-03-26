@@ -1,3 +1,33 @@
+<script setup lang="ts">
+import { computed, defineProps, withDefaults } from 'vue'
+
+withDefaults(defineProps<{
+  className?: string
+}>(), {
+  className: '',
+})
+
+// 定义常量
+const SIZE = 1000
+const COUNT = 4
+const RECT_WIDTH = 140
+const RECT_RADIUS = RECT_WIDTH / 2
+const RECT_HEIGHT_MIN = 250
+const RECT_HEIGHT_MAX = 500
+const DURATION = 0.8
+
+// 计算矩形的位置和高度范围
+const rects = computed(() => {
+  const dest = (SIZE - RECT_WIDTH * COUNT) / (COUNT - 1)
+  return Array.from({ length: COUNT }).map((_, index) => {
+    const x = index * (dest + RECT_WIDTH)
+    const yMin = SIZE / 2 - RECT_HEIGHT_MIN / 2
+    const yMax = SIZE / 2 - RECT_HEIGHT_MAX / 2
+    return { x, yMin, yMax }
+  })
+})
+</script>
+
 <template>
   <svg
     :class="className"
@@ -38,36 +68,6 @@
     </template>
   </svg>
 </template>
-
-<script setup lang="ts">
-import { defineProps, computed, withDefaults } from 'vue'
-
-withDefaults(defineProps<{
-  className?: string
-}>(), {
-  className: '',
-})
-
-// 定义常量
-const SIZE = 1000
-const COUNT = 4
-const RECT_WIDTH = 140
-const RECT_RADIUS = RECT_WIDTH / 2
-const RECT_HEIGHT_MIN = 250
-const RECT_HEIGHT_MAX = 500
-const DURATION = 0.8
-
-// 计算矩形的位置和高度范围
-const rects = computed(() => {
-  const dest = (SIZE - RECT_WIDTH * COUNT) / (COUNT - 1)
-  return Array.from({ length: COUNT }).map((_, index) => {
-    const x = index * (dest + RECT_WIDTH)
-    const yMin = SIZE / 2 - RECT_HEIGHT_MIN / 2
-    const yMax = SIZE / 2 - RECT_HEIGHT_MAX / 2
-    return { x, yMin, yMax }
-  })
-})
-</script>
 
 <style scoped>
 /* 可以在这里添加样式 */

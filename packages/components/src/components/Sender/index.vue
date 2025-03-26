@@ -278,14 +278,12 @@ defineExpose({
           </div>
         </div>
       </Transition>
-
       <!-- 内容容器 -->
       <div class="el-sender-content" @mousedown="onContentMouseDown">
         <!-- Prefix 前缀 -->
         <div v-if="$slots.prefix" class="el-sender-prefix">
           <slot name="prefix" />
         </div>
-
         <!-- 输入框 -->
         <el-input
           ref="inputRef"
@@ -305,30 +303,29 @@ defineExpose({
           :disabled="disabled"
           @keydown.stop="handleKeyDown"
         />
-
         <!-- 操作列表 -->
-        <div v-if="$slots['action-list']" class="el-sender-action-list">
-          <slot name="action-list" />
-        </div>
-        <div
-          v-if="!$slots['action-list']"
-          class="el-sender-action-list-presets"
-        >
-          <SendButton v-if="!loading" @submit="submit" />
+        <div class="el-sender-action-list">
+          <slot name="action-list">
+            <div
+              class="el-sender-action-list-presets"
+            >
+              <SendButton v-if="!loading" @submit="submit" />
 
-          <LoadingButton v-if="loading" @cancel="cancel" />
+              <LoadingButton v-if="loading" @cancel="cancel" />
 
-          <SpeechButton
-            v-if="!speechLoading && allowSpeech"
-            @click="startRecognition"
-          />
+              <SpeechButton
+                v-if="!speechLoading && allowSpeech"
+                @click="startRecognition"
+              />
 
-          <SpeechLoadingButton
-            v-if="speechLoading && allowSpeech"
-            @click="stopRecognition"
-          />
+              <SpeechLoadingButton
+                v-if="speechLoading && allowSpeech"
+                @click="stopRecognition"
+              />
 
-          <ClearButton v-if="clearable" @clear="clear" />
+              <ClearButton v-if="clearable" @clear="clear" />
+            </div>
+          </slot>
         </div>
       </div>
     </div>

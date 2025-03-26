@@ -1,16 +1,31 @@
 import type { BuildEnvironmentOptions } from 'vite'
-import { resolve } from 'node:path'
+import { extname, join, relative, resolve } from 'node:path'
+import fg from 'fast-glob'
+
+const root = resolve(__dirname, '../')
+
+const entries = fg.globSync('src/components/*/*.(tsx|ts|vue)', {
+  ignore: ['src/components/**/*.d.ts', 'src/components/**/*.types.ts'],
+})
+
+const entriesObj = Object.fromEntries(entries.map((f) => {
+  return [
+    relative('src/components', f.slice(0, f.length - extname(f).length)),
+    join(root, f),
+  ]
+}))
 
 const buildConfig: BuildEnvironmentOptions = {
   lib: {
     name: 'ElementPlusX',
     entry: {
-      'index': resolve(__dirname, '../src/index.ts'),
-      'Bubble/index': resolve(__dirname, '../src/components/Bubble/index.vue'),
-      'BubbleList/index': resolve(__dirname, '../src/components/BubbleList/index.vue'),
-      'Sender/index': resolve(__dirname, '../src/components/Sender/index.vue'),
-      'Typewriter/index': resolve(__dirname, '../src/components/Typewriter/index.vue'),
-      'components': resolve(__dirname, '../src/components.ts'),
+      index: resolve(__dirname, '../src/index.ts'),
+      // 'Bubble/index': resolve(__dirname, '../src/components/Bubble/index.vue'),
+      // 'BubbleList/index': resolve(__dirname, '../src/components/BubbleList/index.vue'),
+      // 'Sender/index': resolve(__dirname, '../src/components/Sender/index.vue'),
+      // 'Typewriter/index': resolve(__dirname, '../src/components/Typewriter/index.vue'),
+      components: resolve(__dirname, '../src/components.ts'),
+      ...entriesObj,
     },
     fileName: (format, entryName) => {
       return `${format}/${entryName}.js`
