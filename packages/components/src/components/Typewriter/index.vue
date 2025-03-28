@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import type { ComputedRef } from 'vue'
-import type { TypewriterInstance, TypewriterProps, TypingConfig } from './types.d.ts'
+import type {
+  MarkdownShikiRendererFun,
+  TypewriterInstance,
+  TypewriterProps,
+  TypingConfig,
+} from './types.d.ts'
 import DOMPurify from 'dompurify' // 新增安全过滤
 import MarkdownIt from 'markdown-it'
 // 在组件中初始化时
@@ -21,6 +26,10 @@ const emit = defineEmits<{
   finish: [instance: TypewriterInstance]
 }>()
 
+const isReady = inject<Ref<boolean>>('isReady')
+const shikiMd = inject<Ref<MarkdownIt | null>>('shikiMd')
+
+// Prism方式渲染
 const md = new MarkdownIt({
   html: true,
   linkify: true,
@@ -42,6 +51,13 @@ const md = new MarkdownIt({
     }
   },
 })
+
+const MarkdownShikiRenderer: MarkdownShikiRendererFun = ({ content }) => {
+  if (!isReady || !shikiMd || !isReady.value || !shikiMd.value)
+    return ''
+  return shikiMd.value.render(content) ?? 'isError'
+}
+
 const typingIndex = ref(0)
 const isTyping = ref(false)
 let timer: ReturnType<typeof setTimeout> | null = null
@@ -103,10 +119,18 @@ const renderedContent = computed(() => {
     return processedContent.value
   }
 
+  // Shiki模式下根据引擎类型处理
+  if (props.codeHighLightOptions) {
+    const { type } = props.codeHighLightOptions
+    if (type === 'Shiki') {
+      return MarkdownShikiRenderer({
+        content: toRaw(processedContent.value),
+      })
+    }
+  }
+
   // Markdown模式添加安全过滤和样式类
-  return DOMPurify.sanitize(
-    md.render(processedContent.value),
-  )
+  return DOMPurify.sanitize(md.render(processedContent.value))
 })
 
 const instance: TypewriterInstance = {

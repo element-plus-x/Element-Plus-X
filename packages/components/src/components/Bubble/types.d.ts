@@ -1,3 +1,5 @@
+import type { CodeHighLightEngine } from '../Typewriter/types'
+
 export interface BubbleProps {
   content?: string
   placement?: 'start' | 'end'
@@ -6,6 +8,7 @@ export interface BubbleProps {
   shape?: 'round' | 'corner'
   variant?: 'filled' | 'borderless' | 'outlined' | 'shadow'
   isMarkdown?: boolean
+  codeHighLightOptions?: CodeHighLightEngine
   typing?: boolean | { step?: number, suffix?: string, interval?: number }
   maxWidth?: string
   avatarSize?: string

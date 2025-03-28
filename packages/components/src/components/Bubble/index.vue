@@ -182,7 +182,15 @@ defineExpose(instance)
           }"
         >
           <Typewriter
-            v-if="!$slots.content && content" ref="typewriterRef" :typing="_typing" :content="content" :is-markdown="isMarkdown" @start="onStart" @writing="onWriting" @finish="onFinish"
+            v-if="!$slots.content && content"
+            ref="typewriterRef"
+            :typing="_typing"
+            :content="content"
+            :is-markdown="isMarkdown"
+            :code-high-light-options="codeHighLightOptions"
+            @start="onStart"
+            @writing="onWriting"
+            @finish="onFinish"
           />
         </div>
 

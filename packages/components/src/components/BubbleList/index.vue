@@ -261,6 +261,7 @@ defineExpose({
       :shape="item.shape"
       :variant="item.variant"
       :is-markdown="item.isMarkdown"
+      :code-high-light-options="item.codeHighLightOptions"
       :typing="item.typing"
       :avatar="item.avatar"
       :avatar-size="item.avatarSize"

@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
+    "@shikijs/markdown-it": "^3.2.1",
     "dompurify": "^3.2.4",
     "element-plus": "^2.9.7",
     "github-markdown-css": "^5.8.1",

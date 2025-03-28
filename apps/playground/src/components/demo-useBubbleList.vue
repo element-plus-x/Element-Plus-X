@@ -22,6 +22,10 @@ function addMessage() {
     content,
     placement,
     typing,
+    isMarkdown: true,
+    codeHighLightOptions: {
+      type: 'Shiki',
+    },
   }
   bubbleItems.value.push(obj as MessageItem)
 }

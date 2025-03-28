@@ -17,6 +17,8 @@ export interface TypewriterProps {
   content: string
   /** 是否解析为 Markdown */
   isMarkdown?: boolean
+  /** Markdown 代码的渲染引擎 */
+  codeHighLightOptions?: CodeHighLightEngine
   /** 打字效果配置（布尔值启用默认配置） */
   typing?: boolean | TypingConfig
 }
@@ -38,3 +40,20 @@ export interface TypewriterInstance {
   /** 当前进度百分比（0-100）（响应式） */
   progress: ComputedRef<number>
 }
+
+/**
+ * @description  代码高亮引擎
+ * @export
+ * @interface
+ */
+export interface CodeHighLightEngine {
+  /**
+   * 代码高亮类型
+   */
+  type: 'Prism' | 'Shiki'
+}
+
+/**
+ * @description  Markdown Shiki 渲染引擎
+ */
+export type MarkdownShikiRendererFun = ({ content: string }) => string

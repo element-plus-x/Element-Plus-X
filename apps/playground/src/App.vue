@@ -1,8 +1,34 @@
 <script setup lang="ts">
+import { useShikiRender } from 'vue-element-plus-x'
 import UseBubble from './components/demo-useBubble.vue'
 import UseBubbleList from './components/demo-useBubbleList.vue'
 import UseSender from './components/demo-useSender.vue'
 import UseRecord from './components/useRecord.vue'
+
+// 如果要使用shiki进行高亮  这里初始化一次
+console.time('initMarkdownIt')
+const { isReady, shikiMd, initMarkdownIt } = useShikiRender()
+provide('shikiMd', shikiMd)
+provide('isReady', isReady)
+console.timeEnd('initMarkdownIt')
+
+onMounted(() => {
+  try {
+    console.time('onMountedInitMarkdownIt')
+    initMarkdownIt({
+      langs: ['typescript', 'javascript', 'java', 'html', 'css', 'bash', 'vue'],
+      themes: {
+        light: 'vitesse-light',
+        dark: 'vitesse-dark',
+      },
+      showLanguageHeader: true,
+      copyButtonText: '我要复制代码',
+    })
+  }
+  catch (error) {
+    console.error(error)
+  }
+})
 </script>
 
 <template>
