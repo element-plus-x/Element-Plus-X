@@ -67,9 +67,6 @@ importers:
         specifier: workspace:^
         version: link:../../packages/components
     devDependencies:
-      '@types/hast':
-        specifier: ^3.0.4
-        version: 3.0.4
       '@vitejs/plugin-vue':
         specifier: ^5.2.3
         version: 5.2.3(vite@6.2.2(@types/node@22.13.11)(jiti@2.4.2)(sass@1.86.0)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
