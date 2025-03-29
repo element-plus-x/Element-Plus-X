@@ -16,7 +16,7 @@ onMounted(() => {
   try {
     console.time('onMountedInitMarkdownIt')
     initMarkdownIt({
-      langs: ['typescript', 'javascript', 'java', 'html', 'css', 'bash', 'vue'],
+      langs: ['typescript', 'javascript', 'java', 'html', 'css', 'bash', 'vue', 'less', 'scss', 'tsx', 'jsx'],
       themes: {
         light: 'vitesse-light',
         dark: 'vitesse-dark',

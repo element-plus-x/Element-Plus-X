@@ -55,7 +55,7 @@ const md = new MarkdownIt({
 const MarkdownShikiRenderer: MarkdownShikiRendererFun = ({ content }) => {
   if (!isReady || !shikiMd || !isReady.value || !shikiMd.value)
     return ''
-  return shikiMd.value.render(content) ?? 'isError'
+  return shikiMd.value.render(content) ?? ''
 }
 
 const typingIndex = ref(0)
