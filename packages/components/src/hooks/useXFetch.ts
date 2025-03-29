@@ -1,8 +1,8 @@
 export interface XFetchMiddlewares {
   onRequest?: (
     ...ags: Parameters<typeof fetch>
-  ) => Promise<Parameters<typeof fetch>>;
-  onResponse?: (response: Response) => Promise<Response>;
+  ) => Promise<Parameters<typeof fetch>>
+  onResponse?: (response: Response) => Promise<Response>
 }
 
 export interface XFetchOptions extends RequestInit {
@@ -10,66 +10,66 @@ export interface XFetchOptions extends RequestInit {
    * @description A typeof fetch function
    * @default globalThis.fetch
    */
-  fetch?: typeof fetch;
+  fetch?: typeof fetch
   /**
    * @description Middleware for request and response
    */
-  middlewares?: XFetchMiddlewares;
+  middlewares?: XFetchMiddlewares
 }
 
 export type XFetchType = (
   baseURL: Parameters<typeof fetch>[0],
   options?: XFetchOptions
-) => Promise<Response>;
+) => Promise<Response>
 
 const XFetch: XFetchType = async (baseURL, options = {}) => {
   const {
     fetch: fetchFn = globalThis.fetch,
     middlewares = {},
     ...requestInit
-  } = options;
+  } = options
 
-  if (typeof fetchFn !== "function") {
-    throw new Error("The options.fetch must be a typeof fetch function!");
+  if (typeof fetchFn !== 'function') {
+    throw new TypeError('The options.fetch must be a typeof fetch function!')
   }
 
   /** ---------------------- request init ---------------------- */
-  let fetchArgs: Parameters<typeof fetch> = [baseURL, requestInit];
+  let fetchArgs: Parameters<typeof fetch> = [baseURL, requestInit]
 
   /** ---------------------- request middleware ---------------------- */
-  if (typeof middlewares.onRequest === "function") {
-    const modifiedFetchArgs = await middlewares.onRequest(...fetchArgs);
+  if (typeof middlewares.onRequest === 'function') {
+    const modifiedFetchArgs = await middlewares.onRequest(...fetchArgs)
 
-    fetchArgs = modifiedFetchArgs;
+    fetchArgs = modifiedFetchArgs
   }
 
   /** ---------------------- fetch ---------------------- */
-  let response = await fetchFn(...fetchArgs);
+  let response = await fetchFn(...fetchArgs)
 
   /** ---------------------- response middleware ---------------------- */
-  if (typeof middlewares.onResponse === "function") {
-    const modifiedResponse = await middlewares.onResponse(response);
+  if (typeof middlewares.onResponse === 'function') {
+    const modifiedResponse = await middlewares.onResponse(response)
 
     if (!(modifiedResponse instanceof Response)) {
-      throw new Error(
-        "The options.onResponse must return a Response instance!"
-      );
+      throw new TypeError(
+        'The options.onResponse must return a Response instance!',
+      )
     }
 
-    response = modifiedResponse;
+    response = modifiedResponse
   }
 
   /** ---------------------- response check ---------------------- */
   if (!response.ok) {
-    throw new Error(`Fetch failed with status ${response.status}`);
+    throw new Error(`Fetch failed with status ${response.status}`)
   }
 
   if (!response.body) {
-    throw new Error("The response body is empty.");
+    throw new Error('The response body is empty.')
   }
 
   /** ---------------------- return ---------------------- */
-  return response;
-};
+  return response
+}
 
-export default XFetch;
+export default XFetch
