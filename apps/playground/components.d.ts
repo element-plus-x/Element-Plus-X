@@ -14,6 +14,7 @@ declare module 'vue' {
     DemoUseChat: typeof import('./src/components/demo-useChat.vue')['default']
     DemoUseRequest: typeof import('./src/components/demo-useRequest.vue')['default']
     DemoUseSender: typeof import('./src/components/demo-useSender.vue')['default']
+    DemoUseXChat: typeof import('./src/components/demo-useXChat.vue')['default']
     DemoUseXRequest: typeof import('./src/components/demo-useXRequest.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
