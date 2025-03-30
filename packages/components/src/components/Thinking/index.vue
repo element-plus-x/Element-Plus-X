@@ -79,6 +79,9 @@ watch(() => activeNamesComputed.value, (v) => {
 <style lang="scss" scoped>
 .el-thinking {
   width: 100%;
+  margin: 0 0 0 7px;
+
+
 
   &-item-dot {
     width: 100%;
@@ -114,6 +117,10 @@ watch(() => activeNamesComputed.value, (v) => {
       color: var(--el-text-color-secondary);
       padding: 0;
     }
+  }
+
+  :deep(.el-timeline) {
+    padding: 10px 0 0 5px;
   }
 
   :deep(.el-timeline-item__timestamp) {
