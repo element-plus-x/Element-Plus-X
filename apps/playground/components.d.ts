@@ -8,9 +8,11 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    DemoThinking: typeof import('./src/components/demo-thinking.vue')['default']
     DemoUseBubble: typeof import('./src/components/demo-useBubble.vue')['default']
     DemoUseBubbleList: typeof import('./src/components/demo-useBubbleList.vue')['default']
     DemoUseSender: typeof import('./src/components/demo-useSender.vue')['default']
+    DemoUseThinking: typeof import('./src/components/demo-useThinking.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']

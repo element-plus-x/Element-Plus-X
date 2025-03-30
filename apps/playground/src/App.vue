@@ -3,6 +3,7 @@ import { useShikiRender } from 'vue-element-plus-x'
 import UseBubble from './components/demo-useBubble.vue'
 import UseBubbleList from './components/demo-useBubbleList.vue'
 import UseSender from './components/demo-useSender.vue'
+import UseThinking from './components/demo-useThinking.vue'
 import UseRecord from './components/useRecord.vue'
 
 // 如果要使用shiki进行高亮  这里初始化一次
@@ -53,6 +54,9 @@ onMounted(() => {
       </el-tab-pane>
       <el-tab-pane label="Sender">
         <UseSender />
+      </el-tab-pane>
+      <el-tab-pane label="Thinking">
+        <UseThinking />
       </el-tab-pane>
     </el-tabs>
   </div>
