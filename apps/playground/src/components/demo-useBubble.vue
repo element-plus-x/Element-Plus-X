@@ -9,7 +9,7 @@ const avatar = ref(
 )
 const loading = ref(true)
 const content = ref('')
-const switchHighlight = ref(false)
+const switchHighlight = ref(true)
 
 const thinkingItems = ref<ThinkingItem[]>([
   {
@@ -54,12 +54,14 @@ setTimeout(() => {
   <div class="component-container">
     <el-switch v-model="switchHighlight" size="large" active-text="Shiki" inactive-text="Prism" />
     <div class="component-1">
-      <Bubble placement="start" :content="content" shape="corner" variant="shadow" :loading="loading" :typing="{
-        step: 2,
-        suffix: '💗',
-      }" :is-markdown="true" :code-high-light-options="{
+      <Bubble
+        placement="start" :content="content" shape="corner" variant="shadow" :loading="loading" :typing="{
+          step: 2,
+          suffix: '💗',
+        }" :is-markdown="true" :code-high-light-options="{
           type: switchHighlight ? 'Shiki' : 'Prism',
-        }">
+        }"
+      >
         <template #avatar>
           <el-avatar :size="32" :src="avatar" />
         </template>
@@ -67,39 +69,6 @@ setTimeout(() => {
         <template #header>
           <div class="header-container">
             <Thinking :thinking-items="thinkingItems" @handle-expand="(id: string[]) => console.log(id)" />
-          </div>
-        </template>
-
-        <!-- <template #content>
-          <div class="content-container">在这里可以自定义内容，支持插槽。</div>
-        </template> -->
-
-        <template #footer>
-          <div class="footer-container">
-            <el-button type="info" :icon="Refresh" size="small" circle />
-            <el-button type="success" :icon="Search" size="small" circle />
-            <el-button type="warning" :icon="Star" size="small" circle />
-            <el-button color="#626aef" :icon="DocumentCopy" size="small" circle />
-          </div>
-        </template>
-      </Bubble>
-    </div>
-
-    <br>
-    <div class="component-1">
-      <Bubble placement="start" :content="content" shape="corner" variant="shadow" :loading="loading" :typing="{
-        step: 2,
-        suffix: '💗',
-      }" :is-markdown="true" :code-high-light-options="{
-          type: switchHighlight ? 'Shiki' : 'Prism',
-        }">
-        <template #avatar>
-          <el-avatar :size="32" :src="avatar" />
-        </template>
-
-        <template #header>
-          <div class="header-container">
-            我是头部内容
           </div>
         </template>
 
