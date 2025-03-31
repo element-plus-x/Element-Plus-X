@@ -10,21 +10,49 @@ import { onBeforeUnmount, ref, watch } from 'vue'
 
 // 初始化Shiki配置
 interface InitShikiOptions {
-  // 语言列表
+  /**
+   * 语言列表
+   */
   langs: (LanguageInput | BundledLanguage)[] | undefined
-  // 主题列表
+  /**
+   * 主题列表
+   */
   themes: Partial<
     Record<
       string,
       ThemeRegistrationAny | StringLiteralUnion<BundledTheme, string>
     >
   >
+  /**
+   * 代码块的自定义头部class
+   */
   languageClassHeader?: string
+  /**
+   * 是否显示代码块的自定义头部
+   */
   showLanguageHeader?: boolean
+  /**
+   * 是否显示代码块的语言
+   */
   showLanguage?: boolean
+  /**
+   * 是否显示代码块的复制按钮
+   */
   showCopyButton?: boolean
+  /**
+   * 复制按钮的class
+   */
   copyButtonClass?: string
+  /**
+   * 复制按钮的文本
+   */
   copyButtonText?: string
+  /**
+   * 自定义渲染头部
+   *
+   * @param node  {node}是代码块的节点 可以添加类似的头部
+   * 一般是往 node.children 添加元素 元素的类型遵循ElementContent[]的格式
+   */
   customHeader?: (node: Element) => void
 }
 
@@ -156,12 +184,10 @@ function getHeaderEle(options: InitShikiOptions, node: Element, codeText: string
  *
  * @export
  * @returns
- *  {
-    shikiMd,
-    isReady,
-    initMarkdownIt,
-    destroy,
-  }
+ - *shikiMd:* markdown-it-shikiMd 实例
+ - *isReady:* 是否已经初始化完成
+ - *initMarkdownIt:*  初始化 markdown-it 实例
+ - *destroy:*  销毁 markdown-it-shikiMd 实例
  */
 export default function useShikiRender(): ShikiRenderRes {
   const shikiMd = ref<MarkdownIt | null>(null)
