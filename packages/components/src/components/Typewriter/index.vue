@@ -5,8 +5,13 @@ import DOMPurify from 'dompurify' // 新增安全过滤
 import MarkdownIt from 'markdown-it'
 // 在组件中初始化时
 import Prism from 'prismjs'
-import 'github-markdown-css'
+// import 'github-markdown-css'
 import 'prismjs/themes/prism.css'
+
+// markdown主题
+document.querySelector('html')?.className.includes('dark')
+  ? import('github-markdown-css/github-markdown-dark.css')
+  : import('github-markdown-css/github-markdown-light.css')
 
 const props = withDefaults(defineProps<TypewriterProps>(), {
   isMarkdown: false,
