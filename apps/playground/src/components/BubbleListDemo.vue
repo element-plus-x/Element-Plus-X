@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import type { MessageItem } from '@/assets/mock'
 import { messageArr } from '@/assets/mock'
+import BubbleList from 'vue-element-plus-x/src/components/BubbleList/index.vue'
 
 const bubbleItems = ref<MessageItem[]>(messageArr)
 
@@ -72,7 +73,8 @@ onMounted(() => {
     <div class="component-1">
       <BubbleList
         ref="bubbleListRef"
-        :list="bubbleItems"
+        v-model:list="bubbleItems"
+        :show-default-footer-content="true"
         @on-complete="onCompleteFunc"
       >
         <template #avatar="{ item }">

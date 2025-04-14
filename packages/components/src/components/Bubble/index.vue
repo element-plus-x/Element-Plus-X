@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { ComputedRef } from 'vue'
 import type { TypewriterInstance, TypingConfig } from '../Typewriter/types.d.ts'
-
 import type { BubbleProps } from './types.d.ts'
 import Typewriter from '../Typewriter/index.vue'
 
@@ -21,7 +20,6 @@ const props = withDefaults(defineProps<BubbleProps>(), {
   avatarFit: 'cover',
   noStyle: false,
 })
-
 const emits = defineEmits(['start', 'finish', 'writing', 'avatarError'])
 
 const internalDestroyed = ref(false) // 内部销毁状态
@@ -204,7 +202,6 @@ defineExpose(instance)
           <slot name="loading" />
         </div>
       </div>
-
       <div v-if="$slots.footer" class="el-bubble-footer">
         <slot name="footer" />
       </div>

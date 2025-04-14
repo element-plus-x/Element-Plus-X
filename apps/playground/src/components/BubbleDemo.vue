@@ -44,6 +44,7 @@ console.log('Hello, world!');
         }"
         :is-markdown="true"
         :is-fog="{ bgColor: '#FFFFFF' }"
+        :show_default_footer_content="true"
       >
         <template #avatar>
           <el-avatar :size="32" :src="avatar" />
@@ -53,7 +54,7 @@ console.log('Hello, world!');
           <div class="content-container">在这里可以自定义内容，支持插槽。</div>
         </template> -->
 
-        <template #footer>
+        <!-- <template #footer>
           <div class="footer-container">
             <el-button type="info" :icon="Refresh" size="small" circle />
             <el-button type="success" :icon="Search" size="small" circle />
@@ -65,7 +66,7 @@ console.log('Hello, world!');
               circle
             />
           </div>
-        </template>
+        </template> -->
       </Bubble>
     </div>
   </div>

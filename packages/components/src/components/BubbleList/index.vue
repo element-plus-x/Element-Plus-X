@@ -2,13 +2,13 @@
 import type { BubbleProps } from '../Bubble/types'
 import type { TypewriterInstance } from '../Typewriter/types.d.ts'
 import type { BubbleListProps } from './types.d.ts'
-import { ArrowDownBold } from '@element-plus/icons-vue'
+import { ArrowDownBold, Delete, DocumentCopy } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 import useScrollDetector from '../../utils/useScrollDetector.ts'
 import Bubble from '../Bubble/index.vue'
 import loadingBg from './loading.vue'
 
 const props = withDefaults(defineProps<BubbleListProps<T>>(), {
-  list: () => [] as T[],
   maxHeight: '500px',
   triggerIndices: 'only-last',
   alwaysShowScrollbar: false,
@@ -19,9 +19,10 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   },
   btnLoading: true,
   btnColor: '#409EFF',
+  showDefaultFooterContent: false,
 })
-
 const emits = defineEmits(['complete'])
+const list = defineModel<T[]>('list', { default: [] })
 
 /* 在底部时候自动滚动 开始 */
 // 滚动容器的引用
@@ -212,6 +213,20 @@ function handleScroll() {
 }
 /* 在底部时候自动滚动 结束 */
 
+// 复制消息
+async function handleCopy(item: T) {
+  // 复制内容到剪切板
+  if (item.content) {
+    await navigator.clipboard.writeText(item.content)
+    ElMessage.success('复制成功')
+  }
+}
+
+// 删除消息
+function handleDelete(index: number) {
+  list.value.splice(index, 1)
+}
+
 defineExpose({
   scrollToTop,
   scrollToBottom,
@@ -261,8 +276,26 @@ defineExpose({
       <template v-if="$slots.content" #content>
         <slot name="content" :item="item" />
       </template>
-      <template v-if="$slots.footer" #footer>
-        <slot name="footer" :item="item" />
+      <template v-if="$slots.footer || showDefaultFooterContent" #footer>
+        <slot name="footer" :item="item">
+          <!-- 默认footer内容 -->
+          <div v-if="showDefaultFooterContent && !$slots.footer">
+            <el-button
+              color="#626aef"
+              :icon="DocumentCopy"
+              size="small"
+              circle
+              @click="handleCopy(item)"
+            />
+            <el-button
+              color="red"
+              :icon="Delete"
+              size="small"
+              circle
+              @click="handleDelete(index)"
+            />
+          </div>
+        </slot>
       </template>
       <template v-if="$slots.loading" #loading>
         <slot name="loading" :item="item" />
