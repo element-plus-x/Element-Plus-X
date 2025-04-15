@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { MentionOption, SenderProps } from './types.d.ts'
+import type { MentionOption, MentionSenderProps } from './types.d.ts'
 import {
   ClearButton,
   LoadingButton,
@@ -8,7 +8,7 @@ import {
   SpeechLoadingButton,
 } from './components'
 
-const props = withDefaults(defineProps<SenderProps>(), {
+const props = withDefaults(defineProps<MentionSenderProps>(), {
   placeholder: '请输入内容',
   autoSize: () => ({
     minRows: 1,
@@ -325,11 +325,10 @@ defineExpose({
           ref="inputRef"
           v-model="internalValue"
           class="el-sender-input"
-          :input-style="{
+          :input-style="props.inputStyle || {
             'resize': 'none',
             'max-height': '176px',
             'max-width': inputWidth,
-            ...props.inputStyle,
           }"
           :rows="1"
           :autosize="autoSize"
@@ -430,7 +429,7 @@ defineExpose({
 
       <!-- 底部容器 -->
       <Transition name="slide">
-        <div v-if="$slots.footer" class="el-sender-footer">
+        <div v-if="$slots.footer" class="el-sender-footer" @mousedown="onContentMouseDown">
           <slot name="footer" />
         </div>
       </Transition>
@@ -581,6 +580,10 @@ defineExpose({
       // 前缀
       .el-sender-prefix {
         flex: initial;
+      }
+
+      .el-sender-action-list {
+        margin-left: auto;
       }
     }
   }

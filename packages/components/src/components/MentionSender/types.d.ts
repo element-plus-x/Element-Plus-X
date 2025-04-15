@@ -5,7 +5,7 @@ export interface MentionOption {
   [key: string]: any
 }
 
-export interface SenderProps {
+export interface MentionSenderProps {
   modelValue?: string
   placeholder?: string
   autoSize?: {
@@ -20,7 +20,7 @@ export interface SenderProps {
   submitType?: 'enter' | 'shiftEnter'
   headerAnimationTimer?: number
   inputWidth?: string
-  
+
   // 变体属性
   variant?: 'default' | 'updown'
   showUpdown?: boolean

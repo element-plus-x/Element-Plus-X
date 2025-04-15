@@ -274,9 +274,6 @@ defineExpose(instance)
 <style scoped lang="scss">
 /* Markdown基础样式 */
 .markdown-content :deep(ul) { list-style-type: disc; }
-.markdown-body {
-  width: 100%; // 修复 md 格式宽度问题
-}
 // 新增 md 雾化效果
 // 添加对 h1-h6, ol, ul 的特殊处理
 .typing-markdown-cursor-foggy,.typing-cursor-foggy {

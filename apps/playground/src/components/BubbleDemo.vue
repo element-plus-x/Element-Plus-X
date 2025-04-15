@@ -1,7 +1,6 @@
 <!-- home 首页-使用 Bubble 组件 -->
 <script setup lang="ts">
 import { DocumentCopy, Refresh, Search, Star } from '@element-plus/icons-vue'
-import Bubble from 'vue-element-plus-x/src/components/Bubble/index.vue'
 
 const avatar = ref(
   'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',

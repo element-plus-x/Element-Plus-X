@@ -285,7 +285,6 @@ defineExpose(instance)
     box-sizing: border-box;
     min-width: 0;
     max-width: var(--bubble-content-max-width);
-    width: 100%;
     color: var(--el-text-color-primary);
     font-size: var(--el-font-size-base);
     line-height: var(--el-font-line-height-primary);
