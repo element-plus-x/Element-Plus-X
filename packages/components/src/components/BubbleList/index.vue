@@ -42,8 +42,12 @@ const showBackToBottom = ref(false) // 控制按钮显示
 /* 计算有效的触发索引数组 */
 const effectiveTriggerIndices = computed(() => {
   if (props.triggerIndices === 'only-last') {
-    const triggerIndices = props.list.filter(item => item.typing).map((_, index) => index)
-    return triggerIndices.length > 0 ? [triggerIndices[triggerIndices.length - 1]] : []
+    for (let i = props.list.length - 1; i >= 0; i--) {
+      if (props.list[i].typing) {
+        return [i]
+      }
+    }
+    return []
   }
   else if (props.triggerIndices === 'all') {
     return props.list.map((_, index) => index)
