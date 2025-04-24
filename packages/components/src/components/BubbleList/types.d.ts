@@ -19,6 +19,7 @@ export interface BubbleListProps<T extends BubbleListItemProps = BubbleListItemP
   backButtonPosition?: BackButtonPosition // 底部按钮位置
   btnLoading?: boolean
   btnColor?: string
+  showDefaultFooterContent?: boolean
   btnIconSize?: number
   // v1.1.1+ 新增 --- end
 }
