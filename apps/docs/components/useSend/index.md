@@ -36,9 +36,9 @@
 
 <demo src="./demos/XRequest-use.vue"></demo>
 
-下面介绍一下，`useSend` 和 `useSendStream` 相互结合的用法
+下面介绍一下，`useSend` 和 `XRequest` 相互结合的用法
 
-**使用 `useSend` 对前端进行状态控制，使用 `useSendStream` 对后端进行状态控制**
+**使用 `useSend` 对前端进行状态控制，使用 `XRequest` 对后端进行状态控制**
 
 <demo src="./demos/useSend-XRequest.vue"></demo>
 
