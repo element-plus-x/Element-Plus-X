@@ -251,16 +251,19 @@ defineExpose({
     }"
   >
     <div v-if="!items.length && !props.hideUpload">
-      <slot name="empty-upload">
-        <el-upload
-          class="elx-attachments-upload-btn" v-bind="$attrs" :show-file-list="false"
-          @change="handleUploadChange" @success="handleUploadSuccess" @error="handleUploadError"
-        >
-          <el-icon class="uploader-icon">
-            <Plus />
-          </el-icon>
-        </el-upload>
-      </slot>
+      <el-upload
+        class="elx-attachments-upload-btn"
+        :class="{ 'elx-has-upload-slot': $slots['no-empty-upload'] }" v-bind="$attrs" :show-file-list="false"
+        @change="handleUploadChange" @success="handleUploadSuccess" @error="handleUploadError"
+      >
+        <template #trigger>
+          <slot name="empty-upload">
+            <el-icon class="uploader-icon">
+              <Plus />
+            </el-icon>
+          </slot>
+        </template>
+      </el-upload>
     </div>
 
     <div class="elx-attachments-background">
@@ -294,20 +297,22 @@ defineExpose({
         </slot>
 
         <div v-if="items.length && !_isOverLimit && !props.hideUpload" class="elx-attachments-upload-placeholder">
-          <slot name="no-empty-upload">
-            <el-upload
-              v-bind="$attrs" :show-file-list="false" :style="{
-                height: overflow === 'scrollY' && '',
-              }" class="elx-attachments-upload-btn" @change="handleUploadChange" @success="handleUploadSuccess"
-              @error="handleUploadError"
-            >
-              <template #trigger>
+          <el-upload
+            v-bind="$attrs" :show-file-list="false" :style="{
+              height: overflow === 'scrollY' && '',
+            }"
+            class="elx-attachments-upload-btn" :class="{ 'elx-has-upload-slot': $slots['no-empty-upload'] }"
+            @change="handleUploadChange" @success="handleUploadSuccess"
+            @error="handleUploadError"
+          >
+            <template #trigger>
+              <slot name="no-empty-upload">
                 <el-icon class="uploader-icon">
                   <Plus />
                 </el-icon>
-              </template>
-            </el-upload>
-          </slot>
+              </slot>
+            </template>
+          </el-upload>
         </div>
       </div>
     </div>
@@ -486,6 +491,9 @@ defineExpose({
 }
 
 :deep() {
+  .elx-has-upload-slot .el-upload{
+    border: none;
+  }
   .el-upload {
     border: 1px dashed var(--el-border-color);
     border-radius: 6px;
