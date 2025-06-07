@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { h } from 'vue'
 import type { ComputedRef } from 'vue'
 import type { TypewriterInstance, TypewriterProps, TypingConfig } from './types.d.ts'
 import DOMPurify from 'dompurify' // 新增安全过滤
 import MarkdownIt from 'markdown-it'
+import { parseDocument } from 'htmlparser2'
 // import Prism from 'prismjs'
 import { usePrism } from '../../hooks/usePrism'
 
@@ -141,10 +143,10 @@ const renderedContent = computed(() => {
   if (!props.isMarkdown) {
     return processedContent.value
   }
-  // Markdown模式添加安全过滤和样式类
-  return DOMPurify.sanitize(
-    md.render(processedContent.value),
-  )
+  // Markdown模式添加安全过滤和样式类,并处理成dom ast
+  return parseDocument(DOMPurify.sanitize(
+    md.render(processedContent.value)
+  )).children
 })
 
 const instance: TypewriterInstance = {
@@ -156,6 +158,32 @@ const instance: TypewriterInstance = {
   isTyping: toRef(isTyping),
   progress: computed(() => typingProgress.value),
 }
+
+const MarkdownNodeRenderer = defineComponent({
+  name: 'MarkdownNodeRenderer',
+  props: {
+    node: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props) {
+    return () => {
+      const { node } = props;
+      if (node.type === 'text') {
+        return node.data
+      } else {
+        return h(
+          node.tagName,
+          { ...node.attribs },
+          node.children.map((child: any, index: number) =>
+            h(MarkdownNodeRenderer, { node: child, key: index })
+          )
+        )
+      }
+    }
+  },
+})
 
 // 打字逻辑
 watch(
@@ -278,7 +306,8 @@ defineExpose(instance)
 <template>
   <div ref="typeWriterRef" class="typer-container">
     <div
-      ref="markdownContentRef" class="typer-content" :class="[
+      ref="markdownContentRef" class="typer-content"
+      :class="[
         {
           'markdown-content': isMarkdown,
           'typing-cursor': typing && mergedConfig.suffix && isTyping,
@@ -286,12 +315,17 @@ defineExpose(instance)
           'typing-markdown-cursor-foggy': isMarkdown && props.isFog && typing && isTyping,
         },
         isMarkdown ? 'markdown-body' : '',
-      ]" :style="{
+      ]"
+      :style="{
         '--cursor-char': `'${mergedConfig.suffix}'`,
         '--cursor-fog-bg-color': props.isFog ? (typeof props.isFog === 'object' ? props.isFog.bgColor ?? 'var(--el-fill-color)' : 'var(--el-fill-color)') : '',
         '--cursor-fog-width': props.isFog ? (typeof props.isFog === 'object' ? props.isFog.width ?? '80px' : '80px') : '',
-      }" v-html="renderedContent"
-    />
+      }">
+        <template v-if="isMarkdown">
+          <MarkdownNodeRenderer v-for="(node, index) in renderedContent" :key="index" :node="node" />
+        </template>
+      <div v-else v-html="renderedContent"></div>
+    </div>
   </div>
 </template>
 
