@@ -15,16 +15,22 @@ declare module 'vue' {
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElProgress: typeof import('element-plus/es')['ElProgress']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    ElTag: typeof import('element-plus/es')['ElTag']
     FilesCardDemo: typeof import('./src/components/FilesCardDemo.vue')['default']
+    MarkdownDemo: typeof import('./src/components/MarkdownDemo/index.vue')['default']
     MentionSenderDemo: typeof import('./src/components/MentionSenderDemo.vue')['default']
     PromptsDemo: typeof import('./src/components/PromptsDemo.vue')['default']
     SenderDemo: typeof import('./src/components/SenderDemo.vue')['default']
+    Table: typeof import('./src/components/MarkdownDemo/table.vue')['default']
     TestEditorInputDemo: typeof import('./src/components/Test-EditorInputDemo.vue')['default']
     TestEditorSenderDemo: typeof import('./src/components/Test-EditorSenderDemo.vue')['default']
     ThinkingDemo: typeof import('./src/components/ThinkingDemo.vue')['default']
@@ -34,5 +40,8 @@ declare module 'vue' {
     UseXStreamSIPDemo: typeof import('./src/components/useXStreamSIPDemo.vue')['default']
     UseXStreamSSEDemo: typeof import('./src/components/useXStreamSSEDemo.vue')['default']
     WelcomeDemo: typeof import('./src/components/WelcomeDemo.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }
