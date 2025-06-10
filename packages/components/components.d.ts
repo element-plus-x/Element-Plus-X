@@ -49,7 +49,9 @@ declare module 'vue' {
     Loading: typeof import('./src/components/BubbleList/loading.vue')['default']
     LoadingButton: typeof import('./src/components/EditorSender/components/LoadingButton/index.vue')['default']
     Mark: typeof import('./src/components/FilesCard/fileSvg/mark.vue')['default']
+    Markdown: typeof import('./src/components/Markdown/index.vue')['default']
     MentionSender: typeof import('./src/components/MentionSender/index.vue')['default']
+    Mermaid: typeof import('./src/components/Markdown/components/Mermaid/index.vue')['default']
     Pdf: typeof import('./src/components/FilesCard/fileSvg/pdf.vue')['default']
     Ppt: typeof import('./src/components/FilesCard/fileSvg/ppt.vue')['default']
     Prompts: typeof import('./src/components/Prompts/index.vue')['default']
@@ -67,5 +69,8 @@ declare module 'vue' {
     Welcome: typeof import('./src/components/Welcome/index.vue')['default']
     Word: typeof import('./src/components/FilesCard/fileSvg/word.vue')['default']
     Zip: typeof import('./src/components/FilesCard/fileSvg/zip.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

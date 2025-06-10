@@ -7,6 +7,7 @@ import Conversations from './components/Conversations/index.vue'
 import EditorInput from './components/EditorInput/index.vue'
 import EditorSender from './components/EditorSender/index.vue'
 import FilesCard from './components/FilesCard/index.vue'
+import Markdown from './components/Markdown/index.vue'
 import MentionSender from './components/MentionSender/index.vue'
 import Prompts from './components/Prompts/index.vue'
 import Sender from './components/Sender/index.vue'
@@ -28,6 +29,7 @@ const ElementPlusX: Plugin = {
     app.component('EditorInput', EditorInput)
     app.component('EditorSender', EditorSender)
     app.component('FilesCard', FilesCard)
+    app.component('Markdown', Markdown)
     app.component('MentionSender', MentionSender)
     app.component('Prompts', Prompts)
     app.component('Sender', Sender)

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AttachmentsDemo from './components/AttachmentsDemo.vue'
 import BubbleDemo from './components/BubbleDemo.vue'
+import MarkdownDemo from './components/MarkdownDemo/index.vue'
 import BubbleListDemo from './components/BubbleListDemo.vue'
 import ConversationsDemo from './components/ConversationsDemo.vue'
 import FilesCardDemo from './components/FilesCardDemo.vue'
@@ -29,6 +30,9 @@ import WelcomeDemo from './components/WelcomeDemo.vue'
     </el-alert>
 
     <el-tabs type="border-card" class="demo-tabs">
+      <el-tab-pane label="Markdown">
+        <MarkdownDemo />
+      </el-tab-pane>
       <el-tab-pane label="Bubble">
         <BubbleDemo />
       </el-tab-pane>
