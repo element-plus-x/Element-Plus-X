@@ -63,6 +63,7 @@
     "dompurify": "^3.2.4",
     "element-plus": "^2.9.7",
     "github-markdown-css": "^5.8.1",
+    "htmlparser2": "^10.0.0",
     "markdown-it-image-figures": "^2.1.1",
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
