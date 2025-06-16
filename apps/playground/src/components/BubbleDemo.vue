@@ -17,11 +17,7 @@ const content = ref('')
 const highlight = usePrism()
 
 const mdPlugins = [markdownItMermaid({ delay: 100, forceLegacyMathML: true })]
-
-onMounted(() => {
-  setTimeout(() => {
-    setTimeout(() => {
-      content.value = `
+const defaultDemoContent =`
 # 标题
 这是一个 Markdown 示例。
 - 列表项 1
@@ -55,10 +51,14 @@ sequenceDiagram
     2-->>1: Answer: $$2$$
     Note right of 2: $$\sqrt{2+2}=\sqrt{4}=2$$
 \`\`\`
-`.trim()
-      loading.value = false
-    }, 500)
-  }, 2000)
+`
+onMounted(() => {
+  let index = 0
+  loading.value = false
+  setInterval(() => {
+    index += 10 
+    content.value = defaultDemoContent.slice(0, index).trim()
+  }, 100);
 })
 </script>
 
