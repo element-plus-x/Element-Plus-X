@@ -5,14 +5,14 @@ import {
   LoadingButton,
   SendButton,
   SpeechButton,
-  SpeechLoadingButton,
+  SpeechLoadingButton
 } from './components';
 
 const props = withDefaults(defineProps<SenderProps>(), {
   placeholder: '请输入内容',
   autoSize: () => ({
     minRows: 1,
-    maxRows: 6,
+    maxRows: 6
   }),
   submitType: 'enter',
   headerAnimationTimer: 300,
@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<SenderProps>(), {
   triggerPopoverWidth: 'fit-content',
   triggerPopoverLeft: '0px',
   triggerPopoverOffset: 8,
-  triggerPopoverPlacement: 'top-start',
+  triggerPopoverPlacement: 'top-start'
 });
 
 const emits = defineEmits([
@@ -43,10 +43,13 @@ const emits = defineEmits([
   'cancel',
   'recordingChange',
 
-  'trigger',
+  'trigger'
 ]);
 
 const slots = defineSlots();
+
+const defaultLineGradientColor =
+  'linear-gradient(125deg, #ff6ec5, #7873f5, #08995de0, #0048ff,#ff6ec5)';
 
 // 获取当前组件实例
 const instance = getCurrentInstance();
@@ -61,10 +64,9 @@ const internalValue = computed({
     return props.modelValue;
   },
   set(val) {
-    if (props.readOnly || props.disabled)
-      return;
+    if (props.readOnly || props.disabled) return;
     emits('update:modelValue', val);
-  },
+  }
 });
 
 // 处理输入法组合状态
@@ -90,10 +92,15 @@ const popoverVisible = computed({
     return props.triggerPopoverVisible;
   },
   set(value) {
-    if (props.readOnly || props.disabled)
-      return;
+    if (props.readOnly || props.disabled) return;
     emits('update:triggerPopoverVisible', value);
-  },
+  }
+});
+
+const senderLineGradientColorComputed = computed(() => {
+  return props.senderLineGradientColor !== ''
+    ? props.senderLineGradientColor
+    : defaultLineGradientColor;
 });
 
 // 当前触发 指令的 字符
@@ -103,8 +110,7 @@ const triggerString = ref('');
 watch(
   () => internalValue.value,
   (newVal, oldVal) => {
-    if (isComposing.value)
-      return;
+    if (isComposing.value) return;
     // 触发逻辑：当输入值等于数组中的任意一个指令字符时触发
     // 确保 oldVal 是字符串类型
     const triggerStrings = props.triggerStrings || []; // 如果为 undefined，就使用空数组
@@ -120,11 +126,10 @@ watch(
           oldValue: oldVal, // 关闭时返回之前触发的字符
           newValue: newVal,
           triggerString: newVal,
-          isOpen: true,
+          isOpen: true
         });
         popoverVisible.value = true;
-      }
-      else {
+      } else {
         popoverVisible.value = true;
       }
     }
@@ -135,11 +140,10 @@ watch(
           oldValue: oldVal, // 关闭时返回之前触发的字符
           newValue: newVal,
           triggerString: undefined,
-          isOpen: false,
+          isOpen: false
         });
         popoverVisible.value = false;
-      }
-      else {
+      } else {
         popoverVisible.value = false;
       }
     }
@@ -151,16 +155,15 @@ watch(
           oldValue: oldVal, // 关闭时返回之前触发的字符
           newValue: newVal,
           triggerString: newVal,
-          isOpen: true,
+          isOpen: true
         });
         popoverVisible.value = true;
-      }
-      else {
+      } else {
         popoverVisible.value = true;
       }
     }
   },
-  { deep: true, immediate: true },
+  { deep: true, immediate: true }
 );
 
 /* 内容容器聚焦 开始 */
@@ -176,19 +179,15 @@ function onContentMouseDown(e: MouseEvent) {
 /* 头部显示隐藏 开始 */
 const visiableHeader = ref(false);
 function openHeader() {
-  if (!slots.header)
-    return false;
+  if (!slots.header) return false;
 
-  if (props.readOnly)
-    return false;
+  if (props.readOnly) return false;
 
   visiableHeader.value = true;
 }
 function closeHeader() {
-  if (!slots.header)
-    return;
-  if (props.readOnly)
-    return;
+  if (!slots.header) return;
+  if (props.readOnly) return;
   visiableHeader.value = false;
 }
 /* 头部显示隐藏 结束 */
@@ -198,8 +197,7 @@ const recognition = ref<SpeechRecognition | null>(null);
 const speechLoading = ref<boolean>(false);
 
 function startRecognition() {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   if (hasOnRecordingChangeListener.value) {
     speechLoading.value = true;
     emits('recordingChange', true);
@@ -230,8 +228,7 @@ function startRecognition() {
       speechLoading.value = false;
     };
     recognition.value.start();
-  }
-  else {
+  } else {
     console.error('浏览器不支持 Web Speech API');
   }
 }
@@ -252,28 +249,30 @@ function stopRecognition() {
 
 /* 输入框事件 开始 */
 function submit() {
-  if (props.readOnly || props.loading || props.disabled || isSubmitDisabled.value)
+  if (
+    props.readOnly ||
+    props.loading ||
+    props.disabled ||
+    isSubmitDisabled.value
+  )
     return;
   emits('submit', internalValue.value);
 }
 // 取消按钮
 function cancel() {
-  if (props.readOnly)
-    return;
+  if (props.readOnly) return;
   emits('cancel', internalValue.value);
 }
 
 function clear() {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   inputRef.value.clear();
   internalValue.value = '';
 }
 
 // 在这判断组合键的回车键 (目前支持两种模式)
 function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   if (props.submitType === 'enter') {
     // 判断是否按下了 Shift + 回车键
     if (e.shiftKey && e.keyCode === 13) {
@@ -283,23 +282,20 @@ function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
       const textAfterCursor = internalValue.value.slice(cursorPosition); // 光标后的文本
       internalValue.value = `${textBeforeCursor}\n${textAfterCursor}`; // 插入换行符
       e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1); // 更新光标位置
-    }
-    else if (e.keyCode === 13 && !e.shiftKey) {
+    } else if (e.keyCode === 13 && !e.shiftKey) {
       // 阻止掉 Enter 的默认换行行为
       e.preventDefault();
       // 触发提交功能
       submit();
     }
-  }
-  else if (props.submitType === 'shiftEnter') {
+  } else if (props.submitType === 'shiftEnter') {
     // 判断是否按下了 Shift + 回车键
     if (e.shiftKey && e.keyCode === 13) {
       // 阻止掉 Enter 的默认换行行为
       e.preventDefault();
       // 触发提交功能
       submit();
-    }
-    else if (e.keyCode === 13 && !e.shiftKey) {
+    } else if (e.keyCode === 13 && !e.shiftKey) {
       e.preventDefault();
       const cursorPosition = e.target.selectionStart; // 获取光标位置
       const textBeforeCursor = internalValue.value.slice(0, cursorPosition); // 光标前的文本
@@ -325,11 +321,9 @@ function focus(type = 'all') {
   }
   if (type === 'all') {
     inputRef.value.select();
-  }
-  else if (type === 'start') {
+  } else if (type === 'start') {
     focusToStart();
-  }
-  else if (type === 'end') {
+  } else if (type === 'end') {
     focusToEnd();
   }
 }
@@ -353,7 +347,10 @@ function focusToEnd() {
     const textarea = inputRef.value.$el.querySelector('textarea');
     if (textarea) {
       textarea.focus(); // 聚焦到输入框
-      textarea.setSelectionRange(internalValue.value.length, internalValue.value.length); // 设置光标到最后方
+      textarea.setSelectionRange(
+        internalValue.value.length,
+        internalValue.value.length
+      ); // 设置光标到最后方
     }
   }
 }
@@ -378,7 +375,7 @@ defineExpose({
   submit,
   cancel,
   startRecognition,
-  stopRecognition,
+  stopRecognition
 });
 </script>
 
@@ -386,9 +383,9 @@ defineExpose({
   <div
     class="el-sender-wrap"
     :style="{
-      'cursor': disabled ? 'not-allowed' : 'default',
+      cursor: disabled ? 'not-allowed' : 'default',
       '--el-sender-trigger-popover-width': props.triggerPopoverWidth,
-      '--el-sender-trigger-popover-left': props.triggerPopoverLeft,
+      '--el-sender-trigger-popover-left': props.triggerPopoverLeft
     }"
   >
     <div
@@ -398,10 +395,12 @@ defineExpose({
         '--el-box-shadow-tertiary':
           '0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)',
         '--el-sender-input-input-font-size': '14px',
-        '--el-sender-header-animation-duration': `${headerAnimationTimer}ms`,
+        '--el-sender-header-animation-duration': `${headerAnimationTimer}ms`
       }"
       :class="{
         'el-sender-disabled': disabled,
+        'el-sender-line-gradient':
+          props.senderLineGradientColor && props.senderLineGradientColor !== ''
       }"
     >
       <!-- 头部容器 -->
@@ -419,7 +418,10 @@ defineExpose({
         @mousedown="onContentMouseDown"
       >
         <!-- Prefix 前缀 -->
-        <div v-if="$slots.prefix && props.variant === 'default'" class="el-sender-prefix">
+        <div
+          v-if="$slots.prefix && props.variant === 'default'"
+          class="el-sender-prefix"
+        >
           <slot name="prefix" />
         </div>
         <!-- 输入框 -->
@@ -427,11 +429,13 @@ defineExpose({
           ref="inputRef"
           v-model="internalValue"
           class="el-sender-input"
-          :input-style="props.inputStyle || {
-            'resize': 'none',
-            'max-height': '176px',
-            'max-width': inputWidth,
-          }"
+          :input-style="
+            props.inputStyle || {
+              resize: 'none',
+              'max-height': '176px',
+              'max-width': inputWidth
+            }
+          "
           :rows="1"
           :autosize="autoSize"
           type="textarea"
@@ -446,10 +450,12 @@ defineExpose({
         <!-- 操作列表 -->
         <div v-if="props.variant === 'default'" class="el-sender-action-list">
           <slot name="action-list">
-            <div
-              class="el-sender-action-list-presets"
-            >
-              <SendButton v-if="!loading" :disabled="isSubmitDisabled" @submit="submit" />
+            <div class="el-sender-action-list-presets">
+              <SendButton
+                v-if="!loading"
+                :disabled="isSubmitDisabled"
+                @submit="submit"
+              />
 
               <LoadingButton v-if="loading" @cancel="cancel" />
 
@@ -469,7 +475,10 @@ defineExpose({
         </div>
 
         <!-- 变体样式 -->
-        <div v-if="props.variant === 'updown' && props.showUpdown" class="el-sender-updown-wrap">
+        <div
+          v-if="props.variant === 'updown' && props.showUpdown"
+          class="el-sender-updown-wrap"
+        >
           <!-- 变体 updown： Prefix 前缀 -->
           <div v-if="$slots.prefix" class="el-sender-prefix">
             <slot name="prefix" />
@@ -478,10 +487,12 @@ defineExpose({
           <!-- 变体 updown：操作列表 -->
           <div class="el-sender-action-list">
             <slot name="action-list">
-              <div
-                class="el-sender-action-list-presets"
-              >
-                <SendButton v-if="!loading" :disabled="isSubmitDisabled" @submit="submit" />
+              <div class="el-sender-action-list-presets">
+                <SendButton
+                  v-if="!loading"
+                  :disabled="isSubmitDisabled"
+                  @submit="submit"
+                />
 
                 <LoadingButton v-if="loading" @cancel="cancel" />
 
@@ -523,8 +534,15 @@ defineExpose({
       popper-class="el-sender-trigger-popover"
       :teleported="false"
     >
-      <slot name="trigger-popover" :trigger-string="triggerString" :readonly="props.readOnly">
-        当前触发的字符为：{{ `${triggerString}` }} 在这里定义的内容，但注意这里的回车事件将会被 输入框 覆盖
+      <slot
+        name="trigger-popover"
+        :trigger-string="triggerString"
+        :readonly="props.readOnly"
+      >
+        当前触发的字符为：{{
+          `${triggerString}`
+        }}
+        在这里定义的内容，但注意这里的回车事件将会被 输入框 覆盖
       </slot>
     </el-popover>
   </div>
@@ -546,17 +564,19 @@ defineExpose({
   border-style: solid;
   transition: width var(--el-sender-header-animation-duration);
 
-  &:after {
+  &::after {
     content: '';
     position: absolute;
     inset: 0;
     pointer-events: none;
-    transition: border-color var(--el-transition-duration);
     border-radius: inherit;
     border-style: inherit;
     border-color: inherit;
     border-width: var(--el-border-width);
+    box-sizing: border-box;
+    transition: border-color var(--el-transition-duration);
   }
+
   &:focus-within {
     box-shadow: var(--el-box-shadow);
     border-color: var(--el-color-primary);
@@ -680,6 +700,37 @@ defineExpose({
     border-top-width: var(--el-border-width);
     border-top-style: solid;
     border-top-color: var(--el-border-color);
+  }
+}
+
+.el-sender-line-gradient {
+  transition: background var(--el-transition-duration);
+  &:focus-within {
+    box-shadow: var(--el-box-shadow);
+    border-color: transparent;
+
+    &::after {
+      border-style: none;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      background: v-bind(senderLineGradientColorComputed); // 渐变色
+      padding: 3px;
+      // background-size: 300% 100%; /* 宽度放大，方便做左右滑动 */
+      // background-position: 0% 0%;
+      // animation: gradientFlow 1s ease-in-out forwards;
+    }
+  }
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
   }
 }
 

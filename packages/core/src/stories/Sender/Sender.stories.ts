@@ -128,6 +128,12 @@ const meta: Meta<typeof SenderSource> = {
         'right-end'
       ],
       description: '触发指令的弹框的位置。'
+    },
+    senderLineGradientColor: {
+      control: 'text',
+      description: 'sender 输入框的边框渐变颜色。',
+      defaultValue:
+        'linear-gradient(125deg, #ff6ec5, #7873f5, #08995de0, #0048ff,#ff6ec5)'
     }
   },
   args: {
@@ -157,7 +163,9 @@ const meta: Meta<typeof SenderSource> = {
     triggerPopoverWidth: '400px',
     triggerPopoverLeft: '0px',
     triggerPopoverOffset: 8,
-    triggerPopoverPlacement: 'top'
+    triggerPopoverPlacement: 'top',
+    senderLineGradientColor:
+      'linear-gradient(125deg, #ff6ec5, #7873f5, #08995de0, #0048ff,#ff6ec5)'
   }
 } satisfies Meta<typeof SenderSource>;
 

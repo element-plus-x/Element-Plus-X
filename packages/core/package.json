@@ -61,9 +61,9 @@
     "aeac": "rimraf src/index.ts && rimraf src/install.ts && esno .build/scripts/auto-export-all-components.js"
   },
   "peerDependencies": {
-    "typescript-api-pro": "^0.0.6",
     "@element-plus/icons-vue": "^2.3.1",
-    "element-plus": "^2.9.7"
+    "element-plus": "^2.9.7",
+    "typescript-api-pro": "^0.0.6"
   },
   "dependencies": {
     "@vueuse/core": "^13.1.0",

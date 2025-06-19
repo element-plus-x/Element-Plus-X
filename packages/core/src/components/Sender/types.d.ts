@@ -28,7 +28,22 @@ export interface SenderProps {
   triggerPopoverWidth?: string;
   triggerPopoverLeft?: string;
   triggerPopoverOffset?: number;
-  triggerPopoverPlacement?: 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end';
+  triggerPopoverPlacement?:
+    | 'top'
+    | 'top-start'
+    | 'top-end'
+    | 'bottom'
+    | 'bottom-start'
+    | 'bottom-end'
+    | 'left'
+    | 'left-start'
+    | 'left-end'
+    | 'right'
+    | 'right-start'
+    | 'right-end';
+
+  // 新增 sender 边框的样式渐变色
+  senderLineGradientColor?: string;
 }
 
 export interface TriggerEvent {
