@@ -73,8 +73,8 @@ export default defineComponent({
         rehypePlugins: mergedRehypePlugins,
         markdown: props.markdown
       }, {
+        code: renderCode,
         ...slots,
-        code: renderCode
       })
   },
 })
