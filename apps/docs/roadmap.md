@@ -6,7 +6,7 @@
 - PC实战项目演示模版(仿豆包/通义)、组件的主题系统、组件库的 issue 和 pr  **预计在五月份至六月上旬持续推出**
 - 小程序端+工作流编排组件。将提上日程 敬请期待...
 - 编辑框发送组件、md渲染问题。这两个问题目前还在调研中，欢迎提 pr。
-- 请大家耐心，有好的想法，欢迎大家进交流群 👨‍👩‍👧‍👧 **[交流群](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)**，与我们取得联系，欢迎交流方案，提交 issue 和 pr。提交规范请阅读 👉 **[开发文档](https://element-plus-x.com/guide/develop.html)**
+- 请大家耐心，有好的想法，欢迎大家进交流群 👨‍👩‍👧‍👧 **[交流群](https://github.com/element-plus-x/Element-Plus-X?tab=readme-ov-file#-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)**，与我们取得联系，欢迎交流方案，提交 issue 和 pr。提交规范请阅读 👉 **[开发文档](https://element-plus-x.com/guide/develop.html)**
 
 ## 🌱 长期计划
 ### 1. 生态扩展矩阵

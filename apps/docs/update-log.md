@@ -118,11 +118,11 @@
 - 修复 `Sender`  输入框组件在 `v-model`  双向绑定失效问题
 - 修复 `Typewriter` 打字器组件在 流模式接口输出下，卡顿的问题。
 - 修复 `BubbleList` 气泡列表组件，在流式接口输出下，自动滚动失效问题。并将 `BubbleList` 组件，和打字器组件解耦。
-- 修复 `BubbleList` 气泡列表组件，`maxWidth` 失效问题。**[issue #46](https://github.com/HeJiaYue520/Element-Plus-X/issues/46)**
+- 修复 `BubbleList` 气泡列表组件，`maxWidth` 失效问题。**[issue #46](https://github.com/element-plus-x/Element-Plus-X/issues/46)**
 
 ### 🚀 新增功能
 
-- 新增 `Thinking` 思考中组件，和 `ThoughtChain` 思维链组件 ，用于在流式接口输出下，展示思考过程。**[issue #32](https://github.com/HeJiaYue520/Element-Plus-X/issues/32)**、**[issue #45](https://github.com/HeJiaYue520/Element-Plus-X/issues/45)**
+- 新增 `Thinking` 思考中组件，和 `ThoughtChain` 思维链组件 ，用于在流式接口输出下，展示思考过程。**[issue #32](https://github.com/element-plus-x/Element-Plus-X/issues/32)**、**[issue #45](https://github.com/element-plus-x/Element-Plus-X/issues/45)**
 
 - 新增 `Welcom` 欢迎组件，方便用户快速集成好看的欢迎介绍卡片
 
@@ -130,7 +130,7 @@
 
 ### 🐛 修复
 
-- 修复 `Sender`  输入框组件在 `loading`  状态下，依然可以触发 `@submit`  方法的 bug  **[issue #22](https://github.com/HeJiaYue520/Element-Plus-X/issues/22)**
+- 修复 `Sender`  输入框组件在 `loading`  状态下，依然可以触发 `@submit`  方法的 bug  **[issue #22](https://github.com/element-plus-x/Element-Plus-X/issues/22)**
 - 修复 `Sender` 输入框组件在 `read-only`  状态下，依然可以触发值的修改 的 bug
 
 ### 🚀 新增功能

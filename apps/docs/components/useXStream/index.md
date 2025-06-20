@@ -5,7 +5,7 @@
 这个钩子函数，可以让用户更方便的控制 **流式请求**。提供 `发起请求` ，`中断请求` ，返回 `loading` 请求状态，返回 SSE 协议 `实时的数据流`，返回请求 `error` 信息。
 
 ::: info
-目前只测试了 SSE 和 SIP 协议请求，其他协议的请求还有待测试，如果您好的想法和发现，欢迎进交流群 👨‍👩‍👧‍👧 **[交流群](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)**，与我们取得联系，欢迎交流方案，提交 issue 和 pr。提交规范请阅读 👉 **[开发文档](https://element-plus-x.com/guide/develop.html)**
+目前只测试了 SSE 和 SIP 协议请求，其他协议的请求还有待测试，如果您好的想法和发现，欢迎进交流群 👨‍👩‍👧‍👧 **[交流群](https://github.com/element-plus-x/Element-Plus-X?tab=readme-ov-file#-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)**，与我们取得联系，欢迎交流方案，提交 issue 和 pr。提交规范请阅读 👉 **[开发文档](https://element-plus-x.com/guide/develop.html)**
 :::
 
 ## 代码演示
