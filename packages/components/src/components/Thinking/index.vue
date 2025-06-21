@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ThinkingProps, ThinkingStatus } from './types.d.ts'
-import { ArrowUpBold, CircleCloseFilled, Loading, Opportunity, SuccessFilled } from '@element-plus/icons-vue'
+import { ArrowDownBold, CircleCloseFilled, Loading, Opportunity, SuccessFilled } from '@element-plus/icons-vue'
 
 const props = withDefaults(defineProps<ThinkingProps>(), {
   content: '',
@@ -107,7 +107,7 @@ watch(() => props.status, (newVal) => {
         <span v-if="!props.disabled" class="arrow el-icon-center" :class="{ expanded: isExpanded }">
           <slot name="arrow">
             <el-icon class="el-icon-center">
-              <ArrowUpBold />
+              <ArrowDownBold />
             </el-icon>
           </slot>
         </span>
