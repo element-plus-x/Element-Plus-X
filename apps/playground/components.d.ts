@@ -21,6 +21,7 @@ declare module 'vue' {
     ElProgress: typeof import('element-plus/es')['ElProgress']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     FilesCardDemo: typeof import('./src/components/FilesCardDemo.vue')['default']
     MentionSenderDemo: typeof import('./src/components/MentionSenderDemo.vue')['default']
     PromptsDemo: typeof import('./src/components/PromptsDemo.vue')['default']
