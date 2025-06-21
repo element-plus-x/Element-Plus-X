@@ -9,27 +9,17 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Attachments: typeof import('vue-element-plus-x')['Attachments']
-    Bubble: typeof import('vue-element-plus-x')['Bubble']
-    BubbleList: typeof import('vue-element-plus-x')['BubbleList']
-    Conversations: typeof import('vue-element-plus-x')['Conversations']
-    ElAvatar: typeof import('element-plus')['ElAvatar']
+    ElAlert: typeof import('element-plus')['ElAlert']
     ElButton: typeof import('element-plus')['ElButton']
-    ElColorPicker: typeof import('element-plus')['ElColorPicker']
-    ElDialog: typeof import('element-plus')['ElDialog']
+    ElCard: typeof import('element-plus')['ElCard']
     ElIcon: typeof import('element-plus')['ElIcon']
-    ElInputNumber: typeof import('element-plus')['ElInputNumber']
     ElProgress: typeof import('element-plus')['ElProgress']
-    ElRadioButton: typeof import('element-plus')['ElRadioButton']
-    ElRadioGroup: typeof import('element-plus')['ElRadioGroup']
-    ElSlider: typeof import('element-plus')['ElSlider']
-    ElSwitch: typeof import('element-plus')['ElSwitch']
-    FilesCard: typeof import('vue-element-plus-x')['FilesCard']
-    MentionSender: typeof import('vue-element-plus-x')['MentionSender']
-    Prompts: typeof import('vue-element-plus-x')['Prompts']
-    Sender: typeof import('vue-element-plus-x')['Sender']
-    Thinking: typeof import('vue-element-plus-x')['Thinking']
-    ThoughtChain: typeof import('vue-element-plus-x')['ThoughtChain']
+    ElTable: typeof import('element-plus')['ElTable']
+    ElTableColumn: typeof import('element-plus')['ElTableColumn']
+    Markdown: typeof import('vue-element-plus-x')['Markdown']
     Typewriter: typeof import('vue-element-plus-x')['Typewriter']
-    Welcome: typeof import('vue-element-plus-x')['Welcome']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

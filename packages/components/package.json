@@ -58,6 +58,7 @@
     "typescript-api-pro": "^0.0.6"
   },
   "dependencies": {
+    "@crazydos/vue-markdown": "^1.0.7",
     "@element-plus/icons-vue": "^2.3.1",
     "@vueuse/core": "^13.1.0",
     "dompurify": "^3.2.4",
@@ -66,8 +67,15 @@
     "markdown-it-image-figures": "^2.1.1",
     "markdown-it-sub": "^2.0.0",
     "markdown-it-sup": "^2.0.0",
+    "mermaid": "^11.6.0",
     "prismjs": "^1.30.0",
     "radash": "^12.1.0",
+    "rehype-katex": "^7.0.1",
+    "rehype-raw": "^7.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "shiki": "^3.6.0",
     "vue": "^3.5.13"
   },
   "devDependencies": {

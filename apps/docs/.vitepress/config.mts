@@ -118,6 +118,12 @@ export default defineConfig({
             { text: 'useSend & XRequest 🌳', link: '/components/useSend/' },
           ],
         },
+        {
+          text: '推进中',
+          items: [
+            { text: 'Markdown 📑', link: '/components/markdown/' },
+          ],
+        }
       ],
       // 指南
       '/guide/': [
