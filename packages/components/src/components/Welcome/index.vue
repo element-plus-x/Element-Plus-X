@@ -6,7 +6,7 @@ const props = withDefaults(defineProps<WelcomeProps>(), {
   direction: 'ltr' as const,
 })
 
-const solts = defineSlots()
+const slots = defineSlots()
 const { prefixCls, className, rootClassName, variant, direction, classNames, icon, title, extra, description, style, styles } = toRefs(props)
 // 提取计算逻辑到独立函数
 function getContainerClass() {
@@ -28,7 +28,7 @@ const getDescriptionClass = () => classNames.value?.description
 
 const hasIcon = computed(() => !!icon.value)
 const hasTitleOrExtra = computed(() => !!title.value || !!extra.value)
-const hasExtraOrSlot = computed(() => !!extra.value || !!solts.extra)
+const hasExtraOrSlot = computed(() => !!extra.value || !!slots.extra)
 const hasDescription = computed(() => !!description.value)
 
 const containerClass = computed(getContainerClass)
