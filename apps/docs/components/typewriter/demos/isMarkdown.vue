@@ -12,6 +12,6 @@ const markdownText = ref(`#### 标题 \n 这是一个 Markdown 示例。\n - 列
 
 <template>
   <ClientOnly>
-    <Typewriter :content="markdownText" :is-markdown="true" />
+    <Typewriter :content="markdownText" :isMarkdown="true" />
   </ClientOnly>
 </template>

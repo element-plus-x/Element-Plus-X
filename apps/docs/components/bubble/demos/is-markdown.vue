@@ -3,7 +3,7 @@
 title: 渲染 markdown 文本内容
 ---
 
-通过设置 `is-markdown` 属性，开启 `markdown` 文本内容渲染模式。 更新 `content` 如果是之前的子集，则会继续输出，否则会重新输出。
+通过设置 `isMarkdown` 属性，开启 `markdown` 文本内容渲染模式。 更新 `content` 如果是之前的子集，则会继续输出，否则会重新输出。
 </docs>
 
 <script setup lang="ts">
@@ -26,7 +26,7 @@ function changeContent() {
     <el-button style="width: fit-content;" @click="changeContent">
       设置 markdown
     </el-button>
-    <Bubble :content="content" typing is-markdown>
+    <Bubble :content="content" typing isMarkdown>
       <template #avatar>
         <el-avatar :size="32" :src="avatarUser" />
       </template>
