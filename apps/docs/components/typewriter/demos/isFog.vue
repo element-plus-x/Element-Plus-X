@@ -3,7 +3,7 @@
 title: 支持雾化效果
 ---
 
-通过 `isFog` 属性控制是否启用雾化效果。注意，该属性在 `isTyping` 为 `true` 时才生效。切回覆盖默认的 `typing` 后缀属性。
+通过 `isFog` 属性控制是否启用雾化效果。注意，该属性在 `isTyping` 为 `true` 时才生效。且会覆盖默认的 `typing` 后缀属性。
 </docs>
 
 <script setup lang="ts">
