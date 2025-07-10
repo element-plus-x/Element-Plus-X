@@ -1,0 +1,58 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Element-Plus-X 组件使用指南
+
+本项目提供了多种 AI 增强型组件，可按需引入或全局注册使用。
+
+## 组件列表
+
+### 聊天相关组件
+
+- `Bubble` - 单条气泡消息组件
+- `BubbleList` - 气泡消息列表组件
+- `Sender` - 智能输入框组件，支持语音交互
+- `Thinking` - 思考中加载组件
+- `ThoughtChain` - 思考链组件，显示 AI 思考过程
+- `Conversations` - 会话管理组件
+
+### 辅助组件
+
+- `Typewriter` - 打字机动画效果组件
+- `Welcome` - 欢迎组件
+- `Prompts` - 提示集管理组件
+- `FilesCard` - 文件卡片组件
+- `Attachments` - 文件附件组件
+- `MentionSender` - 提及（@）输入组件
+
+## 常用 Hooks
+
+- `useRecord` - 浏览器语音识别 API Hook
+- `useXStream` - 流模式请求 Hook
+- `useSend` - 发送消息 Hook
+
+## 使用方式
+
+```vue
+<script setup>
+import { BubbleList, Sender } from 'vue-element-plus-x'
+import { ref } from 'vue'
+
+const messages = ref([
+  {
+    content: '你好，我是 Element-Plus-X 聊天组件',
+    role: 'assistant',
+  },
+])
+</script>
+
+<template>
+  <div class="chat-container">
+    <BubbleList :list="messages" />
+    <Sender @send="handleSend" />
+  </div>
+</template>
+```
+

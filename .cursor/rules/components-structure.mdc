@@ -1,0 +1,75 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Element-Plus-X 组件目录结构
+
+Element-Plus-X 组件库采用统一的目录结构组织方式，便于开发和维护。
+
+## 组件目录结构
+
+以 `Bubble` 组件为例：
+
+```
+Bubble/
+├── index.ts         # 导出入口
+├── Bubble.vue       # 组件实现
+├── props.ts         # 组件属性定义
+├── types.ts         # 类型定义
+└── style.scss       # 组件样式（可选）
+```
+
+## 组件导出方式
+
+组件通过 `index.ts` 文件统一导出：
+
+```typescript
+import Bubble from './Bubble.vue'
+import type { BubbleProps } from './props'
+import type { BubbleInstance } from './types'
+
+export { Bubble, type BubbleProps, type BubbleInstance }
+export default Bubble
+```
+
+## 组件属性定义
+
+在 `props.ts` 中定义组件属性：
+
+```typescript
+import { buildProps } from '../../utils'
+import type { ExtractPropTypes, PropType } from 'vue'
+import type { BubbleRole, BubbleType } from './types'
+
+export const bubbleProps = buildProps({
+  content: {
+    type: String,
+    default: '',
+  },
+  role: {
+    type: String as PropType<BubbleRole>,
+    default: 'assistant',
+  },
+  type: {
+    type: String as PropType<BubbleType>,
+    default: 'text',
+  },
+} as const)
+
+export type BubbleProps = ExtractPropTypes<typeof bubbleProps>
+```
+
+## 组件类型定义
+
+在 `types.ts` 中定义相关类型：
+
+```typescript
+import type { ComponentPublicInstance } from 'vue'
+import type { BubbleProps } from './props'
+
+export type BubbleRole = 'user' | 'assistant' | 'system'
+export type BubbleType = 'text' | 'image' | 'file' | 'code'
+
+export type BubbleInstance = ComponentPublicInstance<BubbleProps>
+```
