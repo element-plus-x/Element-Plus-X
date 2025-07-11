@@ -7,6 +7,7 @@ import {
   mdContent
   // mermaidMdContent
 } from '@assets/mock';
+import { XMarkdown } from '../../components';
 // import PrismDemo from './CustomPrismDemo.vue';
 // import ShikiDemo from './CustomShikiDemo.vue';
 import Typewriter from './index.vue';
@@ -19,9 +20,9 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     content: { control: 'text' },
-    isMarkdown: { control: 'boolean' },
-    typing: { control: 'object' },
-    isFog: { control: 'boolean' }
+    // isMarkdown: { control: 'boolean' },
+    typing: { control: 'object' }
+    // isFog: { control: 'boolean' }
   },
   args: {
     typing: {
@@ -29,9 +30,9 @@ const meta = {
       interval: 100,
       suffix: '|',
       isRequestEnd: true
-    },
-    isFog: true,
-    isMarkdown: true
+    }
+    // isFog: true,
+    // isMarkdown: true
     // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   }
 } satisfies Meta<typeof TypewriterSource>;
@@ -46,13 +47,15 @@ type Story = StoryObj<typeof meta>;
 export const TypewriterDemo: Story = {
   args: {
     content: mdContent,
-    isFog: true,
-    isMarkdown: true
+    renderer: markRaw(XMarkdown)
+    // isFog: true,
+    // isMarkdown: true
   } as Story['args']
 };
 
 export const MathRenderDemo: Story = {
   args: {
-    content: mathMdContent
+    content: mathMdContent,
+    renderer: markRaw(XMarkdown)
   } as Story['args']
 };

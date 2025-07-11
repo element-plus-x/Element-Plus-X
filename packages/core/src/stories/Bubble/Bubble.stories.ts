@@ -1,6 +1,7 @@
 import type BubbleSource from '@components/Bubble/index.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { avatar1, mdContent } from '@assets/mock';
+import { XMarkdown } from '../../components';
 import CustomSolt from './CustomSolt.vue';
 import Bubble from './index.vue';
 
@@ -10,9 +11,9 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     content: { control: 'text' },
-    isMarkdown: { control: 'boolean' },
+    // isMarkdown: { control: 'boolean' },
     typing: { control: 'object' },
-    isFog: { control: 'boolean' },
+    // isFog: { control: 'boolean' },
     // 气泡属性
     placement: { control: 'radio', options: ['start', 'end'] },
     avatar: { control: 'text' },
@@ -38,14 +39,15 @@ const meta = {
     avatar: avatar1,
     loading: false,
     content: mdContent,
-    isMarkdown: true,
+    renderer: markRaw(XMarkdown),
+    // isMarkdown: true,
     typing: {
       step: 2,
       suffix: '💗',
       interval: 100,
       isRequestEnd: true
     },
-    isFog: true,
+    // isFog: true,
     placement: 'start',
     shape: 'round',
     variant: 'filled',
@@ -71,8 +73,8 @@ export const BubbleDemo: Story = {
 export const SoltDemo: Story = {
   args: {
     ...BubbleDemo.args,
-    content: '欢迎使用 Element Plus X',
-    ismarkdown: false
+    content: '欢迎使用 Element Plus X'
+    // ismarkdown: false
   } as Story['args'],
   render: (args: any) => ({
     components: {

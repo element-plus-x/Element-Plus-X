@@ -2,7 +2,7 @@ import type { TypewriterProps } from '../Typewriter/types';
 
 export type BubbleProps = Pick<
   TypewriterProps,
-  'isFog' | 'typing' | 'content' | 'isMarkdown'
+  'renderer' | 'typing' | 'content'
 > & {
   placement?: 'start' | 'end';
   avatar?: string;
