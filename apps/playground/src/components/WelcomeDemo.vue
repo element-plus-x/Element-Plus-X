@@ -64,7 +64,7 @@ import { MoreFilled, Share } from '@element-plus/icons-vue'
   overflow: auto;
 
   .extra-container {
-    :deep {
+    :deep() {
       .el-icon {
         font-size: 18px;
       }
