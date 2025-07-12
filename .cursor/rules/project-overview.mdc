@@ -1,0 +1,22 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Element-Plus-X 项目概述
+
+Element-Plus-X 是一个基于 Vue 3 和 Element-Plus 的企业级 AI 组件库，提供了丰富的开箱即用的组件，特别是聊天机器人、语音交互等 AI 场景组件。
+
+## 项目结构
+
+- [packages/components/src/components](mdc:packages/components/src/components) - 组件源代码目录
+- [packages/components/src/hooks](mdc:packages/components/src/hooks) - 通用 hooks 目录
+- [packages/components/src/utils](mdc:packages/components/src/utils) - 工具函数目录
+- [apps/playground](mdc:apps/playground) - 组件演示应用
+- [apps/docs](mdc:apps/docs) - 项目文档
+
+## 主要文件
+
+- [packages/components/package.json](mdc:packages/components/package.json) - 组件包配置
+- [packages/components/src/index.ts](mdc:packages/components/src/index.ts) - 组件入口文件
+

@@ -1,0 +1,100 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Element-Plus-X Hooks 使用指南
+
+Element-Plus-X 提供了一系列实用的 Hooks，用于简化 AI 交互、语音识别等功能的开发。
+
+## 主要 Hooks
+
+### useRecord - 浏览器语音识别
+
+[useRecord.ts](mdc:packages/components/src/hooks/useRecord.ts) 封装了浏览器原生的语音识别 API，支持多种语言的语音转文字。
+
+**使用示例：**
+
+```vue
+<script setup>
+import { useRecord } from 'vue-element-plus-x'
+
+const { 
+  text,           // 识别的文本内容
+  isRecording,    // 是否正在录音
+  startRecording, // 开始录音方法
+  stopRecording   // 停止录音方法
+} = useRecord({
+  language: 'zh-CN', // 识别语言
+  continuous: true   // 连续识别模式
+})
+</script>
+
+<template>
+  <button @click="isRecording ? stopRecording() : startRecording()">
+    {{ isRecording ? '停止录音' : '开始录音' }}
+  </button>
+  <div>识别结果: {{ text }}</div>
+</template>
+```
+
+### useXStream - 流式数据处理
+
+[useXStream.ts](mdc:packages/components/src/hooks/useXStream.ts) 用于处理 AI 流式响应数据，支持 SSE 和 WebSocket 等流式通信。
+
+**使用示例：**
+
+```js
+import { useXStream } from 'vue-element-plus-x'
+
+const { 
+  data,       // 当前接收到的数据
+  loading,    // 加载状态
+  error,      // 错误信息
+  send        // 发送请求方法
+} = useXStream({
+  url: 'https://api.example.com/chat',
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  onMessage: (chunk) => {
+    console.log('收到消息片段:', chunk)
+  },
+  onError: (err) => {
+    console.error('请求错误:', err)
+  },
+  onFinish: () => {
+    console.log('请求完成')
+  }
+})
+
+// 发送请求
+send({ 
+  messages: [{ role: 'user', content: '你好' }] 
+})
+```
+
+### useSend - 发送消息封装
+
+[useSend.ts](mdc:packages/components/src/hooks/useSend.ts) 是对 useXStream 的进一步封装，专门用于处理聊天消息的发送和接收。
+
+**使用示例：**
+
+```js
+import { useSend } from 'vue-element-plus-x'
+import { ref } from 'vue'
+
+const messages = ref([])
+
+const { 
+  loading, 
+  sendMessage 
+} = useSend({
+  messages,
+  apiUrl: 'https://api.example.com/chat',
+  apiKey: 'your-api-key'
+})
+
+// 发送消息
+sendMessage('你好，AI助手')
+```
+

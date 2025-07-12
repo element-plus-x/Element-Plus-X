@@ -1,0 +1,73 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Element-Plus-X 开发指南
+
+本项目是一个 Monorepo 仓库，使用 Turbo 和 PNPM Workspace 进行管理。
+
+## 开发环境设置
+
+1. 安装依赖：
+
+```bash
+pnpm install
+```
+
+2. 启动开发服务器：
+
+```bash
+# 启动组件演示应用
+pnpm dev:playground
+
+# 启动文档应用
+pnpm dev:docs
+```
+
+3. 构建组件库：
+
+```bash
+pnpm build:components
+```
+
+## 组件开发规范
+
+1. **目录结构**：每个组件应创建独立目录，包含以下文件：
+   - `index.ts` - 组件导出入口
+   - `xxx.vue` - 组件实现
+   - `props.ts` - 组件属性定义
+   - `types.ts` - 组件类型定义
+   - `style.scss` - 组件样式（可选）
+
+2. **命名约定**：
+   - 组件目录和文件名使用 PascalCase
+   - 组件名称使用 PascalCase
+   - 属性和方法使用 camelCase
+
+3. **类型标注**：
+   - 所有组件、props、emits 必须提供 TypeScript 类型定义
+   - 导出类型放在 types.ts 中便于复用
+
+4. **样式规范**：
+   - 使用 SCSS 编写样式
+   - 使用 BEM 命名约定
+   - 所有样式应该有 `.epx-` 前缀，避免冲突
+
+## 提交规范
+
+使用 Conventional Commits 提交规范：
+
+- `feat`: 新功能
+- `fix`: 修复问题
+- `docs`: 文档修改
+- `style`: 代码格式修改
+- `refactor`: 代码重构
+- `perf`: 性能优化
+- `test`: 测试相关
+- `build`: 构建系统或外部依赖更改
+- `ci`: CI 配置更改
+- `chore`: 其他修改
+
+示例：`git commit -m "feat(Bubble): 添加新的气泡类型支持"`
+
