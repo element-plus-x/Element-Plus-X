@@ -19,12 +19,14 @@ export interface BubbleListProps<T extends BubbleListItemProps = BubbleListItemP
   btnLoading?: boolean
   btnColor?: string
   btnIconSize?: number
+  autoScroll?: boolean
 }
 
 // 定义组件实例类型
 // 定义组件实例类型
 export interface BubbleListInstance {
-  scrollToTop: () => void
-  scrollToBottom: () => void
+  scrollToTop: (behavior?: ScrollBehavior) => void
+  scrollToBottom: (behavior?: ScrollBehavior) => void
   scrollToBubble: (index: number) => void
+  autoScroll: () => ResizeObserver
 }

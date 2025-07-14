@@ -19,7 +19,8 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   },
   btnLoading: true,
   btnColor: '#409EFF',
-  btnIconSize: 24
+  btnIconSize: 24,
+  autoScroll: true,
 })
 
 const emits = defineEmits(['complete'])
@@ -75,34 +76,44 @@ function getValidIndices(list: T[], indices: number[]) {
 }
 
 // 监听数组长度变化，如果改变，则判断是否在最底部，如果在，就自动滚动到底部
-watch(
-  () => props.list.length,
-  () => {
-    if (props.list && props.list.length > 0) {
-      nextTick(() => {
+if (props.autoScroll) {
+  watch(
+    () => props.list.length,
+    () => {
+      if (props.list && props.list.length > 0) {
+        nextTick(() => {
         // 每次添加新的气泡，等页面渲染后，在执行自动滚动
-        autoScroll()
-      })
-    }
-  },
-  { immediate: true },
-)
+          autoScroll()
+        })
+      }
+    },
+    { immediate: true },
+  )
+}
 
 // 父组件的触发方法，直接让滚动容器滚动到顶部
-function scrollToTop() {
+function scrollToTop(behavior: ScrollBehavior = 'smooth') {
   // 处理在滚动时候，无法回到顶部的问题
   stopAutoScrollToBottom.value = true
   nextTick(() => {
     // 自动滚动到最顶部
-    scrollContainer.value!.scrollTop = 0
+    const container = scrollContainer.value!
+    container.scrollTo({
+      top: 0,
+      behavior,
+    })
   })
 }
 // 父组件的触发方法，不跟随打字器滚动，滚动底部
-function scrollToBottom() {
+function scrollToBottom(behavior: ScrollBehavior = 'smooth') {
   try {
     if (scrollContainer.value && scrollContainer.value.scrollHeight) {
       nextTick(() => {
-        scrollContainer.value!.scrollTop = scrollContainer.value!.scrollHeight
+        const container = scrollContainer.value!
+        container.scrollTo({
+          top: container.scrollHeight - container.clientHeight,
+          behavior,
+        })
         // 修复清空BubbleList后，再次调用 scrollToBottom()，不触发自动滚动问题
         stopAutoScrollToBottom.value = false
       })
@@ -156,6 +167,7 @@ function autoScroll() {
       resizeObserver.value.observe(lastItem)
     }
   }
+  return resizeObserver.value
 }
 
 // 打字机播放完成回调
@@ -219,6 +231,7 @@ defineExpose({
   scrollToTop,
   scrollToBottom,
   scrollToBubble,
+  autoScroll,
 })
 </script>
 
@@ -287,7 +300,7 @@ defineExpose({
         bottom: backButtonPosition.bottom,
         left: backButtonPosition.left,
       }"
-      @click="scrollToBottom"
+      @click="scrollToBottom()"
     >
       <slot name="backToBottom">
         <el-icon
@@ -310,7 +323,6 @@ defineExpose({
   min-height: 0;
   max-height: var(--el-bubble-list-max-height);
   overflow: auto;
-  scroll-behavior: smooth;
 
   position: relative;
   /* 默认滚动条样式（透明） */
