@@ -29,7 +29,7 @@ function addMessage() {
     content,
     placement,
     typing,
-    isFog: true,
+    // isFog: true,
     avatar: isUser ? avatar1 : avatar2,
     avatarSize: '32px'
   };

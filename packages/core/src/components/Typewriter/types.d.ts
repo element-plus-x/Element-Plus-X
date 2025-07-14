@@ -1,5 +1,4 @@
-import type MarkdownIt from 'markdown-it';
-import type { ComputedRef, Ref } from 'vue';
+import type { Component, ComputedRef, Ref } from 'vue';
 
 export interface TypingConfig {
   step?: number;
@@ -12,15 +11,10 @@ export interface TypingFogfig {
   width?: string;
 }
 
-type MarkdownItPlugin = (md: MarkdownIt) => void;
-
 export interface TypewriterProps {
+  renderer?: Component;
   content?: string;
-  isMarkdown?: boolean;
   typing?: boolean | TypingConfig;
-  isFog?: boolean | TypingFogfig;
-  highlight?: (code: string, language: string) => string;
-  mdPlugins?: MarkdownItPlugin[];
 }
 
 export interface TypewriterEmits {

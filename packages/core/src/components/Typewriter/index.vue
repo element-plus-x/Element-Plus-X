@@ -6,36 +6,14 @@ import type {
   TypewriterProps,
   TypingConfig
 } from './types.d.ts';
-import DOMPurify from 'dompurify'; // 新增安全过滤
-import { useConfigProvider } from '../ConfigProvider/hooks.ts';
 
 const props = withDefaults(defineProps<TypewriterProps>(), {
   content: '',
-  isMarkdown: false,
   typing: false,
-  isFog: false
+  renderer: undefined
 });
 const emits = defineEmits<TypewriterEmits>();
-
-const configProvider = useConfigProvider();
-const { md } = configProvider;
-
-const markdownContentRef = ref<HTMLElement | null>(null);
 const typeWriterRef = ref<HTMLElement | null>(null);
-
-function initMarkdownPlugins() {
-  if (configProvider.mdPlugins?.length) {
-    configProvider.mdPlugins.forEach(plugin => {
-      md?.use(plugin);
-    });
-  }
-  if (props.mdPlugins?.length) {
-    props.mdPlugins.forEach(plugin => {
-      md?.use(plugin);
-    });
-  }
-}
-initMarkdownPlugins();
 
 const typingIndex = ref(0);
 const isTyping = ref(false);
@@ -49,11 +27,8 @@ const mergedConfig: ComputedRef<TypingConfig> = computed(() => {
     interval:
       typeof props.typing === 'object' ? (props.typing.interval ?? 50) : 50,
     // 根据条件动态设置后缀
-    suffix: props.isMarkdown
-      ? ''
-      : typeof props.typing === 'object'
-        ? (props.typing.suffix ?? '|')
-        : '|'
+    suffix:
+      typeof props.typing === 'object' ? (props.typing.suffix ?? '|') : '|'
   };
 
   // 处理打字配置
@@ -68,7 +43,7 @@ const mergedConfig: ComputedRef<TypingConfig> = computed(() => {
       ...defaultConfig,
       ...props.typing,
       // 强制覆盖后缀设置
-      suffix: props.isMarkdown ? '' : (props.typing.suffix ?? '|')
+      suffix: props.typing.suffix ?? '|'
     };
   }
 
@@ -95,12 +70,7 @@ const typingProgress = computed(() => {
 });
 // 修改渲染内容计算属性
 const renderedContent = computed(() => {
-  // 非Markdown模式直接返回
-  if (!props.isMarkdown) {
-    return processedContent.value;
-  }
-  // Markdown模式添加安全过滤和样式类
-  return DOMPurify.sanitize(md?.render(processedContent.value ?? '') ?? '');
+  return processedContent.value;
 });
 
 const instance: TypewriterInstance = {
@@ -203,35 +173,32 @@ defineExpose(instance);
 
 <template>
   <div ref="typeWriterRef" class="typer-container">
+    <component
+      :is="renderer"
+      v-if="renderer"
+      :markdown="renderedContent"
+      :is-typing="isTyping"
+      :progress="typingProgress"
+      :suffix="mergedConfig.suffix"
+    >
+      <!-- 可根据需要传递默认插槽内容 -->
+    </component>
+    <!-- 如果没有renderer，则渲染默认内容 -->
     <div
-      ref="markdownContentRef"
+      v-else
       class="typer-content"
       :class="[
         {
-          'markdown-content': isMarkdown,
-          'typing-cursor': typing && mergedConfig.suffix && isTyping,
-          'typing-cursor-foggy':
-            props.isFog && typing && mergedConfig.suffix && isTyping,
-          'typing-markdown-cursor-foggy':
-            isMarkdown && props.isFog && typing && isTyping
-        },
-        isMarkdown ? 'markdown-body' : ''
+          'typing-cursor': typing && mergedConfig.suffix && isTyping
+        }
       ]"
       :style="{
-        '--cursor-char': `'${mergedConfig.suffix}'`,
-        '--cursor-fog-bg-color': props.isFog
-          ? typeof props.isFog === 'object'
-            ? (props.isFog.bgColor ?? 'var(--el-fill-color)')
-            : 'var(--el-fill-color)'
-          : '',
-        '--cursor-fog-width': props.isFog
-          ? typeof props.isFog === 'object'
-            ? (props.isFog.width ?? '80px')
-            : '80px'
-          : ''
+        '--cursor-char': `'${mergedConfig.suffix}'`
       }"
-      v-html="renderedContent"
-    />
+    >
+      <!-- 显示打字机渲染内容 -->
+      {{ renderedContent }}
+    </div>
   </div>
 </template>
 

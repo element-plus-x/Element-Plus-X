@@ -18,7 +18,8 @@ const props = withDefaults(defineProps<BubbleProps>(), {
   avatarSrcSet: '',
   avatarAlt: '',
   avatarFit: 'cover',
-  noStyle: false
+  noStyle: false,
+  renderer: undefined
 });
 
 const emits = defineEmits<BubbleEmits>();
@@ -191,8 +192,7 @@ defineExpose(instance);
             ref="typewriterRef"
             :typing="_typing"
             :content="content"
-            :is-markdown="isMarkdown"
-            :is-fog="props.isFog"
+            :renderer="renderer"
             @start="onStart"
             @writing="onWriting"
             @finish="onFinish"

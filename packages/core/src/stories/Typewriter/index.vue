@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import ConfigProvider from '@components/ConfigProvider/index.vue';
+// import ConfigProvider from '@components/ConfigProvider/index.vue';
 import Typewriter from '@components/Typewriter/index.vue';
-import markdownItMermaid from '@jsonlee_12138/markdown-it-mermaid';
+// import markdownItMermaid from '@jsonlee_12138/markdown-it-mermaid';
 
-const mdPlugins = [
-  markdownItMermaid({
-    forceLegacyMathML: true,
-    delay: 100
-  })
-];
+// const mdPlugins = [
+//   markdownItMermaid({
+//     forceLegacyMathML: true,
+//     delay: 100
+//   })
+// ];
 </script>
 
 <template>
-  <ConfigProvider :md-plugins="mdPlugins">
-    <div class="component-container">
-      <Typewriter v-bind="$attrs" />
-    </div>
-  </ConfigProvider>
+  <!-- <ConfigProvider :md-plugins="mdPlugins"> -->
+  <div class="component-container">
+    <Typewriter v-bind="$attrs" />
+  </div>
+  <!-- </ConfigProvider> -->
 </template>
 
 <style scoped lang="scss">
