@@ -40,11 +40,10 @@ watch(
 
 // 处理展开/收起
 function changeExpand() {
-  if (props.disabled)
-    return;
+  if (props.disabled) return;
   isExpanded.value = !isExpanded.value;
   emit('change', { value: isExpanded.value, status: props.status });
-  emit('update:modelValue', isExpanded.value);
+  emit('update:expanded', isExpanded.value);
 }
 
 // 显示内容（带错误状态处理）
@@ -58,7 +57,6 @@ watch(
   newVal => {
     if (newVal === 'end' && props.autoCollapse) {
       isExpanded.value = false;
-      emit('update:modelValue', isExpanded.value);
     }
   }
 );
