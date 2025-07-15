@@ -58,6 +58,7 @@ watch(
   newVal => {
     if (newVal === 'end' && props.autoCollapse) {
       isExpanded.value = false;
+      emit('update:modelValue', isExpanded.value);
     }
   }
 );
