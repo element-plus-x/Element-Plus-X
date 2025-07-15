@@ -27,5 +27,5 @@ export interface ThinkingProps {
 
 export interface ThinkingEmits {
   (event: 'change', value: { value: boolean; status: ThinkingStatus }): void;
-  (event: 'update:expanded', value: boolean): void;
+  (event: 'update:modelValue', value: boolean): void;
 }
