@@ -31,14 +31,16 @@
 
 ## 📢 Quick Links
 
-| Resource Type       | <div style="width: 300px;">Link</div>                                                                              |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| **Documentation**   | [📖 Development Documentation](https://element-plus-x.com)                                                         |
-| **Online Demo**     | [👁️ Online Preview](https://v.element-plus-x.com)                                                                  |
-| **Code Repository** | [🐙 GitHub](https://github.com/HeJiaYue520/Element-Plus-X)                                                         |
-| **NPM Package**     | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)                                                         |
-| **Issue Feedback**  | [🐛 Submit a Bug](https://github.com/HeJiaYue520/Element-Plus-X/issues)                                            |
-| **Community**       | [🐒 Discussion Group](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81) |
+| Resource Type                    | <div style="width: 300px;">Link</div>                                                                                      |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Documentation**                | [📖 Development Documentation](https://element-plus-x.com)                                                                 |
+| **Online Demo**                  | [👁️ Online Preview](https://v.element-plus-x.com)                                                                          |
+| **Code Repository**              | [🐙 GitHub](https://github.com/HeJiaYue520/Element-Plus-X) <br> [🚠 Gitee](https://gitee.com/he-jiayue/element-plus-x)     |
+| **NPM Package**                  | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)                                                                 |
+| **Issue Feedback**               | [🐛 Submit a Bug](https://github.com/HeJiaYue520/Element-Plus-X/issues)                                                    |
+| **Community**                    | [🐒 Discussion Group](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)         |
+| **Template Project Preview**     | [👀 Online Preview](https://chat.element-plus-x.com/)                                                                      |
+| **Template Project Source Code** | [🐙 GitHub](https://github.com/HeJiaYue520/ruoyi-element-ai) <br> [🚠 Gitee](https://gitee.com/he-jiayue/ruoyi-element-ai) |
 
 ## 🛠️ Core Features
 
