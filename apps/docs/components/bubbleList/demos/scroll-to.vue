@@ -14,6 +14,7 @@ title: 自动滚动 + 滚动到指定索引
 
 <script setup lang="ts">
 import type {
+  BubbleListInstance,
   BubbleListItemProps,
   BubbleListProps
 } from 'vue-element-plus-x/types/BubbleList';
@@ -66,7 +67,7 @@ function generateFakeItems(count: number): listType[] {
   return messages;
 }
 
-const bubbleListRef = ref();
+const bubbleListRef = ref<BubbleListInstance | null>(null);
 const num = ref(0);
 
 function addMessage() {
@@ -106,15 +107,15 @@ function clearMessage() {
 }
 
 function scrollToTop() {
-  bubbleListRef.value.scrollToTop();
+  bubbleListRef.value?.scrollToTop();
 }
 
 function scrollBottom() {
-  bubbleListRef.value.scrollToBottom();
+  bubbleListRef.value?.scrollToBottom();
 }
 
 function scrollToBubble() {
-  bubbleListRef.value.scrollToBubble(num.value);
+  bubbleListRef.value?.scrollToBubble(num.value);
 }
 
 onMounted(() => {

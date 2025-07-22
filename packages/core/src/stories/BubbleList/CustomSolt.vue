@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { MessageItem } from '@assets/mock';
-import type { BubbleListProps } from '@components/BubbleList/types';
+import type {
+  BubbleListInstance,
+  BubbleListProps
+} from '@components/BubbleList/types';
 import { avatar1, avatar2 } from '@assets/mock';
 import BubbleList from '@components/BubbleList/index.vue';
 import { DocumentCopy, Refresh, Search, Star } from '@element-plus/icons-vue';
@@ -12,7 +15,7 @@ const bubbleItems = ref<BubbleListProps<MessageItem>['list']>(
   props.list as BubbleListProps<MessageItem>['list']
 );
 
-const bubbleListRef = ref();
+const bubbleListRef = ref<BubbleListInstance | null>(null);
 const num = ref(0);
 
 function addMessage() {
@@ -34,7 +37,7 @@ function addMessage() {
     avatarSize: '32px'
   };
   bubbleItems.value.push(obj as MessageItem);
-  bubbleListRef.value.scrollToBottom();
+  bubbleListRef.value?.scrollToBottom();
   ElMessage.success(`条数：${bubbleItems.value.length}`);
 }
 
@@ -43,11 +46,11 @@ function handleOnComplete(_self: unknown) {
 }
 
 function scrollToTop() {
-  bubbleListRef.value.scrollToTop();
+  bubbleListRef.value?.scrollToTop();
 }
 
 function scrollToBubble() {
-  bubbleListRef.value.scrollToBubble(num.value);
+  bubbleListRef.value?.scrollToBubble(num.value);
 }
 
 onMounted(() => {
