@@ -76,5 +76,13 @@ export default defineConfig({
       //   replacement: path.resolve(baseUrl, 'packages/icons/src'),
       // },
     ]
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // 去除控制台 sass 编译警告
+        silenceDeprecations: ['legacy-js-api']
+      }
+    }
   }
 });
