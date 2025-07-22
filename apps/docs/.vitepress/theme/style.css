@@ -133,4 +133,7 @@
   .vp-doc h3 {
     margin: 24px 0 12px;
   }
+  .vp-doc ul {
+    list-style: none;
+  }
 }
