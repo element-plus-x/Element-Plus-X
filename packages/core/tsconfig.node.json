@@ -20,5 +20,5 @@
     "skipLibCheck": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "rspack.config.ts", ".rspack/**/*"]
 }

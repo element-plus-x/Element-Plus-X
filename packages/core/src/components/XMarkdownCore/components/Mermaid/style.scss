@@ -14,20 +14,20 @@
   display: flex;
   flex-direction: column;
 
-  // 工具栏容器样式
+  /* 工具栏容器样式 */
   .toolbar-container {
     position: relative;
     z-index: 10;
     flex-shrink: 0;
     background: white;
 
-    // 确保自定义头部插槽正确显示
+    /* 确保自定义头部插槽正确显示 */
     .custom-mermaid-header {
       position: relative;
       z-index: 11;
     }
 
-    // 默认工具栏的基础样式
+    /* 默认工具栏的基础样式 */
     .mermaid-language-tag {
       display: inline-block;
       padding: 8px 12px;
@@ -39,7 +39,7 @@
       margin-right: 8px;
     }
 
-    // 简单默认工具栏样式
+    /* 简单默认工具栏样式 */
     .mermaid-default-toolbar {
       display: flex;
       align-items: center;
@@ -83,7 +83,7 @@
     z-index: 1;
     flex: 1;
     min-height: 200px;
-    // max-height: 80vh;
+    /* max-height: 80vh; */
     cursor: grab;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -92,20 +92,20 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    overflow: hidden; // 防止未缩放的大图表溢出
+    overflow: hidden; /* 防止未缩放的大图表溢出 */
 
     &:active {
       cursor: grabbing;
     }
 
     svg {
-      transform-origin: center center; // SVG 的变换原点
+      transform-origin: center center; /* SVG 的变换原点 */
       position: relative;
       max-width: 100%;
       max-height: 100%;
     }
 
-    // 渲染状态时的加载效果
+    /* 渲染状态时的加载效果 */
     &.rendering {
       svg {
         opacity: 0.8;
@@ -114,7 +114,7 @@
     }
   }
 
-  // 全屏
+  /* 全屏 */
   &:fullscreen {
     .mermaid-content {
       max-height: 100vh;
@@ -157,7 +157,7 @@
   }
 }
 
-// 内容切换过渡 - 减少闪烁，优化为淡入淡出
+/* 内容切换过渡 - 减少闪烁，优化为淡入淡出 */
 .content-enter-active {
   transition: opacity 0.2s ease-out;
 }
@@ -174,7 +174,7 @@
   opacity: 0;
 }
 
-// 工具栏过渡
+/* 工具栏过渡 */
 .toolbar-enter-active,
 .toolbar-leave-active {
   transition: all 0.3s ease;
