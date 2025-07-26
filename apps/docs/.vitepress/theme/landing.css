@@ -6,17 +6,16 @@ html:has(.landing) {
   --vp-c-bg: #101010;
   --vp-c-bg2:#050a1a; /* 移动模式下背景颜色*/
   --vp-c-border:#4c4c69b3;/*下拉框边框颜色*/
-  background-color: #101010;
+  /* background-color: #101010; */
 
   body {
-    background-color: #101010;
+    /* background-color: #101010; */
   }
 }
 
 .landing {
   overflow-x: hidden;
   /* background-color: #101010; */
-
   * {
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
@@ -33,7 +32,7 @@ html:has(.landing) {
 
     @media (min-width: 768px) {
       backdrop-filter: blur(10px);
-      /* background: rgba(15, 15, 15, 0.35) !important; */
+      -webkit-backdrop-filter: blur(10px); /* Safari */
       border-bottom: none !important;
     }
  
@@ -75,8 +74,12 @@ html:has(.landing) {
     display: none;
   }
   .VPMenu {
-    background: none !important;
+     background: rgba(15, 15, 15, 0.8) !important;
     border-color: var(--vp-c-border) !important;
+    z-index: 999;
+    -webkit-backdrop-filter: blur(1000px) ;
+    backdrop-filter: blur(1000px) ;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3) !important;
   }
   .VPMenu .translations + .group {
     display: none;
