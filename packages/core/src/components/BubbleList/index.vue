@@ -175,6 +175,12 @@ function handleScroll() {
     showBackToBottom.value =
       props.showBackButton && distanceToBottom > props.backButtonThreshold;
 
+    // 处理 lastScrollTop.value 安全距离(scrollHeight 在滚动过程中变小)
+    const maxScrollTop = scrollHeight - clientHeight;
+    if (lastScrollTop.value > maxScrollTop) {
+      lastScrollTop.value = maxScrollTop;
+    }
+
     // 判断是否距离底部小于阈值 (这里吸附值大一些会体验更好)
     const isCloseToBottom = scrollTop + clientHeight >= scrollHeight - 30;
     // 判断用户是否向上滚动
