@@ -77,7 +77,6 @@ function handleDeleteCard(item: SelfFilesCardProps) {
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
     <Attachments
-      :file-list="files"
       :http-request="handleHttpRequest"
       :items="files"
       drag

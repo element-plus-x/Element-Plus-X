@@ -88,6 +88,10 @@ Built-in browser speech recognition API. You can use the [`useRecord`](https://e
 
 <demo src="./demos/focus.vue"></demo>
 
+### Paste Files
+
+<demo src="./demos/pasteFile.vue"></demo>
+
 ## Props
 
 | Name                      | Type                 | Required | Default                    | Description                                                                                                                                                                                                                                            |
@@ -122,6 +126,7 @@ Built-in browser speech recognition API. You can use the [`useRecord`](https://e
 | `cancel`          | Triggered when the built-in loading button is clicked.        | None                                                                            |
 | `recordingChange` | Triggered when the built-in speech recognition state changes. | None                                                                            |
 | `trigger`         | Triggered when the directive popover changes.                 | `interface TriggerEvent{oldValue: string; newValue: string; isOpen: boolean; }` |
+| `pasteFile`       | Triggered when paste files                  | `interface PasteFileEvent{firstFile: File; fileList: FileList}` |
 
 ## Ref Instance Methods
 

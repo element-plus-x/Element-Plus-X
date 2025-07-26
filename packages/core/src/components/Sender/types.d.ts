@@ -61,4 +61,6 @@ export interface SenderEmits {
   (event: 'recordingChange', isRecording: boolean): void;
   // 触发器事件
   (event: 'trigger', value: TriggerEvent): void;
+  // 文件粘贴事件
+  (event: 'pasteFile', firstFile: File, fileList: FileList): void;
 }

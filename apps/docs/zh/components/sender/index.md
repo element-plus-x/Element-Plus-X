@@ -88,6 +88,10 @@
 
 <demo src="./demos/focus.vue"></demo>
 
+### 黏贴文件
+
+<demo src="./demos/pasteFile.vue"></demo>
+
 ## 属性
 
 | 属性名                    | 类型                 | 是否必填 | 默认值                     | 说明                                                                                                                                                                                                                       |
@@ -122,6 +126,7 @@
 | `cancel`          | 内置 `loading按钮` 点击时触发的事件。 | 无                                                                              |
 | `recordingChange` | 内置语音识别状态变化时触发的事件。    | 无                                                                              |
 | `trigger`         | 指令弹框发生变化时触发的事件。        | `interface TriggerEvent{oldValue: string; newValue: string; isOpen: boolean; }` |
+| `pasteFile`       | 黏贴文件时触发的事件                  | `interface PasteFileEvent{firstFile: File; fileList: FileList}`                 |
 
 ## Ref 实例方法
 

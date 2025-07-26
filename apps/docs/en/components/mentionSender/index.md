@@ -46,6 +46,10 @@ The `EditorSender` rich text input component will be inspired by Doubao's input 
 
 <demo src="./demos/submit-type.vue"></demo>
 
+### Paste Files
+
+<demo src="./demos/pasteFile.vue"></demo>
+
 ### Speech Recognition
 
 ::: warning
@@ -171,6 +175,7 @@ This warm tip was last updated: `2025-04-16`
 | `recordingChange` | Triggered when the built-in speech recognition state changes. | None                                  |
 | `select`          | Triggered when the trigger field is pressed.                  | `option: MentionOption`               |
 | `search`          | Triggered when the user selects an option.                    | `searchValue: string, prefix: string` |
+| `pasteFile`       | Triggered when paste files                  | `interface PasteFileEvent{firstFile: File; fileList: FileList}` |
 
 ## Ref Instance Methods
 

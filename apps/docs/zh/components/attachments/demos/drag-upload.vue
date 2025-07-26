@@ -98,7 +98,6 @@ function handleDeleteCard(item: SelfFilesCardProps) {
   <div style="display: flex; flex-direction: column; gap: 12px">
     <p>设置全屏拖拽上传：<el-switch v-model="isFull" /></p>
     <Attachments
-      :file-list="files"
       :http-request="handleHttpRequest"
       :items="files"
       drag
