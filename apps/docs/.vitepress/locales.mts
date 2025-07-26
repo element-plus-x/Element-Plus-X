@@ -7,6 +7,23 @@ const config = {
     lang: 'en',
     link: '/en/', // 重要：设置英文版的链接前缀
     themeConfig: {
+      lastUpdated: {
+        text: 'Last updated',
+        formatOptions: {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        },
+      },
+      editLink: {
+        pattern: 'https://github.com/HeJiaYue520/Element-Plus-X/edit/main/apps/docs/:path',
+        text: 'Edit this page on GitHub'
+      },
+      
       // 英文导航 - 所有链接都加上 /en/ 前缀
       nav: [
         { text: '💌 Invitation', link: '/en/introduce' },
@@ -111,7 +128,7 @@ const config = {
       },
       sidebarMenuLabel: 'Menu',
       returnToTopLabel: 'Back to top',
-      lastUpdatedText: 'Last updated',
+      // lastUpdatedText: 'Last updated',
       darkModeSwitchLabel: 'Dark mode',
       outline: {
         label: '📖 Table of Contents',
@@ -125,6 +142,17 @@ const config = {
     lang: 'zh-CN',
     link: '/zh/',
     themeConfig: {
+      lastUpdated: {
+        text: '最后更新于',
+        formatOptions: {
+          dateStyle: 'medium',
+          timeStyle: 'short',
+        },
+      },
+      editLink: {
+        pattern: 'https://github.com/HeJiaYue520/Element-Plus-X/edit/main/apps/docs/:path',
+        text: '在 GitHub 上编辑此页面'
+      },
       // 中文导航 - 所有链接都加上 /zh/ 前缀
       nav: [
         { text: '💌 交流邀请', link: '/zh/introduce' },
@@ -229,7 +257,7 @@ const config = {
       },
       sidebarMenuLabel: '菜单',
       returnToTopLabel: '返回顶部',
-      lastUpdatedText: '最后更新于',
+      // lastUpdatedText: '最后更新于',
       darkModeSwitchLabel: '深色模式',
       outline: {
         label: '📖 目录',

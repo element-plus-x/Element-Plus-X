@@ -1,5 +1,5 @@
 packages:
-  - apps/*
+  - apps/**
   - packages/*
 onlyBuiltDependencies:
   - '@parcel/watcher'

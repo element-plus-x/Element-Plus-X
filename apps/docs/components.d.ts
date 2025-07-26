@@ -23,6 +23,7 @@ declare module 'vue' {
     ElRadioGroup: typeof import('element-plus')['ElRadioGroup']
     ElSlider: typeof import('element-plus')['ElSlider']
     ElSwitch: typeof import('element-plus')['ElSwitch']
+    ElTooltip: typeof import('element-plus')['ElTooltip']
     FilesCard: typeof import('vue-element-plus-x')['FilesCard']
     MentionSender: typeof import('vue-element-plus-x')['MentionSender']
     Prompts: typeof import('vue-element-plus-x')['Prompts']

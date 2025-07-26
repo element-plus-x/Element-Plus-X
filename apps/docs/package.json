@@ -13,7 +13,8 @@
     "gsap": "^3.13.0",
     "vitepress-plugin-group-icons": "^1.6.1",
     "vue": "^3.5.17",
-    "vue-element-plus-x": "workspace:^"
+    "vue-element-plus-x": "workspace:^",
+    "element-plus-x-metadata": "workspace:^"
   },
   "devDependencies": {
     "@ant-design/colors": "^8.0.0",
