@@ -240,6 +240,7 @@ function submit() {
   ) {
     return;
   }
+  blur();
   emits('submit', internalValue.value);
 }
 // 取消按钮
