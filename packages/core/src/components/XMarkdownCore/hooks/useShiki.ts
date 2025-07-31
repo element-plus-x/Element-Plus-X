@@ -8,12 +8,12 @@ interface UseShikiOptions {
   themes?: InitShikiOptions['themes'];
 }
 
-function loadShiki(): Promise<typeof import('shiki').codeToHtml | null> {
-  if (typeof window === 'undefined') return Promise.resolve(null);
-  return import('shiki').then(mod => mod.codeToHtml).catch(() => null);
-}
+async function loadShiki() {
+  if (typeof window === 'undefined') return null;
 
-const shikiPromise = loadShiki();
+  const shikiModule = await import('shiki');
+  return shikiModule.codeToHtml;
+}
 
 const shikiThemeColor = ref<ThemeRegistrationResolved>();
 const hasCreated = ref(false);
@@ -43,7 +43,7 @@ export function useShiki(options?: UseShikiOptions) {
     if (!code.trim()) return '';
 
     try {
-      const codeToHtml = await shikiPromise;
+      const codeToHtml = await loadShiki();
       if (!codeToHtml) {
         return `<pre><code>${escapeHtml(code)}</code></pre>`;
       }

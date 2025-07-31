@@ -1,6 +1,5 @@
 import type { Ref } from 'vue';
 import { MERMAID_CACHE_KEY_LENGTH } from '@components/XMarkdownCore/shared';
-import mermaid from 'mermaid';
 import useSWRV from 'swrv';
 import { Md5 } from 'ts-md5';
 import { computed } from 'vue';
@@ -9,6 +8,12 @@ interface UseMermaidOptions {
   id?: string;
   theme?: 'default' | 'dark' | 'forest' | 'neutral' | string;
   config?: any;
+}
+
+async function loadMermaid() {
+  if (typeof window === 'undefined') return null;
+  const mermaidModule = await import('mermaid');
+  return mermaidModule.default;
 }
 
 let mermaidContainer: HTMLElement | null = null;
@@ -68,25 +73,21 @@ export function useMermaid(
       if (!contentValue?.trim()) return '';
 
       try {
-        // 验证语法
-        const isValid = await mermaid.parse(contentValue);
+        const mermaidInstance = await loadMermaid();
+        if (!mermaidInstance) return contentValue;
+        const isValid = await mermaidInstance.parse(contentValue);
         if (!isValid) {
           console.log('Mermaid parse error: Invalid syntax');
           return '';
         }
-
-        // 初始化配置
-        mermaid.initialize(mermaidConfig.value);
-
-        // 生成唯一ID
+        mermaidInstance.initialize(mermaidConfig.value);
         const renderId = `${id}-${Math.random().toString(36).substr(2, 9)}`;
-
-        // 获取渲染容器
         const container = getMermaidContainer();
-
-        // 渲染图表
-        const { svg } = await mermaid.render(renderId, contentValue, container);
-
+        const { svg } = await mermaidInstance.render(
+          renderId,
+          contentValue,
+          container
+        );
         return svg;
       } catch (error) {
         console.log('Mermaid render error:', error);
