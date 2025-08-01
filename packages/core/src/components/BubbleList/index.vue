@@ -24,6 +24,9 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
 
 const emits = defineEmits<BubbleListEmits>();
 
+// 包装list (反转一下, 使渲染顺序与真实顺序一致)
+const wrapList = computed(() => Array.from(props.list).reverse());
+
 function initStyle() {
   document.documentElement.style.setProperty(
     '--el-bubble-list-max-height',
@@ -33,6 +36,11 @@ function initStyle() {
     '--el-bubble-list-btn-size',
     `${props.btnIconSize}px`
   );
+}
+
+// 获取真实的索引
+function getTrueIndex(index: number) {
+  return wrapList.value.length - 1 - index;
 }
 
 onMounted(() => {
@@ -51,45 +59,34 @@ const lastScrollTop = ref(0);
 const accumulatedScrollUpDistance = ref(0);
 // 阈值（像素）
 const threshold = 20;
-const resizeObserver = ref<ResizeObserver | null>(null);
-const showBackToBottom = ref(false); // 控制按钮显示
+// 返回顶部显示
+const showBackToBottom = ref(false);
 
-// 监听数组长度变化，如果改变，则判断是否在最底部，如果在，就自动滚动到底部
-watch(
-  () => props.list.length,
-  () => {
-    if (props.list && props.list.length > 0) {
-      nextTick(() => {
-        // 每次添加新的气泡，等页面渲染后，在执行自动滚动
-        autoScroll();
-      });
-    }
-  },
-  { immediate: true }
-);
+// 设置容器滚动距离
+function setContainerScrollTop(num: number) {
+  const container = scrollContainer.value;
+  if (!container) return;
+  container.scrollTop = num;
+}
 
 // 父组件的触发方法，直接让滚动容器滚动到顶部
 function scrollToTop() {
   // 处理在滚动时候，无法回到顶部的问题
   stopAutoScrollToBottom.value = true;
   nextTick(() => {
-    // 自动滚动到最顶部
-    scrollContainer.value!.scrollTop = 0;
+    if (scrollContainer.value && scrollContainer.value.scrollHeight) {
+      // 自动滚动到最顶部
+      setContainerScrollTop(-scrollContainer.value!.scrollHeight);
+    }
   });
 }
-// 父组件的触发方法，不跟随打字器滚动，滚动底部
+
+// 是否是通过方法滚动的
 function scrollToBottom() {
-  try {
-    if (scrollContainer.value && scrollContainer.value.scrollHeight) {
-      nextTick(() => {
-        scrollContainer.value!.scrollTop = scrollContainer.value!.scrollHeight;
-        // 修复清空BubbleList后，再次调用 scrollToBottom()，不触发自动滚动问题
-        stopAutoScrollToBottom.value = false;
-      });
-    }
-  } catch (error) {
-    console.warn('[BubbleList error]: ', error);
-  }
+  const container = scrollContainer.value;
+  if (!container) return;
+  setContainerScrollTop(0);
+  autoScroll();
 }
 // 父组件触发滚动到指定气泡框
 function scrollToBubble(index: number) {
@@ -97,45 +94,45 @@ function scrollToBubble(index: number) {
   if (!container) return;
 
   const bubbles = container.querySelectorAll('.el-bubble');
+
   if (index >= bubbles.length) return;
 
-  stopAutoScrollToBottom.value = true;
-  const targetBubble = bubbles[index] as HTMLElement;
+  const targetBubble = bubbles[getTrueIndex(index)] as HTMLElement;
 
   // 计算相对位置
   const containerRect = container.getBoundingClientRect();
   const bubbleRect = targetBubble.getBoundingClientRect();
 
-  // 计算需要滚动的距离（元素顶部相对于容器顶部的位置 - 容器当前滚动位置）
+  // 计算需要滚动的距离（容器当前滚动位置） - 元素顶部相对于容器顶部的位置）
   const scrollPosition =
-    bubbleRect.top - containerRect.top + container.scrollTop;
+    container.scrollTop - (containerRect.top - bubbleRect.top);
 
-  // 使用容器自己的滚动方法
-  container.scrollTo({
-    top: scrollPosition,
-    behavior: 'smooth'
-  });
+  setContainerScrollTop(scrollPosition);
 }
+
+let mutationObserver: MutationObserver;
+
 // 组件内部触发方法，跟随打字器滚动，滚动底部
 function autoScroll() {
-  if (scrollContainer.value) {
-    const listBubbles = scrollContainer.value!.querySelectorAll(
-      '.el-bubble-content-wrapper'
-    );
-    // 如果页面上有监听节点，先移除
-    if (resizeObserver.value) {
-      resizeObserver.value.disconnect();
+  const container = scrollContainer.value;
+  if (!container) return;
+  if (mutationObserver) mutationObserver.disconnect();
+  mutationObserver = new MutationObserver(() => {
+    if (stopAutoScrollToBottom.value) {
+      mutationObserver.disconnect();
+      return;
     }
-    const lastItem = listBubbles[listBubbles.length - 1];
-    if (lastItem) {
-      resizeObserver.value = new ResizeObserver(() => {
-        if (!stopAutoScrollToBottom.value) {
-          scrollToBottom();
-        }
-      });
-      resizeObserver.value.observe(lastItem);
+    const scrollTop = Math.abs(container.scrollTop);
+    if (scrollTop > 0) {
+      setContainerScrollTop(0);
+    } else {
+      mutationObserver.disconnect();
     }
-  }
+  });
+  mutationObserver.observe(container, {
+    childList: true,
+    subtree: true
+  });
 }
 
 const completeMap = ref<Record<number, TypewriterInstance>>({});
@@ -146,6 +143,7 @@ const typingList = computed(() =>
 );
 // 打字机播放完成回调
 function handleBubbleComplete(index: number, instance: TypewriterInstance) {
+  index = getTrueIndex(index);
   switch (props.triggerIndices) {
     case 'only-last':
       if (index === typingList.value[typingList.value.length - 1]?._index_) {
@@ -167,50 +165,54 @@ function handleBubbleComplete(index: number, instance: TypewriterInstance) {
 
 // 监听用户滚动事件
 function handleScroll() {
-  if (scrollContainer.value) {
-    const { scrollTop, scrollHeight, clientHeight } = scrollContainer.value;
+  const container = scrollContainer.value;
+  if (!container) return;
+  let { scrollTop, clientHeight, scrollHeight } = container;
 
-    // 计算是否超过安全距离
-    const distanceToBottom = scrollHeight - (scrollTop + clientHeight);
-    showBackToBottom.value =
-      props.showBackButton && distanceToBottom > props.backButtonThreshold;
+  // 获取真实的 scrollTop
+  scrollTop = scrollHeight - clientHeight - Math.abs(scrollTop);
 
-    // 判断是否距离底部小于阈值 (这里吸附值大一些会体验更好)
-    const isCloseToBottom = scrollTop + clientHeight >= scrollHeight - 30;
-    // 判断用户是否向上滚动
-    const isScrollingUp = lastScrollTop.value > scrollTop;
-    // 判断用户是否向下滚动
-    const isScrollingDown = lastScrollTop.value < scrollTop;
-    // 计算当前滚动距离的变化
-    const scrollDelta = lastScrollTop.value - scrollTop;
-    // 更新上次滚动位置
-    lastScrollTop.value = scrollTop;
-    // 处理向上滚动逻辑
-    if (isScrollingUp) {
-      // 累积向上滚动距离
-      accumulatedScrollUpDistance.value += scrollDelta;
-      // 如果累积距离超过阈值，触发逻辑并重置累积距离
-      if (accumulatedScrollUpDistance.value >= threshold) {
-        // console.log(`用户向上滚动超过 ${threshold} 像素（累积）${stopAutoScrollToBottom.value}`)
-        // 在这里执行你的操作
-        if (!stopAutoScrollToBottom.value) {
-          stopAutoScrollToBottom.value = true;
-        }
-        // 重置累积距离
-        accumulatedScrollUpDistance.value = 0;
+  // 计算是否超过安全距离
+  const distanceToBottom = scrollHeight - (scrollTop + clientHeight);
+  showBackToBottom.value =
+    props.showBackButton && distanceToBottom > props.backButtonThreshold;
+
+  // 判断是否距离底部小于阈值 (这里吸附值大一些会体验更好)
+  const isCloseToBottom = scrollTop + clientHeight >= scrollHeight - 30;
+  // 判断用户是否向上滚动
+  const isScrollingUp = lastScrollTop.value > scrollTop;
+  // 判断用户是否向下滚动
+  const isScrollingDown = lastScrollTop.value < scrollTop;
+  // 计算当前滚动距离的变化
+  const scrollDelta = lastScrollTop.value - scrollTop;
+  // 更新上次滚动位置
+  lastScrollTop.value = scrollTop;
+  // 处理向上滚动逻辑
+  if (isScrollingUp) {
+    // 累积向上滚动距离
+    accumulatedScrollUpDistance.value += scrollDelta;
+    // 如果累积距离超过阈值，触发逻辑并重置累积距离
+    if (accumulatedScrollUpDistance.value >= threshold) {
+      // console.log(`用户向上滚动超过 ${threshold} 像素（累积）${stopAutoScrollToBottom.value}`)
+      // 在这里执行你的操作
+      if (!stopAutoScrollToBottom.value) {
+        stopAutoScrollToBottom.value = true;
       }
-    } else {
-      // 如果用户停止向上滚动或开始向下滚动，重置累积距离
+      // 重置累积距离
       accumulatedScrollUpDistance.value = 0;
     }
-    // 处理向下滚动且接近底部的逻辑
-    if (isScrollingDown && isCloseToBottom) {
-      // console.log(`用户向下滚动且距离底部小于 ${threshold} 像素`)
-      // 在这里执行你的操作
-      if (stopAutoScrollToBottom.value) {
-        stopAutoScrollToBottom.value = false;
-      }
+  } else {
+    // 如果用户停止向上滚动或开始向下滚动，重置累积距离
+    accumulatedScrollUpDistance.value = 0;
+  }
+  // 处理向下滚动且接近底部的逻辑
+  if (isScrollingDown && isCloseToBottom) {
+    // console.log(`用户向下滚动且距离底部小于 ${threshold} 像素`)
+    // 在这里执行你的操作
+    if (stopAutoScrollToBottom.value) {
+      stopAutoScrollToBottom.value = false;
     }
+    autoScroll();
   }
 }
 /* 在底部时候自动滚动 结束 */
@@ -229,10 +231,37 @@ defineExpose({
     :class="{ 'always-scrollbar': props.alwaysShowScrollbar }"
     @scroll="handleScroll"
   >
+    <!-- 自定义按钮插槽 默认返回按钮 -->
+    <div
+      v-if="showBackToBottom && hasVertical"
+      class="el-bubble-list-default-back-button"
+      :class="{
+        'el-bubble-list-back-to-bottom-solt': $slots.backToBottom
+      }"
+      :style="{
+        bottom: backButtonPosition.bottom,
+        left: backButtonPosition.left
+      }"
+      @click="scrollToBottom"
+    >
+      <!-- 返回到底部 -->
+      <slot name="backToBottom">
+        <el-icon
+          class="el-bubble-list-back-to-bottom-icon"
+          :style="{ color: props.btnColor }"
+        >
+          <ArrowDownBold />
+          <loadingBg
+            v-if="props.btnLoading"
+            class="back-to-bottom-loading-svg-bg"
+          />
+        </el-icon>
+      </slot>
+    </div>
     <!-- 如果给 BubbleList 的 item 传入 md 配置，则按照 item 的 md 配置渲染 -->
     <!-- 否则，则按照 BubbleList 的 md 配置渲染 -->
     <Bubble
-      v-for="(item, index) in list"
+      v-for="(item, index) in wrapList"
       :key="index"
       :content="item.content"
       :placement="item.placement"
@@ -269,33 +298,6 @@ defineExpose({
         <slot name="loading" :item="item" />
       </template>
     </Bubble>
-
-    <!-- 自定义按钮插槽 默认返回按钮 -->
-    <div
-      v-if="showBackToBottom && hasVertical"
-      class="el-bubble-list-default-back-button"
-      :class="{
-        'el-bubble-list-back-to-bottom-solt': $slots.backToBottom
-      }"
-      :style="{
-        bottom: backButtonPosition.bottom,
-        left: backButtonPosition.left
-      }"
-      @click="scrollToBottom"
-    >
-      <slot name="backToBottom">
-        <el-icon
-          class="el-bubble-list-back-to-bottom-icon"
-          :style="{ color: props.btnColor }"
-        >
-          <ArrowDownBold />
-          <loadingBg
-            v-if="props.btnLoading"
-            class="back-to-bottom-loading-svg-bg"
-          />
-        </el-icon>
-      </slot>
-    </div>
   </div>
 </template>
 

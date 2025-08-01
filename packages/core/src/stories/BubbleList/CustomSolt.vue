@@ -38,9 +38,20 @@ console.log('Hello, world!');
     avatar: isUser ? avatar1 : avatar2,
     avatarSize: '32px'
   };
+
   bubbleItems.value.push(obj as MessageItem);
   bubbleListRef.value.scrollToBottom();
   ElMessage.success(`条数：${bubbleItems.value.length}`);
+
+  let num = 50;
+  const T = setInterval(() => {
+    if (num < 1) {
+      clearInterval(T);
+    }
+    bubbleItems.value[bubbleItems.value.length - 1].content +=
+      '欢迎使用 Element Plus X .';
+    num--;
+  }, 100);
 }
 
 function handleOnComplete(_self: unknown) {

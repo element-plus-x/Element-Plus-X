@@ -1,6 +1,6 @@
 .el-bubble-list {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 16px;
   min-height: 0;
   max-height: var(--el-bubble-list-max-height);
