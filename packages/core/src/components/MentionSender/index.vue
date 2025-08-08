@@ -63,6 +63,11 @@ const instance = getCurrentInstance();
 const hasOnRecordingChangeListener = computed(() => {
   return !!instance?.vnode.props?.onRecordingChange;
 });
+// 判断是否存在 pasteFile 监听器
+const hasOnPasteFileListener = computed(() => {
+  return !!instance?.vnode.props?.onPasteFile;
+});
+
 const senderRef = ref();
 const inputRef = ref();
 
@@ -295,6 +300,14 @@ function handleSelect(option: MentionOption, prefix: string) {
 }
 /* 指令相关 开始 */
 
+function handleInternalPaste(e: ClipboardEvent) {
+  const files = e.clipboardData?.files;
+  if (files?.length && hasOnPasteFileListener.value) {
+    emits('pasteFile', files[0], files);
+    e.preventDefault();
+  }
+}
+
 defineExpose({
   openHeader, // 打开头部
   closeHeader, // 关闭头部
@@ -382,6 +395,7 @@ defineExpose({
           @keydown="handleKeyDown"
           @search="handleSearch"
           @select="handleSelect"
+          @paste="handleInternalPaste"
         >
           <!-- 自定义标签内容 -->
           <template v-if="$slots['trigger-label']" #label="{ item, index }">

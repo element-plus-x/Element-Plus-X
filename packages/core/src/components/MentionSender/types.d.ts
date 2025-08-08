@@ -60,4 +60,6 @@ export interface MentionSenderEmits {
   // 触发器事件
   (event: 'search', pattern: string, prefix: string): void;
   (event: 'select', option: MentionOption, prefix: string): void;
+  // 文件粘贴事件
+  (event: 'pasteFile', firstFile: File, fileList: FileList): void;
 }

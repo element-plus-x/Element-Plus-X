@@ -44,6 +44,11 @@ const instance = getCurrentInstance();
 const hasOnRecordingChangeListener = computed(() => {
   return !!instance?.vnode.props?.onRecordingChange;
 });
+// 判断是否存在 pasteFile 监听器
+const hasOnPasteFileListener = computed(() => {
+  return !!instance?.vnode.props?.onPasteFile;
+});
+
 const senderRef = ref();
 const inputRef = ref();
 const internalValue = computed({
@@ -370,6 +375,14 @@ function handleCompositionEnd() {
   isComposing.value = false;
 }
 
+function handleInternalPaste(e: ClipboardEvent) {
+  const files = e.clipboardData?.files;
+  if (files?.length && hasOnPasteFileListener.value) {
+    emits('pasteFile', files[0], files);
+    e.preventDefault();
+  }
+}
+
 defineExpose({
   openHeader, // 打开头部
   closeHeader, // 关闭头部
@@ -452,6 +465,7 @@ defineExpose({
           @keydown="handleKeyDown"
           @compositionstart="handleCompositionStart"
           @compositionend="handleCompositionEnd"
+          @paste="handleInternalPaste"
         />
         <!-- 操作列表 -->
         <div v-if="props.variant === 'default'" class="el-sender-action-list">

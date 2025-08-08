@@ -34,7 +34,7 @@ The `FilesCard` component is a flexible file display component that supports vis
 
 | Property Name    | Type                               | Required | Default           | Description                                                                                       |
 | ---------------- | ---------------------------------- | -------- | ----------------- | ------------------------------------------------------------------------------------------------- |
-| `uid`            | `string \| number`                 | No       | `undefined`       | File unique identifier                                                                            |
+| `uid`            | `string \| number`                 | Yes       |        | File unique identifier                                                                            |
 | `name`           | `string`                           | No       | `undefined`       | File name (supports automatic suffix parsing to match icons)                                      |
 | `fileSize`       | `number`                           | No       | `undefined`       | File size (unit: bytes, automatically converted to readable format)                               |
 | `fileType`       | `string`                           | No       | `undefined`       | File type (priority higher than `name` suffix parsing, e.g. `'image'`, `'document'`)              |

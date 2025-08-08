@@ -130,6 +130,10 @@
 
 <demo src="./demos/select.vue"></demo>
 
+### 黏贴文件
+
+<demo src="./demos/pasteFile.vue"></demo>
+
 ## 属性
 
 | 属性名                    | 类型                 | 是否必填 | 默认值                     | 说明                                                                                                                                                                                                                       |
@@ -158,13 +162,14 @@
 
 ## 事件
 
-| 事件名            | 说明                                  | 回调参数                              |
-| ----------------- | ------------------------------------- | ------------------------------------- |
-| `submit`          | 内置 `提交按钮` 提交时触发的事件。    | 无                                    |
-| `cancel`          | 内置 `loading按钮` 点击时触发的事件。 | 无                                    |
-| `recordingChange` | 内置语音识别状态变化时触发的事件。    | 无                                    |
-| `select`          | 按下触发字段时触发                    | `option: MentionOption`               |
-| `search`          | 当用户选择选项时触发                  | `searchValue: string, prefix: string` |
+| 事件名            | 说明                                  | 回调参数                                                        |
+| ----------------- | ------------------------------------- | --------------------------------------------------------------- |
+| `submit`          | 内置 `提交按钮` 提交时触发的事件。    | 无                                                              |
+| `cancel`          | 内置 `loading按钮` 点击时触发的事件。 | 无                                                              |
+| `recordingChange` | 内置语音识别状态变化时触发的事件。    | 无                                                              |
+| `select`          | 按下触发字段时触发                    | `option: MentionOption`                                         |
+| `search`          | 当用户选择选项时触发                  | `searchValue: string, prefix: string`                           |
+| `pasteFile`       | 黏贴文件时触发的事件                  | `interface PasteFileEvent{firstFile: File; fileList: FileList}` |
 
 ## Ref 实例方法
 
