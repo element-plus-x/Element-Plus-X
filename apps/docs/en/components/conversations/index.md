@@ -50,6 +50,8 @@
 | `itemsHoverStyle`      | `CSSProperties`               | No       | `{}`      | Session item hover style                                                                 |
 | `itemsActiveStyle`     | `CSSProperties`               | No       | `{}`      | Session item active style                                                                |
 | `itemsMenuOpenedStyle` | `CSSProperties`               | No       | `{}`      | Session item style when menu is opened                                                   |
+| `customClass`          | string                        | No       | -         | Customize the style of the conversation item container                                   |
+| `customListClass`      | string                        | No       | -         | Customize the style of the conversation item list                                        |
 
 ## Slots
 

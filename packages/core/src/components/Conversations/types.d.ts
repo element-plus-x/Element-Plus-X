@@ -31,6 +31,8 @@ export interface ConversationMenu {
   command?: ConversationMenuCommand;
   menuItemStyle?: CSSProperties;
   menuItemHoverStyle?: CSSProperties;
+  menuItemClassName?: string;
+  menuItemHoverClassName?: string;
 }
 
 // 分组选项
@@ -46,7 +48,15 @@ export interface Conversation<T extends AnyObject = AnyObject> {
   itemsHoverStyle?: CSSProperties;
   itemsActiveStyle?: CSSProperties;
   itemsMenuOpenedStyle?: CSSProperties;
+  // 新增类名支持
+  itemsClassName?: string;
+  itemsHoverClassName?: string;
+  itemsActiveClassName?: string;
+  itemsMenuOpenedClassName?: string;
+  labelClassName?: string;
   style?: CSSProperties;
+  customClass?: string;
+  customListClass?: string;
   labelMaxWidth?: number;
   labelHeight?: number;
   showTooltip?: boolean;

@@ -50,6 +50,8 @@
 | `itemsHoverStyle`      | `CSSProperties`               | 否       | `{}`      | 会话项悬停样式                                            |
 | `itemsActiveStyle`     | `CSSProperties`               | 否       | `{}`      | 会话项激活样式                                            |
 | `itemsMenuOpenedStyle` | `CSSProperties`               | 否       | `{}`      | 会话项菜单打开时样式                                      |
+| `customClass`          | `string`                      | 否       | -         | 自定义会话项容器样式                                      |
+| `customListClass`      | `string`                      | 否       | -         | 自定义会话项列表样式                                      |
 
 ## 插槽
 
