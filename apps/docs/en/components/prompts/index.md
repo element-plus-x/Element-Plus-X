@@ -2,7 +2,6 @@
 title: Prompts
 ---
 
-# Prompts Component 🎁
 
 ## Introduction
 

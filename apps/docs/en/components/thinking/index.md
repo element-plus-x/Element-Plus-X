@@ -2,7 +2,6 @@
 title: Thinking
 ---
 
-# Thinking Component 🍓
 
 ## Introduction
 

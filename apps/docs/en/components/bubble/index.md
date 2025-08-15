@@ -2,8 +2,6 @@
 title: Bubble
 ---
 
-# Bubble Chat Bubble 🔥
-
 ::: warning
 `Version 1.1.6` inherits the typewriter's fog effect. Please update to try it out.
 

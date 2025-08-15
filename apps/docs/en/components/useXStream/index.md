@@ -2,7 +2,6 @@
 title: useXStream
 ---
 
-# useXStream 🌱
 
 ## Introduction
 

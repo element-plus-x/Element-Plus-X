@@ -2,8 +2,6 @@
 title: XMarkdown
 ---
 
-# XMarkdown Rendering Component 📜
-
 ## Introduction
 
 The `XMarkdown` component has built-in basic styles such as **inline code**, **code blocks**, **mathematical formula functions (inline/block)**, **mermaid charts**, etc.

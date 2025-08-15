@@ -2,8 +2,6 @@
 title: 'Conversations'
 ---
 
-# Conversations 会话管理组件 📱
-
 ## 介绍
 
 `Conversations` 是一个基于 Vue 3 和 Element Plus 开发的会话管理组件，支持分组展示、菜单交互、滚动加载、自定义样式等功能。适用于消息列表、文件管理、任务分组等场景，通过灵活的配置和插槽扩展，满足多样化的业务需求。

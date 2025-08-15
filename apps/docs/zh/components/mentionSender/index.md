@@ -2,8 +2,6 @@
 title: 'MentionSender'
 ---
 
-# MentionSender 提及输入框 🦥
-
 ## 介绍
 
 `MentionSender` 是用于聊天的输入框组件。

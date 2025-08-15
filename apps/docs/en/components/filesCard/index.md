@@ -2,7 +2,6 @@
 title: FilesCard
 ---
 
-# FilesCard 📇
 
 ## Introduction
 

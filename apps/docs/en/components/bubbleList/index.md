@@ -2,7 +2,6 @@
 title: BubbleList
 ---
 
-# BubbleList Bubble List 🍅
 
 ::: warning
 `Added in version 1.1.6` Inherits the **fog effect** from the typewriter. Added **scroll to bottom button, similar to Doubao🔥**. Added **scrollbar on mouse hover** to enhance interaction experience. Please update and try it out.

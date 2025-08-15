@@ -2,8 +2,6 @@
 title: Welcome
 ---
 
-# Welcome Component 🌹
-
 ## Introduction
 
 The `Welcome` component can clearly communicate to users the scope of achievable intentions and expected functionality. Using appropriate welcome recommendation components can effectively reduce user learning costs and help users quickly understand and get started smoothly.

@@ -2,7 +2,6 @@
 title: UseSend
 ---
 
-# useSend & XRequest 🌳
 
 ## XRequest is deprecated, recommend using hook-fetch (https://jsonlee12138.github.io/hook-fetch/)
 

@@ -2,8 +2,6 @@
 title: Attachments
 ---
 
-# Attachments File Upload Component 📪️
-
 ## Introduction
 
 The `Attachments` component is a feature-rich attachment management component that supports file list display, upload, drag-and-drop interaction, scroll browsing, and more. It is suitable for scenarios that require handling multiple file uploads and displays (such as form attachments, file management interfaces). The component has a built-in file upload button, drag-and-drop prompt area, and provides flexible custom slots and style configuration.

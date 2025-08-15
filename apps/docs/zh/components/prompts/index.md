@@ -2,8 +2,6 @@
 title: 'Prompts'
 ---
 
-# Prompts 提示集组件 🎁
-
 ## 介绍
 
 `Prompts` 用于显示一组与当前上下文相关的预定义的问题或建议。

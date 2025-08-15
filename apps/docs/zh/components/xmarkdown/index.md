@@ -2,8 +2,6 @@
 title: 'XMarkdown'
 ---
 
-# XMarkdown 渲染组件 📜
-
 ## 介绍
 
 `XMarkdown` 这个组件内置了**行内代码**、**代码块**、**数学公式函数（行/块）**、**mermaid 图表**等基础样式。

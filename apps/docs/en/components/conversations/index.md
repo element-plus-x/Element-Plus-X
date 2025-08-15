@@ -2,7 +2,6 @@
 title: Conversations
 ---
 
-# Conversations Session Management Component 📱
 
 ## Introduction
 

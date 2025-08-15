@@ -2,7 +2,6 @@
 title: Sender
 ---
 
-# Sender Input Box 💭
 
 ::: warning
 `Added in version 1.1.6`

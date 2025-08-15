@@ -2,7 +2,6 @@
 title: useRecord
 ---
 
-# useRecord 🌴
 
 ## Introduction
 

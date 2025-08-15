@@ -2,8 +2,6 @@
 title: 'Typewriter'
 ---
 
-# Typewriter 打字器 ✍
-
 ::: warning
 **`XMarkdown 组件`** 已经推出，可以和 `Typewriter 组件` 组合使用，请升级到 `beta 1.2.2` 版本。
 :::

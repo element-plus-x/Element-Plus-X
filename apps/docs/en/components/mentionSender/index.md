@@ -2,7 +2,6 @@
 title: MentionSender
 ---
 
-# MentionSender Mention Input Box 🦥
 
 ## Introduction
 
