@@ -74,6 +74,7 @@ export interface EditorSenderEmits {
   (e: 'submit', payload: SubmitResult): void;
   (e: 'change'): void;
   (e: 'cancel'): void;
+  (e: 'clear'): void;
   (e: 'showAtDialog'): void;
   (e: 'showSelectDialog', key: string, elm: HTMLElement): void;
   (e: 'showTagDialog', prefix: string): void;
