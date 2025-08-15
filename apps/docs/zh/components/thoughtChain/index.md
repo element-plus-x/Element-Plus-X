@@ -1,5 +1,5 @@
 ---
-title: 'thoughtChain'
+title: 'ThoughtChain'
 ---
 
 # ThoughtChain 思维链 🔗

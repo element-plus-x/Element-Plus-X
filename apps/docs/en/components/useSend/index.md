@@ -1,5 +1,5 @@
 ---
-title: useSend
+title: UseSend
 ---
 
 # useSend & XRequest 🌳

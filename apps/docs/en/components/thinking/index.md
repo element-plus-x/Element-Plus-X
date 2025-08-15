@@ -1,5 +1,5 @@
 ---
-title: thinking
+title: Thinking
 ---
 
 # Thinking Component 🍓

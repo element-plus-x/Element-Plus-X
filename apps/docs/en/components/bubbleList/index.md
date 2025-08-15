@@ -1,5 +1,5 @@
 ---
-title: bubbleList
+title: BubbleList
 ---
 
 # BubbleList Bubble List 🍅

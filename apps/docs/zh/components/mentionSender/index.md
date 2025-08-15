@@ -1,5 +1,5 @@
 ---
-title: 'mentionSender'
+title: 'MentionSender'
 ---
 
 # MentionSender 提及输入框 🦥

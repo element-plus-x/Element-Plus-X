@@ -1,5 +1,5 @@
 ---
-title: 'attachments'
+title: 'Attachments'
 ---
 
 # Attachments 附件上传组件 📪️

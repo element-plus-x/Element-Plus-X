@@ -1,5 +1,5 @@
 ---
-title: 'welcome'
+title: Welcome
 ---
 
 # Welcome Component 🌹

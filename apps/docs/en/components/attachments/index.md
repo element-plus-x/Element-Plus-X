@@ -1,5 +1,5 @@
 ---
-title: attachments
+title: Attachments
 ---
 
 # Attachments File Upload Component 📪️

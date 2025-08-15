@@ -1,5 +1,5 @@
 ---
-title: filesCard
+title: FilesCard
 ---
 
 # FilesCard 📇

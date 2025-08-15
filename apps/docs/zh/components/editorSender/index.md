@@ -1,5 +1,5 @@
 ---
-title: 'editorSender'
+title: 'EditorSender'
 ---
 
 # EditorSender 编辑输入框 🌺

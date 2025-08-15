@@ -1,5 +1,5 @@
 ---
-title: 'xmarkdown'
+title: 'XMarkdown'
 ---
 
 # XMarkdown 渲染组件 📜

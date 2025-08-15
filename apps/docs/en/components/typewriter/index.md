@@ -1,5 +1,5 @@
 ---
-title: typewriter
+title: Typewriter
 ---
 
 # Typewriter Component ✍

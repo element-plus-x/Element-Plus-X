@@ -1,5 +1,5 @@
 ---
-title: prompts
+title: Prompts
 ---
 
 # Prompts Component 🎁

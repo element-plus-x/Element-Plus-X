@@ -1,5 +1,5 @@
 ---
-title: editorSender
+title: EditorSender
 ---
 
 # EditorSender Input Box 🌺

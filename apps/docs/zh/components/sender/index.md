@@ -1,5 +1,5 @@
 ---
-title: 'sender'
+title: 'Sender'
 ---
 
 # Sender 输入框 💭

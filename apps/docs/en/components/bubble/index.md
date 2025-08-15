@@ -1,5 +1,5 @@
 ---
-title: bubble
+title: Bubble
 ---
 
 # Bubble Chat Bubble 🔥
