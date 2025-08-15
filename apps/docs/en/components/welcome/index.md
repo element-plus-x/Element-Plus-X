@@ -1,3 +1,7 @@
+---
+title: 'welcome'
+---
+
 # Welcome Component 🌹
 
 ## Introduction

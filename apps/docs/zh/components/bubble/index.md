@@ -1,3 +1,7 @@
+---
+title: 'bubble'
+---
+
 # Bubble 对话气泡 🔥
 
 ::: warning

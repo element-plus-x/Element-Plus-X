@@ -1,3 +1,7 @@
+---
+title: 'typewriter'
+---
+
 # Typewriter 打字器 ✍
 
 ::: warning

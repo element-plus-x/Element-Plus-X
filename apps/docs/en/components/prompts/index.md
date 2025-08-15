@@ -1,3 +1,7 @@
+---
+title: prompts
+---
+
 # Prompts Component 🎁
 
 ## Introduction

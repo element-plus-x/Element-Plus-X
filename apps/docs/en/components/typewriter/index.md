@@ -1,3 +1,7 @@
+---
+title: typewriter
+---
+
 # Typewriter Component ✍
 
 ::: warning

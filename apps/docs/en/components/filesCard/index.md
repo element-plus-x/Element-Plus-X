@@ -1,3 +1,7 @@
+---
+title: filesCard
+---
+
 # FilesCard 📇
 
 ## Introduction

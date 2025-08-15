@@ -1,3 +1,7 @@
+---
+title: 'sender'
+---
+
 # Sender 输入框 💭
 
 ::: warning

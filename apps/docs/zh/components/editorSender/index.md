@@ -1,3 +1,7 @@
+---
+title: 'editorSender'
+---
+
 # EditorSender 编辑输入框 🌺
 
 ## 介绍

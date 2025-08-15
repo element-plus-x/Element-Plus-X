@@ -1,3 +1,7 @@
+---
+title: bubbleList
+---
+
 # BubbleList Bubble List 🍅
 
 ::: warning

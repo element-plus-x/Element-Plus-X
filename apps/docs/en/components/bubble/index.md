@@ -1,3 +1,7 @@
+---
+title: bubble
+---
+
 # Bubble Chat Bubble 🔥
 
 ::: warning

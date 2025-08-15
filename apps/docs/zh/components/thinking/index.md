@@ -1,3 +1,7 @@
+---
+title: 'thinking'
+---
+
 # Thinking 思考中 🍓
 
 ## 介绍

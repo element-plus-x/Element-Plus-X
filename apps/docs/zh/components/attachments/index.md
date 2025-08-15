@@ -1,3 +1,7 @@
+---
+title: 'attachments'
+---
+
 # Attachments 附件上传组件 📪️
 
 ## 介绍

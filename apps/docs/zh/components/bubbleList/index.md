@@ -1,3 +1,7 @@
+---
+title: 'bubbleList'
+---
+
 # BubbleList 气泡列表 🍅
 
 ::: warning

@@ -1,3 +1,7 @@
+---
+title: editorSender
+---
+
 # EditorSender Input Box 🌺
 
 ## Introduction

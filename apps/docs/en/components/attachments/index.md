@@ -1,3 +1,7 @@
+---
+title: attachments
+---
+
 # Attachments File Upload Component 📪️
 
 ## Introduction

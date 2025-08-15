@@ -1,3 +1,7 @@
+---
+title: thoughtChain
+---
+
 # ThoughtChain Component 🔗
 
 ## Introduction
