@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Edit, ElementPlus } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 import { useData } from 'vitepress';
 import { computed } from 'vue';
@@ -43,7 +44,7 @@ const enMap = {
   XMarkdown: 'XMarkdown Rendering Component 📜',
 };
 
-const { frontmatter, lang, page } = useData();
+const { frontmatter, lang, page, isDark } = useData();
 const name = computed(() => {
   return frontmatter.value.title;
 });
@@ -131,7 +132,7 @@ async function copyWithFeedback(text: string) {
 </script>
 
 <template>
-  <div v-if="isComponentPage" class="doc-header">
+  <div v-if="isComponentPage" class="doc-header" :style="{ '--text-color': isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(0, 0, 0, 0.45)', '--hover-background-color': isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)' }">
     <h1 class="component-name">
       {{ title }}
     </h1>
@@ -143,12 +144,16 @@ async function copyWithFeedback(text: string) {
       <div class="component-source-site">
         <span class="title">源码</span>
         <a :href="sourceLink" target="_blank" class="source-link common">
+          <el-icon><ElementPlus /></el-icon>
           <span>components/{{ name }}</span>
         </a>
       </div>
       <div class="component-doc-site">
         <span class="title">文档</span>
         <a :href="docEditLink" target="_blank" class="edit-link common">
+          <el-icon>
+            <Edit />
+          </el-icon>
           <span>{{ lang === 'zh-CN' ? '编辑此页' : 'Edit this page' }}</span>
         </a>
       </div>
@@ -157,15 +162,18 @@ async function copyWithFeedback(text: string) {
 </template>
 
 <style lang="less" scoped>
+.title {
+  color: var(--text-color);
+}
 .common {
   cursor: pointer;
-  word-spacing: 2px;
   padding: 0 4px;
   border-radius: 4px;
   transition: all 0.3s ease-in-out;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 }
 .common:hover {
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: var(--hover-background-color);
   border-radius: 4px;
   padding: 0 4px;
 }
@@ -183,16 +191,16 @@ async function copyWithFeedback(text: string) {
   font-size: 14px;
   display: flex;
   gap: 24px;
-  .code {
-    word-break: break-all;
-    overflow-wrap: break-word;
-    word-spacing: 2px;
-  }
 }
 .component-source-site {
   font-size: 14px;
   display: flex;
   gap: 24px;
+  .source-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
   .source-link:hover {
     text-decoration: underline;
   }
@@ -201,12 +209,13 @@ async function copyWithFeedback(text: string) {
   font-size: 14px;
   display: flex;
   gap: 24px;
+  .edit-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
   .edit-link:hover {
     text-decoration: underline;
   }
-}
-
-.title {
-  color: rgba(0, 0, 0, 0.45);
 }
 </style>
