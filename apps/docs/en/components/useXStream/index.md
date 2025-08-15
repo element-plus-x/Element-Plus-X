@@ -1,4 +1,7 @@
-# useXStream 🌱
+---
+title: useXStream
+---
+
 
 ## Introduction
 

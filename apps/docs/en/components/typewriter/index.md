@@ -1,4 +1,7 @@
-# Typewriter Component ✍
+---
+title: Typewriter
+---
+
 
 ::: warning
 **`XMarkdown Component`** has been released and can be used in combination with the `Typewriter Component`. Please upgrade to version `beta 1.2.2`.

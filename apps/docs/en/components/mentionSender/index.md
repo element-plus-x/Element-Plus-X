@@ -1,4 +1,6 @@
-# MentionSender Mention Input Box 🦥
+---
+title: MentionSender
+---
 
 ## Introduction
 
@@ -162,14 +164,14 @@ This warm tip was last updated: `2025-04-16`
 
 ## Events
 
-| Event Name        | Description                                                   | Callback Parameter                    |
-| ----------------- | ------------------------------------------------------------- | ------------------------------------- |
-| `submit`          | Triggered when the built-in submit button is clicked.         | None                                  |
-| `cancel`          | Triggered when the built-in loading button is clicked.        | None                                  |
-| `recordingChange` | Triggered when the built-in speech recognition state changes. | None                                  |
-| `select`          | Triggered when the trigger field is pressed.                  | `option: MentionOption`               |
-| `search`          | Triggered when the user selects an option.                    | `searchValue: string, prefix: string` |
-| `pasteFile`       | Triggered when paste files                  | `interface PasteFileEvent{firstFile: File; fileList: FileList}` |
+| Event Name        | Description                                                   | Callback Parameter                                              |
+| ----------------- | ------------------------------------------------------------- | --------------------------------------------------------------- |
+| `submit`          | Triggered when the built-in submit button is clicked.         | None                                                            |
+| `cancel`          | Triggered when the built-in loading button is clicked.        | None                                                            |
+| `recordingChange` | Triggered when the built-in speech recognition state changes. | None                                                            |
+| `select`          | Triggered when the trigger field is pressed.                  | `option: MentionOption`                                         |
+| `search`          | Triggered when the user selects an option.                    | `searchValue: string, prefix: string`                           |
+| `pasteFile`       | Triggered when paste files                                    | `interface PasteFileEvent{firstFile: File; fileList: FileList}` |
 
 ## Ref Instance Methods
 
