@@ -102,6 +102,11 @@ const meta: Meta<typeof FilesCardSource> = {
       description: '是否显示图片预览遮罩蒙层',
       defaultValue: true
     },
+    previewTeleported: {
+      control: 'boolean',
+      description: '预览是否使用 teleport 插入至 body 元素上',
+      defaultValue: false
+    },
     status: {
       control: { type: 'radio' },
       options: ['uploading', 'done', 'error'],

@@ -24,6 +24,7 @@ const props = withDefaults(defineProps<FilesCardProps>(), {
   imgVariant: 'rectangle',
   imgPreview: true,
   imgPreviewMask: true,
+  previewTeleported: false,
   status: undefined,
   percent: undefined,
   errorTip: undefined
@@ -190,6 +191,7 @@ defineExpose({
             class="elx-files-card-img"
             :src="_previewImgUrl"
             :preview-src-list="props.imgPreview ? [_previewImgUrl] : []"
+            :preview-teleported="props.previewTeleported"
             fit="cover"
             :show-progress="false"
             hide-on-click-modal

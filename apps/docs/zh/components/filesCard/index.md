@@ -32,28 +32,29 @@
 
 ## 属性
 
-| 属性名           | 类型                               | 是否必填 | 默认值        | 描述                                                               |
-| ---------------- | ---------------------------------- | -------- | ------------- | ------------------------------------------------------------------ |
-| `uid`            | `string \| number`                 | 是       |    | 文件唯一标识符                                                     |
-| `name`           | `string`                           | 否       | `undefined`   | 文件名（支持自动解析后缀匹配图标）                                 |
-| `fileSize`       | `number`                           | 否       | `undefined`   | 文件大小（单位：字节，自动转换为易读格式）                         |
-| `fileType`       | `string`                           | 否       | `undefined`   | 文件类型（优先级高于 `name` 后缀解析，如 `'image'`、`'document'`） |
-| `description`    | `string`                           | 否       | `undefined`   | 描述文本（支持动态生成文件类型和大小信息）                         |
-| `url`            | `string`                           | 否       | `undefined`   | 文件访问地址（图片文件可用于预览）                                 |
-| `thumbUrl`       | `string`                           | 否       | `undefined`   | 图片缩略图地址                                                     |
-| `imgFile`        | `File \| Blob`                     | 否       | `undefined`   | 图片文件流（自动解析为预览地址，仅用于上传前临时展示）             |
-| `iconSize`       | `string`                           | 否       | `'42px'`      | 图标/图片尺寸                                                      |
-| `iconColor`      | `string`                           | 否       | `undefined`   | 非图片文件的图标颜色（支持自定义色值）                             |
-| `showDelIcon`    | `boolean`                          | 否       | `false`       | 是否显示悬停删除图标                                               |
-| `maxWidth`       | `string`                           | 否       | `'236px'`     | 卡片最大宽度                                                       |
-| `style`          | `CSSProperties`                    | 否       | `undefined`   | 卡片自定义样式                                                     |
-| `hoverStyle`     | `CSSProperties`                    | 否       | `undefined`   | 卡片悬停时的自定义样式                                             |
-| `imgVariant`     | `'rectangle' \| 'square'`          | 否       | `'rectangle'` | 图片卡片形态（长方形/正方形）                                      |
-| `imgPreview`     | `boolean`                          | 否       | `true`        | 是否开启图片预览功能                                               |
-| `imgPreviewMask` | `boolean`                          | 否       | `true`        | 是否显示图片预览遮罩蒙层                                           |
-| `status`         | `'uploading' \| 'done' \| 'error'` | 否       | `undefined`   | 文件状态（控制进度条、错误提示等视觉反馈）                         |
-| `percent`        | `number`                           | 否       | `0`           | 上传进度百分比（配合 `status="uploading"` 使用）                   |
-| `errorTip`       | `string`                           | 否       | `'上传失败'`  | 错误状态自定义提示文本                                             |
+| 属性名              | 类型                               | 是否必填 | 默认值        | 描述                                                                                      |
+| ------------------- | ---------------------------------- | -------- | ------------- | ----------------------------------------------------------------------------------------- |
+| `uid`               | `string \| number`                 | 是       |               | 文件唯一标识符                                                                            |
+| `name`              | `string`                           | 否       | `undefined`   | 文件名（支持自动解析后缀匹配图标）                                                        |
+| `fileSize`          | `number`                           | 否       | `undefined`   | 文件大小（单位：字节，自动转换为易读格式）                                                |
+| `fileType`          | `string`                           | 否       | `undefined`   | 文件类型（优先级高于 `name` 后缀解析，如 `'image'`、`'document'`）                        |
+| `description`       | `string`                           | 否       | `undefined`   | 描述文本（支持动态生成文件类型和大小信息）                                                |
+| `url`               | `string`                           | 否       | `undefined`   | 文件访问地址（图片文件可用于预览）                                                        |
+| `thumbUrl`          | `string`                           | 否       | `undefined`   | 图片缩略图地址                                                                            |
+| `imgFile`           | `File \| Blob`                     | 否       | `undefined`   | 图片文件流（自动解析为预览地址，仅用于上传前临时展示）                                    |
+| `iconSize`          | `string`                           | 否       | `'42px'`      | 图标/图片尺寸                                                                             |
+| `iconColor`         | `string`                           | 否       | `undefined`   | 非图片文件的图标颜色（支持自定义色值）                                                    |
+| `showDelIcon`       | `boolean`                          | 否       | `false`       | 是否显示悬停删除图标                                                                      |
+| `maxWidth`          | `string`                           | 否       | `'236px'`     | 卡片最大宽度                                                                              |
+| `style`             | `CSSProperties`                    | 否       | `undefined`   | 卡片自定义样式                                                                            |
+| `hoverStyle`        | `CSSProperties`                    | 否       | `undefined`   | 卡片悬停时的自定义样式                                                                    |
+| `imgVariant`        | `'rectangle' \| 'square'`          | 否       | `'rectangle'` | 图片卡片形态（长方形/正方形）                                                             |
+| `imgPreview`        | `boolean`                          | 否       | `true`        | 是否开启图片预览功能                                                                      |
+| `imgPreviewMask`    | `boolean`                          | 否       | `true`        | 是否显示图片预览遮罩蒙层                                                                  |
+| `previewTeleported` | `boolean`                          | 否       | `false`       | image-viewer 是否插入至 body 元素上。 嵌套的父元素属性会发生修改时应该将此属性设置为 true |
+| `status`            | `'uploading' \| 'done' \| 'error'` | 否       | `undefined`   | 文件状态（控制进度条、错误提示等视觉反馈）                                                |
+| `percent`           | `number`                           | 否       | `0`           | 上传进度百分比（配合 `status="uploading"` 使用）                                          |
+| `errorTip`          | `string`                           | 否       | `'上传失败'`  | 错误状态自定义提示文本                                                                    |
 
 ## 插槽
 
