@@ -38,6 +38,8 @@ export interface FilesCardProps {
   imgVariant?: 'rectangle' | 'square';
   // 图片是否开启预览
   imgPreview?: boolean;
+  // image-viewer 是否插入至 body 元素上。 嵌套的父元素属性会发生修改时应该将此属性设置为 true
+  previewTeleported?: boolean;
   // 是否显示预览遮罩
   imgPreviewMask?: boolean;
 
