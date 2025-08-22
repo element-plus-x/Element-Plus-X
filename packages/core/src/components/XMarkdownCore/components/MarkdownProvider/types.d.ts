@@ -11,6 +11,8 @@ export interface MarkdownContext {
   enableCodeLineNumber?: boolean;
   // 是否启用 LaTeX 支持
   enableLatex?: boolean;
+  // 是否开启动画
+  enableAnimate?: boolean;
   // 是否启用换行符转 <br>
   enableBreaks?: boolean;
   // 自定义代码块渲染函数
