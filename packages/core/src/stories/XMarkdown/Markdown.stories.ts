@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import {
+  animateTestMdContent,
   customAttrContent,
   highlightMdContent,
   mathMdContent,
@@ -173,4 +174,12 @@ export const CustomAttrsDemo: Story = {
     },
     template: `<CustomAttrs v-bind="attrs" />`
   })
+};
+
+export const AnimateTestDemo: Story = {
+  args: {
+    markdown: animateTestMdContent,
+    enableAnimate: true,
+    allowHtml: true
+  } as Story['args']
 };

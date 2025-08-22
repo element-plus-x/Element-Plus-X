@@ -15,6 +15,7 @@ export const DEFAULT_PROPS = {
   markdown: '',
   allowHtml: false,
   enableLatex: true,
+  enableAnimate: false,
   enableBreaks: true,
   enableCodeLineNumber: false,
   codeXRender: () => ({}),
@@ -54,6 +55,10 @@ export const MARKDOWN_CORE_PROPS = {
   enableLatex: {
     type: Boolean,
     default: true
+  },
+  enableAnimate: {
+    type: Boolean,
+    default: false
   },
   enableBreaks: {
     type: Boolean,

@@ -22,6 +22,10 @@ const MarkdownProps = {
     type: Boolean,
     default: true
   },
+  enableAnimate: {
+    type: Boolean,
+    default: false
+  },
   enableBreaks: {
     type: Boolean,
     default: true
