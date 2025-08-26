@@ -70,8 +70,8 @@
     "preview": "vite preview",
     "dev": "storybook dev -p 6006",
     "build:storybook": "storybook build",
-    "update:plugin": "npm i --save chatarea@latest",
-    "aeac": "rimraf src/index.ts && rimraf src/install.ts && esno .build/scripts/auto-export-all-components.js"
+    "aeac": "rimraf src/index.ts && rimraf src/install.ts && esno .build/scripts/auto-export-all-components.js",
+    "update:plugin": "npm i --save chatarea@latest"
   },
   "peerDependencies": {
     "vue": "^3.5.17"
