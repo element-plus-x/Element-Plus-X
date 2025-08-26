@@ -32,28 +32,29 @@ The `FilesCard` component is a flexible file display component that supports vis
 
 ## Properties
 
-| Property Name    | Type                               | Required | Default           | Description                                                                                       |
-| ---------------- | ---------------------------------- | -------- | ----------------- | ------------------------------------------------------------------------------------------------- |
-| `uid`            | `string \| number`                 | Yes       |        | File unique identifier                                                                            |
-| `name`           | `string`                           | No       | `undefined`       | File name (supports automatic suffix parsing to match icons)                                      |
-| `fileSize`       | `number`                           | No       | `undefined`       | File size (unit: bytes, automatically converted to readable format)                               |
-| `fileType`       | `string`                           | No       | `undefined`       | File type (priority higher than `name` suffix parsing, e.g. `'image'`, `'document'`)              |
-| `description`    | `string`                           | No       | `undefined`       | Description text (supports dynamic generation of file type and size info)                         |
-| `url`            | `string`                           | No       | `undefined`       | File access URL (image files can be used for preview)                                             |
-| `thumbUrl`       | `string`                           | No       | `undefined`       | Image thumbnail URL                                                                               |
-| `imgFile`        | `File \| Blob`                     | No       | `undefined`       | Image file stream (automatically parsed as preview URL, only for temporary display before upload) |
-| `iconSize`       | `string`                           | No       | `'42px'`          | Icon/image size                                                                                   |
-| `iconColor`      | `string`                           | No       | `undefined`       | Icon color for non-image files (supports custom color values)                                     |
-| `showDelIcon`    | `boolean`                          | No       | `false`           | Whether to show hover delete icon                                                                 |
-| `maxWidth`       | `string`                           | No       | `'236px'`         | Card maximum width                                                                                |
-| `style`          | `CSSProperties`                    | No       | `undefined`       | Card custom styles                                                                                |
-| `hoverStyle`     | `CSSProperties`                    | No       | `undefined`       | Card custom styles when hovering                                                                  |
-| `imgVariant`     | `'rectangle' \| 'square'`          | No       | `'rectangle'`     | Image card form (rectangle/square)                                                                |
-| `imgPreview`     | `boolean`                          | No       | `true`            | Whether to enable image preview functionality                                                     |
-| `imgPreviewMask` | `boolean`                          | No       | `true`            | Whether to show image preview mask overlay                                                        |
-| `status`         | `'uploading' \| 'done' \| 'error'` | No       | `undefined`       | File status (controls progress bar, error prompts and other visual feedback)                      |
-| `percent`        | `number`                           | No       | `0`               | Upload progress percentage (used with `status="uploading"`)                                       |
-| `errorTip`       | `string`                           | No       | `'Upload failed'` | Custom error status prompt text                                                                   |
+| Property Name       | Type                               | Required | Default           | Description                                                                                                                 |
+| ------------------- | ---------------------------------- | -------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `uid`               | `string \| number`                 | Yes      |                   | File unique identifier                                                                                                      |
+| `name`              | `string`                           | No       | `undefined`       | File name (supports automatic suffix parsing to match icons)                                                                |
+| `fileSize`          | `number`                           | No       | `undefined`       | File size (unit: bytes, automatically converted to readable format)                                                         |
+| `fileType`          | `string`                           | No       | `undefined`       | File type (priority higher than `name` suffix parsing, e.g. `'image'`, `'document'`)                                        |
+| `description`       | `string`                           | No       | `undefined`       | Description text (supports dynamic generation of file type and size info)                                                   |
+| `url`               | `string`                           | No       | `undefined`       | File access URL (image files can be used for preview)                                                                       |
+| `thumbUrl`          | `string`                           | No       | `undefined`       | Image thumbnail URL                                                                                                         |
+| `imgFile`           | `File \| Blob`                     | No       | `undefined`       | Image file stream (automatically parsed as preview URL, only for temporary display before upload)                           |
+| `iconSize`          | `string`                           | No       | `'42px'`          | Icon/image size                                                                                                             |
+| `iconColor`         | `string`                           | No       | `undefined`       | Icon color for non-image files (supports custom color values)                                                               |
+| `showDelIcon`       | `boolean`                          | No       | `false`           | Whether to show hover delete icon                                                                                           |
+| `maxWidth`          | `string`                           | No       | `'236px'`         | Card maximum width                                                                                                          |
+| `style`             | `CSSProperties`                    | No       | `undefined`       | Card custom styles                                                                                                          |
+| `hoverStyle`        | `CSSProperties`                    | No       | `undefined`       | Card custom styles when hovering                                                                                            |
+| `imgVariant`        | `'rectangle' \| 'square'`          | No       | `'rectangle'`     | Image card form (rectangle/square)                                                                                          |
+| `imgPreview`        | `boolean`                          | No       | `true`            | Whether to enable image preview functionality                                                                               |
+| `imgPreviewMask`    | `boolean`                          | No       | `true`            | Whether to show image preview mask overlay                                                                                  |
+| `previewTeleported` | `boolean`                          | No       | `false`           | whether to append image-viewer to body. A nested parent element attribute transform should have this attribute set to true. |
+| `status`            | `'uploading' \| 'done' \| 'error'` | No       | `undefined`       | File status (controls progress bar, error prompts and other visual feedback)                                                |
+| `percent`           | `number`                           | No       | `0`               | Upload progress percentage (used with `status="uploading"`)                                                                 |
+| `errorTip`          | `string`                           | No       | `'Upload failed'` | Custom error status prompt text                                                                                             |
 
 ## Slots
 
