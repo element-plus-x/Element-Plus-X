@@ -5,12 +5,6 @@ const config = {
   root: {
     label: '简体中文',
     lang: 'zh-CN',
-    link: '/zh/', // 重要：设置英文版的链接前缀
-  },
-
-  zh: {
-    label: '简体中文',
-    lang: 'zh-CN',
     link: '/zh/',
     themeConfig: {
       lastUpdated: {
@@ -138,7 +132,6 @@ const config = {
       },
     },
   },
-
   en: {
     label: 'English',
     lang: 'en-US',
