@@ -4,7 +4,7 @@ import CustomSolt from './CustomSolt.vue';
 import MentionSender from './index.vue';
 
 const meta: Meta<typeof MentionSenderSource> = {
-  title: 'Example/MentionSender 提及输入框 🦥',
+  title: 'Example/MentionSender 提及输入框',
   component: MentionSender,
   argTypes: {
     modelValue: {

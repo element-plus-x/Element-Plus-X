@@ -6,7 +6,7 @@ import Typewriter from './index.vue';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
-  title: 'Example/Typewriter 打字器组件 ✍',
+  title: 'Example/Typewriter 打字器组件',
   component: Typewriter,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],

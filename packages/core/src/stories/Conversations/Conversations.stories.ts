@@ -5,7 +5,7 @@ import CustomStyleSolt from './CustomStyleSolt.vue';
 import Conversations from './index.vue';
 
 const meta: Meta<typeof ConversationsSource> = {
-  title: 'Example/Conversations 会话管理组件 📱',
+  title: 'Example/Conversations 会话管理组件',
   component: Conversations,
   argTypes: {
     items: {

@@ -6,7 +6,7 @@ import { CustomStyleItems, mockPromptsItems, WithChildrenItems } from './mock';
 import PromptsWithChildren from './WithChildrenDemo.vue';
 
 const meta: Meta<typeof PromptsSource> = {
-  title: 'Example/Prompts 提示集组件 🎁',
+  title: 'Example/Prompts 提示集组件',
   component: Prompts,
   argTypes: {
     title: {

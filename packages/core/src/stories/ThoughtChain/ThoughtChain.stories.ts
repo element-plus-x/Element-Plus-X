@@ -39,7 +39,7 @@ const mockItems: ThoughtChainProps['thinkingItems'] = [
 ];
 
 const meta: Meta<typeof ThoughtChainSource> = {
-  title: 'Example/ThoughtChain 思维链 🔗',
+  title: 'Example/ThoughtChain 思维链',
   component: ThoughtChain,
   argTypes: {
     dotSize: {

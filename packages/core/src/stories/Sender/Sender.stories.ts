@@ -4,7 +4,7 @@ import CustomSolt from './CustomSolt.vue';
 import Sender from './index.vue';
 
 const meta: Meta<typeof SenderSource> = {
-  title: 'Example/Sender 输入框 💭',
+  title: 'Example/Sender 输入框',
   component: Sender,
   argTypes: {
     modelValue: {

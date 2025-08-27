@@ -5,7 +5,7 @@ import CustomSolt from './CustomSolt.vue';
 import Bubble from './index.vue';
 
 const meta = {
-  title: 'Example/Bubble 对话气泡 🔥',
+  title: 'Example/Bubble 对话气泡',
   component: Bubble,
   tags: ['autodocs'],
   argTypes: {

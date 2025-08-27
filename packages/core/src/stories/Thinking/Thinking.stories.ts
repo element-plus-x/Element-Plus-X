@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import Thinking from './index.vue';
 
 const meta = {
-  title: 'Example/Thinking 思考中 🍓',
+  title: 'Example/Thinking 思考中',
   component: Thinking,
   tags: ['autodocs'],
   argTypes: {
