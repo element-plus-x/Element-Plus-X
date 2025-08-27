@@ -1,13 +1,13 @@
-# 🚀 Element-Plus-X Development Roadmap
+# Element-Plus-X Development Roadmap
 
-## 📅 Short-term Plans (2025-Q3)
+## Short-term Plans (2025-Q3)
 
-### 🎯 Goal: v1.3.X Version
+### Goal: v1.3.X Version
 
 - MD component marketplace project, enhancing generative AI rendering development
 - Mini-program + workflow orchestration components. Coming soon, stay tuned...
 
-## 🌱 Long-term Plans
+## Long-term Plans
 
 ### 1. Ecosystem Expansion Matrix
 
