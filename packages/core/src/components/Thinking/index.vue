@@ -5,7 +5,7 @@ import type {
   ThinkingStatus
 } from './types.d.ts';
 import {
-  ArrowUpBold,
+  ArrowDownBold,
   CircleCloseFilled,
   Loading,
   Opportunity,
@@ -40,8 +40,7 @@ watch(
 
 // 处理展开/收起
 function changeExpand() {
-  if (props.disabled)
-    return;
+  if (props.disabled) return;
   isExpanded.value = !isExpanded.value;
   emit('change', { value: isExpanded.value, status: props.status });
   emit('update:modelValue', isExpanded.value);
@@ -127,7 +126,7 @@ watch(
         >
           <slot name="arrow">
             <el-icon class="el-icon-center">
-              <ArrowUpBold />
+              <ArrowDownBold />
             </el-icon>
           </slot>
         </span>
