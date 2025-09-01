@@ -1,17 +1,15 @@
 <docs>
 ---
-title: 黏贴文件
+title: Paste Files
 ---
 
-使用 `pasteFile` 获取黏贴的文件，配合 `Attachments` 进行文件上传展示。
+Use `pasteFile` to get the pasted files, and use `Attachments` to display the uploaded files.
 </docs>
 
 <script setup lang="ts">
 import type { FilesCardProps } from 'vue-element-plus-x/types/FilesCard';
 import { CloseBold, Link } from '@element-plus/icons-vue';
 
-const senderRef = ref();
-const senderValue = ref('');
 const showHeaderFlog = ref(false);
 
 type SelfFilesCardProps = FilesCardProps & {
@@ -21,23 +19,15 @@ type SelfFilesCardProps = FilesCardProps & {
 const files = ref<SelfFilesCardProps[]>([]);
 
 function handleOpenHeader() {
-  if (!showHeaderFlog.value) {
-    senderRef.value.openHeader();
-  }
-  else {
-    senderRef.value.closeHeader();
-  }
   showHeaderFlog.value = !showHeaderFlog.value;
 }
 
 function closeHeader() {
   showHeaderFlog.value = false;
-  senderRef.value.closeHeader();
 }
 
 function handlePasteFile(firstFile: File, fileList: FileList) {
   showHeaderFlog.value = true;
-  senderRef.value.openHeader();
   const fileArray = Array.from(fileList);
 
   fileArray.forEach((file, index) => {
@@ -56,11 +46,11 @@ function handlePasteFile(firstFile: File, fileList: FileList) {
 async function handleHttpRequest(options: any) {
   const formData = new FormData();
   formData.append('file', options.file);
-  ElMessage.info('上传中...');
+  ElMessage.info('Uploading...');
 
   setTimeout(() => {
     const res = {
-      message: '文件上传成功',
+      message: 'File uploaded successfully',
       fileName: options.file.name,
       uid: options.file.uid,
       fileSize: options.file.size,
@@ -76,13 +66,13 @@ async function handleHttpRequest(options: any) {
       imgVariant: 'square'
     });
 
-    ElMessage.success('上传成功');
+    ElMessage.success('Uploaded successfully');
   }, 1000);
 }
 
 function handleDeleteCard(item: SelfFilesCardProps) {
   files.value = files.value.filter((items: any) => items.id !== item.id);
-  ElMessage.success('删除成功');
+  ElMessage.success('Deleted successfully');
 }
 </script>
 
@@ -96,8 +86,8 @@ function handleDeleteCard(item: SelfFilesCardProps) {
       justify-content: flex-end;
     "
   >
-    <Sender ref="senderRef" v-model="senderValue" @paste-file="handlePasteFile">
-      <template #header>
+    <EditorSender placeholder="Paste files here" :header-animation-timer="300" @paste-file="handlePasteFile">
+      <template v-if="showHeaderFlog" #header>
         <div class="header-self-wrap">
           <div class="header-self-title">
             <div class="header-left">
@@ -117,7 +107,6 @@ function handleDeleteCard(item: SelfFilesCardProps) {
         </div>
       </template>
 
-      <!-- 自定义前缀 -->
       <template #prefix>
         <div class="prefix-self-wrap">
           <el-button @click="handleOpenHeader">
@@ -125,7 +114,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
           </el-button>
         </div>
       </template>
-    </Sender>
+    </EditorSender>
   </div>
 </template>
 

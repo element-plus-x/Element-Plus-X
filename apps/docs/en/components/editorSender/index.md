@@ -2,7 +2,6 @@
 title: EditorSender
 ---
 
-
 ## Introduction
 
 **`EditorSender`** is here! 🙊 Designed specifically for **multimodal models** and **custom prompt scenarios**, this input box component solves core development needs such as **tag insertion, content mentions, and custom prompt input**, better showcasing the power of multimodal functionality.
@@ -62,6 +61,10 @@ There are certain development differences between the `EditorSender` component a
 ### Submission Methods
 
 <demo src="./demos/submit-type.vue"></demo>
+
+### Paste Files
+
+<demo src="./demos/pasteFile.vue"></demo>
 
 ## Advanced Usage
 
@@ -140,6 +143,7 @@ There are certain development differences between the `EditorSender` component a
 | `showAtDialog`     | Triggered when showing @user popup      | None                                                               |
 | `showSelectDialog` | Triggered when showing select tag popup | `key: string` - Tag key name, `elm: HTMLElement` - Trigger element |
 | `showTagDialog`    | Triggered when showing custom tag popup | `prefix: string` - Tag prefix                                      |
+| `pasteFile`       | Triggered when paste files                                    | `interface PasteFileEvent{firstFile: File; fileList: FileList}`                 |
 
 ## Ref Instance Methods
 
