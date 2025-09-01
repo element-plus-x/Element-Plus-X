@@ -49,6 +49,13 @@ const props = withDefaults(defineProps<EditorProps>(), {
  */
 const emits = defineEmits<EditorSenderEmits>();
 
+const instance = getCurrentInstance();
+
+// 判断是否存在 pasteFile 监听器
+const hasOnPasteFileListener = computed(() => {
+  return !!instance?.vnode.props?.onPasteFile;
+});
+
 /**
  *  输入框相关
  */
@@ -373,6 +380,14 @@ function updateSelectTag(elm: HTMLElement, tag: TagInfo) {
   opNode.value?.updateNode(chatNode);
 }
 
+function handleInternalPaste(e: ClipboardEvent) {
+  const files = e.clipboardData?.files;
+  if (files?.length && hasOnPasteFileListener.value) {
+    emits('pasteFile', files[0], files);
+    e.preventDefault();
+  }
+}
+
 /**
  *  监听响应props的响应式修改 去更新chat示例对象对应的配置
  */
@@ -516,6 +531,7 @@ defineExpose({
           ref="container"
           :style="{ ...customStyle }"
           class="el-editor-sender-chat"
+          @paste="handleInternalPaste"
         />
       </div>
       <!-- 默认操作列表 -->
