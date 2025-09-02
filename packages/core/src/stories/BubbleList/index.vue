@@ -33,7 +33,7 @@ function addMessage() {
     avatarSize: '32px'
   };
   bubbleItems.value.push(obj as MessageItem);
-  bubbleListRef.value.scrollToBottom();
+  // bubbleListRef.value.scrollToBottom();
   ElMessage.success(`条数：${bubbleItems.value.length}`);
 }
 
