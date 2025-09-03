@@ -5,7 +5,7 @@ import EditorSender from './index.vue';
 import OtherEditorSender from './other.vue';
 
 const meta: Meta<typeof EditorSenderSource> = {
-  title: 'Example/EditorSender 🍑',
+  title: 'Example/EditorSender',
   argTypes: {
     placeholder: { control: 'text' },
     autoFocus: { control: 'boolean' },

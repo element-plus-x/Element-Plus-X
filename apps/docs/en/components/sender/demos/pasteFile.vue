@@ -43,7 +43,7 @@ function handlePasteFile(firstFile: File, fileList: FileList) {
   fileArray.forEach((file, index) => {
     files.value.push({
       id: index,
-      uid: index + '_' + file.name + '_' + file.size,
+      uid: `${index}_${file.name}_${file.size}`,
       name: file.name,
       fileSize: file.size,
       imgFile: file,
@@ -96,7 +96,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
       justify-content: flex-end;
     "
   >
-    <Sender ref="senderRef" v-model="senderValue" @paste-file="handlePasteFile" placeholder="Paste files here">
+    <Sender ref="senderRef" v-model="senderValue" placeholder="Paste files here" @paste-file="handlePasteFile">
       <template #header>
         <div class="header-self-wrap">
           <div class="header-self-title">
@@ -113,7 +113,6 @@ function handleDeleteCard(item: SelfFilesCardProps) {
             :items="files"
             :http-request="handleHttpRequest"
             @delete-card="handleDeleteCard"
-            
           />
         </div>
       </template>

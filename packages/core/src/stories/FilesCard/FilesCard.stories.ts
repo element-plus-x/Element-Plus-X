@@ -4,7 +4,7 @@ import CustomSolt from './CustomSolt.vue';
 import FilesCard from './index.vue';
 
 const meta: Meta<typeof FilesCardSource> = {
-  title: 'Example/FilesCard 文件卡片 📇',
+  title: 'Example/FilesCard 文件卡片',
   component: FilesCard,
   parameters: {
     controls: {

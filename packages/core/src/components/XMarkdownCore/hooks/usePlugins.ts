@@ -5,10 +5,12 @@ import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import { computed, toRefs } from 'vue';
+import { rehypeAnimatedPlugin } from '../plugins/rehypePlugin';
 
 function usePlugins(props: any) {
   const {
     allowHtml,
+    enableAnimate,
     enableLatex,
     enableBreaks,
     rehypePlugins,
@@ -22,6 +24,7 @@ function usePlugins(props: any) {
       ...(rehypePluginsAhead.value as Pluggable[]),
       allowHtml.value && rehypeRaw,
       enableLatex.value && rehypeKatex,
+      enableAnimate.value && rehypeAnimatedPlugin,
       ...(rehypePlugins.value as Pluggable[])
     ].filter(Boolean) as Pluggable[];
   });

@@ -1,4 +1,6 @@
-# EditorSender 编辑输入框 🌺
+---
+title: 'EditorSender'
+---
 
 ## 介绍
 
@@ -59,6 +61,10 @@
 ### 提交方式
 
 <demo src="./demos/submit-type.vue"></demo>
+
+### 黏贴文件
+
+<demo src='./demos/pasteFile.vue'></demo>
 
 ## 高级用法
 
@@ -129,15 +135,16 @@
 
 ## 事件
 
-| 事件名             | 说明                     | 回调参数                                                |
-| ------------------ | ------------------------ | ------------------------------------------------------- |
-| `submit`           | 提交内容时触发           | `payload: SubmitResult` - 包含提交的各类内容            |
+| 事件名             | 说明                     | 回调参数                                                        |
+| ------------------ | ------------------------ | --------------------------------------------------------------- |
+| `submit`           | 提交内容时触发           | `payload: SubmitResult` - 包含提交的各类内容                    |
 | `clear`            | 清空内容时触发      | `txt: string` - 参数txt为清空后插入的文本            |
-| `change`           | 输入内容发生变化时触发   | 无                                                      |
-| `cancel`           | 取消加载状态时触发       | 无                                                      |
-| `showAtDialog`     | 显示@用户弹窗时触发      | 无                                                      |
-| `showSelectDialog` | 显示选择标签弹窗时触发   | `key: string` - 标签键名, `elm: HTMLElement` - 触发元素 |
-| `showTagDialog`    | 显示自定义标签弹窗时触发 | `prefix: string` - 标签前缀                             |
+| `change`           | 输入内容发生变化时触发   | 无                                                              |
+| `cancel`           | 取消加载状态时触发       | 无                                                              |
+| `showAtDialog`     | 显示@用户弹窗时触发      | 无                                                              |
+| `showSelectDialog` | 显示选择标签弹窗时触发   | `key: string` - 标签键名, `elm: HTMLElement` - 触发元素         |
+| `showTagDialog`    | 显示自定义标签弹窗时触发 | `prefix: string` - 标签前缀                                     |
+| `pasteFile`        | 黏贴文件时触发的事件     | `interface PasteFileEvent{firstFile: File; fileList: FileList}` |
 
 ## Ref 实例方法
 

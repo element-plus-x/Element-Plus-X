@@ -5,7 +5,7 @@ import Attachments from './index.vue';
 import { genDefaultFiles } from './useAttachmentStubs.ts';
 
 const meta: Meta = {
-  title: 'Example/Attachments 附件上传组件 📪️',
+  title: 'Example/Attachments 附件上传组件',
   tags: ['autodocs'],
   component: Attachments,
   argTypes: {

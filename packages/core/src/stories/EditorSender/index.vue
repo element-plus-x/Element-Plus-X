@@ -125,6 +125,10 @@ function openSelectDialog() {
   });
 }
 
+function pasteFile(firstFile: File, fileList: FileList) {
+  console.log(firstFile, fileList);
+}
+
 onMounted(() => {
   showHeaderFlog.value = true;
 });
@@ -162,6 +166,7 @@ onMounted(() => {
       @change="change"
       @submit="submit"
       @cancel="cancel"
+      @paste-file="pasteFile"
     >
       <template #prefix>
         <el-button dark>
@@ -177,7 +182,9 @@ onMounted(() => {
       <template v-if="showHeaderFlog" #header>
         <div class="header-self-wrap">
           <div class="header-self-title">
-            <div class="header-left">💯 欢迎使用 Element Plus X</div>
+            <div class="header-left">
+              💯 欢迎使用 Element Plus X
+            </div>
             <div class="header-right">
               <el-button @click.stop="closeHeader">
                 <span>关闭头部</span>

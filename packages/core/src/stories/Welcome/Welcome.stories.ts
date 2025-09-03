@@ -4,7 +4,7 @@ import CustomSolt from './CustomSolt.vue';
 import Welcome from './index.vue';
 
 const meta: Meta<typeof WelcomeSource> = {
-  title: 'Example/Welcome 欢迎 🌹',
+  title: 'Example/Welcome 欢迎',
   component: Welcome,
   argTypes: {
     variant: {

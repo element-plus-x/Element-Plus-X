@@ -78,4 +78,6 @@ export interface EditorSenderEmits {
   (e: 'showAtDialog'): void;
   (e: 'showSelectDialog', key: string, elm: HTMLElement): void;
   (e: 'showTagDialog', prefix: string): void;
+  // 文件粘贴事件
+  (event: 'pasteFile', firstFile: File, fileList: FileList): void;
 }

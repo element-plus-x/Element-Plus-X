@@ -1,4 +1,7 @@
-# Prompts Component 🎁
+---
+title: Prompts
+---
+
 
 ## Introduction
 

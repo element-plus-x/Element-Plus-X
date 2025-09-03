@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import {
+  animateTestMdContent,
   customAttrContent,
   highlightMdContent,
   mathMdContent,
@@ -13,7 +14,7 @@ import XMarkdown from './index.vue';
 import MermaidSlot from './mermaid-slot.vue';
 
 const meta = {
-  title: 'Example/XMarkdown 渲染组件 📜',
+  title: 'Example/XMarkdown 渲染组件',
   component: XMarkdown,
   tags: ['autodocs'],
   argTypes: {
@@ -173,4 +174,12 @@ export const CustomAttrsDemo: Story = {
     },
     template: `<CustomAttrs v-bind="attrs" />`
   })
+};
+
+export const AnimateTestDemo: Story = {
+  args: {
+    markdown: animateTestMdContent,
+    enableAnimate: true,
+    allowHtml: true
+  } as Story['args']
 };

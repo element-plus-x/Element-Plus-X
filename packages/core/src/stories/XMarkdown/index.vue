@@ -47,7 +47,7 @@ onMounted(() => {
   <div class="component-container">
     <!-- <MarkdownRenderer v-bind="$attrs" :markdown="content" /> -->
     <ConfigProvider>
-      <XMarkdown v-bind="$attrs" :markdown="content" />
+      <XMarkdown v-bind="$attrs" :markdown="content" :enable-animate="true" />
     </ConfigProvider>
   </div>
 </template>

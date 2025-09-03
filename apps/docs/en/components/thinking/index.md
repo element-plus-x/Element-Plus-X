@@ -1,4 +1,7 @@
-# Thinking Component 🍓
+---
+title: Thinking
+---
+
 
 ## Introduction
 

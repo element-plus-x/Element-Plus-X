@@ -11,7 +11,6 @@ import type { FilesCardProps } from 'vue-element-plus-x/types/FilesCard';
 import { CloseBold, Link } from '@element-plus/icons-vue';
 
 const senderRef = ref();
-const senderValue = ref('');
 const showHeaderFlog = ref(false);
 
 type SelfFilesCardProps = FilesCardProps & {
@@ -21,23 +20,15 @@ type SelfFilesCardProps = FilesCardProps & {
 const files = ref<SelfFilesCardProps[]>([]);
 
 function handleOpenHeader() {
-  if (!showHeaderFlog.value) {
-    senderRef.value.openHeader();
-  }
-  else {
-    senderRef.value.closeHeader();
-  }
   showHeaderFlog.value = !showHeaderFlog.value;
 }
 
 function closeHeader() {
   showHeaderFlog.value = false;
-  senderRef.value.closeHeader();
 }
 
 function handlePasteFile(firstFile: File, fileList: FileList) {
   showHeaderFlog.value = true;
-  senderRef.value.openHeader();
   const fileArray = Array.from(fileList);
 
   fileArray.forEach((file, index) => {
@@ -96,8 +87,8 @@ function handleDeleteCard(item: SelfFilesCardProps) {
       justify-content: flex-end;
     "
   >
-    <Sender ref="senderRef" v-model="senderValue" @paste-file="handlePasteFile">
-      <template #header>
+    <EditorSender ref="senderRef" :header-animation-timer="300" @paste-file="handlePasteFile">
+      <template v-if="showHeaderFlog" #header>
         <div class="header-self-wrap">
           <div class="header-self-title">
             <div class="header-left">
@@ -125,7 +116,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
           </el-button>
         </div>
       </template>
-    </Sender>
+    </EditorSender>
   </div>
 </template>
 

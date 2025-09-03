@@ -1,4 +1,6 @@
-# ThoughtChain 思维链 🔗
+---
+title: 'ThoughtChain'
+---
 
 ## 介绍
 
