@@ -1,3 +1,6 @@
+.el-bubble-list-wrapper {
+  position: relative;
+}
 .el-bubble-list {
   display: flex;
   flex-direction: column;
@@ -67,7 +70,7 @@
 }
 
 .el-bubble-list-default-back-button {
-  position: sticky;
+  position: absolute;
   user-select: none;
   cursor: pointer;
   width: fit-content;

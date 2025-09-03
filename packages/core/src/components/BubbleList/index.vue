@@ -195,41 +195,54 @@ defineExpose({
 </script>
 
 <template>
-  <div
-    ref="scrollContainer"
-    class="el-bubble-list"
-    :class="{ 'always-scrollbar': props.alwaysShowScrollbar }"
-    @scroll="handleScroll"
-  >
-    <!-- 如果给 BubbleList 的 item 传入 md 配置，则按照 item 的 md 配置渲染 -->
-    <!-- 否则，则按照 BubbleList 的 md 配置渲染 -->
-    <Bubble
-      v-for="(item, index) in list"
-      :key="index"
-      :content="item.content"
-      :placement="item.placement"
-      :loading="item.loading"
-      :shape="item.shape"
-      :variant="item.variant"
-      :is-markdown="item.isMarkdown"
-      :is-fog="item.isFog"
-      :typing="item.typing"
-      :max-width="item.maxWidth"
-      :avatar="item.avatar"
-      :avatar-size="item.avatarSize"
-      :avatar-gap="item.avatarGap"
-      :avatar-shape="item.avatarShape"
-      :avatar-src-set="item.avatarSrcSet"
-      :avatar-alt="item.avatarAlt"
-      :avatar-fit="item.avatarFit"
-      :no-style="item.noStyle"
-      @finish="instance => handleBubbleComplete(index, instance)"
+  <div class="el-bubble-list-wrapper">
+    <div
+      ref="scrollContainer"
+      class="el-bubble-list"
+      :class="{ 'always-scrollbar': props.alwaysShowScrollbar }"
+      @scroll="handleScroll"
     >
-      <template v-for="(_, slotName) in $slots" :key="slotName" #[slotName]>
-        <slot :name="slotName" :item="item" :index="index" />
-      </template>
-    </Bubble>
-
+      <!-- 如果给 BubbleList 的 item 传入 md 配置，则按照 item 的 md 配置渲染 -->
+      <!-- 否则，则按照 BubbleList 的 md 配置渲染 -->
+      <Bubble
+        v-for="(item, index) in list"
+        :key="index"
+        :content="item.content"
+        :placement="item.placement"
+        :loading="item.loading"
+        :shape="item.shape"
+        :variant="item.variant"
+        :is-markdown="item.isMarkdown"
+        :is-fog="item.isFog"
+        :typing="item.typing"
+        :max-width="item.maxWidth"
+        :avatar="item.avatar"
+        :avatar-size="item.avatarSize"
+        :avatar-gap="item.avatarGap"
+        :avatar-shape="item.avatarShape"
+        :avatar-src-set="item.avatarSrcSet"
+        :avatar-alt="item.avatarAlt"
+        :avatar-fit="item.avatarFit"
+        :no-style="item.noStyle"
+        @finish="instance => handleBubbleComplete(index, instance)"
+      >
+        <template v-if="$slots.avatar" #avatar>
+          <slot name="avatar" :item="item" />
+        </template>
+        <template v-if="$slots.header" #header>
+          <slot name="header" :item="item" />
+        </template>
+        <template v-if="$slots.content" #content>
+          <slot name="content" :item="item" />
+        </template>
+        <template v-if="$slots.footer" #footer>
+          <slot name="footer" :item="item" />
+        </template>
+        <template v-if="$slots.loading" #loading>
+          <slot name="loading" :item="item" />
+        </template>
+      </Bubble>
+    </div>
     <!-- 自定义按钮插槽 默认返回按钮 -->
     <div
       v-if="showBackToBottom && hasVertical"
