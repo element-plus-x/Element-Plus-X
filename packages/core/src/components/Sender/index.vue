@@ -367,6 +367,11 @@ function handleInternalPaste(e: ClipboardEvent) {
   }
 }
 
+// 当选择器的输入框获得焦点时触发
+function handleFocus(event: FocusEvent) {
+  emits('focus', event);
+}
+
 defineExpose({
   openHeader, // 打开头部
   closeHeader, // 关闭头部
@@ -449,6 +454,7 @@ defineExpose({
           :read-only="readOnly || disabled"
           :disabled="disabled"
           @keydown="handleKeyDown"
+          @focus="handleFocus"
           @compositionstart="handleCompositionStart"
           @compositionend="handleCompositionEnd"
           @paste="handleInternalPaste"

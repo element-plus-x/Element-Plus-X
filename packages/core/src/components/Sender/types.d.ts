@@ -60,6 +60,8 @@ export interface SenderEmits {
   (event: 'update:triggerPopoverVisible', visible: boolean): void;
   // 操作事件
   (event: 'submit', internalValue: string): void;
+  // 当选择器的输入框获得焦点时触发
+  (event: 'focus', internalValue: FocusEvent): void;
   (event: 'cancel', internalValue: string): void;
   // 录音状态变更事件
   (event: 'recordingChange', isRecording: boolean): void;
