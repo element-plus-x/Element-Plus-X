@@ -16,7 +16,7 @@ const markdown = `
 
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
-    <XMarkdown :markdown="markdown">
+    <XMarkdown :markdown="markdown" allowHtml>
       <template #img="{ ...props }">
         <img :key="props.key" :src="props.src" style="border-radius: 30px">
       </template>

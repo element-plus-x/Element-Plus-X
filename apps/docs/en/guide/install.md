@@ -58,7 +58,7 @@ Built-in **Tree Shaking** optimization, no additional configuration required
 1. **On-demand Import**
 
 ```vue
-<script>
+<script setup>
 import { BubbleList, Sender } from 'vue-element-plus-x';
 
 const list = [
