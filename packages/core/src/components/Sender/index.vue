@@ -162,6 +162,14 @@ function onContentMouseDown(e: MouseEvent) {
   if (e.target !== senderRef.value.querySelector(`.el-textarea__inner`)) {
     e.preventDefault();
   }
+  // 点击右边操作选项时，阻止事件穿透
+  if (
+    senderRef.value.querySelector(`.el-sender-action-list`).contains(e.target)
+  ) {
+    e.stopPropagation();
+    inputRef.value.blur();
+    return false;
+  }
   inputRef.value.focus();
 }
 /* 内容容器聚焦 结束 */

@@ -18,6 +18,11 @@ function handleTrigger(value: TriggerEvent) {
 function handleRecordingChange() {
   ElMessage.success(`RecordingChange`);
 }
+
+function handleFocus(event: FocusEvent) {
+  console.log('聚焦了', event);
+  ElMessage.success(`输入框聚焦了`);
+}
 </script>
 
 <template>
@@ -26,6 +31,7 @@ function handleRecordingChange() {
       v-bind="$attrs"
       @submit="handleSubmit"
       @cancel="handleCancel"
+      @focus="handleFocus"
       @trigger="handleTrigger"
       @recording-change="handleRecordingChange"
     />
