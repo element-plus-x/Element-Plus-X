@@ -14,8 +14,8 @@ const props = withDefaults(defineProps<SenderProps>(), {
     minRows: 1,
     maxRows: 6
   }),
-  minlength: '—',
-  maxlength: '—',
+  minlength: undefined,
+  maxlength: undefined,
   submitType: 'enter',
   headerAnimationTimer: 300,
   inputWidth: '100%',
