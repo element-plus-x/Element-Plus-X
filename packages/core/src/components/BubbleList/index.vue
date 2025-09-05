@@ -231,19 +231,19 @@ defineExpose({
         @finish="instance => handleBubbleComplete(index, instance)"
       >
         <template v-if="$slots.avatar" #avatar>
-          <slot name="avatar" :item="item" />
+          <slot name="avatar" :index="index" :item="item" />
         </template>
         <template v-if="$slots.header" #header>
-          <slot name="header" :item="item" />
+          <slot name="header" :index="index" :item="item" />
         </template>
         <template v-if="$slots.content" #content>
-          <slot name="content" :item="item" />
+          <slot name="content" :index="index" :item="item" />
         </template>
         <template v-if="$slots.footer" #footer>
-          <slot name="footer" :item="item" />
+          <slot name="footer" :index="index" :item="item" />
         </template>
         <template v-if="$slots.loading" #loading>
-          <slot name="loading" :item="item" />
+          <slot name="loading" :index="index" :item="item" />
         </template>
       </Bubble>
     </div>
