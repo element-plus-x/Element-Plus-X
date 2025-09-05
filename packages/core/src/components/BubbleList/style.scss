@@ -6,6 +6,7 @@
   flex-direction: column;
   gap: 16px;
   min-height: 0;
+  max-width: var(--el-bubble-list-max-width);
   max-height: var(--el-bubble-list-max-height);
   overflow: auto;
   scroll-behavior: smooth;
