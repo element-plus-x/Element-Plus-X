@@ -5,7 +5,11 @@ import type { MarkdownContext } from './types';
 import deepmerge from 'deepmerge';
 
 import { computed, defineComponent, h, inject, provide } from 'vue';
-import { useDarkModeWatcher, usePlugins } from '../../hooks';
+import {
+  useDarkModeWatcher,
+  usePlugins,
+  useProcessMarkdown
+} from '../../hooks';
 import { GLOBAL_SHIKI_KEY, MARKDOWN_PROVIDER_KEY } from '../../shared';
 import { MARKDOWN_CORE_PROPS } from '../../shared/constants';
 import { initThemeMode } from '../CodeBlock/shiki-header';
@@ -17,9 +21,20 @@ const MarkdownProvider = defineComponent({
   setup(props, { slots, attrs }) {
     const { rehypePlugins, remarkPlugins } = usePlugins(props);
     const { isDark } = useDarkModeWatcher();
-
     const globalShiki = inject<GlobalShiki>(GLOBAL_SHIKI_KEY);
-
+    const markdown = computed(() => {
+      if (props.enableLatex) {
+        return useProcessMarkdown(props.markdown);
+      } else {
+        return props.markdown;
+      }
+    });
+    const processProps = computed(() => {
+      return {
+        ...props,
+        markdown: markdown.value
+      };
+    });
     watch(
       () => props.defaultThemeMode,
       v => {
@@ -38,7 +53,7 @@ const MarkdownProvider = defineComponent({
           isDark: toValue(isDark),
           globalShiki: toValue(globalShiki)
         },
-        props
+        processProps.value
       );
     });
     provide(MARKDOWN_PROVIDER_KEY, contextProps);

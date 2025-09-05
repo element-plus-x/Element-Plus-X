@@ -18,6 +18,10 @@ export const mdContent = `
 1. 欧拉公式：$e^{i\\pi} + 1 = 0$
 2. 二次方程求根公式：$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$
 3. 向量点积：$\\vec{a} \\cdot \\vec{b} = a_x b_x + a_y b_y + a_z b_z$
+### []包裹公式
+\\[ e^{i\\pi} + 1 = 0 \\]
+
+\\[\\boxed{boxed包裹}\\]
 
 ### 块级公式
 1. 傅里叶变换：
