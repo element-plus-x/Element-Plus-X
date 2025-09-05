@@ -10,6 +10,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     maxHeight: { control: 'text' },
+    maxWidth: { control: 'text' },
     triggerIndices: { control: 'object' },
     alwaysShowScrollbar: { control: 'boolean' },
     showBackButton: { control: 'boolean' },
@@ -22,6 +23,7 @@ const meta = {
   args: {
     list: messageArr,
     maxHeight: '500px',
+    maxWidth: 'none',
     triggerIndices: 'only-last',
     alwaysShowScrollbar: true,
     showBackButton: true,

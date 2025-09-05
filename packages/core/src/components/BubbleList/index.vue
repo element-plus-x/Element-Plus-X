@@ -10,6 +10,7 @@ import loadingBg from './loading.vue';
 const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   list: () => [] as T[],
   maxHeight: '500px',
+  maxWidth: 'none',
   triggerIndices: 'only-last',
   alwaysShowScrollbar: false,
   backButtonThreshold: 80,
@@ -24,6 +25,10 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
 const emits = defineEmits<BubbleListEmits>();
 const TOLERANCE = 30;
 function initStyle() {
+  document.documentElement.style.setProperty(
+    '--el-bubble-list-max-width',
+    props.maxWidth
+  );
   document.documentElement.style.setProperty(
     '--el-bubble-list-max-height',
     props.maxHeight
@@ -80,20 +85,17 @@ function scrollToBottom() {
         // stopAutoScrollToBottom.value = false;
       });
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.warn('[BubbleList error]: ', error);
   }
 }
 // 父组件触发滚动到指定气泡框
 function scrollToBubble(index: number) {
   const container = scrollContainer.value;
-  if (!container)
-    return;
+  if (!container) return;
 
   const bubbles = container.querySelectorAll('.el-bubble');
-  if (index >= bubbles.length)
-    return;
+  if (index >= bubbles.length) return;
 
   stopAutoScrollToBottom.value = true;
   const targetBubble = bubbles[index] as HTMLElement;
@@ -120,7 +122,8 @@ function autoScroll() {
     );
     const secondLastItem = listBubbles[listBubbles.length - 2];
     const { top, bottom } = secondLastItem.getBoundingClientRect();
-    const { top: containerTop, bottom: containerBottom } = scrollContainer.value!.getBoundingClientRect();
+    const { top: containerTop, bottom: containerBottom } =
+      scrollContainer.value!.getBoundingClientRect();
     // 之前的最后一个是现在的第二个，判断是否可见，如果可见则自动滚动
     const isVisible = top < containerBottom && bottom > containerTop;
     if (isVisible) {
@@ -167,7 +170,7 @@ function handleBubbleComplete(index: number, instance: TypewriterInstance) {
       break;
     default:
       props.triggerIndices.includes(index) &&
-      emits('complete', instance, index);
+        emits('complete', instance, index);
       break;
   }
 }
@@ -182,7 +185,8 @@ function handleScroll() {
     showBackToBottom.value =
       props.showBackButton && distanceToBottom > props.backButtonThreshold;
 
-    stopAutoScrollToBottom.value = scrollHeight - scrollTop - clientHeight > TOLERANCE;
+    stopAutoScrollToBottom.value =
+      scrollHeight - scrollTop - clientHeight > TOLERANCE;
   }
 }
 /* 在底部时候自动滚动 结束 */
