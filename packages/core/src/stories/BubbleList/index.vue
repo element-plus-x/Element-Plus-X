@@ -86,7 +86,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="component-1">
+    <div class="component-1" style="height: 500px">
       <BubbleList
         v-bind="{ ...$attrs, ...props }"
         ref="bubbleListRef"
