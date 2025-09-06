@@ -1,17 +1,14 @@
 .el-bubble-list-wrapper {
   position: relative;
+  height: 100%;
 }
 .el-bubble-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  min-height: 0;
-  max-height: var(--el-bubble-list-max-height);
   overflow: auto;
   scroll-behavior: smooth;
-
   position: relative;
-
   /* 默认滚动条样式（透明） */
   &::-webkit-scrollbar {
     width: 6px;
