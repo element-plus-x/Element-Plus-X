@@ -24,18 +24,16 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
 const emits = defineEmits<BubbleListEmits>();
 const TOLERANCE = 30;
 
-const listMaxHeightStyle = computed(() => {
-  return {
-    maxHeight: props.maxHeight || '100%'
-  };
-});
+// const listMaxHeightStyle = computed(() => {
+//   return {
+//     maxHeight: props.maxHeight || '100%'
+//   };
+// });
 function initStyle() {
-  if (props.maxHeight) {
-    document.documentElement.style.setProperty(
-      '--el-bubble-list-max-height',
-      props.maxHeight
-    );
-  }
+  document.documentElement.style.setProperty(
+    '--el-bubble-list-max-height',
+    props.maxHeight || '100%'
+  );
   document.documentElement.style.setProperty(
     '--el-bubble-list-btn-size',
     `${props.btnIconSize}px`
@@ -45,6 +43,13 @@ function initStyle() {
 onMounted(() => {
   initStyle();
 });
+
+watch(
+  () => [props.maxHeight, props.btnIconSize],
+  () => {
+    initStyle();
+  }
+);
 
 /* 在底部时候自动滚动 开始 */
 // 滚动容器的引用
@@ -207,7 +212,6 @@ defineExpose({
       ref="scrollContainer"
       class="el-bubble-list"
       :class="{ 'always-scrollbar': props.alwaysShowScrollbar }"
-      :style="listMaxHeightStyle"
       @scroll="handleScroll"
     >
       <!-- 如果给 BubbleList 的 item 传入 md 配置，则按照 item 的 md 配置渲染 -->

@@ -8,6 +8,7 @@
   gap: 16px;
   overflow: auto;
   scroll-behavior: smooth;
+  max-height: var(--el-bubble-list-max-height);
   position: relative;
   /* 默认滚动条样式（透明） */
   &::-webkit-scrollbar {
