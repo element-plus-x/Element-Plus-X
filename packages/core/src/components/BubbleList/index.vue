@@ -9,6 +9,7 @@ import loadingBg from './loading.vue';
 
 const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   list: () => [] as T[],
+  autoScroll: true,
   maxHeight: '',
   triggerIndices: 'only-last',
   alwaysShowScrollbar: false,
@@ -66,8 +67,10 @@ watch(
   () => {
     if (props.list && props.list.length > 0) {
       nextTick(() => {
+        if (props.autoScroll) {
         // 每次添加新的气泡，等页面渲染后，在执行自动滚动
-        autoScroll();
+          autoScroll();
+        }
       });
     }
   },
@@ -90,7 +93,7 @@ function scrollToBottom() {
       nextTick(() => {
         scrollContainer.value!.scrollTop = scrollContainer.value!.scrollHeight;
         // 修复清空BubbleList后，再次调用 scrollToBottom()，不触发自动滚动问题
-        // stopAutoScrollToBottom.value = false;
+        stopAutoScrollToBottom.value = false;
       });
     }
   } catch (error) {
@@ -100,10 +103,12 @@ function scrollToBottom() {
 // 父组件触发滚动到指定气泡框
 function scrollToBubble(index: number) {
   const container = scrollContainer.value;
-  if (!container) return;
+  if (!container)
+    return;
 
   const bubbles = container.querySelectorAll('.el-bubble');
-  if (index >= bubbles.length) return;
+  if (index >= bubbles.length)
+    return;
 
   stopAutoScrollToBottom.value = true;
   const targetBubble = bubbles[index] as HTMLElement;
@@ -178,7 +183,7 @@ function handleBubbleComplete(index: number, instance: TypewriterInstance) {
       break;
     default:
       props.triggerIndices.includes(index) &&
-        emits('complete', instance, index);
+      emits('complete', instance, index);
       break;
   }
 }

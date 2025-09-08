@@ -14,6 +14,7 @@ export interface BubbleListProps<
   T extends BubbleListItemProps = BubbleListItemProps
 > {
   list: T[];
+  autoScroll?: boolean;
   maxHeight?: string;
   triggerIndices?: 'only-last' | 'all' | number[];
   showBackButton?: boolean; // 是否显示 底部按钮
