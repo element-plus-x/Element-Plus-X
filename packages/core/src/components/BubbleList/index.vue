@@ -24,24 +24,12 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
 });
 const emits = defineEmits<BubbleListEmits>();
 const TOLERANCE = 30;
-function initStyle() {
-  document.documentElement.style.setProperty(
-    '--el-bubble-list-max-width',
-    props.maxWidth
-  );
-  document.documentElement.style.setProperty(
-    '--el-bubble-list-max-height',
-    props.maxHeight
-  );
-  document.documentElement.style.setProperty(
-    '--el-bubble-list-btn-size',
-    `${props.btnIconSize}px`
-  );
-}
 
-onMounted(() => {
-  initStyle();
-});
+const elBubbleListStyleVars = computed(() => ({
+  '--el-bubble-list-max-width': props.maxWidth,
+  '--el-bubble-list-max-height': props.maxHeight,
+  '--el-bubble-list-btn-size': `${props.btnIconSize}px`
+}));
 
 /* 在底部时候自动滚动 开始 */
 // 滚动容器的引用
@@ -203,6 +191,7 @@ defineExpose({
     <div
       ref="scrollContainer"
       class="el-bubble-list"
+      :style="elBubbleListStyleVars"
       :class="{ 'always-scrollbar': props.alwaysShowScrollbar }"
       @scroll="handleScroll"
     >
