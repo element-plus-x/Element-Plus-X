@@ -9,8 +9,9 @@ import loadingBg from './loading.vue';
 
 const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   list: () => [] as T[],
-  maxHeight: '500px',
   maxWidth: 'none',
+  maxHeight: '',
+  autoScroll: true,
   triggerIndices: 'only-last',
   alwaysShowScrollbar: false,
   backButtonThreshold: 80,
@@ -27,7 +28,7 @@ const TOLERANCE = 30;
 
 const elBubbleListStyleVars = computed(() => ({
   '--el-bubble-list-max-width': props.maxWidth,
-  '--el-bubble-list-max-height': props.maxHeight,
+  '--el-bubble-list-max-height': props.maxHeight || '100%',
   '--el-bubble-list-btn-size': `${props.btnIconSize}px`
 }));
 
@@ -46,8 +47,10 @@ watch(
   () => {
     if (props.list && props.list.length > 0) {
       nextTick(() => {
+        if (props.autoScroll) {
         // 每次添加新的气泡，等页面渲染后，在执行自动滚动
-        autoScroll();
+          autoScroll();
+        }
       });
     }
   },
@@ -70,7 +73,7 @@ function scrollToBottom() {
       nextTick(() => {
         scrollContainer.value!.scrollTop = scrollContainer.value!.scrollHeight;
         // 修复清空BubbleList后，再次调用 scrollToBottom()，不触发自动滚动问题
-        // stopAutoScrollToBottom.value = false;
+        stopAutoScrollToBottom.value = false;
       });
     }
   } catch (error) {

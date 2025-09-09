@@ -9,6 +9,7 @@ const meta = {
   component: BubbleList,
   tags: ['autodocs'],
   argTypes: {
+    autoScroll: { control: 'boolean' },
     maxHeight: { control: 'text' },
     maxWidth: { control: 'text' },
     triggerIndices: { control: 'object' },
@@ -22,6 +23,7 @@ const meta = {
   },
   args: {
     list: messageArr,
+    autoScroll: true,
     maxHeight: '500px',
     maxWidth: 'none',
     triggerIndices: 'only-last',

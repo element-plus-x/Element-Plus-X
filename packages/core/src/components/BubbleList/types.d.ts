@@ -13,6 +13,7 @@ export interface BubbleListProps<
   T extends BubbleListItemProps = BubbleListItemProps
 > {
   list: T[];
+  autoScroll?: boolean;
   maxHeight?: string;
   maxWidth?: string;
   triggerIndices?: 'only-last' | 'all' | number[];
