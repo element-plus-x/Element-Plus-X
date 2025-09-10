@@ -5,39 +5,36 @@ title: Header Slot
 
 Use the `#header` slot to customize the input header content.
 
-::: info
-Control header container expand/collapse through component instance
+::: warning Deprecation Warning
+The following methods will be removed in the next major version. It is recommended to use `v-model:openHeader` for two-way binding control:
 
-- `senderRef.value.openHeader()` Open header container
-- `senderRef.value.closeHeader()` Close header container
+- `senderRef.value.openHeader()` Open header container (deprecated)
+- `senderRef.value.closeHeader()` Close header container (deprecated)
+:::
+
+::: tip Recommended Usage
+Use `v-model:openHeader` for two-way binding to control header display state:
+
+```vue
+<MentionSender v-model:openHeader="openHeader">
+  <template #header>Header content</template>
+</MentionSender>
+```
 :::
 </docs>
 
 <script setup lang="ts">
 import { CircleClose } from '@element-plus/icons-vue';
 
-const senderRef = ref();
 const senderValue = ref('');
-const showHeaderFlog = ref(false);
+const openHeader = ref(true); // Use v-model:openHeader to control header display state
 
-onMounted(() => {
-  showHeaderFlog.value = true;
-  senderRef.value.openHeader();
-});
-
-function openCloseHeader() {
-  if (!showHeaderFlog.value) {
-    senderRef.value.openHeader();
-  }
-  else {
-    senderRef.value.closeHeader();
-  }
-  showHeaderFlog.value = !showHeaderFlog.value;
+function toggleHeader() {
+  openHeader.value = !openHeader.value;
 }
 
 function closeHeader() {
-  showHeaderFlog.value = false;
-  senderRef.value.closeHeader();
+  openHeader.value = false;
 }
 </script>
 
@@ -51,16 +48,14 @@ function closeHeader() {
       justify-content: space-between;
     "
   >
-    <el-button style="width: fit-content" @click="openCloseHeader">
-      {{ showHeaderFlog ? 'Close Header' : 'Open Header' }}
+    <el-button style="width: fit-content" @click="toggleHeader">
+      {{ openHeader ? 'Close Header' : 'Open Header' }}
     </el-button>
-    <MentionSender ref="senderRef" v-model="senderValue">
+    <MentionSender v-model="senderValue" v-model:open-header="openHeader">
       <template #header>
         <div class="header-self-wrap">
           <div class="header-self-title">
-            <div class="header-left">
-              💯 Welcome to Element Plus X
-            </div>
+            <div class="header-left">💯 Welcome to Element Plus X</div>
             <div class="header-right">
               <el-button @click.stop="closeHeader">
                 <el-icon><CircleClose /></el-icon>
@@ -68,9 +63,7 @@ function closeHeader() {
               </el-button>
             </div>
           </div>
-          <div class="header-self-content">
-            🦜 Custom Header Content
-          </div>
+          <div class="header-self-content">🦜 Custom Header Content</div>
         </div>
       </template>
     </MentionSender>

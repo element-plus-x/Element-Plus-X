@@ -22,6 +22,9 @@ export interface SenderProps {
   // 新增 el-input 样式透传
   inputStyle?: string | CSSProperties | CSSProperties[] | string[];
 
+  // 头部显示控制
+  openHeader?: boolean; // 头部是否打开
+
   // 新增 el-popover 样式透传
   triggerStrings?: string[];
   triggerPopoverVisible?: boolean; // 指令提示框是否可见
@@ -54,6 +57,7 @@ export interface SenderEmits {
   // 双向绑定相关事件
   (event: 'update:modelValue', value: string): void;
   (event: 'update:triggerPopoverVisible', visible: boolean): void;
+  (event: 'update:openHeader', open: boolean): void;
   // 操作事件
   (event: 'submit', internalValue: string): void;
   (event: 'cancel', internalValue: string): void;
