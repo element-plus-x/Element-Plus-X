@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { Eleme } from '@element-plus/icons-vue';
+import { action } from '@storybook/addon-actions';
 import { ELXButton } from '../../components';
 
-function logClick(...ags: any[]) {
-  console.log(...ags);
-}
-
 function handleClickEvent(evt: MouseEvent) {
-  logClick('点击事件：', evt);
+  action('@click 事件')(evt);
 }
 </script>
 
