@@ -45,11 +45,14 @@ const handleDefaultSlot = computed(() => {
 });
 
 const coverProps = computed(() => {
+  let circle = props.circle;
   let loading = props.loading;
   if (elxButtonTypeEmpty.value) {
+    circle = true;
     loading = false;
   }
   return {
+    circle,
     loading
   };
 });
