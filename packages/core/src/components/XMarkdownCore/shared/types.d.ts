@@ -9,6 +9,9 @@ export type MarkdownProps = {
   enableLatex?: boolean;
   enableAnimate?: boolean;
   enableBreaks?: boolean;
+  enableCodePreview?: boolean; // 启动代码预览功能
+  enableCodeCopy?: boolean; // 启动代码复制功能
+  enableThemeToggle?: boolean; // 启动主题切换
   codeXRender?: Record<string, any>;
   codeXSlot?: CodeBlockHeaderExpose & Record<string, any>;
   codeHighlightTheme?: BuiltinTheme | null;

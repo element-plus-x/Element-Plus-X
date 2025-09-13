@@ -359,6 +359,15 @@ function bindGroupRef(
   }
 }
 
+// 会话容易的 style 属性
+const conversationsContainerStyle = computed(() => {
+  return {
+    '--conversation-container-width': mergedStyle.value.width,
+    '--conversation-label-height': `${props.labelHeight}px`,
+    '--conversation-list-auto-bg-color': mergedStyle.value.backgroundColor
+  };
+});
+
 // 组件挂载后初始化第一个标题为吸顶状态
 onMounted(() => {
   // 如果有分组，默认将第一个分组设置为吸顶状态
@@ -370,13 +379,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    class="conversations-container"
-    :style="{
-      '--conversation-label-height': `${props.labelHeight}px`,
-      '--conversation-list-auto-bg-color': mergedStyle.backgroundColor
-    }"
-  >
+  <div class="conversations-container" :style="conversationsContainerStyle">
     <slot name="header" />
     <ul class="conversations-list" :style="mergedStyle">
       <!-- 滚动区域容器 -->

@@ -15,6 +15,7 @@ export interface BubbleListProps<
   list: T[];
   autoScroll?: boolean;
   maxHeight?: string;
+  maxWidth?: string;
   triggerIndices?: 'only-last' | 'all' | number[];
   showBackButton?: boolean; // 是否显示 底部按钮
   backButtonThreshold?: number; // 底部按钮出现的 滚动阈值

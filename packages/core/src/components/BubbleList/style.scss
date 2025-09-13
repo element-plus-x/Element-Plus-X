@@ -6,9 +6,11 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-height: 0;
+  max-width: var(--el-bubble-list-max-width);
+  max-height: var(--el-bubble-list-max-height);
   overflow: auto;
   scroll-behavior: smooth;
-  max-height: var(--el-bubble-list-max-height);
   position: relative;
   /* 默认滚动条样式（透明） */
   &::-webkit-scrollbar {
