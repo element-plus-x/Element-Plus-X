@@ -17,6 +17,9 @@ export const DEFAULT_PROPS = {
   enableLatex: true,
   enableAnimate: false,
   enableBreaks: true,
+  enableCodePreview: false, // 启动代码预览功能
+  enableCodeCopy: true, // 启动代码复制功能
+  enableThemeToggle: false, // 启动主题切换
   enableCodeLineNumber: false,
   codeXRender: () => ({}),
   codeXSlot: () => ({}),
@@ -47,6 +50,18 @@ export const MARKDOWN_CORE_PROPS = {
   allowHtml: {
     type: Boolean,
     default: false
+  },
+  enableCodePreview: {
+    type: Boolean,
+    default: true
+  },
+  enableCodeCopy: {
+    type: Boolean,
+    default: true
+  },
+  enableThemeToggle: {
+    type: Boolean,
+    default: true
   },
   enableCodeLineNumber: {
     type: Boolean,
