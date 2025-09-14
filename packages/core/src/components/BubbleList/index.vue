@@ -1,7 +1,7 @@
 <script setup lang="ts" generic="T extends BubbleProps">
 import type { BubbleProps } from '../Bubble/types';
 import type { TypewriterInstance } from '../Typewriter/types.d.ts';
-import type { BubbleListEmits, BubbleListProps } from './types.d.ts';
+import type { BubbleListEmits, BubbleListProps, BubbleListSlots } from './types.d.ts';
 import { ArrowDownBold } from '@element-plus/icons-vue';
 import useScrollDetector from '../../utils/useScrollDetector.ts';
 import Bubble from '../Bubble/index.vue';
@@ -24,7 +24,7 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
 
 const emits = defineEmits<BubbleListEmits>();
 
-defineSlots<InstanceType<typeof Bubble>['$slots']>();
+defineSlots<BubbleListSlots<T>>();
 
 function initStyle() {
   document.documentElement.style.setProperty(

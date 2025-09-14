@@ -1,3 +1,4 @@
+import type { Bubble } from '../Bubble/index.vue';
 import type { BubbleProps } from '../Bubble/types';
 import type { TypewriterInstance } from '../Typewriter/types.d.ts';
 
@@ -27,6 +28,13 @@ export interface BubbleListProps<
 export interface BubbleListEmits {
   (event: 'complete', instance: TypewriterInstance, index: number): void;
 }
+
+type BubbleSlots = InstanceType<typeof Bubble>['$slots'];
+export type BubbleListSlots<T> = {
+  [K in keyof BubbleSlots]: (props: { item: T; index: number }) => void
+} & {
+  backToBottom: () => void;
+};
 
 export interface BubbleListInstance {
   scrollToTop: () => void;
