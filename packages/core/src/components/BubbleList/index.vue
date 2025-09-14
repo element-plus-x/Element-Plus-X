@@ -24,20 +24,23 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
 
 const emits = defineEmits<BubbleListEmits>();
 
-function initStyle() {
+// 监听 maxHeight 变化
+function maxHeightEffect() {
   document.documentElement.style.setProperty(
     '--el-bubble-list-max-height',
     props.maxHeight
   );
+}
+watch(() => props.maxHeight, maxHeightEffect, { immediate: true });
+
+// 监听 btnIconSize 变化
+function btnSizeEffect() {
   document.documentElement.style.setProperty(
     '--el-bubble-list-btn-size',
     `${props.btnIconSize}px`
   );
 }
-
-onMounted(() => {
-  initStyle();
-});
+watch(() => props.btnIconSize, btnSizeEffect, { immediate: true });
 
 /* 在底部时候自动滚动 开始 */
 // 滚动容器的引用
@@ -87,20 +90,17 @@ function scrollToBottom() {
         stopAutoScrollToBottom.value = false;
       });
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.warn('[BubbleList error]: ', error);
   }
 }
 // 父组件触发滚动到指定气泡框
 function scrollToBubble(index: number) {
   const container = scrollContainer.value;
-  if (!container)
-    return;
+  if (!container) return;
 
   const bubbles = container.querySelectorAll('.el-bubble');
-  if (index >= bubbles.length)
-    return;
+  if (index >= bubbles.length) return;
 
   stopAutoScrollToBottom.value = true;
   const targetBubble = bubbles[index] as HTMLElement;
@@ -163,7 +163,7 @@ function handleBubbleComplete(index: number, instance: TypewriterInstance) {
       break;
     default:
       props.triggerIndices.includes(index) &&
-      emits('complete', instance, index);
+        emits('complete', instance, index);
       break;
   }
 }
@@ -202,8 +202,7 @@ function handleScroll() {
         // 重置累积距离
         accumulatedScrollUpDistance.value = 0;
       }
-    }
-    else {
+    } else {
       // 如果用户停止向上滚动或开始向下滚动，重置累积距离
       accumulatedScrollUpDistance.value = 0;
     }
