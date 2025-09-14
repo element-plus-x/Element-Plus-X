@@ -97,10 +97,14 @@ function scrollToBottom() {
 // 父组件触发滚动到指定气泡框
 function scrollToBubble(index: number) {
   const container = scrollContainer.value;
-  if (!container) return;
+  if (!container) {
+    return;
+  }
 
   const bubbles = container.querySelectorAll('.el-bubble');
-  if (index >= bubbles.length) return;
+  if (index >= bubbles.length) {
+    return;
+  }
 
   stopAutoScrollToBottom.value = true;
   const targetBubble = bubbles[index] as HTMLElement;
