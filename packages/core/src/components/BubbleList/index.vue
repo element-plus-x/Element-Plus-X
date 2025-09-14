@@ -23,13 +23,16 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   btnIconSize: 24
 });
 const emits = defineEmits<BubbleListEmits>();
-const TOLERANCE = 30;
+defineSlots<InstanceType<typeof Bubble>['$slots']>();
 
 // const listMaxHeightStyle = computed(() => {
 //   return {
 //     maxHeight: props.maxHeight || '100%'
 //   };
 // });
+
+const TOLERANCE = 30;
+
 function initStyle() {
   document.documentElement.style.setProperty(
     '--el-bubble-list-max-height',
@@ -243,20 +246,8 @@ defineExpose({
         :no-style="item.noStyle"
         @finish="instance => handleBubbleComplete(index, instance)"
       >
-        <template v-if="$slots.avatar" #avatar>
-          <slot name="avatar" :item="item" />
-        </template>
-        <template v-if="$slots.header" #header>
-          <slot name="header" :item="item" />
-        </template>
-        <template v-if="$slots.content" #content>
-          <slot name="content" :item="item" />
-        </template>
-        <template v-if="$slots.footer" #footer>
-          <slot name="footer" :item="item" />
-        </template>
-        <template v-if="$slots.loading" #loading>
-          <slot name="loading" :item="item" />
+        <template v-for="(_, slotName) in $slots" :key="slotName" #[slotName]>
+          <slot :name="slotName" :item="item" :index="index" />
         </template>
       </Bubble>
     </div>
