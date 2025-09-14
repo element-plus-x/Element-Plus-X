@@ -23,7 +23,8 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   btnIconSize: 24
 });
 const emits = defineEmits<BubbleListEmits>();
-defineSlots<InstanceType<typeof Bubble>['$slots']>();
+
+defineSlots<BubbleListSlots<T>>();
 
 // const listMaxHeightStyle = computed(() => {
 //   return {
