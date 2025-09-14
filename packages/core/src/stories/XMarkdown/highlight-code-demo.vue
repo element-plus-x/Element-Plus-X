@@ -11,6 +11,9 @@ import CodeHeader from './CodeHeader.vue';
 
 const props = defineProps<{
   markdown: string;
+  enableCodePreview?: boolean;
+  enableThemeToggle?: boolean;
+  enableCodeCopy?: boolean;
 }>();
 const timer = ref();
 const index = ref(0);

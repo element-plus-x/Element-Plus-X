@@ -1,0 +1,73 @@
+<script setup lang="ts">
+import { Eleme } from '@element-plus/icons-vue';
+import { action } from '@storybook/addon-actions';
+import { ELXButton } from '../../components';
+
+function handleClickEvent(evt: MouseEvent) {
+  action('@click 事件')(evt);
+}
+</script>
+
+<template>
+  <div class="elxButton-wrapper">
+    <ELXButton v-bind="$attrs" @click="handleClickEvent">
+      <span>自定义按钮</span>
+    </ELXButton>
+
+    <ELXButton v-bind="$attrs" loading> Loading </ELXButton>
+
+    <ELXButton v-bind="$attrs" :loading-icon="Eleme" loading>
+      Loading
+    </ELXButton>
+
+    <ELXButton v-bind="$attrs" loading>
+      <template #loading>
+        <div class="custom-loading">
+          <svg class="circular" viewBox="-10, -10, 50, 50">
+            <path
+              class="path"
+              d="
+            M 30 15
+            L 28 17
+            M 25.61 25.61
+            A 15 15, 0, 0, 1, 15 30
+            A 15 15, 0, 1, 1, 27.99 7.5
+            L 15 15
+          "
+              style="stroke-width: 4px; fill: rgba(0, 0, 0, 0)"
+            />
+          </svg>
+        </div>
+      </template>
+      Loading
+    </ELXButton>
+  </div>
+</template>
+
+<style scoped lang="less">
+.elxButton-wrapper {
+  width: 100%;
+  height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .custom-loading {
+    .circular {
+      margin-right: 6px;
+      width: 18px;
+      height: 18px;
+      animation: loading-rotate 2s linear infinite;
+
+      .path {
+        animation: loading-dash 1.5s ease-in-out infinite;
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: 0;
+        stroke-width: 2;
+        stroke: var(--el-button-text-color);
+        stroke-linecap: round;
+      }
+    }
+  }
+}
+</style>

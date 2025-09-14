@@ -5,6 +5,10 @@ export interface SenderProps {
     minRows: number;
     maxRows: number;
   };
+  // 原生属性，最小输入长度
+  minlength?: string | number;
+  // 同原生 maxlength 属性
+  maxlength?: string | number;
   readOnly?: boolean;
   disabled?: boolean;
   loading?: boolean;
@@ -56,6 +60,8 @@ export interface SenderEmits {
   (event: 'update:triggerPopoverVisible', visible: boolean): void;
   // 操作事件
   (event: 'submit', internalValue: string): void;
+  // 当选择器的输入框获得焦点时触发
+  (event: 'focus', internalValue: FocusEvent): void;
   (event: 'cancel', internalValue: string): void;
   // 录音状态变更事件
   (event: 'recordingChange', isRecording: boolean): void;

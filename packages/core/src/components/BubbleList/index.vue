@@ -9,8 +9,9 @@ import loadingBg from './loading.vue';
 
 const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   list: () => [] as T[],
-  autoScroll: true,
+  maxWidth: 'none',
   maxHeight: '',
+  autoScroll: true,
   triggerIndices: 'only-last',
   alwaysShowScrollbar: false,
   backButtonThreshold: 80,
@@ -25,32 +26,11 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
 const emits = defineEmits<BubbleListEmits>();
 const TOLERANCE = 30;
 
-// const listMaxHeightStyle = computed(() => {
-//   return {
-//     maxHeight: props.maxHeight || '100%'
-//   };
-// });
-function initStyle() {
-  document.documentElement.style.setProperty(
-    '--el-bubble-list-max-height',
-    props.maxHeight || '100%'
-  );
-  document.documentElement.style.setProperty(
-    '--el-bubble-list-btn-size',
-    `${props.btnIconSize}px`
-  );
-}
-
-onMounted(() => {
-  initStyle();
-});
-
-watch(
-  () => [props.maxHeight, props.btnIconSize],
-  () => {
-    initStyle();
-  }
-);
+const elBubbleListStyleVars = computed(() => ({
+  '--el-bubble-list-max-width': props.maxWidth,
+  '--el-bubble-list-max-height': props.maxHeight || '100%',
+  '--el-bubble-list-btn-size': `${props.btnIconSize}px`
+}));
 
 /* 在底部时候自动滚动 开始 */
 // 滚动容器的引用
@@ -103,12 +83,10 @@ function scrollToBottom() {
 // 父组件触发滚动到指定气泡框
 function scrollToBubble(index: number) {
   const container = scrollContainer.value;
-  if (!container)
-    return;
+  if (!container) return;
 
   const bubbles = container.querySelectorAll('.el-bubble');
-  if (index >= bubbles.length)
-    return;
+  if (index >= bubbles.length) return;
 
   stopAutoScrollToBottom.value = true;
   const targetBubble = bubbles[index] as HTMLElement;
@@ -183,7 +161,7 @@ function handleBubbleComplete(index: number, instance: TypewriterInstance) {
       break;
     default:
       props.triggerIndices.includes(index) &&
-      emits('complete', instance, index);
+        emits('complete', instance, index);
       break;
   }
 }
@@ -216,6 +194,7 @@ defineExpose({
     <div
       ref="scrollContainer"
       class="el-bubble-list"
+      :style="elBubbleListStyleVars"
       :class="{ 'always-scrollbar': props.alwaysShowScrollbar }"
       @scroll="handleScroll"
     >
@@ -244,19 +223,19 @@ defineExpose({
         @finish="instance => handleBubbleComplete(index, instance)"
       >
         <template v-if="$slots.avatar" #avatar>
-          <slot name="avatar" :item="item" />
+          <slot name="avatar" :index="index" :item="item" />
         </template>
         <template v-if="$slots.header" #header>
-          <slot name="header" :item="item" />
+          <slot name="header" :index="index" :item="item" />
         </template>
         <template v-if="$slots.content" #content>
-          <slot name="content" :item="item" />
+          <slot name="content" :index="index" :item="item" />
         </template>
         <template v-if="$slots.footer" #footer>
-          <slot name="footer" :item="item" />
+          <slot name="footer" :index="index" :item="item" />
         </template>
         <template v-if="$slots.loading" #loading>
-          <slot name="loading" :item="item" />
+          <slot name="loading" :index="index" :item="item" />
         </template>
       </Bubble>
     </div>
