@@ -10,6 +10,7 @@ import loadingBg from './loading.vue';
 const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   list: () => [] as T[],
   autoScroll: true,
+  maxWidth: 'none',
   maxHeight: '',
   triggerIndices: 'only-last',
   alwaysShowScrollbar: false,
@@ -30,27 +31,11 @@ const TOLERANCE = 30;
 //     maxHeight: props.maxHeight || '100%'
 //   };
 // });
-function initStyle() {
-  document.documentElement.style.setProperty(
-    '--el-bubble-list-max-height',
-    props.maxHeight || '100%'
-  );
-  document.documentElement.style.setProperty(
-    '--el-bubble-list-btn-size',
-    `${props.btnIconSize}px`
-  );
-}
-
-onMounted(() => {
-  initStyle();
-});
-
-watch(
-  () => [props.maxHeight, props.btnIconSize],
-  () => {
-    initStyle();
-  }
-);
+const elBubbleListStyleVars = computed(() => ({
+  '--el-bubble-list-max-width': props.maxWidth,
+  '--el-bubble-list-max-height': props.maxHeight,
+  '--el-bubble-list-btn-size': `${props.btnIconSize}px`
+}));
 
 /* 在底部时候自动滚动 开始 */
 // 滚动容器的引用
@@ -68,7 +53,7 @@ watch(
     if (props.list && props.list.length > 0) {
       nextTick(() => {
         if (props.autoScroll) {
-        // 每次添加新的气泡，等页面渲染后，在执行自动滚动
+          // 每次添加新的气泡，等页面渲染后，在执行自动滚动
           autoScroll();
         }
       });
@@ -103,12 +88,10 @@ function scrollToBottom() {
 // 父组件触发滚动到指定气泡框
 function scrollToBubble(index: number) {
   const container = scrollContainer.value;
-  if (!container)
-    return;
+  if (!container) return;
 
   const bubbles = container.querySelectorAll('.el-bubble');
-  if (index >= bubbles.length)
-    return;
+  if (index >= bubbles.length) return;
 
   stopAutoScrollToBottom.value = true;
   const targetBubble = bubbles[index] as HTMLElement;
@@ -183,7 +166,7 @@ function handleBubbleComplete(index: number, instance: TypewriterInstance) {
       break;
     default:
       props.triggerIndices.includes(index) &&
-      emits('complete', instance, index);
+        emits('complete', instance, index);
       break;
   }
 }
@@ -216,6 +199,7 @@ defineExpose({
     <div
       ref="scrollContainer"
       class="el-bubble-list"
+      :style="elBubbleListStyleVars"
       :class="{ 'always-scrollbar': props.alwaysShowScrollbar }"
       @scroll="handleScroll"
     >
