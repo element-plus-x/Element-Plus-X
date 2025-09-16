@@ -442,6 +442,8 @@ defineExpose({
           :rows="1"
           :autosize="autoSize"
           type="textarea"
+          :minlength="minlength"
+          :maxlength="maxlength"
           :validate-event="false"
           :placeholder="placeholder"
           :read-only="readOnly || disabled"
