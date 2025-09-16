@@ -103,6 +103,8 @@ title: 'Sender'
 | `auto-size`               | Object               | 否       | \{ minRows:1, maxRows:6 \} | 设置输入框的最小展示行数和最大展示行数。                                                                                                                                                                                   |
 | `read-only`               | Boolean              | 否       | false                      | 输入框是否为只读状态。                                                                                                                                                                                                     |
 | `disabled`                | Boolean              | 否       | false                      | 输入框是否为禁用状态。                                                                                                                                                                                                     |
+| `minlength`               | Number               | 否       | undefined                  | 原生属性，最小输入长度。                                                                                                                                                                                                   |
+| `maxlength`               | Number               | 否       | undefined                  | 同原生 maxlength 属性。                                                                                                                                                                                                    |
 | `submitBtnDisabled`       | Boolean \| undefined | 否       | undefined                  | 内置发送按钮禁用状态。(注意使用场景)                                                                                                                                                                                       |
 | `loading`                 | Boolean              | 否       | false                      | 是否显示加载状态。为 `true` 时，输入框会显示加载动画。                                                                                                                                                                     |
 | `clearable`               | Boolean              | 否       | false                      | 输入框是否可清空内容。展示默认清空按钮                                                                                                                                                                                     |
@@ -129,6 +131,8 @@ title: 'Sender'
 | `recordingChange` | 内置语音识别状态变化时触发的事件。    | 无                                                                              |
 | `trigger`         | 指令弹框发生变化时触发的事件。        | `interface TriggerEvent{oldValue: string; newValue: string; isOpen: boolean; }` |
 | `pasteFile`       | 黏贴文件时触发的事件                  | `interface PasteFileEvent{firstFile: File; fileList: FileList}`                 |
+| `focus`           | 当输入框获得焦点时触发                | `(event: FocusEvent) => void`                                                   |
+| `blur`            | 当输入框失去焦点时触发                | `(event: FocusEvent) => void`                                                   |
 
 ## Ref 实例方法
 
