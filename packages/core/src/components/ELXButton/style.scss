@@ -1,0 +1,32 @@
+.elx-button {
+  &.elx-button-type-clear {
+    .el-icon {
+      // 旋转180
+      transform: rotate(180deg);
+    }
+  }
+
+  &.elx-button-type-loading {
+    padding: 0;
+
+    .loading-svg {
+      color: var(--el-color-primary);
+      width: 100%;
+    }
+  }
+
+  &.elx-button-type-send {
+  }
+
+  &.elx-button-type-speech {
+  }
+
+  &.elx-button-type-speechLoading {
+    padding: 0;
+
+    .loading-svg {
+      color: var(--el-color-primary);
+      width: 16px;
+    }
+  }
+}
