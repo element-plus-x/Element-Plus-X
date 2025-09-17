@@ -65,7 +65,7 @@ title: Conversations
 | `#groupTitle`  | `{ group: GroupItem }`                                    | Custom group title, supports adding icons or special styles                                                |
 | `#label`       | `{ item: ConversationItem<T> }`                           | Custom session item label content, supports text overflow handling or rich text                            |
 | `#more-filled` | `{ item, isHovered, isActive, isMenuOpened, isDisabled }` | Session item right side additional content, displays status indicators (e.g.: disabled mark, action icons) |
-| `#menu`        | `{ item: ConversationItem<T> }`                           | Custom menu content, supports buttons, icons or complex interactive components                             |
+| `#menu`        | `{ item: ConversationItem<T>, handleOpen, handleClose }`                           | Custom menu content, supports buttons, icons or complex interactive components,`handleOpen`used to control the opening of the drop-down menu, `handleClose`used to control the closing of drop-down menus.                             |
 | `#header`      | -                                                         | Container header slot, for adding search bars, filter buttons and other custom content                     |
 | `#footer`      | -                                                         | Container footer slot, for adding pagination, statistics and other custom content                          |
 

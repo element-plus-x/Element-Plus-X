@@ -6,6 +6,7 @@ import type {
   ElxRunCodeExposeProps
 } from '../RunCode/type';
 import type { RawProps } from './types';
+import { useMarkdownContext } from '@components/XMarkdownCore/components/MarkdownProvider';
 import { ArrowDownBold, Moon, Sunny } from '@element-plus/icons-vue';
 import { ElButton, ElMessage, ElSpace } from 'element-plus';
 import { h, ref } from 'vue';
@@ -238,11 +239,12 @@ export function controlEle(copy: () => void) {
  * @description 描述 语言头部操作按钮(带预览代码按钮)
  * @date 2025-07-09 11:15:27
  * @author tingfeng
- *
- * @export
  * @param copy
+ * @param view
  */
 export function controlHasRunCodeEle(copy: () => void, view: () => void) {
+  const context = useMarkdownContext();
+  const { codeXProps } = toValue(context) || {};
   return h(
     ElSpace,
     {
@@ -251,9 +253,11 @@ export function controlHasRunCodeEle(copy: () => void, view: () => void) {
     },
     {
       default: () => [
-        h(RunCodeButton, { onView: view }),
-        toggleThemeEle(),
-        h(CopyCodeButton, { onCopy: copy }) // ✅ 改为组件形式
+        codeXProps?.enableCodePreview
+          ? h(RunCodeButton, { onView: view })
+          : null,
+        codeXProps?.enableThemeToggle ? toggleThemeEle() : null,
+        codeXProps?.enableCodeCopy ? h(CopyCodeButton, { onCopy: copy }) : null // ✅ 改为组件形式
       ]
     }
   );

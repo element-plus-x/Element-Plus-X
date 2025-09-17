@@ -84,13 +84,20 @@ export const MarkdownDemo: Story = {
 };
 
 export const highlightMdContentDemo: Story = {
+  argTypes: {
+    codeXProps: {
+      control: 'object',
+      defaultValue: {}
+    }
+  } as any,
   args: {
-    markdown: highlightMdContent
-  },
+    markdown: highlightMdContent,
+    codeXProps: {
+      enableCodeLineNumber: true
+    }
+  } as any,
   render: args => ({
-    components: {
-      HighlightCodeDemo
-    },
+    components: { HighlightCodeDemo },
     setup() {
       return { attrs: args };
     },

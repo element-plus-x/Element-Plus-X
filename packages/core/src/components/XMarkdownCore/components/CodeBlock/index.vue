@@ -37,12 +37,7 @@ const props = withDefaults(
 );
 
 const context = useMarkdownContext();
-const {
-  codeXSlot,
-  customAttrs,
-  enableCodeLineNumber = false,
-  globalShiki
-} = toValue(context) || {};
+const { codeXSlot, customAttrs, globalShiki } = toValue(context) || {};
 const renderLines = ref<string[]>([]);
 const preStyle = ref<any | null>(null);
 const preClass = ref<string | null>(null);
@@ -203,6 +198,11 @@ watch(
     }
   }
 );
+
+// 获取是否显示行号
+const enableCodeLineNumber = computed(() => {
+  return context?.value?.codeXProps?.enableCodeLineNumber ?? false;
+});
 </script>
 
 <template>

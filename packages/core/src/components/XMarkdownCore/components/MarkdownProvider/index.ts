@@ -32,6 +32,11 @@ const MarkdownProvider = defineComponent({
     const processProps = computed(() => {
       return {
         ...props,
+        codeXProps: Object.assign(
+          {},
+          MARKDOWN_CORE_PROPS.codeXProps.default(),
+          props.codeXProps
+        ),
         markdown: markdown.value
       };
     });

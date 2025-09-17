@@ -64,7 +64,7 @@ title: 'Conversations'
 | `#groupTitle`  | `{ group: GroupItem }`                                    | 自定义分组标题，支持添加图标或特殊样式                     |
 | `#label`       | `{ item: ConversationItem<T> }`                           | 自定义会话项标签内容，支持文本溢出处理或富文本             |
 | `#more-filled` | `{ item, isHovered, isActive, isMenuOpened, isDisabled }` | 会话项右侧附加内容，显示状态标识（如：禁用标记、操作图标） |
-| `#menu`        | `{ item: ConversationItem<T> }`                           | 自定义菜单内容，支持按钮、图标或复杂交互组件               |
+| `#menu`        | `{ item: ConversationItem<T>, handleOpen, handleClose }`                           | 自定义菜单内容，支持按钮、图标或复杂交互组件,`handleOpen`用来手动控制下拉菜单的开启,`handleClose`用来手动控制下拉菜单的关闭.               |
 | `#header`      | -                                                         | 容器头部插槽，用于添加搜索栏、筛选按钮等自定义内容         |
 | `#footer`      | -                                                         | 容器底部插槽，用于添加分页、统计信息等自定义内容           |
 

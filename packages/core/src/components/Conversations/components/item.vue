@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ElDropdown } from 'element-plus';
 import type { Component, CSSProperties } from 'vue';
 import type {
   ConversationItem,
@@ -87,7 +88,8 @@ const {
 } = toRefs(props);
 
 function renderIcon(icon: Component | null | undefined) {
-  if (!icon) return null;
+  if (!icon)
+    return null;
   return h(icon);
 }
 
@@ -101,6 +103,8 @@ const suffixIconRender = computed(() => {
 
 // 添加hover状态跟踪
 const isHovered = ref(false);
+
+const elDropdownRef = ref<InstanceType<typeof ElDropdown> | null>(null);
 
 function handleMouseEnter() {
   isHovered.value = true;
@@ -117,7 +121,8 @@ function handleClick(key: string) {
 const isTextOverflow = computed(() => {
   return (label: string = '') => {
     // 如果没有设置labelMaxWidth，直接返回false
-    if (!labelMaxWidth.value) return false;
+    if (!labelMaxWidth.value)
+      return false;
 
     // 创建一个临时的span元素来测量文本宽度
     const span = document.createElement('span');
@@ -252,6 +257,10 @@ function menuCommand(
   }
   emit('menuCommand', command, item);
 }
+
+onMounted(() => {
+  console.log(elDropdownRef.value, '------');
+});
 /* 内置菜单 结束 */
 </script>
 
@@ -279,14 +288,14 @@ function menuCommand(
     <div class="conversation-content">
       <!-- 标签区域 - 通过插槽自定义 -->
       <div class="conversation-content-main">
-        <slot name="label">
-          <!-- 前缀图标 -->
-          <span v-if="prefixIconRender" class="conversation-prefix-icon">
-            <el-icon>
-              <component :is="prefixIconRender" />
-            </el-icon>
-          </span>
+        <!-- 前缀图标 -->
+        <span v-if="prefixIconRender" class="conversation-prefix-icon">
+          <el-icon>
+            <component :is="prefixIconRender" />
+          </el-icon>
+        </span>
 
+        <slot name="label">
           <!-- 标签和时间戳 -->
           <div class="conversation-label-container">
             <ElTooltip
@@ -300,16 +309,14 @@ function menuCommand(
                 class="conversation-label"
                 :class="{ 'text-gradient': isTextOverflow(item.label) }"
                 :style="labelStyle"
-                >{{ item.label }}</span
-              >
+              >{{ item.label }}</span>
             </ElTooltip>
             <span
               v-else
               class="conversation-label"
               :class="{ 'text-gradient': isTextOverflow(item.label) }"
               :style="labelStyle"
-              >{{ item.label }}</span
-            >
+            >{{ item.label }}</span>
           </div>
         </slot>
       </div>
@@ -323,16 +330,17 @@ function menuCommand(
 
       <!-- 菜单区域 - 只在hover或active状态下显示 -->
       <div
-        v-if="(shouldShowMenu && showBuiltInMenu) || alwaysShowBuiltInMenu"
+        v-show="(shouldShowMenu && showBuiltInMenu) || alwaysShowBuiltInMenu"
         class="conversation-dropdown-menu-container"
       >
         <div
-          v-if="menu && menu.length"
+          v-show="menu && menu.length"
           ref="menuButtonRef"
           class="conversation-dropdown-more"
           @click="e => e.stopPropagation()"
         >
           <el-dropdown
+            ref="elDropdownRef"
             trigger="click"
             :placement="menuPlacement"
             :offset="menuOffset"
@@ -351,6 +359,7 @@ function menuCommand(
           >
             <template #default>
               <slot
+
                 name="more-filled"
                 v-bind="{
                   item,
@@ -366,7 +375,7 @@ function menuCommand(
               </slot>
             </template>
             <template #dropdown>
-              <slot name="menu">
+              <slot name="menu" v-bind="{ handleOpen: elDropdownRef?.handleOpen, handleClose: elDropdownRef?.handleClose }">
                 <el-dropdown-menu :style="mergedMenuStyle">
                   <el-dropdown-item
                     v-for="menuItem in menu"

@@ -5,10 +5,10 @@ import type { InitShikiOptions } from './shikiHighlighter';
 
 export type MarkdownProps = {
   allowHtml?: boolean;
-  enableCodeLineNumber?: boolean;
   enableLatex?: boolean;
   enableAnimate?: boolean;
   enableBreaks?: boolean;
+  codeXProps?: CodeXProps;
   codeXRender?: Record<string, any>;
   codeXSlot?: CodeBlockHeaderExpose & Record<string, any>;
   codeHighlightTheme?: BuiltinTheme | null;
@@ -33,3 +33,10 @@ export type MarkdownProps = {
 
 export type MarkdownProviderProps = Omit<MarkdownProps, 'markdown'> &
   Partial<Pick<MarkdownProps, 'markdown'>>;
+
+export interface CodeXProps {
+  enableCodePreview?: boolean; // 启动代码预览功能
+  enableCodeCopy?: boolean; // 启动代码复制功能
+  enableThemeToggle?: boolean; // 启动主题切换
+  enableCodeLineNumber?: boolean; // 开启行号
+}
