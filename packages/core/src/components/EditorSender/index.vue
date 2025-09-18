@@ -185,6 +185,7 @@ function onClear(txt?: string) {
   chat.value!.clear(txt);
   // 将光标移动到末尾
   focusToEnd();
+  emits('clear',txt);
 }
 // 点击内容区域聚焦输入框
 function onContentMouseDown() {
@@ -471,6 +472,7 @@ onBeforeUnmount(() => {
 
 /** 暴露方法 */
 defineExpose({
+  submit: onSubmit,
   getCurrentValue,
   focusToStart,
   focusToEnd,
