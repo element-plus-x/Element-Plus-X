@@ -1,3 +1,4 @@
+import type { Bubble } from '../../components';
 import type { TypewriterProps } from '../Typewriter/types';
 
 export type BubbleProps = Pick<
@@ -25,3 +26,5 @@ export interface BubbleEmits {
   (event: 'writing', instance: TypewriterInstance): void;
   (event: 'avatarError', e: Event): void;
 }
+
+export type BubbleSlots = InstanceType<typeof Bubble>['$slots'];

@@ -1,4 +1,4 @@
-import type { BubbleProps } from '../Bubble/types';
+import type { BubbleProps, BubbleSlots } from '../Bubble/types';
 import type { TypewriterInstance } from '../Typewriter/types.d.ts';
 
 // 暂时这样包一层，后续看有没有拓展
@@ -28,6 +28,12 @@ export interface BubbleListProps<
 export interface BubbleListEmits {
   (event: 'complete', instance: TypewriterInstance, index: number): void;
 }
+
+export type BubbleListSlots<T> = {
+  [K in keyof BubbleSlots]: (props: { item: T; index: number }) => void;
+} & {
+  backToBottom: (props: object) => void;
+};
 
 export interface BubbleListInstance {
   scrollToTop: () => void;
