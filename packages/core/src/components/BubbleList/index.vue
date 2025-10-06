@@ -1,7 +1,11 @@
 <script setup lang="ts" generic="T extends BubbleProps">
 import type { BubbleProps } from '../Bubble/types';
 import type { TypewriterInstance } from '../Typewriter/types.d.ts';
-import type { BubbleListEmits, BubbleListProps } from './types.d.ts';
+import type {
+  BubbleListEmits,
+  BubbleListProps,
+  BubbleListSlots
+} from './types.d.ts';
 import { ArrowDownBold } from '@element-plus/icons-vue';
 import useScrollDetector from '../../utils/useScrollDetector.ts';
 import Bubble from '../Bubble/index.vue';
@@ -23,6 +27,8 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   btnIconSize: 24
 });
 const emits = defineEmits<BubbleListEmits>();
+defineSlots<BubbleListSlots<T>>();
+
 const TOLERANCE = 30;
 
 // const listMaxHeightStyle = computed(() => {
@@ -68,7 +74,7 @@ watch(
     if (props.list && props.list.length > 0) {
       nextTick(() => {
         if (props.autoScroll) {
-        // 每次添加新的气泡，等页面渲染后，在执行自动滚动
+          // 每次添加新的气泡，等页面渲染后，在执行自动滚动
           autoScroll();
         }
       });
@@ -243,20 +249,8 @@ defineExpose({
         :no-style="item.noStyle"
         @finish="instance => handleBubbleComplete(index, instance)"
       >
-        <template v-if="$slots.avatar" #avatar>
-          <slot name="avatar" :item="item" />
-        </template>
-        <template v-if="$slots.header" #header>
-          <slot name="header" :item="item" />
-        </template>
-        <template v-if="$slots.content" #content>
-          <slot name="content" :item="item" />
-        </template>
-        <template v-if="$slots.footer" #footer>
-          <slot name="footer" :item="item" />
-        </template>
-        <template v-if="$slots.loading" #loading>
-          <slot name="loading" :item="item" />
+        <template v-for="(_, slotName) in $slots" :key="slotName" #[slotName]>
+          <slot :name="slotName" :item="item" :index="index" />
         </template>
       </Bubble>
     </div>
