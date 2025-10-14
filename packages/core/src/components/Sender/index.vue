@@ -56,8 +56,7 @@ const internalValue = computed({
     return props.modelValue;
   },
   set(val) {
-    if (props.readOnly || props.disabled)
-      return;
+    if (props.readOnly || props.disabled) return;
     emits('update:modelValue', val);
   }
 });
@@ -87,8 +86,7 @@ const popoverVisible = computed({
     return props.triggerPopoverVisible;
   },
   set(value) {
-    if (props.readOnly || props.disabled)
-      return;
+    if (props.readOnly || props.disabled) return;
     emits('update:triggerPopoverVisible', value);
   }
 });
@@ -100,8 +98,7 @@ const triggerString = ref('');
 watch(
   () => internalValue.value,
   (newVal, oldVal) => {
-    if (isComposing.value)
-      return;
+    if (isComposing.value) return;
     // 触发逻辑：当输入值等于数组中的任意一个指令字符时触发
     // 确保 oldVal 是字符串类型
     const triggerStrings = props.triggerStrings || []; // 如果为 undefined，就使用空数组
@@ -120,8 +117,7 @@ watch(
           isOpen: true
         });
         popoverVisible.value = true;
-      }
-      else {
+      } else {
         popoverVisible.value = true;
       }
     }
@@ -135,8 +131,7 @@ watch(
           isOpen: false
         });
         popoverVisible.value = false;
-      }
-      else {
+      } else {
         popoverVisible.value = false;
       }
     }
@@ -151,8 +146,7 @@ watch(
           isOpen: true
         });
         popoverVisible.value = true;
-      }
-      else {
+      } else {
         popoverVisible.value = true;
       }
     }
@@ -166,6 +160,14 @@ function onContentMouseDown(e: MouseEvent) {
   if (e.target !== senderRef.value.querySelector(`.el-textarea__inner`)) {
     e.preventDefault();
   }
+  // 点击右边操作选项时，阻止事件穿透
+  if (
+    senderRef.value.querySelector(`.el-sender-action-list`).contains(e.target)
+  ) {
+    e.stopPropagation();
+    inputRef.value.blur();
+    return false;
+  }
   inputRef.value.focus();
 }
 /* 内容容器聚焦 结束 */
@@ -173,19 +175,15 @@ function onContentMouseDown(e: MouseEvent) {
 /* 头部显示隐藏 开始 */
 const visiableHeader = ref(false);
 function openHeader() {
-  if (!slots.header)
-    return false;
+  if (!slots.header) return false;
 
-  if (props.readOnly)
-    return false;
+  if (props.readOnly) return false;
 
   visiableHeader.value = true;
 }
 function closeHeader() {
-  if (!slots.header)
-    return;
-  if (props.readOnly)
-    return;
+  if (!slots.header) return;
+  if (props.readOnly) return;
   visiableHeader.value = false;
 }
 /* 头部显示隐藏 结束 */
@@ -195,8 +193,7 @@ const recognition = ref<SpeechRecognition | null>(null);
 const speechLoading = ref<boolean>(false);
 
 function startRecognition() {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   if (hasOnRecordingChangeListener.value) {
     speechLoading.value = true;
     emits('recordingChange', true);
@@ -227,8 +224,7 @@ function startRecognition() {
       speechLoading.value = false;
     };
     recognition.value.start();
-  }
-  else {
+  } else {
     console.error('浏览器不支持 Web Speech API');
   }
 }
@@ -261,22 +257,19 @@ function submit() {
 }
 // 取消按钮
 function cancel() {
-  if (props.readOnly)
-    return;
+  if (props.readOnly) return;
   emits('cancel', internalValue.value);
 }
 
 function clear() {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   inputRef.value.clear();
   internalValue.value = '';
 }
 
 // 在这判断组合键的回车键 (目前支持四种模式)
 function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   const _resetSelectionRange = () => {
     const cursorPosition = e.target.selectionStart; // 获取光标位置
     const textBeforeCursor = internalValue.value.slice(0, cursorPosition); // 光标前的文本
@@ -307,8 +300,7 @@ function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
     e.preventDefault();
     if (props.submitType === 'enter') {
       _isComKeyDown ? _resetSelectionRange() : submit();
-    }
-    else {
+    } else {
       _isComKeyDown ? submit() : _resetSelectionRange();
     }
   }
@@ -329,11 +321,9 @@ function focus(type = 'all') {
   }
   if (type === 'all') {
     inputRef.value.select();
-  }
-  else if (type === 'start') {
+  } else if (type === 'start') {
     focusToStart();
-  }
-  else if (type === 'end') {
+  } else if (type === 'end') {
     focusToEnd();
   }
 }
@@ -381,6 +371,16 @@ function handleInternalPaste(e: ClipboardEvent) {
     emits('pasteFile', files[0], files);
     e.preventDefault();
   }
+}
+
+// 当选择器的输入框获得焦点时触发
+function handleFocus(event: FocusEvent) {
+  emits('focus', event);
+}
+
+// 当选择器的输入框失去焦点时触发
+function handleBlur(event: FocusEvent) {
+  emits('blur', event);
 }
 
 defineExpose({
@@ -463,6 +463,8 @@ defineExpose({
           :read-only="readOnly || disabled"
           :disabled="disabled"
           @keydown="handleKeyDown"
+          @focus="handleFocus"
+          @blur="handleBlur"
           @compositionstart="handleCompositionStart"
           @compositionend="handleCompositionEnd"
           @paste="handleInternalPaste"
