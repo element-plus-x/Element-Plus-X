@@ -148,7 +148,7 @@ app.mount('#app');
 
 1. **Fork 仓库** → 2. **创建 Feature 分支** → 3. **提交 Pull Request**
 
-详情可以移步👉 **[开发指南](https://element-plus-x.com/guide/develop.html)**
+详情可以移步👉 **[开发指南](https://element-plus-x.com/zh/guide/develop.html)**
 
 我们欢迎：
 
