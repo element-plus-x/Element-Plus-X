@@ -71,7 +71,7 @@ yarn add vue-element-plus-x --save
 1. **按需引入**
 
 ```vue
-<script>
+<script setup>
 import { BubbleList, Sender } from 'vue-element-plus-x';
 
 const list = [
@@ -112,7 +112,6 @@ app.mount('#app');
 <!-- 该方法 有待测试 -->
 <!-- CDN 引入 -->
 <script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
-
 ```
 
 ## 🌟 已实现 组件 和 Hooks

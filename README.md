@@ -77,7 +77,7 @@ yarn install vue-element-plus-x
 1. **按需引入**
 
 ```vue
-<script>
+<script setup>
 import { BubbleList, Sender } from 'vue-element-plus-x';
 
 const list = [

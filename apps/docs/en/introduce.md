@@ -71,7 +71,7 @@ yarn add vue-element-plus-x --save
 1. **On-demand Import**
 
 ```vue
-<script>
+<script setup>
 import { BubbleList, Sender } from 'vue-element-plus-x';
 
 const list = [
@@ -112,7 +112,6 @@ app.mount('#app');
 <!-- This method is still under testing -->
 <!-- CDN Import -->
 <script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
-
 ```
 
 ## 🌟 Implemented Components and Hooks
