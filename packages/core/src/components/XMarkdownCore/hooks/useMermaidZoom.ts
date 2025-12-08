@@ -34,10 +34,18 @@ export function useMermaidZoom(
     isDragging.value = false;
   };
 
+  // 检查是否为移动设备
+  const isMobileDevice = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+  };
+
   // 添加拖拽事件
   const addDragEvents = (content: HTMLElement) => {
     let startX = 0;
     let startY = 0;
+    const isMobile = isMobileDevice();
 
     const onStart = (clientX: number, clientY: number) => {
       isDragging.value = true;
@@ -61,8 +69,7 @@ export function useMermaidZoom(
 
     // 鼠标事件
     const onMouseDown = (e: MouseEvent) => {
-      if (e.button !== 0)
-        return; // ⭐️ 只响应鼠标左键
+      if (e.button !== 0) return; // ⭐️ 只响应鼠标左键
       e.preventDefault();
       onStart(e.clientX, e.clientY);
     };
@@ -74,8 +81,13 @@ export function useMermaidZoom(
         onStart(e.touches[0].clientX, e.touches[0].clientY);
       }
     };
+
     const onTouchMove = (e: TouchEvent) => {
       if (e.touches.length === 1) {
+        // 在移动设备上，单指触摸时允许滚动
+        if (isMobile && !isDragging.value) {
+          return; // 不阻止默认行为，允许滚动
+        }
         e.preventDefault();
         onMove(e.touches[0].clientX, e.touches[0].clientY);
       }
@@ -126,20 +138,17 @@ export function useMermaidZoom(
   };
 
   const fullscreen = () => {
-    if (!container.value)
-      return;
+    if (!container.value) return;
 
     if (document.fullscreenElement) {
       document.exitFullscreen();
-    }
-    else {
+    } else {
       container.value.requestFullscreen?.();
     }
   };
 
   const initialize = () => {
-    if (!container.value)
-      return;
+    if (!container.value) return;
 
     resetState();
 
