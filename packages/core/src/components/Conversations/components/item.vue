@@ -258,6 +258,18 @@ function menuCommand(
   emit('menuCommand', command, item);
 }
 
+function openDropdown() {
+  if (elDropdownRef.value) {
+    elDropdownRef.value.handleOpen?.();
+  }
+}
+
+function closeDropdown() {
+  if (elDropdownRef.value) {
+    elDropdownRef.value.handleClose?.();
+  }
+}
+
 onMounted(() => {
   console.log(elDropdownRef.value, '------');
 });
@@ -375,7 +387,7 @@ onMounted(() => {
               </slot>
             </template>
             <template #dropdown>
-              <slot name="menu" v-bind="{ handleOpen: elDropdownRef?.handleOpen, handleClose: elDropdownRef?.handleClose }">
+              <slot name="menu" v-bind="{ handleOpen: openDropdown, handleClose: closeDropdown }">
                 <el-dropdown-menu :style="mergedMenuStyle">
                   <el-dropdown-item
                     v-for="menuItem in menu"
