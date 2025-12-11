@@ -18,18 +18,11 @@ const statusValue = ref('start');
 
 <template>
   <el-radio-group v-model="statusValue" style="margin-bottom: 12px">
-    <el-radio-button value="start">
-      start
-    </el-radio-button>
-    <el-radio-button value="thinking">
-      thinking
-    </el-radio-button>
-    <el-radio-button value="end">
-      end
-    </el-radio-button>
-    <el-radio-button value="error">
-      error
-    </el-radio-button>
+    <el-radio-button value="start"> start </el-radio-button>
+    <el-radio-button value="thinking"> thinking </el-radio-button>
+    <el-radio-button value="end"> end </el-radio-button>
+    <el-radio-button value="error"> error </el-radio-button>
+    <el-radio-button value="cancel"> cancel </el-radio-button>
   </el-radio-group>
 
   <Thinking
@@ -43,6 +36,7 @@ const statusValue = ref('start');
       <span v-else-if="status === 'error'">😭</span>
       <span v-else-if="status === 'thinking'">🤔</span>
       <span v-else-if="status === 'end'">😊</span>
+      <span v-else-if="status === 'cancel'">🤐</span>
     </template>
 
     <template #label="{ status }">
@@ -50,6 +44,7 @@ const statusValue = ref('start');
       <span v-else-if="status === 'thinking'">容我想想</span>
       <span v-else-if="status === 'end'">想出来了</span>
       <span v-else-if="status === 'error'">想不出来</span>
+      <span v-else-if="status === 'cancel'">中断啦</span>
     </template>
 
     <template #arrow>

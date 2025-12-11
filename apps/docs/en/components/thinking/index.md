@@ -2,10 +2,9 @@
 title: Thinking
 ---
 
-
 ## Introduction
 
-`Thinking` is a component used to display thinking states, supporting **state management**, **content expand/collapse**, and **custom styling**. Through visual feedback of different states (start/thinking/end/error), it helps users intuitively understand AI's thinking process. The component has built-in transition animations and provides flexible extension slots, suitable for use in intelligent conversations, data analysis, and other scenarios.
+`Thinking` is a component used to display thinking states, supporting **state management**, **content expand/collapse**, and **custom styling**. Through visual feedback of different states (start/thinking/end/error/cancel), it helps users intuitively understand AI's thinking process. The component has built-in transition animations and provides flexible extension slots, suitable for use in intelligent conversations, data analysis, and other scenarios.
 
 ::: info
 
@@ -53,18 +52,18 @@ This component can be used together with components like `BubbleList` to achieve
 
 ## Attributes
 
-| Attribute         | Type           | Required | Default                  | Description                                                                                   |
-| ----------------- | -------------- | -------- | ------------------------ | --------------------------------------------------------------------------------------------- |
-| `content`         | String         | No       | `''`                     | Main content text to display, no typing effect, determined by interface response              |
-| `modelValue`      | Boolean        | No       | `true`                   | Expand state bound through v-model, default is expanded                                       |
-| `status`          | ThinkingStatus | No       | `'start'`                | Component state: `start` (start) / `thinking` (thinking) / `end` (complete) / `error` (error) |
-| `autoCollapse`    | Boolean        | No       | `false`                  | Whether to automatically collapse content area when component state changes to `end`          |
-| `disabled`        | Boolean        | No       | `false`                  | Whether to disable component interaction                                                      |
-| `buttonWidth`     | String         | No       | `'160px'`                | Trigger button width                                                                          |
-| `duration`        | String         | No       | `'0.2s'`                 | Transition animation duration                                                                 |
-| `maxWidth`        | String         | No       | `'500px'`                | Maximum width of content area                                                                 |
-| `backgroundColor` | String         | No       | `'#fcfcfc'`              | Background color of content area                                                              |
-| `color`           | String         | No       | `'var(--el-color-info)'` | Content text color                                                                            |
+| Attribute         | Type           | Required | Default                  | Description                                                                                                       |
+| ----------------- | -------------- | -------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| `content`         | String         | No       | `''`                     | Main content text to display, no typing effect, determined by interface response                                  |
+| `modelValue`      | Boolean        | No       | `true`                   | Expand state bound through v-model, default is expanded                                                           |
+| `status`          | ThinkingStatus | No       | `'start'`                | Component state: `start` (start) / `thinking` (thinking) / `end` (complete) / `error` (error) / `cancel` (cancel) |
+| `autoCollapse`    | Boolean        | No       | `false`                  | Whether to automatically collapse content area when component state changes to `end`                              |
+| `disabled`        | Boolean        | No       | `false`                  | Whether to disable component interaction                                                                          |
+| `buttonWidth`     | String         | No       | `'160px'`                | Trigger button width                                                                                              |
+| `duration`        | String         | No       | `'0.2s'`                 | Transition animation duration                                                                                     |
+| `maxWidth`        | String         | No       | `'500px'`                | Maximum width of content area                                                                                     |
+| `backgroundColor` | String         | No       | `'#fcfcfc'`              | Background color of content area                                                                                  |
+| `color`           | String         | No       | `'var(--el-color-info)'` | Content text color                                                                                                |
 
 ## Events
 
@@ -85,7 +84,7 @@ This component can be used together with components like `BubbleList` to achieve
 ## Features
 
 1. **Multi-state Management**
-   - Supports four states: `start`/`thinking`/`end`/`error`, automatically switches corresponding icons and text
+   - Supports five states: `start`/`thinking`/`end`/`error`/`cancel`, automatically switches corresponding icons and text
    - Forces display of fixed error prompt in error state
 
 2. **Interactive Feedback**
