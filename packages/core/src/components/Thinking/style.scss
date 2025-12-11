@@ -42,6 +42,11 @@
   .error-color {
     color: var(--el-color-danger);
   }
+
+  /* 手动打断颜色 */
+  .cancel-color {
+    color: var(--el-color-info);
+  }
 }
 
 .trigger:hover {
