@@ -1,14 +1,12 @@
 // 复制到剪贴板
 export async function copyToClipboard(content: string): Promise<boolean> {
-  if (!content)
-    return false;
+  if (!content) return false;
 
   try {
     if (navigator.clipboard && window.isSecureContext) {
       await navigator.clipboard.writeText(content);
       return true;
-    }
-    else {
+    } else {
       const textArea = document.createElement('textarea');
       textArea.value = content;
       textArea.style.position = 'fixed';
@@ -21,19 +19,32 @@ export async function copyToClipboard(content: string): Promise<boolean> {
       textArea.remove();
       return true;
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.error('复制失败: ', err);
     return false;
   }
 }
 
 // SVG下载功能
-export function downloadSvgAsPng(svg: string): void {
-  if (!svg)
-    return;
+/**
+ * DownloadOptions
+ * @scale 2：标准分辨率；4：高分辨率（默认）； 8：超高分辨率
+ * @quality 0.8：良好质量，文件较小；0.9：良好质量，文件适中；1.0：无损质量（默认）
+ */
+interface DownloadOptions {
+  scale?: number; // 缩放因子，默认4
+  quality?: number; // 图片质量，默认1.0
+  format?: string; // 图片格式，默认'image/png'
+}
+export function downloadSvgAsPng(
+  svg: string,
+  options: DownloadOptions = {}
+): void {
+  if (!svg) return;
 
   try {
+    const { scale = 4, quality = 1.0, format = 'image/png' } = options;
+
     const svgDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
     const img = new Image();
 
@@ -41,10 +52,8 @@ export function downloadSvgAsPng(svg: string): void {
       try {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d', { willReadFrequently: false });
-        if (!ctx)
-          return;
+        if (!ctx) return;
 
-        const scale = 2;
         canvas.width = img.width * scale;
         canvas.height = img.height * scale;
         ctx.imageSmoothingEnabled = true;
@@ -66,8 +75,7 @@ export function downloadSvgAsPng(svg: string): void {
         try {
           canvas.toBlob(
             blob => {
-              if (!blob)
-                return;
+              if (!blob) return;
               const url = URL.createObjectURL(blob);
               const link = document.createElement('a');
               link.href = url;
@@ -77,11 +85,10 @@ export function downloadSvgAsPng(svg: string): void {
               document.body.removeChild(link);
               URL.revokeObjectURL(url);
             },
-            'image/png',
-            0.95
+            format,
+            quality
           );
-        }
-        catch (toBlobError) {
+        } catch (toBlobError) {
           console.error('toBlobError:', toBlobError);
           // 降级方案
           try {
@@ -92,13 +99,11 @@ export function downloadSvgAsPng(svg: string): void {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-          }
-          catch (dataUrlError) {
+          } catch (dataUrlError) {
             console.error('dataUrlError:', dataUrlError);
           }
         }
-      }
-      catch (canvasError) {
+      } catch (canvasError) {
         console.error('Canvas操作失败:', canvasError);
       }
     };
@@ -108,8 +113,7 @@ export function downloadSvgAsPng(svg: string): void {
     };
 
     img.src = svgDataUrl;
-  }
-  catch (error) {
+  } catch (error) {
     console.error('下载失败:', error);
   }
 }
