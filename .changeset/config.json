@@ -9,7 +9,6 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "element-plus-x-metadata",
-    "vue-element-plus-x-docs",
     "docs"
   ]
 }
