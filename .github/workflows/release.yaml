@@ -29,10 +29,22 @@ jobs:
       - name: Install dependencies
         run: |
           npm i -g pnpm
-          pnpm install
+          # 清理 esbuild 和 npm 缓存以解决版本冲突
+          rm -rf ~/.npm/_cacache
+          rm -rf node_modules/.cache
+          rm -rf packages/core/node_modules
+          # 清理 pnpm store
+          pnpm store prune || true
+          # 重新安装依赖
+          pnpm install --force --frozen-lockfile
 
       - name: Build
         run: |
+          # 验证 esbuild 版本
+          echo "esbuild version:"
+          pnpm exec esbuild --version || echo "esbuild not found in root"
+          cd packages/core && pnpm exec esbuild --version || echo "esbuild not found in core"
+          # 构建项目
           pnpm build:core
 
       - name: Create Release Pull Request
