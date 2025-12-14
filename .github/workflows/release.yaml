@@ -35,8 +35,8 @@ jobs:
           rm -rf packages/core/node_modules
           # 清理 pnpm store
           pnpm store prune || true
-          # 重新安装依赖，使用 --ignore-scripts 避免执行可能出问题的脚本
-          pnpm install --force --ignore-scripts
+          # 重新安装依赖
+          pnpm install --force
 
       - name: Build
         run: |
@@ -46,7 +46,12 @@ jobs:
           (cd packages/core && pnpm exec esbuild --version) || echo "esbuild not found in core"
           # 构建项目 - 只构建 core 包
           # 跳过 update:plugin 步骤，避免 esbuild 版本冲突
-          (cd packages/core && pnpm run aeac && pnpm run build:es && pnpm run build:umd)
+          (cd packages/core && \
+            # 确保 auto-import.d.ts 被生成
+            pnpm exec vite build --mode development --dry-run || true && \
+            pnpm run aeac && \
+            pnpm run build:es && \
+            pnpm run build:umd)
 
       - name: Create Release Pull Request
         id: create_release
