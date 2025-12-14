@@ -35,8 +35,8 @@ jobs:
           rm -rf packages/core/node_modules
           # 清理 pnpm store
           pnpm store prune || true
-          # 重新安装依赖
-          pnpm install --force --frozen-lockfile
+          # 重新安装依赖，不使用 frozen-lockfile 因为 package.json 已经更新
+          pnpm install --force
 
       - name: Build
         run: |
