@@ -29,14 +29,14 @@ jobs:
       - name: Install dependencies
         run: |
           npm i -g pnpm
-          # 清理 esbuild 和 npm 缓存以解决版本冲突
+          # 清理缓存以解决版本冲突
           rm -rf ~/.npm/_cacache
           rm -rf node_modules/.cache
           rm -rf packages/core/node_modules
           # 清理 pnpm store
           pnpm store prune || true
-          # 重新安装依赖，不使用 frozen-lockfile 因为 package.json 已经更新
-          pnpm install --force
+          # 重新安装依赖，使用 --ignore-scripts 避免执行可能出问题的脚本
+          pnpm install --force --ignore-scripts
 
       - name: Build
         run: |
@@ -45,8 +45,8 @@ jobs:
           pnpm exec esbuild --version || echo "esbuild not found in root"
           (cd packages/core && pnpm exec esbuild --version) || echo "esbuild not found in core"
           # 构建项目 - 只构建 core 包
-          # 使用子shell确保在正确的目录执行
-          (cd packages/core && pnpm build)
+          # 跳过 update:plugin 步骤，避免 esbuild 版本冲突
+          (cd packages/core && pnpm run aeac && pnpm run build:es && pnpm run build:umd)
 
       - name: Create Release Pull Request
         id: create_release
