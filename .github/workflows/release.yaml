@@ -44,8 +44,10 @@ jobs:
           (cd packages/core && \
             # 确保类型文件存在并生成入口文件
             pnpm run aeac && \
-            # 完整构建（包含类型检查和打包）
-            pnpm run build)
+            # 跳过 update:plugin 步骤，避免 esbuild 版本冲突
+            # 直接构建 ES 和 UMD
+            pnpm run build:es && \
+            pnpm run build:umd)
 
       - name: Create Release Pull Request
         id: create_release
