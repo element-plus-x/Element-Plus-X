@@ -55,5 +55,14 @@ const senderValue = ref(false);
         status="error"
       />
     </div>
+
+    <div>
+      <Thinking
+        v-model="senderValue"
+        disabled
+        content="Welcome to Element-Plus-X"
+        status="cancel"
+      />
+    </div>
   </div>
 </template>

@@ -4,7 +4,7 @@ title: 'Thinking'
 
 ## 介绍
 
-`Thinking` 是一个用于展示思考中状态的组件，支持 **状态管理** 、**内容展开/收起** 和 **自定义样式**。通过不同状态（开始/思考中/完成/错误）的视觉反馈，帮助用户直观理解AI的思考流程。组件内置过渡动画，提供灵活的扩展插槽，适合在智能对话、数据分析等场景中使用。
+`Thinking` 是一个用于展示思考中状态的组件，支持 **状态管理** 、**内容展开/收起** 和 **自定义样式**。通过不同状态（开始/思考中/完成/错误/取消）的视觉反馈，帮助用户直观理解AI的思考流程。组件内置过渡动画，提供灵活的扩展插槽，适合在智能对话、数据分析等场景中使用。
 
 ::: info
 
@@ -52,18 +52,18 @@ title: 'Thinking'
 
 ## 属性
 
-| 属性名            | 类型           | 是否必填 | 默认值                   | 描述                                                                         |
-| ----------------- | -------------- | -------- | ------------------------ | ---------------------------------------------------------------------------- |
-| `content`         | String         | 否       | `''`                     | 显示的主要内容文本 无打字效果，由接口返回决定                                |
-| `modelValue`      | Boolean        | 否       | `true`                   | 通过 v-model 绑定展开状态，默认为展开状                                      |
-| `status`          | ThinkingStatus | 否       | `'start'`                | 组件状态：`start`（开始）/`thinking`（思考中）/`end`（完成）/`error`（错误） |
-| `autoCollapse`    | Boolean        | 否       | `false`                  | 是否在组件状态变为 `end` 时自动收起内容区域                                  |
-| `disabled`        | Boolean        | 否       | `false`                  | 是否禁用组件交互                                                             |
-| `buttonWidth`     | String         | 否       | `'160px'`                | 触发按钮宽度                                                                 |
-| `duration`        | String         | 否       | `'0.2s'`                 | 过渡动画时长                                                                 |
-| `maxWidth`        | String         | 否       | `'500px'`                | 内容区域最大宽度                                                             |
-| `backgroundColor` | String         | 否       | `'#fcfcfc'`              | 内容区域背景色                                                               |
-| `color`           | String         | 否       | `'var(--el-color-info)'` | 内容文字颜色                                                                 |
+| 属性名            | 类型           | 是否必填 | 默认值                   | 描述                                                                                          |
+| ----------------- | -------------- | -------- | ------------------------ | --------------------------------------------------------------------------------------------- |
+| `content`         | String         | 否       | `''`                     | 显示的主要内容文本 无打字效果，由接口返回决定                                                 |
+| `modelValue`      | Boolean        | 否       | `true`                   | 通过 v-model 绑定展开状态，默认为展开状                                                       |
+| `status`          | ThinkingStatus | 否       | `'start'`                | 组件状态：`start`（开始）/`thinking`（思考中）/`end`（完成）/`error`（错误）/`cancel`（取消） |
+| `autoCollapse`    | Boolean        | 否       | `false`                  | 是否在组件状态变为 `end` 时自动收起内容区域                                                   |
+| `disabled`        | Boolean        | 否       | `false`                  | 是否禁用组件交互                                                                              |
+| `buttonWidth`     | String         | 否       | `'160px'`                | 触发按钮宽度                                                                                  |
+| `duration`        | String         | 否       | `'0.2s'`                 | 过渡动画时长                                                                                  |
+| `maxWidth`        | String         | 否       | `'500px'`                | 内容区域最大宽度                                                                              |
+| `backgroundColor` | String         | 否       | `'#fcfcfc'`              | 内容区域背景色                                                                                |
+| `color`           | String         | 否       | `'var(--el-color-info)'` | 内容文字颜色                                                                                  |
 
 ## 事件
 
@@ -84,7 +84,7 @@ title: 'Thinking'
 ## 功能特性
 
 1. **多状态管理**
-   - 支持`start`/`thinking`/`end`/`error`四种状态，自动切换对应图标和文案
+   - 支持`start`/`thinking`/`end`/`error`/`cancel`五种状态，自动切换对应图标和文案
    - 错误状态时强制显示固定错误提示
 
 2. **交互反馈**
