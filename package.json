@@ -16,7 +16,7 @@
     "build:metadata": "turbo run build --filter=element-plus-x-metadata",
     "dev:docs": "turbo run dev --filter=docs",
     "build:docs": "turbo run build --filter=docs",
-    "ci:publish": "pnpm changeset publish -r --filter=vue-element-plus-x",
+    "ci:publish": "pnpm changeset publish -r --filter=vue-element-plus-x --otp=${NPM_OTP:-}",
     "dev": "npm run dev:playground",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",

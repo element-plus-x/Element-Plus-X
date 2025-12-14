@@ -1,6 +1,7 @@
 {
   "name": "element-plus-x-metadata",
   "version": "1.0.0",
+  "private": true,
   "license": "ISC",
   "keywords": [
     "element-plus-x",
