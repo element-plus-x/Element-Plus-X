@@ -1,5 +1,5 @@
 // 定义组件状态类型
-export type ThinkingStatus = 'start' | 'thinking' | 'end' | 'error';
+export type ThinkingStatus = 'start' | 'thinking' | 'end' | 'error' | 'cancel';
 
 // 定义组件 ThinkingProps
 export interface ThinkingProps {

@@ -40,8 +40,7 @@ watch(
 
 // 处理展开/收起
 function changeExpand() {
-  if (props.disabled)
-    return;
+  if (props.disabled) return;
   isExpanded.value = !isExpanded.value;
   emit('change', { value: isExpanded.value, status: props.status });
   emit('update:modelValue', isExpanded.value);
@@ -102,6 +101,13 @@ watch(
           <el-icon v-if="status === 'error'" class="el-icon-center error-color">
             <CircleCloseFilled />
           </el-icon>
+
+          <el-icon
+            v-if="status === 'cancel'"
+            class="el-icon-center cancel-color"
+          >
+            <CircleCloseFilled />
+          </el-icon>
         </slot>
       </span>
 
@@ -114,7 +120,9 @@ watch(
                 ? '思考遇到问题'
                 : status === 'end'
                   ? '思考完成'
-                  : '开始思考'
+                  : status === 'cancel'
+                    ? '中断思考'
+                    : '开始思考'
           }}
         </slot>
       </span>
