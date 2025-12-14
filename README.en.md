@@ -67,7 +67,7 @@ yarn install vue-element-plus-x
 1. **On-demand Import**
 
 ```vue
-<script>
+<script setup>
 import { BubbleList, Sender } from 'vue-element-plus-x';
 
 const list = [
@@ -113,13 +113,13 @@ app.mount('#app');
 ## 🌟 Implemented Components and Hooks
 
 | Component Name       | Description                                                                    | Documentation Link                                                          |
-| -------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------- | 
+| -------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
 | `Typewriter`         | Typewriter animation component                                                 | [📄 Documentation](https://element-plus-x.com/en/components/typewriter/)    |
 | `Bubble`             | Extended bubble message component                                              | [📄 Documentation](https://element-plus-x.com/en/components/bubble/)        |
 | `BubbleList`         | Extended bubble message list component                                         | [📄 Documentation](https://element-plus-x.com/en/components/bubbleList/)    |
 | `Conversations`      | Extended conversation management component                                     | [📄 Documentation](https://element-plus-x.com/en/components/conversations/) |
 | `Welcome`            | Welcome component                                                              | [📄 Documentation](https://element-plus-x.com/en/components/welcome/)       |
-| `Prompts`            | Prompt set component                                                           | [📄 Documentation](https://element-plus-x.com/en/components/prompts/)       | 
+| `Prompts`            | Prompt set component                                                           | [📄 Documentation](https://element-plus-x.com/en/components/prompts/)       |
 | `FilesCard`          | File card component                                                            | [📄 Documentation](https://element-plus-x.com/en/components/filesCard/)     |
 | `Attachments`        | File attachment upload component                                               | [📄 Documentation](https://element-plus-x.com/en/components/attachments/)   |
 | `Sender`             | Intelligent input box (with voice interaction and built-in command operations) | [📄 Documentation](https://element-plus-x.com/en/components/sender/)        |
