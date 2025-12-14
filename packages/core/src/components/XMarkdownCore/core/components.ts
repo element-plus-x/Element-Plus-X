@@ -4,7 +4,8 @@ import type { PluggableList } from 'unified';
 import type { PropType } from 'vue';
 
 import type { CustomAttrs, SanitizeOptions, TVueMarkdown } from './types';
-import { defineComponent, shallowRef, toRefs, watch } from 'vue';
+import { computed, defineComponent, ref, shallowRef, toRefs, watch } from 'vue';
+import { watchDebounced } from '@vueuse/core';
 // import { useMarkdownContext } from '../components/MarkdownProvider';
 import { render } from './hast-to-vnode';
 import { useMarkdownProcessor } from './useProcessor';
@@ -63,10 +64,24 @@ const vueMarkdownImpl = defineComponent({
       sanitizeOptions
     });
 
+    // 防抖优化：控制markdown更新频率，避免流式渲染时频繁触发
+    const debouncedMarkdown = ref(markdown.value);
+    watchDebounced(
+      markdown,
+      (val) => {
+        debouncedMarkdown.value = val;
+      },
+      { debounce: 50, maxWait: 200 } // 50ms防抖，最多200ms必须更新一次
+    );
+
+    // 缓存优化：使用computed缓存解析结果，避免重复计算
+    const hast = computed(() => {
+      const mdast = processor.value.parse(debouncedMarkdown.value);
+      return processor.value.runSync(mdast) as Root;
+    });
+
     return () => {
-      const mdast = processor.value.parse(markdown.value);
-      const hast = processor.value.runSync(mdast) as Root;
-      return render(hast, attrs, slots, customAttrs.value);
+      return render(hast.value, attrs, slots, customAttrs.value);
     };
   }
 });
@@ -93,12 +108,25 @@ const vueMarkdownAsyncImpl = defineComponent({
     });
 
     const hast = shallowRef<Root | null>(null);
+
+    // 防抖优化：控制markdown更新频率
+    const debouncedMarkdown = ref(markdown.value);
+
     const process = async (): Promise<void> => {
-      const mdast = processor.value.parse(markdown.value);
+      const mdast = processor.value.parse(debouncedMarkdown.value);
       hast.value = (await processor.value.run(mdast)) as Root;
     };
 
-    watch(() => [markdown.value, processor.value], process, { flush: 'sync' });
+    // 使用防抖watch，避免频繁触发异步处理
+    watchDebounced(
+      markdown,
+      (val) => {
+        debouncedMarkdown.value = val;
+      },
+      { debounce: 50, maxWait: 200 }
+    );
+
+    watch(() => [debouncedMarkdown.value, processor.value], process, { flush: 'post' });
 
     await process();
 
