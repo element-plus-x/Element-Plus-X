@@ -15,7 +15,7 @@
     "noUnusedParameters": true,
     "noUncheckedSideEffectImports": true,
     /* 确保包含自动导入的类型声明 */
-    "types": ["vite/client", "node"],
+    "types": ["vite/client"],
     "typeRoots": ["./node_modules/@types", "./src"]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/stories/Header.stories.ts-", "src/auto-import.d.ts"]
