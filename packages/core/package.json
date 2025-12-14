@@ -1,7 +1,7 @@
 {
   "name": "vue-element-plus-x",
   "type": "module",
-  "version": "1.3.87",
+  "version": "1.3.88",
   "license": "MIT",
   "homepage": "https://element-plus-x.com",
   "repository": {
@@ -64,14 +64,15 @@
     "types/index.d.ts"
   ],
   "scripts": {
-    "build:es": "set NODE_OPTIONS=\"--max-old-space-size=4096\" && vue-tsc -b && vite build",
-    "build:umd": "set NODE_OPTIONS=\"--max-old-space-size=4096\" && vue-tsc -b && vite build --config vite.config.umd.ts",
+    "build:es": "set NODE_OPTIONS=\"--max-old-space-size=4096\" && vue-tsc -b --noEmit && vite build",
+    "build:umd": "set NODE_OPTIONS=\"--max-old-space-size=4096\" && vue-tsc -b --noEmit && vite build --config vite.config.umd.ts",
     "build": "rimraf dist && rimraf types && pnpm run update:plugin && pnpm run aeac && pnpm run build:es && pnpm run build:umd",
     "preview": "vite preview",
     "dev": "storybook dev -p 6006",
     "build:storybook": "storybook build",
     "aeac": "rimraf src/index.ts && rimraf src/install.ts && esno .build/scripts/auto-export-all-components.js",
-    "update:plugin": "npm i --save chatarea@latest"
+    "update:plugin": "npm i --save chatarea@latest",
+    "generate-types": "echo \"Auto-import types already exist\""
   },
   "peerDependencies": {
     "vue": "^3.5.17"

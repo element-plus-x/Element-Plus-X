@@ -40,18 +40,12 @@ jobs:
 
       - name: Build
         run: |
-          # 验证 esbuild 版本
-          echo "esbuild version:"
-          pnpm exec esbuild --version || echo "esbuild not found in root"
-          (cd packages/core && pnpm exec esbuild --version) || echo "esbuild not found in core"
           # 构建项目 - 只构建 core 包
-          # 跳过 update:plugin 步骤，避免 esbuild 版本冲突
           (cd packages/core && \
-            # 确保 auto-import.d.ts 被生成
-            pnpm exec vite build --mode development --dry-run || true && \
+            # 确保类型文件存在并生成入口文件
             pnpm run aeac && \
-            pnpm run build:es && \
-            pnpm run build:umd)
+            # 完整构建（包含类型检查和打包）
+            pnpm run build)
 
       - name: Create Release Pull Request
         id: create_release

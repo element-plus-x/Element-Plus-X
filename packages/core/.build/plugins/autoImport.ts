@@ -11,10 +11,13 @@ const plugins: PluginOption[] = [
     eslintrc: {
       enabled: true
     },
-    dts: 'src/auto-import.d.ts'
+    dts: 'src/auto-import.d.ts',
+    // 确保在构建时也生成类型声明
+    vueTemplate: true
   }) as PluginOption,
   Components({
-    resolvers: [ElementPlusResolver()]
+    resolvers: [ElementPlusResolver()],
+    dts: 'src/components.d.ts'
   }) as PluginOption
 ];
 

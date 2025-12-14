@@ -13,7 +13,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    /* 确保包含自动导入的类型声明 */
+    "types": ["vite/client", "node"],
+    "typeRoots": ["./node_modules/@types", "./src"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/stories/Header.stories.ts-"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/stories/Header.stories.ts-", "src/auto-import.d.ts"]
 }
