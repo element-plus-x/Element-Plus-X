@@ -53,8 +53,6 @@ jobs:
         id: create_release
         uses: changesets/action@v1
         with:
-          tagName: ${{ env.VERSION }}
-          releaseName: '${{ env.VERSION }}'
           publish: pnpm ci:publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
