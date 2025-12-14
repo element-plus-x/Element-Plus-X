@@ -43,11 +43,10 @@ jobs:
           # 验证 esbuild 版本
           echo "esbuild version:"
           pnpm exec esbuild --version || echo "esbuild not found in root"
-          cd packages/core && pnpm exec esbuild --version || echo "esbuild not found in core"
+          (cd packages/core && pnpm exec esbuild --version) || echo "esbuild not found in core"
           # 构建项目 - 只构建 core 包
-          # 进入 core 包目录直接执行构建
-          cd packages/core
-          pnpm build
+          # 使用子shell确保在正确的目录执行
+          (cd packages/core && pnpm build)
 
       - name: Create Release Pull Request
         id: create_release
