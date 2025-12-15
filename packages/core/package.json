@@ -71,7 +71,7 @@
     "dev": "storybook dev -p 6006",
     "build:storybook": "storybook build",
     "aeac": "rimraf src/index.ts && rimraf src/install.ts && esno .build/scripts/auto-export-all-components.js",
-    "update:plugin": "npm i --save chatarea@latest",
+    "update:plugin": "pnpm i --save x-sender@latest",
     "generate-types": "esno .build/scripts/generate-types.js"
   },
   "peerDependencies": {
@@ -81,7 +81,6 @@
     "@element-plus/icons-vue": "^2.3.1",
     "@shikijs/transformers": "^3.7.0",
     "@vueuse/core": "^13.4.0",
-    "chatarea": "^6.0.6",
     "deepmerge": "^4.3.1",
     "dompurify": "^3.2.6",
     "github-markdown-css": "^5.8.1",
@@ -102,7 +101,8 @@
     "shiki": "^3.7.0",
     "ts-md5": "^2.0.1",
     "typescript-api-pro": "^0.0.6",
-    "unified": "^11.0.5"
+    "unified": "^11.0.5",
+    "x-sender": "^1.1.9"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.16.1",
