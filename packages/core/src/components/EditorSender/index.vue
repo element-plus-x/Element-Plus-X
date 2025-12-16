@@ -5,7 +5,7 @@ import type {
   EditorSenderEmits,
   FocusType,
   ModelValue,
-  SenderState, ShowSelectOptions,
+  SenderState,
   Write
 } from './types';
 import { onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';

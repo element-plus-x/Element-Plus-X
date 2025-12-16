@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import type {
-  EditorProps,
-  SubmitResult
-} from '@components/EditorSender/types.d.ts';
+import type { EditorProps } from '@components/EditorSender/types.d.ts';
 import { computed, onMounted, ref } from 'vue';
 import { EditorSender } from '../../components';
 

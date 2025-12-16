@@ -2,7 +2,6 @@ import type EditorSenderSource from '@components/EditorSender/index.vue';
 import type { EditorProps } from '@components/EditorSender/types';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import EditorSender from './index.vue';
-import OtherEditorSender from './other.vue';
 
 const meta: Meta<typeof EditorSenderSource> = {
   title: 'Example/EditorSender',
@@ -121,15 +120,6 @@ export const EditorSenderDemo: Story = {
     template: `
       <EditorSender v-bind="attrs"
                     v-model:loading="attrs.loading" />
-    `
-  })
-};
-
-export const OtherEditorSenderDemo: Story = {
-  render: (_args: EditorProps) => ({
-    components: { OtherEditorSender },
-    template: `
-      <OtherEditorSender  />
     `
   })
 };
