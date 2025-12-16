@@ -56,9 +56,10 @@
     align-items: flex-end;
 
     .el-editor-sender-prefix {
+      display: flex;
+      align-items: center;
       padding-left: 10px;
       height: 44px;
-      line-height: 38px;
       flex: none;
     }
 
@@ -101,8 +102,9 @@
     }
 
     .el-editor-sender-action-list {
+      display: flex;
+      align-items: center;
       height: 44px;
-      line-height: 38px;
       .el-editor-sender-action-list-presets {
         display: flex;
         gap: var(--el-padding-xs, 8px);

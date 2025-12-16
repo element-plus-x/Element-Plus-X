@@ -91,6 +91,8 @@ function createChat() {
   sender.bus.on(busKey, 'tipState', (state: boolean) => {
     senderState.tipShow = state;
   });
+  // 粘贴文件
+  sender.chatElement.richText.addEventListener('paste', handleInternalPaste);
 }
 // 获取当前所有标签的数据
 function getModelValue(): ModelValue {
@@ -339,7 +341,6 @@ defineExpose({
         <div
           ref="container"
           class="el-editor-sender-chat"
-          @paste="handleInternalPaste"
         />
       </div>
       <!-- 默认操作列表 -->
