@@ -11,7 +11,7 @@ import type { FilesCardProps } from 'vue-element-plus-x/types/FilesCard';
 import { CloseBold, Link } from '@element-plus/icons-vue';
 
 const senderRef = ref();
-const showHeaderFlog = ref(false);
+const showHeaderFlog = ref(true);
 
 type SelfFilesCardProps = FilesCardProps & {
   id?: number | string;

@@ -3,7 +3,7 @@
 title: 前置提示标签
 ---
 
-通过 组件 Ref 实例的 `openTipTag` 和 `closeTipTag` 方法打开和关闭前置提示标签。
+通过 组件 Ref 实例的 `showTip` 和 `closeTip` 方法打开和关闭前置提示标签。
 </docs>
 
 <script setup lang="ts">
@@ -20,15 +20,15 @@ const senderRef = ref();
         type="primary"
         plain
         @click="
-          senderRef?.openTipTag({
-            tagLabel: '图像生成',
-            popoverLabel: '点击退出技能'
+          senderRef?.showTip({
+            text: '图像生成',
+            dialogText: '点击退出技能'
           })
         "
       >
         打开前置提示标签
       </el-button>
-      <el-button dark type="primary" plain @click="senderRef?.closeTipTag()">
+      <el-button dark type="primary" plain @click="senderRef?.closeTip()">
         关闭前置提示标签
       </el-button>
     </div>
@@ -38,29 +38,8 @@ const senderRef = ref();
 </template>
 
 <style scoped lang="less">
-:deep(.at-select) {
-  cursor: pointer;
-
-  svg {
-    display: inline-block;
-  }
-}
-
-:deep(.img-tag) {
-  width: 24px;
-  height: 24px;
-  vertical-align: bottom;
-  display: inline-block;
-}
-
-// 样式穿透处理 (解决前置标签和输入框内容的间距问题)
-:deep(.el-editor-sender-content) {
-  padding-top: 0 !important;
-  .el-editor-sender-chat,
-  .chat-tip-wrap,
-  .chat-placeholder-wrap,
-  .el-editor-sender-action-list-presets {
-    padding-top: 12px !important;
-  }
+:deep(.el-editor-sender-chat) {
+  --chat-before-tip-top: -2px !important;
+  --chat-tip-dialog-top: 3px !important;
 }
 </style>

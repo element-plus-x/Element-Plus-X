@@ -3,31 +3,22 @@
 title: 插入 选择标签
 ---
 
-通过 `selectList` 属性配置选择标签配置数组。
+通过 `selectConfig` 属性配置选择标签配置数组。每个选择标签配置对象包含以下属性：
 
-使用组件 Ref 调用 `setSelectTag` 方法在光标位置插入 **选择标签** 内容，这个方法接受两个参数，第一个参数是选择标签的标识，第二个参数是选择标签的选项标识（默认值）。
+- `dialogTitle`：选择标签弹窗标题
+- `key`：选择标签标识，用于插入选择标签时的标识
+- `options`：选择标签选项数组
+- `multiple`：是否支持多选，默认值为 `false`
+- `emptyText`：选择标签选项为空时的提示文本
 
 ::: info
-你还可以从外部调用 `openSelectDialog` 方法打开选择标签弹窗，这个方法接受一个配置对象，配置对象的类型如下：
-
-```ts
-interface SelectDialogOption {
-  key: string;
-  elm: HTMLElement;
-  beforeText?: string;
-  afterText?: string;
-}
-```
+你还可以从外部调用 `showSelect` 方法打开选择标签弹窗。
+<br>
+使用组件 Ref 调用 `setSelect` 方法在光标位置插入 **选择标签** 内容。
 :::
 
 :::details 展开查看配置数组类型
 ```ts
-interface SelectTag {
-  dialogTitle: string, // 选择标签弹窗标题
-  key: string, // 选择标签标识，用于插入选择标签时的标识
-  options: SelectItem[] // 选择标签选项数组
-}
-
 interface SelectItem {
   id: string, // 选择标签选项标识
   name: string, // 选择标签选项名称
@@ -38,18 +29,15 @@ interface SelectItem {
 </docs>
 
 <script setup lang="ts">
-import type {
-  SelectDialogOption,
-  SelectTag
-} from 'vue-element-plus-x/types/EditorSender';
-import { ref } from 'vue';
+import { reactive } from 'vue';
 
 const senderRef = ref();
 
-const selectTagsArr = ref<SelectTag[]>([
+const selectConfig = reactive([
   {
     dialogTitle: '风格选择',
     key: 'style',
+    multiple: true,
     options: [
       {
         id: '1',
@@ -80,12 +68,7 @@ const selectTagsArr = ref<SelectTag[]>([
 ]);
 
 function openSelectDialog() {
-  senderRef.value?.openSelectDialog({
-    key: 'style',
-    elm: document.getElementById('dialogBtn')!,
-    beforeText: '[自定义前置内容]',
-    afterText: '[自定义后置内容]'
-  } as SelectDialogOption);
+  senderRef.value?.showSelect('style', document.getElementById('dialogBtn')!);
 }
 </script>
 
@@ -96,7 +79,7 @@ function openSelectDialog() {
         dark
         type="primary"
         plain
-        @click="senderRef?.setSelectTag('style', '1')"
+        @click="senderRef?.setSelect('style', '1')"
       >
         插入 风格选择标签
       </el-button>
@@ -104,7 +87,7 @@ function openSelectDialog() {
         dark
         type="primary"
         plain
-        @click="senderRef?.setSelectTag('font', '2')"
+        @click="senderRef?.setSelect('font', '2')"
       >
         插入 字体选择标签
       </el-button>
@@ -118,15 +101,9 @@ function openSelectDialog() {
         外部调用选择标签弹窗
       </el-button>
     </div>
-    <EditorSender ref="senderRef" :select-list="selectTagsArr" clearable />
+    <EditorSender ref="senderRef" :select-config="selectConfig" clearable />
   </div>
 </template>
 
 <style scoped lang="less">
-:deep(.at-select) {
-  cursor: pointer;
-  svg {
-    display: inline-block;
-  }
-}
 </style>

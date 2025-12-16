@@ -98,6 +98,11 @@
           white-space: nowrap;
           text-overflow: ellipsis;
         }
+        :deep(.chat-tag-select) {
+          svg {
+            display: inline;
+          }
+        }
       }
     }
 
