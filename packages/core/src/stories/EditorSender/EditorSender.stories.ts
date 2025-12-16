@@ -18,7 +18,9 @@ const meta: Meta<typeof EditorSenderSource> = {
     disabled: { control: 'boolean' },
     clearable: { control: 'boolean' },
     headerAnimationTimer: { control: 'number' },
-    mentionConfig: { control: 'object' }
+    mentionConfig: { control: 'object' },
+    triggerConfig: { control: 'object' },
+    selectConfig: { control: 'object' },
   },
   args: {
     placeholder: '请输入内容',
@@ -77,6 +79,28 @@ const meta: Meta<typeof EditorSenderSource> = {
             name: '话题2'
           }
         ]
+      }
+    ],
+    selectConfig: [
+      {
+        dialogTitle: '风格单选',
+        key: 'style-single',
+        options: [
+          { id: '1', name: '人像摄影', preview: 'https://jianfv.top/style/style1.webp' },
+          { id: '2', name: '电影写真', preview: 'https://jianfv.top/style/style2.webp' },
+          { id: '3', name: '中国风', preview: 'https://jianfv.top/style/style3.webp' }
+        ]
+      },
+      {
+        dialogTitle: '风格多选',
+        key: 'style-multiple',
+        options: [
+          { id: '1', name: '人像摄影', preview: 'https://jianfv.top/style/style1.webp' },
+          { id: '2', name: '电影写真', preview: 'https://jianfv.top/style/style2.webp' },
+          { id: '3', name: '中国风', preview: 'https://jianfv.top/style/style3.webp' }
+        ],
+        multiple: true,
+        emptyText: '请选择风格标签'
       }
     ]
   }

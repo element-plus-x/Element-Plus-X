@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type {
+  ChatNode,
   EditorProps,
   EditorSenderEmits,
   FocusType,
   ModelValue,
-  SenderState,
+  SenderState, ShowSelectOptions,
   Write
 } from './types';
 import { onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
@@ -60,7 +61,7 @@ const senderState = reactive<SenderState>({
 });
 // 创建输入框
 function createChat() {
-  const Plugin = props.getPlugin() || XSender;
+  const Plugin = props.getPlugin ? props.getPlugin() || XSender : XSender;
   sender = new Plugin(container.value!, {
     placeholder: props.placeholder,
     device: props.device,
@@ -147,19 +148,62 @@ function selectAll() {
   sel.addRange(range);
 }
 // 插入一个选择标签
-function setSelectTag(key: string, tagId: string) {
+function setSelect(key: string, id: string) {
+  const targetConfig = props.selectConfig?.find(item => item.key === key);
+  if (!targetConfig) {
+    throw new Error(`selectConfig find key: ${key} not found`);
+  }
+  const targetRow = targetConfig.options.find(item => item.id === id);
+  if (!targetRow) {
+    throw new Error(`selectConfig ${key} find options: ${id} not found`);
+  }
+  sender?.setSelect({
+    key,
+    id,
+    name: targetRow.name
+  });
 }
 // 插入一个输入标签
-function setInputTag(key: string, placeholder: string, defaultValue?: string) {
+function setInput(key: string, placeholder: string, defaultValue?: string) {
+  sender?.setInput({
+    key,
+    placeholder,
+    text: defaultValue
+  });
 }
 // 插入一个@提及标签
-function setUserTag(userId: string) {
+function setMention(id: string) {
+  const targetRow = props.mentionConfig?.options?.find(item => item.id === id);
+  if (!targetRow) {
+    throw new Error(`mentionConfig find options: ${id} not found`);
+  }
+  sender?.setMention({
+    id,
+    name: targetRow.name
+  });
 }
 // 插入一个自定义触发符标签
-function setCustomTag(prefix: string, id: string) {
+function setTrigger(key: string, id: string) {
+  const targetRow = props.triggerConfig?.find(item => item.key === key);
+  if (!targetRow) {
+    throw new Error(`triggerConfig find key: ${key} not found`);
+  }
+  const targetOption = targetRow.options.find(item => item.id === id);
+  if (!targetOption) {
+    throw new Error(`triggerConfig ${key} find options: ${id} not found`);
+  }
+  sender?.setTrigger({
+    key,
+    id,
+    name: targetOption.name
+  });
 }
 // 混合式插入
-function setMixTags(tags: MixTag[][]) {
+function setChatNode(model: ChatNode[][]) {
+  sender?.reset({
+    clearHistory: true,
+    chatNode: model,
+  });
 }
 // 在当前光标处插入html片段
 function setHtml(html: string) {
@@ -170,7 +214,11 @@ function setText(txt: string) {
   sender?.setText(txt);
 }
 // 外部调用唤起标签选择弹窗
-function openSelectDialog(option: SelectDialogOption) {
+function showSelect(key: string, elm: HTMLElement) {
+  if (!props.selectConfig?.some(item => item.key === key)) {
+    throw new Error(`selectConfig find key: ${key} not found`);
+  }
+  sender?.showSelectPopup(key, elm);
 }
 // 打开前置提示标签
 function showTip(props: Record<string, string>) {
@@ -238,6 +286,7 @@ onBeforeUnmount(() => {
 /** 暴露方法 */
 defineExpose({
   getSender: () => sender,
+  senderState,
   blur,
   focus,
   clear: onClear,
@@ -245,9 +294,14 @@ defineExpose({
   getModelValue,
   setText,
   setHtml,
+  setMention,
+  setTrigger,
+  setSelect,
+  setInput,
+  setChatNode,
   showTip,
   closeTip,
-  senderState
+  showSelect
 });
 </script>
 

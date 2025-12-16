@@ -1,4 +1,5 @@
 import type {
+  AnyTagProps,
   FocusType as FocusSenderType,
   MentionConfig,
   SelectConfig,
@@ -11,6 +12,7 @@ import type XSender from 'x-sender';
 
 export type FocusType = FocusSenderType;
 export type Write = WriteSender;
+export type ChatNode = AnyTagProps;
 
 export interface EditorProps {
   placeholder?: string;
