@@ -49,14 +49,16 @@
   .el-editor-sender-content {
     display: flex;
     width: 100%;
-    gap: var(--el-padding-xs, 8px);
-    padding-block: var(--el-padding-sm, 12px);
-    padding-inline-start: var(--el-padding, 16px);
-    padding-inline-end: var(--el-padding-sm, 12px);
+    padding-block: 4px;
+    padding-inline-start: 6px;
+    padding-inline-end: 12px;
     box-sizing: border-box;
     align-items: flex-end;
 
     .el-editor-sender-prefix {
+      padding-left: 10px;
+      height: 44px;
+      line-height: 38px;
       flex: none;
     }
 
@@ -73,14 +75,10 @@
         flex-shrink: 0;
         width: 100%;
         font-size: 14px;
-        min-height: 26px; /** 这个是给前置标签进行预留区域 **/
         line-height: var(--el-font-line-height-primary);
         box-sizing: border-box;
-        overflow-y: auto;
-        overflow-x: hidden;
         :deep(.chat-rich-text) {
           font-family: inherit;
-          padding: 0;
           font-size: inherit;
           .chat-grid-wrap {
             font-size: inherit;
@@ -93,28 +91,18 @@
           font-family: inherit;
           font-style: normal;
           color: var(--el-text-color-placeholder);
-          padding: 0;
           font-weight: bold;
           font-size: inherit;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
         }
-        :deep(.chat-tip-wrap) {
-          transform: translateY(-2px);
-          padding: 0 6px 0 0;
-          .chat-tip-tag-txt {
-            font-size: 16px;
-            font-family: inherit;
-          }
-        }
-      }
-      :deep(.chat-tip-popover) {
-        padding-bottom: 10px;
       }
     }
 
     .el-editor-sender-action-list {
+      height: 44px;
+      line-height: 38px;
       .el-editor-sender-action-list-presets {
         display: flex;
         gap: var(--el-padding-xs, 8px);

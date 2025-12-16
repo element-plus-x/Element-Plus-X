@@ -199,8 +199,8 @@ importers:
         specifier: ^3.5.17
         version: 3.5.18(typescript@5.8.3)
       x-sender:
-        specifier: ^1.1.9
-        version: 1.1.9
+        specifier: ^1.2.0
+        version: 1.2.0
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^4.16.1
@@ -6350,8 +6350,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  x-sender@1.1.9:
-    resolution: {integrity: sha512-ozp8aGBEE5r9MeB5UH0friRCI0OELydtYZ6lL6DA1XHMCTq8hbyqzyD/ux15IAa9VBegspDF3AEhlTZa1nSo8A==, tarball: https://registry.npmjs.org/x-sender/-/x-sender-1.1.9.tgz}
+  x-sender@1.2.0:
+    resolution: {integrity: sha512-6GufHiTbRFFM7c4/J9fAF9iObfbLcrn30LZWCnDYNy/CJR39cYB38Z2Lf9r/FNhTjt1rbsVmbVxAfRnU6q1xCw==, tarball: https://registry.npmjs.org/x-sender/-/x-sender-1.2.0.tgz}
 
   xml-name-validator@4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==, tarball: https://registry.npmjs.org/xml-name-validator/-/xml-name-validator-4.0.0.tgz}
@@ -13650,7 +13650,7 @@ snapshots:
 
   ws@8.18.3: {}
 
-  x-sender@1.1.9: {}
+  x-sender@1.2.0: {}
 
   xml-name-validator@4.0.0: {}
 

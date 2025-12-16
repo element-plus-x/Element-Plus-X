@@ -102,7 +102,7 @@
     "ts-md5": "^2.0.1",
     "typescript-api-pro": "^0.0.6",
     "unified": "^11.0.5",
-    "x-sender": "^1.1.9"
+    "x-sender": "^1.2.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.16.1",

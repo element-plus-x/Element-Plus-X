@@ -142,11 +142,14 @@ onMounted(() => {
         dark
         type="success"
         plain
-        @click="editorRef?.focusToStart()"
+        @click="editorRef?.focus('first')"
       >
         文本最前方
       </el-button>
-      <el-button dark type="success" plain @click="editorRef?.focusToEnd()">
+      <el-button dark type="success" plain @click="editorRef?.focus('mark')">
+        文本最后一次位置
+      </el-button>
+      <el-button dark type="success" plain @click="editorRef?.focus('last')">
         文本最后方
       </el-button>
       <el-button dark type="success" plain @click="editorRef?.selectAll()">
@@ -260,9 +263,9 @@ onMounted(() => {
               type="primary"
               plain
               @click="
-                editorRef?.openTipTag({
-                  tagLabel: '图像生成',
-                  popoverLabel: '点击退出技能'
+                editorRef?.showTip({
+                  text: '图像生成',
+                  dialogText: '点击退出技能'
                 })
               "
             >
@@ -272,9 +275,17 @@ onMounted(() => {
               dark
               type="primary"
               plain
-              @click="editorRef?.closeTipTag()"
+              @click="editorRef?.closeTip()"
             >
               关闭前置提示标签
+            </el-button>
+            <el-button
+              dark
+              type="primary"
+              plain
+              @click="console.log(editorRef?.getModelValue())"
+            >
+              打印标签数据
             </el-button>
           </div>
         </div>

@@ -18,9 +18,7 @@ const meta: Meta<typeof EditorSenderSource> = {
     disabled: { control: 'boolean' },
     clearable: { control: 'boolean' },
     headerAnimationTimer: { control: 'number' },
-    selectList: { control: 'object' },
-    userList: { control: 'object' },
-    customTrigger: { control: 'object' }
+    mentionConfig: { control: 'object' }
   },
   args: {
     placeholder: '请输入内容',
@@ -34,63 +32,50 @@ const meta: Meta<typeof EditorSenderSource> = {
     customStyle: {
       maxHeight: '240px'
     },
-    selectList: [
+    mentionConfig: {
+      dialogTitle: '群成员',
+      callEvery: true,
+      options: [
+        {
+          id: '5',
+          name: '张三丰',
+          pinyin: 'zhang san feng'
+        },
+        {
+          id: '1',
+          name: '张三',
+          pinyin: 'zhang san'
+        },
+        {
+          id: '2',
+          name: '李四',
+          pinyin: 'li si'
+        },
+        {
+          id: '3',
+          name: '王五',
+          pinyin: 'wang wu'
+        },
+        {
+          id: '4',
+          name: '马六',
+          pinyin: 'ma liu'
+        }
+      ]
+    },
+    triggerConfig: [
       {
-        dialogTitle: '风格选择',
-        key: 'style',
+        dialogTitle: '群话题',
+        key: '#',
         options: [
           {
             id: '1',
-            name: '人像摄影',
-            preview: 'https://www.jianfv.top/style/style1.webp'
+            name: '话题1'
           },
           {
             id: '2',
-            name: '电影写真',
-            preview: 'https://www.jianfv.top/style/style2.webp'
-          },
-          {
-            id: '3',
-            name: '中国风',
-            preview: 'https://www.jianfv.top/style/style3.webp'
+            name: '话题2'
           }
-        ]
-      }
-    ],
-    userList: [
-      {
-        id: '5',
-        name: '张三丰',
-        pinyin: 'zhang san feng'
-      },
-      {
-        id: '1',
-        name: '张三',
-        pinyin: 'zhang san'
-      },
-      {
-        id: '2',
-        name: '李四',
-        pinyin: 'li si'
-      },
-      {
-        id: '3',
-        name: '王五',
-        pinyin: 'wang wu'
-      },
-      {
-        id: '4',
-        name: '马六',
-        pinyin: 'ma liu'
-      }
-    ],
-    customTrigger: [
-      {
-        dialogTitle: '群话题',
-        prefix: '#',
-        tagList: [
-          { id: 'ht1', name: '话题一', pinyin: 'hua ti yi' },
-          { id: 'ht2', name: '话题二', pinyin: 'hua ti er' }
         ]
       }
     ]
