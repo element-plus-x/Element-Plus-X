@@ -93,6 +93,9 @@ function createChat() {
   });
   // 粘贴文件
   sender.chatElement.richText.addEventListener('paste', handleInternalPaste);
+  if (props.disabled) {
+    sender.disable();
+  }
 }
 // 获取当前所有标签的数据
 function getModelValue(): ModelValue {
@@ -242,6 +245,13 @@ function handleInternalPaste(e: ClipboardEvent) {
 /**
  *  监听响应props的响应式修改 按需更新sender对应的配置项
  */
+watch(() => props.disabled, () => {
+  if (props.disabled) {
+    sender?.disable();
+  } else {
+    sender?.enable();
+  }
+});
 watch(() => props.placeholder, () => {
   sender?.updateConfig({ placeholder: props.placeholder });
 });
