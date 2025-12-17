@@ -2,9 +2,7 @@
 ---
 title: Insert Input Tag
 ---
-
-Configure the select tag configuration array via the `selectList` property.
-Use the component Ref to call the `setInputTag` method to insert **input tag** content at the cursor position.
+Use the component Ref to call the `setInput` method to insert **input tag** content at the cursor position.
 
 This method accepts three parameters: the first is the identifier of the input tag (custom defined), the second is the placeholder of the input tag, and the third is the default value of the input tag.
 </docs>
@@ -22,7 +20,7 @@ const senderRef = ref();
         dark
         type="primary"
         plain
-        @click="senderRef?.setInputTag('job', 'Please enter your occupation')"
+        @click="senderRef?.setInput('job', 'Please enter your occupation')"
       >
         Insert Input Tag Without Default Value
       </el-button>
@@ -31,7 +29,7 @@ const senderRef = ref();
         type="primary"
         plain
         @click="
-          senderRef?.setInputTag(
+          senderRef?.setInput(
             'job',
             'Please enter your occupation',
             'Developer'
@@ -46,10 +44,4 @@ const senderRef = ref();
 </template>
 
 <style scoped lang="less">
-:deep(.at-select) {
-  cursor: pointer;
-  svg {
-    display: inline-block;
-  }
-}
 </style>

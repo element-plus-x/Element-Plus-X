@@ -3,7 +3,7 @@
 title: Prefix Tip Tag
 ---
 
-Open and close the prefix tip tag via the `openTipTag` and `closeTipTag` methods of the component Ref instance.
+Open and close the prefix tip tag via the `showTip` and `closeTip` methods of the component Ref instance.
 </docs>
 
 <script setup lang="ts">
@@ -20,15 +20,15 @@ const senderRef = ref();
         type="primary"
         plain
         @click="
-          senderRef?.openTipTag({
-            tagLabel: 'Image Generation',
-            popoverLabel: 'Click to exit skill'
+          senderRef?.showTip({
+            text: 'Image Generation',
+            dialogText: 'Click to exit skill'
           })
         "
       >
         Open Prefix Tip Tag
       </el-button>
-      <el-button dark type="primary" plain @click="senderRef?.closeTipTag()">
+      <el-button dark type="primary" plain @click="senderRef?.closeTip()">
         Close Prefix Tip Tag
       </el-button>
     </div>
@@ -38,29 +38,8 @@ const senderRef = ref();
 </template>
 
 <style scoped lang="less">
-:deep(.at-select) {
-  cursor: pointer;
-
-  svg {
-    display: inline-block;
-  }
-}
-
-:deep(.img-tag) {
-  width: 24px;
-  height: 24px;
-  vertical-align: bottom;
-  display: inline-block;
-}
-
-/* Style penetration to solve spacing issue between prefix tag and input content */
-:deep(.el-editor-sender-content) {
-  padding-top: 0 !important;
-  .el-editor-sender-chat,
-  .chat-tip-wrap,
-  .chat-placeholder-wrap,
-  .el-editor-sender-action-list-presets {
-    padding-top: 12px !important;
-  }
+:deep(.el-editor-sender-chat) {
+  --chat-before-tip-top: -2px !important;
+  --chat-tip-dialog-top: 3px !important;
 }
 </style>

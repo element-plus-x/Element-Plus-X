@@ -16,7 +16,7 @@ import { ref } from 'vue';
 const senderRef = ref();
 function setHtml() {
   senderRef.value?.setHtml(
-    `<img class="img-tag" src="https://cdn.element-plus-x.com/element-plus-x.png" alt="">`
+    `<span style="color: #40A9FF">💖 欢迎来到 Element Plus X </span>`
   );
 }
 </script>
@@ -33,10 +33,4 @@ function setHtml() {
 </template>
 
 <style scoped lang="less">
-:deep(.img-tag) {
-  width: 24px;
-  height: 24px;
-  vertical-align: bottom;
-  display: inline-block;
-}
 </style>
