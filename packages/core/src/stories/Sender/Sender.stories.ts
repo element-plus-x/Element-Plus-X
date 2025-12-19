@@ -19,6 +19,14 @@ const meta: Meta<typeof SenderSource> = {
       control: 'text',
       description: '输入框的提示语文本。'
     },
+    openHeader: {
+      defaultValue: false,
+      control: 'boolean',
+      description:
+        '输入框自定义头部是否打开的绑定值，使用 v-model 进行双向绑定',
+      // 隐藏 openHeader 属性 不能使用需要CustomSolt组件不使用v-model:openHeader
+      table: { disable: true }
+    },
     autoSize: {
       defaultValue: { minRows: 1, maxRows: 6 },
       control: 'object',
@@ -135,6 +143,7 @@ const meta: Meta<typeof SenderSource> = {
   args: {
     modelValue: '',
     placeholder: '请输入内容',
+    openHeader: false,
     autoSize: {
       minRows: 1,
       maxRows: 5
@@ -192,6 +201,7 @@ export const SenderDemo: Story = {
       <Sender
         v-bind="args"
         v-model:modelValue="model"
+        v-model:openHeader="openHeader"
         v-model:triggerPopoverVisible="triggerVisible"
       />
     `
