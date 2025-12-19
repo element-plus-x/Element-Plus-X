@@ -5,7 +5,7 @@ import type {
   ThinkingStatus
 } from './types.d.ts';
 import {
-  ArrowUpBold,
+  ArrowDownBold,
   CircleCloseFilled,
   Loading,
   Opportunity,
@@ -135,7 +135,7 @@ watch(
         >
           <slot name="arrow">
             <el-icon class="el-icon-center">
-              <ArrowUpBold />
+              <ArrowDownBold />
             </el-icon>
           </slot>
         </span>
