@@ -3,7 +3,7 @@
 title: 支持雾化效果
 ---
 
-通过 `isFog` 属性控制是否启用雾化效果。注意，该属性在 `isTyping` 为 `true` 时才生效。切回覆盖默认的 `typing` 后缀属性。
+通过 `isFog` 属性控制是否启用雾化效果。注意，该属性在 `isTyping` 为 `true` 时才生效。且会覆盖默认的 `typing` 后缀属性 `suffix`。
 </docs>
 
 <script setup lang="ts">
@@ -26,12 +26,8 @@ function setContent(type: number) {
   <ClientOnly>
     <div style="display: flex; flex-direction: column; gap: 10px">
       <div style="display: flex; gap: 10px">
-        <el-button @click="setContent(1)">
-          雾化 Markdown
-        </el-button>
-        <el-button @click="setContent(2)">
-          雾化 文本
-        </el-button>
+        <el-button @click="setContent(1)"> 雾化 Markdown </el-button>
+        <el-button @click="setContent(2)"> 雾化 文本 </el-button>
       </div>
 
       <Typewriter :content="content" :is-markdown="true" is-fog typing />
