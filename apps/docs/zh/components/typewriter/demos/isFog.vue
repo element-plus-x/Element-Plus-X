@@ -26,8 +26,12 @@ function setContent(type: number) {
   <ClientOnly>
     <div style="display: flex; flex-direction: column; gap: 10px">
       <div style="display: flex; gap: 10px">
-        <el-button @click="setContent(1)"> 雾化 Markdown </el-button>
-        <el-button @click="setContent(2)"> 雾化 文本 </el-button>
+        <el-button @click="setContent(1)">
+          雾化 Markdown
+        </el-button>
+        <el-button @click="setContent(2)">
+          雾化 文本
+        </el-button>
       </div>
 
       <Typewriter :content="content" :is-markdown="true" is-fog typing />
