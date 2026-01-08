@@ -18,7 +18,6 @@ import { useMarkdownContext } from '../MarkdownProvider';
 import RunCode from '../RunCode/index.vue';
 import {
   controlEle,
-  controlHasRunCodeEle,
   copyCode,
   isDark,
   languageEle,
@@ -43,7 +42,13 @@ const preStyle = ref<any | null>(null);
 const preClass = ref<string | null>(null);
 const themes = computed(() => context?.value?.themes ?? shikiThemeDefault);
 const colorReplacements = computed(() => context?.value?.colorReplacements);
-const nowViewBtnShow = computed(() => context?.value?.needViewCodeBtn ?? false);
+// 当 needViewCodeBtn 为 true 或 enableCodePreview 为 true 时，启用 HTML 代码块的特殊处理
+const nowViewBtnShow = computed(() => {
+  const needViewCodeBtn = context?.value?.needViewCodeBtn ?? false;
+  const enableCodePreview =
+    context?.value?.codeXProps?.enableCodePreview ?? false;
+  return needViewCodeBtn || enableCodePreview;
+});
 const viewCodeModalOptions = computed(
   () => context?.value?.viewCodeModalOptions
 );
@@ -175,19 +180,12 @@ const RunCodeComputed = computed(() => {
     : undefined;
 });
 const codeControllerEleComputed = computed(() => {
-  if (nowCodeLanguage.value === 'html' && nowViewBtnShow.value) {
-    return controlHasRunCodeEle(
-      () => {
-        copyCode(renderLines.value);
-      },
-      () => {
-        viewCode(renderLines.value);
-      }
-    );
-  }
-  return controlEle(() => {
-    copyCode(renderLines.value);
-  });
+  const viewCallback =
+    nowCodeLanguage.value === 'html' && nowViewBtnShow.value
+      ? () => viewCode(renderLines.value)
+      : undefined;
+
+  return controlEle(() => copyCode(renderLines.value), viewCallback);
 });
 
 watch(
