@@ -22,7 +22,6 @@ declare module 'vue' {
     CopyCodeButton: typeof import('./src/components/XMarkdownCore/components/CodeBlock/copy-code-button.vue')['default']
     CustomLoading: typeof import('./src/components/XMarkdownCore/components/RunCode/components/custom-loading.vue')['default']
     Database: typeof import('./src/components/FilesCard/fileSvg/database.vue')['default']
-    XSender: typeof import('./src/components/XSender/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCollapse: typeof import('element-plus/es')['ElCollapse']
@@ -83,6 +82,7 @@ declare module 'vue' {
     Word: typeof import('./src/components/FilesCard/fileSvg/word.vue')['default']
     XMarkdown: typeof import('./src/components/XMarkdown/index.vue')['default']
     XMarkdownAsync: typeof import('./src/components/XMarkdownAsync/index.vue')['default']
+    XSender: typeof import('./src/components/XSender/index.vue')['default']
     Zip: typeof import('./src/components/FilesCard/fileSvg/zip.vue')['default']
   }
 }

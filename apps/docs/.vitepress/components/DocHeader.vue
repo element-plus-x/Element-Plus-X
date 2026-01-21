@@ -22,6 +22,7 @@ const zhMap = {
   useSend: 'useSend & XRequest',
   useXStream: 'useXStream',
   XMarkdown: 'XMarkdown 渲染组件',
+  XSender: 'XSender 模版输入框',
 };
 
 const enMap = {
@@ -42,6 +43,7 @@ const enMap = {
   useSend: 'useSend & XRequest',
   useXStream: 'useXStream',
   XMarkdown: 'XMarkdown Rendering Component',
+  XSender: 'XSender Template Input Box',
 };
 
 const { frontmatter, lang, page, isDark } = useData();

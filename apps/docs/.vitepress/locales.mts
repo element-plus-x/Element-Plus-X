@@ -39,8 +39,8 @@ const config = {
           {
             text: '上新',
             items: [
-              { text: 'XSender 编辑输入框', link: '/zh/components/xsender/' },
               { text: 'XMarkdown 渲染组件', link: '/zh/components/xmarkdown/' },
+              { text: 'XSender 模版输入框', link: '/zh/components/xsender/' },
             ],
           },
           {
@@ -175,8 +175,8 @@ const config = {
           {
             text: 'New',
             items: [
-              { text: 'XSender', link: '/en/components/xsender/' },
               { text: 'XMarkdown Render 📜', link: '/en/components/xmarkdown/' },
+              // { text: 'XSender', link: '/zh/components/xsender/' }, // 英文文档暂没空编写
             ],
           },
           {
