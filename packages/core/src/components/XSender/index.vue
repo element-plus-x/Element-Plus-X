@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type {
   ChatNode,
-  EditorProps,
-  EditorSenderEmits,
   FocusType,
   ModelValue,
   SenderState,
-  Write
+  Write,
+  XSenderEmits,
+  XSenderProps
 } from './types';
 import { onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
 import XSender from 'x-sender';
@@ -15,10 +15,14 @@ import LoadingButton from './components/LoadingButton/index.vue';
 import SendButton from './components/SendButton/index.vue';
 import 'x-sender/lib/XSender.css';
 
+defineOptions({
+  name: 'XSender'
+});
+
 /**
  *  支持的配置属性
  */
-const props = withDefaults(defineProps<EditorProps>(), {
+const props = withDefaults(defineProps<XSenderProps>(), {
   placeholder: '请输入内容', // 输入框提示占位语
   device: 'auto', // 使用编辑器设备类型
   autoFocus: false, // 是否在聊天框生成后自动聚焦
@@ -39,7 +43,7 @@ const props = withDefaults(defineProps<EditorProps>(), {
 /**
  *  暴露的事件
  */
-const emits = defineEmits<EditorSenderEmits>();
+const emits = defineEmits<XSenderEmits>();
 
 const instance = getCurrentInstance();
 
@@ -62,7 +66,7 @@ const senderState = reactive<SenderState>({
 // 创建输入框
 function createChat() {
   const Plugin = props.getPlugin ? props.getPlugin() || XSender : XSender;
-  const { EVENT_COMMON_CHANGE, EVENT_COMMON_SEND, EVENT_COMMON_TIP_STATE } = Plugin.EventSet;
+  const { EVENT_COMMON_CHANGE, EVENT_COMMON_SEND, EVENT_COMMON_TIP_STATE, EVENT_COMMON_DIALOG_CLOSE } = Plugin.EventSet;
   sender = new Plugin(container.value!, {
     placeholder: props.placeholder,
     device: props.device,
@@ -94,6 +98,11 @@ function createChat() {
   });
   // 粘贴文件
   sender.chatElement.richText.addEventListener('paste', handleInternalPaste);
+  // 输入框点击关闭弹窗
+  sender.chatElement.richText.addEventListener('click', () => {
+    sender?.bus.emit(EVENT_COMMON_DIALOG_CLOSE);
+  });
+  // 禁用输入框
   if (props.disabled) {
     sender.disable();
   }

@@ -14,7 +14,7 @@ export type FocusType = FocusSenderType;
 export type Write = WriteSender;
 export type ChatNode = AnyTagProps;
 
-export interface EditorProps {
+export interface XSenderProps {
   placeholder?: string;
   device?: 'pc' | 'h5' | 'auto';
   autoFocus?: boolean;
@@ -44,7 +44,7 @@ export interface ModelValue extends TagData {
   text: string;
 }
 
-export interface EditorSenderEmits {
+export interface XSenderEmits {
   (e: 'submit'): void;
   (e: 'change'): void;
   (e: 'cancel'): void;

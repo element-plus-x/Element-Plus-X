@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { EditorProps } from '@components/EditorSender/types.d.ts';
+import type { XSenderProps } from '@components/XSender/types.d.ts';
+import type { XSender } from '../../components';
 import { computed, onMounted, ref } from 'vue';
-import { EditorSender } from '../../components';
 
-const props = withDefaults(defineProps<EditorProps>(), {});
+const props = withDefaults(defineProps<XSenderProps>(), {});
 const emits = defineEmits(['update:loading']);
 
-const editorRef = ref<InstanceType<typeof EditorSender>>();
+const editorRef = ref<InstanceType<typeof XSender>>();
 const elBtnRef = ref();
 
 const _loading = computed<boolean>({
@@ -189,7 +189,7 @@ onMounted(() => {
       </el-button>
     </div>
 
-    <EditorSender
+    <XSender
       ref="editorRef"
       v-bind="props"
       @change="change"
@@ -338,7 +338,7 @@ onMounted(() => {
           默认变体 自定义底部
         </div>
       </template>
-    </EditorSender>
+    </XSender>
   </div>
 </template>
 

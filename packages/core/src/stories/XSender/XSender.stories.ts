@@ -1,10 +1,10 @@
-import type EditorSenderSource from '@components/EditorSender/index.vue';
-import type { EditorProps } from '@components/EditorSender/types';
+import type XSenderSource from '@components/XSender/index.vue';
+import type { XSenderProps } from '@components/XSender/types';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import EditorSender from './index.vue';
+import XSender from './index.vue';
 
-const meta: Meta<typeof EditorSenderSource> = {
-  title: 'Example/EditorSender',
+const meta: Meta<typeof XSenderSource> = {
+  title: 'Example/XSender',
   argTypes: {
     placeholder: { control: 'text' },
     autoFocus: { control: 'boolean' },
@@ -103,23 +103,23 @@ const meta: Meta<typeof EditorSenderSource> = {
       }
     ]
   }
-} satisfies Meta<typeof EditorSenderSource>;
+} satisfies Meta<typeof XSenderSource>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const EditorSenderDemo: Story = {
-  render: (_args: EditorProps) => ({
+export const XSenderDemo: Story = {
+  render: (_args: XSenderProps) => ({
     setup() {
       return {
         attrs: _args
       };
     },
-    components: { EditorSender },
+    components: { XSender },
     template: `
-      <EditorSender v-bind="attrs"
-                    v-model:loading="attrs.loading" />
+      <XSender v-bind="attrs"
+               v-model:loading="attrs.loading" />
     `
   })
 };

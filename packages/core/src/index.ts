@@ -4,7 +4,6 @@ import Bubble from './components/Bubble/index.vue';
 import BubbleList from './components/BubbleList/index.vue';
 import ConfigProvider from './components/ConfigProvider/index.vue';
 import Conversations from './components/Conversations/index.vue';
-import EditorSender from './components/EditorSender/index.vue';
 import FilesCard from './components/FilesCard/index.vue';
 import MentionSender from './components/MentionSender/index.vue';
 import Prompts from './components/Prompts/index.vue';
@@ -15,6 +14,7 @@ import Typewriter from './components/Typewriter/index.vue';
 import Welcome from './components/Welcome/index.vue';
 import XMarkdown from './components/XMarkdown/index.vue';
 import XMarkdownAsync from './components/XMarkdownAsync/index.vue';
+import XSender from './components/XSender/index.vue';
 
 export * from './components';
 export * from './hooks';
@@ -26,7 +26,7 @@ const ElementPlusX: Plugin = {
     app.component('BubbleList', BubbleList);
     app.component('ConfigProvider', ConfigProvider);
     app.component('Conversations', Conversations);
-    app.component('EditorSender', EditorSender);
+    app.component('XSender', XSender);
     app.component('FilesCard', FilesCard);
     app.component('MentionSender', MentionSender);
     app.component('Prompts', Prompts);
