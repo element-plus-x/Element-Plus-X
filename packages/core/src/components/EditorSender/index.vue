@@ -62,6 +62,7 @@ const senderState = reactive<SenderState>({
 // 创建输入框
 function createChat() {
   const Plugin = props.getPlugin ? props.getPlugin() || XSender : XSender;
+  const { EVENT_COMMON_CHANGE, EVENT_COMMON_SEND, EVENT_COMMON_TIP_STATE } = Plugin.EventSet;
   sender = new Plugin(container.value!, {
     placeholder: props.placeholder,
     device: props.device,
@@ -80,15 +81,15 @@ function createChat() {
       : event => event.shiftKey && event.key === 'Enter'
   });
   // 订阅发送方法
-  sender.bus.on(busKey, 'send', onSubmit);
+  sender.bus.on(busKey, EVENT_COMMON_SEND, onSubmit);
   // 订阅输入框变化事件
-  sender.bus.on(busKey, 'editorChange', () => {
+  sender.bus.on(busKey, EVENT_COMMON_CHANGE, () => {
     senderState.isEmpty = sender!.isEmpty(true);
     senderState.textLength = sender!.chatEditor.textLength;
     emits('change');
   });
   // 订阅前置标签变化事件
-  sender.bus.on(busKey, 'tipState', (state: boolean) => {
+  sender.bus.on(busKey, EVENT_COMMON_TIP_STATE, (state: boolean) => {
     senderState.tipShow = state;
   });
   // 粘贴文件
