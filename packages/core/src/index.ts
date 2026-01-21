@@ -26,7 +26,6 @@ const ElementPlusX: Plugin = {
     app.component('BubbleList', BubbleList);
     app.component('ConfigProvider', ConfigProvider);
     app.component('Conversations', Conversations);
-    app.component('XSender', XSender);
     app.component('FilesCard', FilesCard);
     app.component('MentionSender', MentionSender);
     app.component('Prompts', Prompts);
@@ -37,6 +36,7 @@ const ElementPlusX: Plugin = {
     app.component('Welcome', Welcome);
     app.component('XMarkdown', XMarkdown);
     app.component('XMarkdownAsync', XMarkdownAsync);
+    app.component('XSender', XSender);
   }
 };
 
