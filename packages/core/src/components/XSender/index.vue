@@ -215,10 +215,11 @@ function setTrigger(key: string, id: string) {
 }
 // 混合式插入
 function setChatNode(model: ChatNode[][]) {
-  sender?.reset({
-    clearHistory: true,
-    chatNode: model,
-  });
+  // sender?.reset({
+  //   clearHistory: true,
+  //   chatNode: model,
+  // });
+  sender?.setChatNode(model);
 }
 // 在当前光标处插入html片段
 function setHtml(html: string) {
