@@ -307,6 +307,7 @@ onBeforeUnmount(() => {
 
 /** 暴露方法 */
 defineExpose({
+  getPlugin: () => XSender,
   getSender: () => sender,
   senderState,
   blur,

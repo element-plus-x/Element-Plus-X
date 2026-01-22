@@ -50,3 +50,14 @@ title: 'XSender'
 
 ### 输入长度限制
 <demo src="./demos/max-length.vue"></demo>
+
+## 进阶用法
+
+### 词槽输入框
+<demo src="./demos/input.vue"></demo>
+
+### 标签选择框
+<demo src="./demos/select.vue"></demo>
+
+### 提及用户
+<demo src="./demos/mention.vue"></demo>
