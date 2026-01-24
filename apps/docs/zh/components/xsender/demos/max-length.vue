@@ -12,6 +12,22 @@ title: 输入长度限制
 :::
 </docs>
 
+<script setup lang="ts">
+import type { XSender } from 'vue-element-plus-x';
+import { ref } from 'vue';
+
+const senderRef = ref<InstanceType<typeof XSender>>();
+
+const maxLength = ref(200);
+</script>
+
 <template>
-  <XSender :max-length="10" placeholder="输入长度限制"></XSender>
+  <div style="margin-bottom: 20px;">
+    <span>当前输入长度：{{ senderRef?.senderState.textLength }} / {{ maxLength }}</span>
+  </div>
+  <XSender
+    ref="senderRef"
+    :max-length="maxLength"
+    placeholder="输入长度限制"
+  ></XSender>
 </template>

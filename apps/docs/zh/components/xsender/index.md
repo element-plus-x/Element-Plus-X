@@ -61,3 +61,9 @@ title: 'XSender'
 
 ### 提及用户
 <demo src="./demos/mention.vue"></demo>
+
+### 指令弹窗
+<demo src="./demos/trigger.vue"></demo>
+
+### 前置提示词
+<demo src="./demos/befor-tip.vue"></demo>

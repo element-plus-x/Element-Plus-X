@@ -1,10 +1,10 @@
 <docs>
 ---
-title: 提及用户
+title: 自定义指令
 ---
 
-默认可以通过 `@` 触发提及用户选择弹窗。
-可以通过 `setMention` 插入一个提及用户标签。
+默认可以通过自定义设置触发符触发选择弹窗。
+可以通过 `setTrigger` 插入一个提及用户标签。
 使用 `setChatNode` 可以高度预设输入框的模板内容。
 </docs>
 
@@ -14,27 +14,29 @@ import { ref } from 'vue';
 
 const senderRef = ref<InstanceType<typeof XSender>>();
 
-const mentionConfig = ref({
-  dialogTitle: '用户选择',
-  callEvery: false,
-  options: [
-    {
-      name: '用户1',
-      id: 'user1',
-    },
-    {
-      name: '用户2',
-      id: 'user2',
-    },
-    {
-      name: '用户3',
-      id: 'user3',
-    },
-  ]
-});
+const triggerConfig = ref([
+  {
+    dialogTitle: '技能选择',
+    key: '/',
+    options: [
+      {
+        name: '技能1',
+        id: 'skill1',
+      },
+      {
+        name: '技能2',
+        id: 'skill2',
+      },
+      {
+        name: '技能3',
+        id: 'skill3',
+      },
+    ]
+  }
+]);
 
 function onSetBasic() {
-  senderRef.value?.setMention('user1');
+  senderRef.value?.setTrigger('/', 'skill1');
 }
 
 function onSetModel() {
@@ -42,16 +44,17 @@ function onSetModel() {
     [
       {
         type: 'Write',
-        text: '这些工作任务将由'
+        text: '用户选择了'
       },
       {
-        type: 'Mention',
-        id: 'user1',
-        name: '用户1',
+        type: 'Trigger',
+        key: '/',
+        id: 'skill3',
+        name: '技能3',
       },
       {
         type: 'Write',
-        text: '负责完成。'
+        text: '模式。'
       }
     ]
   ]);
@@ -64,11 +67,12 @@ function onSetModel() {
       <el-button type="primary" @click="onSetBasic">API插入</el-button>
       <el-button type="primary" @click="onSetModel">预设模版内容插入</el-button>
     </div>
+
     <XSender
       ref="senderRef"
+      :trigger-config="triggerConfig"
       variant="updown"
-      :mention-config="mentionConfig"
-      placeholder="敲击 @键 唤起提及用户选择"
+      placeholder="敲击 / 唤起技能选择"
     ></XSender>
   </div>
 </template>
