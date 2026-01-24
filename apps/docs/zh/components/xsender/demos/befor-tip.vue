@@ -3,9 +3,8 @@
 title: 前置提示词
 ---
 
-默认可以通过自定义设置触发符触发选择弹窗。
-可以通过 `setTrigger` 插入一个提及用户标签。
-使用 `setChatNode` 可以高度预设输入框的模板内容。
+可以通过 `showTip` 唤起前置提示词。
+使用 `closeTip` 可以关闭前置提示词。
 </docs>
 
 <script setup lang="ts">

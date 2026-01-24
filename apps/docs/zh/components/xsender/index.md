@@ -67,3 +67,63 @@ title: 'XSender'
 
 ### 前置提示词
 <demo src="./demos/befor-tip.vue"></demo>
+
+
+## 属性
+
+### Props
+|属性| 类型                   | 是否必填 | 默认值       | 说明          |
+|--|----------------------|-----|-----------|-------------|
+| `placeholder`| string               | false | `请输入内容`   | 提示占位语       |
+| `device`| PC \| H5 \| auto     | false | `auto`    | 交互设备        |
+| `autoFocus`| boolean              | false | `false`   | 渲染完成后是否自动聚焦 |
+| `variant`| default \| updown    | false | `default` | 布局变体        |
+| `maxLength`| number               | false | `-1`      | 输入长度限制      |
+| `submitType`| enter \| shiftEnter  |false| `enter`   | 提交类型        |
+| `customStyle`| CSSStyleDeclaration  |false| `{}`      | 自定义输入框样式    |
+| `loading`| boolean              |false| `false`   | 加载中状态       |
+| `disabled`| boolean              |false| `false`   | 禁用状态        |
+| `clearable`| boolean              |false| `false`   | 显示清空按钮      |
+| `headerAnimationTimer`| number               |false| `300`     | 头部动画时间      |
+| `mentionConfig`| MentionConfig        |false| `null`    | 提及用户配置      |
+| `triggerConfig`| TriggerConfig[]      |false| `null`    | 指令弹窗配置      |
+| `selectConfig`| SelectConfig[]       |false| `null`    | 标签选择弹窗配置    |
+| `tipConfig`| TipConfig \| boolean |false| `true`    | 前置提示词配置     |
+| `getPlugin`| () => typeof XSender |false| `null`    | 自定义底层插件版本   |
+
+### MentionConfig
+|属性| 类型                                                  | 是否必填  | 默认值     | 说明             |
+|--|-----------------------------------------------------|-------|---------|----------------|
+| `dialogTitle`| string                                              | true  | `''`    | 提及用户弹窗标题       |
+| `options`| \<{ id: string, name: string, avatar?: string }\>[] | true  | `[]`    | 数据选项           |
+| `callEvery`| boolean                                             | false | `false` | 是否需要提及所有人选项    |
+| `everyText`| string                                              | false | `所有人`   | 提及所有人的选项文案     |
+| `asyncMatch`| (matchStr: string) => Promise<MentionItem[]>        | false | `null`  | 提及弹窗选项启用异步匹配模式 |
+| `emptyText`| string                                              | false | `暂无数据`  | 异步匹配选项为空时的提示文案 |
+
+### TriggerConfig
+| 属性            | 类型                                 | 是否必填  | 默认值    | 说明         |
+|---------------|------------------------------------|-------|--------|------------|
+| `dialogTitle` | string                             | true  | `''`   | 指令弹窗标题     |
+| `key`         | string                             | true  | `null` | 触发指令选择的按键符 |
+| `options`         | \<{ id: string, name: string }\>[] | true  | `[]`   | 数据选项       |
+
+### SelectConfig
+| 属性             | 类型                                                   | 是否必填  | 默认值       | 说明           |
+|----------------|------------------------------------------------------|-------|-----------|--------------|
+| `dialogTitle`  | string                                               | true  | `''`      | 标签选择弹窗标题     |
+| `key`         | string                                               | true  | `null`    | 选择标签标识       |
+| `options`         | \<{ id: string, name: string, preview?: string }\>[] | true  | `[]`      | 数据选项         |
+| `multiple`         | boolean                                              | false | `false`   | 开启多选         |
+| `emptyText`         | string                                               | false | `暂无数据`    | 无选项时的提示文案    |
+| `showSearch`         | boolean                                              | false | `false`   | 开启搜索功能       |
+| `placeholder`         | string                                              | false | `输入关键字查询` | 搜索提示占位语      |
+| `searchEmptyText`         | string                                              | false | `暂无数据` | 搜索内容为空时的提示文案 |
+
+### TipConfig
+| 属性             | 类型                                                   | 是否必填  | 默认值       | 说明           |
+|----------------|------------------------------------------------------|-------|-----------|--------------|
+| `tipTemplate`         | string                                               | false | `''`      | 前置提示词模板     |
+| `dialogTemplate`         | string                                               | false | `''`      | 指令弹窗模板       |
+| `closeNames`         | string[]                                              | false | `[]`      | 关闭弹窗的按键符列表 |
+| `offsetTop`         | number                                               | false | `0`       | 弹窗顶部偏移量     |
