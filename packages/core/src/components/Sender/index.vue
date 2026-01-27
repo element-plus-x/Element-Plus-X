@@ -26,6 +26,9 @@ const props = withDefaults(defineProps<SenderProps>(), {
   // el-input 属性透传
   inputStyle: () => {},
 
+  // 头部显示控制
+  openHeader: false,
+
   triggerStrings: () => [], // 指令字符数组，默认空数组
   triggerPopoverVisible: false,
   triggerPopoverWidth: 'fit-content',
@@ -56,8 +59,7 @@ const internalValue = computed({
     return props.modelValue;
   },
   set(val) {
-    if (props.readOnly || props.disabled)
-      return;
+    if (props.readOnly || props.disabled) return;
     emits('update:modelValue', val);
   }
 });
@@ -87,8 +89,7 @@ const popoverVisible = computed({
     return props.triggerPopoverVisible;
   },
   set(value) {
-    if (props.readOnly || props.disabled)
-      return;
+    if (props.readOnly || props.disabled) return;
     emits('update:triggerPopoverVisible', value);
   }
 });
@@ -100,8 +101,7 @@ const triggerString = ref('');
 watch(
   () => internalValue.value,
   (newVal, oldVal) => {
-    if (isComposing.value)
-      return;
+    if (isComposing.value) return;
     // 触发逻辑：当输入值等于数组中的任意一个指令字符时触发
     // 确保 oldVal 是字符串类型
     const triggerStrings = props.triggerStrings || []; // 如果为 undefined，就使用空数组
@@ -120,8 +120,7 @@ watch(
           isOpen: true
         });
         popoverVisible.value = true;
-      }
-      else {
+      } else {
         popoverVisible.value = true;
       }
     }
@@ -135,8 +134,7 @@ watch(
           isOpen: false
         });
         popoverVisible.value = false;
-      }
-      else {
+      } else {
         popoverVisible.value = false;
       }
     }
@@ -151,8 +149,7 @@ watch(
           isOpen: true
         });
         popoverVisible.value = true;
-      }
-      else {
+      } else {
         popoverVisible.value = true;
       }
     }
@@ -171,22 +168,52 @@ function onContentMouseDown(e: MouseEvent) {
 /* 内容容器聚焦 结束 */
 
 /* 头部显示隐藏 开始 */
-const visiableHeader = ref(false);
+// 内部状态，用于没有外部绑定时的状态管理
+const internalHeaderOpen = ref(props.openHeader);
+
+// 监听 props.openHeader 变化，同步到内部状态
+watch(
+  () => props.openHeader,
+  newValue => {
+    internalHeaderOpen.value = newValue;
+  }
+);
+
+const headerOpenState = computed({
+  get() {
+    return internalHeaderOpen.value;
+  },
+  set(value) {
+    if (props.readOnly || props.disabled) return;
+
+    internalHeaderOpen.value = value;
+    // 始终触发更新事件，让外部可以监听状态变化
+    emits('update:openHeader', value);
+  }
+});
+
+/**
+ * 打开头部容器
+ * @deprecated 此方法将在下个大版本中移除，请使用 v-model:openHeader 代替
+ * @returns {boolean} 是否成功打开
+ */
 function openHeader() {
-  if (!slots.header)
-    return false;
+  if (!slots.header) return false;
 
-  if (props.readOnly)
-    return false;
+  if (props.readOnly) return false;
 
-  visiableHeader.value = true;
+  headerOpenState.value = true;
+  return true;
 }
+
+/**
+ * 关闭头部容器
+ * @deprecated 此方法将在下个大版本中移除，请使用 v-model:openHeader 代替
+ */
 function closeHeader() {
-  if (!slots.header)
-    return;
-  if (props.readOnly)
-    return;
-  visiableHeader.value = false;
+  if (!slots.header) return;
+  if (props.readOnly) return;
+  headerOpenState.value = false;
 }
 /* 头部显示隐藏 结束 */
 
@@ -195,8 +222,7 @@ const recognition = ref<SpeechRecognition | null>(null);
 const speechLoading = ref<boolean>(false);
 
 function startRecognition() {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   if (hasOnRecordingChangeListener.value) {
     speechLoading.value = true;
     emits('recordingChange', true);
@@ -227,8 +253,7 @@ function startRecognition() {
       speechLoading.value = false;
     };
     recognition.value.start();
-  }
-  else {
+  } else {
     console.error('浏览器不支持 Web Speech API');
   }
 }
@@ -261,22 +286,19 @@ function submit() {
 }
 // 取消按钮
 function cancel() {
-  if (props.readOnly)
-    return;
+  if (props.readOnly) return;
   emits('cancel', internalValue.value);
 }
 
 function clear() {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   inputRef.value.clear();
   internalValue.value = '';
 }
 
 // 在这判断组合键的回车键 (目前支持四种模式)
 function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   const _resetSelectionRange = () => {
     const cursorPosition = e.target.selectionStart; // 获取光标位置
     const textBeforeCursor = internalValue.value.slice(0, cursorPosition); // 光标前的文本
@@ -307,8 +329,7 @@ function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
     e.preventDefault();
     if (props.submitType === 'enter') {
       _isComKeyDown ? _resetSelectionRange() : submit();
-    }
-    else {
+    } else {
       _isComKeyDown ? submit() : _resetSelectionRange();
     }
   }
@@ -329,11 +350,9 @@ function focus(type = 'all') {
   }
   if (type === 'all') {
     inputRef.value.select();
-  }
-  else if (type === 'start') {
+  } else if (type === 'start') {
     focusToStart();
-  }
-  else if (type === 'end') {
+  } else if (type === 'end') {
     focusToEnd();
   }
 }
@@ -384,8 +403,8 @@ function handleInternalPaste(e: ClipboardEvent) {
 }
 
 defineExpose({
-  openHeader, // 打开头部
-  closeHeader, // 关闭头部
+  openHeader, // 打开头部 (已废弃，请使用 v-model:openHeader)
+  closeHeader, // 关闭头部 (已废弃，请使用 v-model:openHeader)
   clear, // 清空输入框
   blur, // 失去焦点
   focus, // 获取焦点
@@ -424,7 +443,7 @@ defineExpose({
     >
       <!-- 头部容器 -->
       <Transition name="slide">
-        <div v-if="visiableHeader" class="el-sender-header-wrap">
+        <div v-if="headerOpenState" class="el-sender-header-wrap">
           <div v-if="$slots.header" class="el-sender-header">
             <slot name="header" />
           </div>
