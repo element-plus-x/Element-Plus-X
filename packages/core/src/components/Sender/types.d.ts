@@ -5,6 +5,10 @@ export interface SenderProps {
     minRows: number;
     maxRows: number;
   };
+  // 原生属性，最小输入长度
+  minlength?: string | number;
+  // 同原生 maxlength 属性
+  maxlength?: string | number;
   readOnly?: boolean;
   disabled?: boolean;
   loading?: boolean;
