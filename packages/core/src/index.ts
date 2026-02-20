@@ -11,8 +11,6 @@ import Sender from './components/Sender/index.vue';
 import Thinking from './components/Thinking/index.vue';
 import ThoughtChain from './components/ThoughtChain/index.vue';
 import Welcome from './components/Welcome/index.vue';
-import XMarkdown from './components/XMarkdown/index.vue';
-import XMarkdownAsync from './components/XMarkdownAsync/index.vue';
 import XSender from './components/XSender/index.vue';
 
 export * from './components';
@@ -32,8 +30,6 @@ const ElementPlusX: Plugin = {
     app.component('Thinking', Thinking);
     app.component('ThoughtChain', ThoughtChain);
     app.component('Welcome', Welcome);
-    app.component('XMarkdown', XMarkdown);
-    app.component('XMarkdownAsync', XMarkdownAsync);
     app.component('XSender', XSender);
   }
 };

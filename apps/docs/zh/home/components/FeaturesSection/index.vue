@@ -40,9 +40,6 @@ const Sender = defineClientComponent(() => {
 const Welcome = defineClientComponent(() => {
   return import('./components/Welcome.vue');
 });
-const XMarkdown = defineClientComponent(() => {
-  return import('./components/XMarkdown.vue');
-});
 
 // 状态管理（保留原始数据）
 const items = ref([
@@ -70,21 +67,15 @@ const items = ref([
     title: '附件上传',
     desc: '展示文件列表，内置多套文件类型图标。',
     component: markRaw(Attachments)
-  },
-  {
-    title: 'XMarkdown',
-    desc: '支持最全的Markdown语法，支持代码高亮，高定制化开发。',
-    component: markRaw(XMarkdown)
   }
 ]);
 
-// 定义6个方位的起始位置（基于容器中心的偏移量）
+// 定义5个方位的起始位置（基于容器中心的偏移量）
 const startPositions = [
   { x: -800, y: -400, rotation: -30, opacity: 0, scale: 0.7 }, // 左上
   { x: 0, y: -600, rotation: 15, opacity: 0, scale: 0.7 }, // 正上
   { x: 800, y: -400, rotation: 30, opacity: 0, scale: 0.7 }, // 右上
   { x: -800, y: 400, rotation: -15, opacity: 0, scale: 0.7 }, // 左下
-  { x: 0, y: 600, rotation: 30, opacity: 0, scale: 0.7 }, // 正下
   { x: 800, y: 400, rotation: -30, opacity: 0, scale: 0.7 } // 右下
 ];
 

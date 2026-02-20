@@ -111,6 +111,43 @@ app.mount('#app');
 <script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
 ```
 
+## ⚠️ XMarkdown Component Migration Notice
+
+The `XMarkdown` component has been separated into a standalone NPM package. We recommend using the new version:
+
+📦 **New Package:** [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)
+📂 **GitHub:** [element-plus-x/x-markdown](https://github.com/element-plus-x/x-markdown)
+
+### Migration Guide
+
+```bash
+# Install the new package
+pnpm add x-markdown-vue
+```
+
+```vue
+<template>
+  <XMarkdown :markdown="content" />
+</template>
+
+<script setup lang="ts">
+import { XMarkdown } from 'x-markdown-vue';
+import 'x-markdown-vue/style';
+
+const content = ref('# Hello World');
+</script>
+```
+
+New Features:
+
+- 🚀 Vue 3 Composition API
+- 🎨 Syntax highlighting (Shiki, 100+ languages)
+- 🌊 Streaming rendering (for AI chat scenarios)
+- 🧮 LaTeX math formulas
+- 📊 Mermaid diagrams
+- 🌗 Dark mode
+- 🔌 Flexible plugin system
+
 ## 🌟 Implemented Components and Hooks
 
 | Component Name       | Description                                                                    | Documentation Link                                                          |

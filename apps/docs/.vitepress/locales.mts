@@ -30,7 +30,7 @@ const config = {
           { text: 'ChatArea (轻量级聊天框)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
         { text: '指南', link: '/zh/guide/install' },
-        { text: '组件', link: '/zh/components/xmarkdown/' },
+        { text: '组件', link: '/zh/components/bubble/' },
       ],
 
       // 中文侧边栏
@@ -39,7 +39,6 @@ const config = {
           {
             text: '上新',
             items: [
-              { text: 'XMarkdown 渲染组件', link: '/zh/components/xmarkdown/' },
               { text: 'XSender 模版输入框', link: '/zh/components/xsender/' },
             ],
           },
@@ -165,7 +164,7 @@ const config = {
           { text: 'ChatArea (Chat Box)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
         { text: 'Guide', link: '/en/guide/install' },
-        { text: 'Components', link: '/en/components/xmarkdown/' },
+        { text: 'Components', link: '/en/components/bubble/' },
       ],
 
       // 英文侧边栏
@@ -174,7 +173,6 @@ const config = {
           {
             text: 'New',
             items: [
-              { text: 'XMarkdown Render 📜', link: '/en/components/xmarkdown/' },
               // { text: 'XSender', link: '/zh/components/xsender/' }, // 英文文档暂没空编写
             ],
           },

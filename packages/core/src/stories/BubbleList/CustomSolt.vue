@@ -5,7 +5,6 @@ import { avatar1, avatar2 } from '@assets/mock';
 import BubbleList from '@components/BubbleList/index.vue';
 import { DocumentCopy, Refresh, Search, Star } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
-import { XMarkdown } from '../../components';
 
 const props = defineProps<Pick<BubbleListProps, 'list'>>();
 
@@ -115,11 +114,7 @@ onMounted(() => {
         <!-- 自定义 content -->
         <template #content="{ item }">
           <div class="content">
-            <XMarkdown
-              v-if="item.role === 'ai'"
-              :markdown="item.content ?? ''"
-            />
-            <span v-else>{{ item.content }} </span>
+            <span>{{ item.content }}</span>
           </div>
         </template>
 

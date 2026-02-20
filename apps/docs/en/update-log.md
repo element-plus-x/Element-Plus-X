@@ -4,6 +4,11 @@
 
 - **Removed `Typewriter` component**: The typewriter component has been removed from the component library and migrated to an independent Markdown rendering library [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)
 
+- **Removed `XMarkdown` / `XMarkdownAsync` components**: XMarkdown component has been removed from the component library and migrated to an independent NPM package [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)
+  - 📦 **New Package**: [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)
+  - 📂 **GitHub**: [element-plus-x/x-markdown](https://github.com/element-plus-x/x-markdown)
+  - API is fully compatible, just replace the package name
+
 - **`Bubble` component changes**:
   - Removed `typing` property
   - Removed `isMarkdown` property

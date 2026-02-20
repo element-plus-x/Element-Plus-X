@@ -36,7 +36,7 @@ title: 'Bubble'
 
 <demo src="./demos/variant-and-shape.vue"></demo>
 
-### 与 XMarkdown 结合使用
+### 与 x-markdown-vue 结合使用
 
 从 v2.0.0 开始，Typewriter 组件已移除。如需 Markdown 渲染功能，请使用 [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)。
 

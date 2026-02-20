@@ -36,7 +36,7 @@ title: Bubble
 
 <demo src="./demos/variant-and-shape.vue"></demo>
 
-### Using with XMarkdown
+### Using with x-markdown-vue
 
 Starting from v2.0.0, the Typewriter component has been removed. For Markdown rendering functionality, please use [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue).
 

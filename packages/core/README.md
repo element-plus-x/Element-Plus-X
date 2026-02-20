@@ -110,6 +110,43 @@ app.mount('#app');
 <script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
 ```
 
+## ⚠️ XMarkdown 组件迁移通知
+
+`XMarkdown` 组件已独立为单独的 NPM 包，推荐使用新版本：
+
+📦 **新包地址：** [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)
+📂 **GitHub：** [element-plus-x/x-markdown](https://github.com/element-plus-x/x-markdown)
+
+### 迁移方式
+
+```bash
+# 安装新包
+pnpm add x-markdown-vue
+```
+
+```vue
+<template>
+  <XMarkdown :markdown="content" />
+</template>
+
+<script setup lang="ts">
+import { XMarkdown } from 'x-markdown-vue';
+import 'x-markdown-vue/style';
+
+const content = ref('# Hello World');
+</script>
+```
+
+新版本特性：
+
+- 🚀 Vue 3 组合式 API
+- 🎨 代码高亮（Shiki，支持 100+ 语言）
+- 🌊 流式渲染（支持 AI 对话场景）
+- 🧮 LaTeX 数学公式
+- 📊 Mermaid 图表
+- 🌗 深色模式
+- 🔌 灵活的插件系统
+
 ## 🌟 已实现 组件 和 Hooks
 
 | 组件名               | 描述                                   | 文档链接                                                           |

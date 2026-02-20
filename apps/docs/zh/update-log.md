@@ -4,6 +4,11 @@
 
 - **移除 `Typewriter` 打字器组件**：打字器组件已从组件库中移除，迁移至独立的 Markdown 渲染库 [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)
 
+- **移除 `XMarkdown` / `XMarkdownAsync` 组件**：XMarkdown 组件已从组件库中移除，迁移至独立的 NPM 包 [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)
+  - 📦 **新包地址**：[x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)
+  - 📂 **GitHub**：[element-plus-x/x-markdown](https://github.com/element-plus-x/x-markdown)
+  - API 完全兼容，只需替换包名即可
+
 - **`Bubble` 气泡组件变更**：
   - 移除 `typing` 属性
   - 移除 `isMarkdown` 属性
