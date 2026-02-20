@@ -9,6 +9,8 @@
   - 📂 **GitHub**: [element-plus-x/x-markdown](https://github.com/element-plus-x/x-markdown)
   - API is fully compatible, just replace the package name
 
+- **Removed `Sender` / `MentionSender` components**: Sender and MentionSender components have been removed from the component library, please use `XSender` component instead
+
 - **`Bubble` component changes**:
   - Removed `typing` property
   - Removed `isMarkdown` property

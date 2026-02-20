@@ -78,7 +78,7 @@ yarn install vue-element-plus-x
 
 ```vue
 <script setup>
-import { BubbleList, Sender } from 'vue-element-plus-x';
+import { BubbleList, XSender } from 'vue-element-plus-x';
 
 const list = [
   {
@@ -93,7 +93,7 @@ const list = [
     style="display: flex; flex-direction: column; height: 230px; justify-content: space-between;"
   >
     <BubbleList :list="list" />
-    <Sender />
+    <XSender />
   </div>
 </template>
 ```
@@ -122,22 +122,21 @@ app.mount('#app');
 
 ## 🌟 已实现 组件 和 Hooks
 
-| 组件名               | 描述                                   | 文档链接                                                           |
-| -------------------- | -------------------------------------- | ------------------------------------------------------------------ |
-| `Bubble`             | 气泡消息组件 （拓展）                  | [📄 文档](https://element-plus-x.com/zh/components/bubble/)        |
-| `BubbleList`         | 气泡消息列表 （拓展）                  | [📄 文档](https://element-plus-x.com/zh/components/bubbleList/)    |
-| `Conversations`      | 会话管理组件 （拓展）                  | [📄 文档](https://element-plus-x.com/zh/components/conversations/) |
-| `Welcome`            | 欢迎组件                               | [📄 文档](https://element-plus-x.com/zh/components/welcome/)       |
-| `Prompts `           | 提示集组件                             | [📄 文档](https://element-plus-x.com/zh/components/prompts/)       |
-| `FilesCard`          | 文件卡片组件                           | [📄 文档](https://element-plus-x.com/zh/components/filesCard/)     |
-| `Attachments`        | 上传附件组件                           | [📄 文档](https://element-plus-x.com/zh/components/attachments/)   |
-| `Sender`             | 智能输入框（含语音交互、内置指令操作） | [📄 文档](https://element-plus-x.com/zh/components/sender/)        |
-| `MentionSender`      | 指令输入框 （提及列表）                | [📄 文档](https://element-plus-x.com/zh/components/mentionSender/) |
-| `Thinking`           | 思考中组件 （拓展）                    | [📄 文档](https://element-plus-x.com/zh/components/thinking/)      |
-| `ThoughtChain`       | 思考链组件                             | [📄 文档](https://element-plus-x.com/zh/components/thoughtChain/)  |
-| `useRecord`          | 浏览器内置语音识别 API Hooks           | [📄 文档](https://element-plus-x.com/zh/components/useRecord/)     |
-| `useXStream`         | 流模式接口 Hooks                       | [📄 文档](https://element-plus-x.com/zh/components/useXStream/)    |
-| `useSend & XRequest` | 流模式 hooks 的拆分 （拓展）           | [📄 文档](https://element-plus-x.com/zh/components/useSend/)       |
+| 组件名               | 描述                               | 文档链接                                                           |
+| -------------------- | ---------------------------------- | ------------------------------------------------------------------ |
+| `Bubble`             | 气泡消息组件 （拓展）              | [📄 文档](https://element-plus-x.com/zh/components/bubble/)        |
+| `BubbleList`         | 气泡消息列表 （拓展）              | [📄 文档](https://element-plus-x.com/zh/components/bubbleList/)    |
+| `Conversations`      | 会话管理组件 （拓展）              | [📄 文档](https://element-plus-x.com/zh/components/conversations/) |
+| `Welcome`            | 欢迎组件                           | [📄 文档](https://element-plus-x.com/zh/components/welcome/)       |
+| `Prompts `           | 提示集组件                         | [📄 文档](https://element-plus-x.com/zh/components/prompts/)       |
+| `FilesCard`          | 文件卡片组件                       | [📄 文档](https://element-plus-x.com/zh/components/filesCard/)     |
+| `Attachments`        | 上传附件组件                       | [📄 文档](https://element-plus-x.com/zh/components/attachments/)   |
+| `XSender`            | 智能输入框（含语音交互、提及功能） | [📄 文档](https://element-plus-x.com/zh/components/xsender/)       |
+| `Thinking`           | 思考中组件 （拓展）                | [📄 文档](https://element-plus-x.com/zh/components/thinking/)      |
+| `ThoughtChain`       | 思考链组件                         | [📄 文档](https://element-plus-x.com/zh/components/thoughtChain/)  |
+| `useRecord`          | 浏览器内置语音识别 API Hooks       | [📄 文档](https://element-plus-x.com/zh/components/useRecord/)     |
+| `useXStream`         | 流模式接口 Hooks                   | [📄 文档](https://element-plus-x.com/zh/components/useXStream/)    |
+| `useSend & XRequest` | 流模式 hooks 的拆分 （拓展）       | [📄 文档](https://element-plus-x.com/zh/components/useSend/)       |
 
 ## 🎯开发计划 (每周更新)
 

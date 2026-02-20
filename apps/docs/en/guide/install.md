@@ -30,7 +30,6 @@ yarn add vue-element-plus-x --save
 <!-- This method needs testing -->
 <!-- CDN Import -->
 <script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
-
 ```
 
 #### **III. Verify Installation**
@@ -59,7 +58,7 @@ Built-in **Tree Shaking** optimization, no additional configuration required
 
 ```vue
 <script setup>
-import { BubbleList, Sender } from 'vue-element-plus-x';
+import { BubbleList, XSender } from 'vue-element-plus-x';
 
 const list = [
   {
@@ -74,7 +73,7 @@ const list = [
     style="display: flex; flex-direction: column; height: 230px; justify-content: space-between;"
   >
     <BubbleList :list="list" />
-    <Sender />
+    <XSender />
   </div>
 </template>
 ```

@@ -12,9 +12,7 @@ const zhMap = {
   Conversations: 'Conversations 会话管理组件',
   EditorSender: 'EditorSender 编辑输入框',
   FilesCard: 'FilesCard 文件卡片',
-  MentionSender: 'MentionSender 提及输入框',
   Prompts: 'Prompts 提示集组件',
-  Sender: 'Sender 输入框',
   Thinking: 'Thinking 思考中',
   ThoughtChain: 'ThoughtChain 思维链 🔗',
   Typewriter: 'Typewriter 打字器',
@@ -22,7 +20,7 @@ const zhMap = {
   useSend: 'useSend & XRequest',
   useXStream: 'useXStream',
   XMarkdown: 'XMarkdown 渲染组件',
-  XSender: 'XSender 模版输入框',
+  XSender: 'XSender 模版输入框'
 };
 
 const enMap = {
@@ -33,9 +31,7 @@ const enMap = {
   Conversations: 'Conversations Component',
   EditorSender: 'EditorSender Input Box',
   FilesCard: 'FilesCard Component',
-  MentionSender: 'MentionSender Mention Input Box',
   Prompts: 'Prompts Component',
-  Sender: 'Sender Input Box',
   Thinking: 'Thinking Component',
   ThoughtChain: 'ThoughtChain Component',
   Typewriter: 'Typewriter Component',
@@ -43,7 +39,7 @@ const enMap = {
   useSend: 'useSend & XRequest',
   useXStream: 'useXStream',
   XMarkdown: 'XMarkdown Rendering Component',
-  XSender: 'XSender Template Input Box',
+  XSender: 'XSender Template Input Box'
 };
 
 const { frontmatter, lang, page, isDark } = useData();
@@ -52,7 +48,9 @@ const name = computed(() => {
 });
 
 const title = computed(() => {
-  return lang.value === 'zh-CN' ? zhMap[name.value as keyof typeof zhMap] : enMap[name.value as keyof typeof enMap];
+  return lang.value === 'zh-CN'
+    ? zhMap[name.value as keyof typeof zhMap]
+    : enMap[name.value as keyof typeof enMap];
 });
 
 const isComponentPage = computed(() => {
@@ -63,8 +61,7 @@ const sourceLink = computed(() => {
   if (isComponentPage.value) {
     const isHook = name.value?.includes('use');
     return `https://github.com/HeJiaYue520/Element-Plus-X/blob/main/packages/core/src/${isHook ? 'hooks' : 'components'}/${name.value}${isHook ? '.ts' : ''}`;
-  }
-  else {
+  } else {
     return '';
   }
 });
@@ -72,8 +69,7 @@ const sourceLink = computed(() => {
 const docEditLink = computed(() => {
   if (isComponentPage.value) {
     return `https://github.com/HeJiaYue520/Element-Plus-X/edit/main/apps/docs/${page.value.filePath}`;
-  }
-  else {
+  } else {
     return '';
   }
 });
@@ -85,8 +81,7 @@ async function copyToClipboard(text: string) {
     if (navigator.clipboard && window.isSecureContext) {
       await navigator.clipboard.writeText(text);
       return true;
-    }
-    else {
+    } else {
       // 降级方案：使用传统的 document.execCommand
       const textArea = document.createElement('textarea');
       textArea.value = text;
@@ -101,8 +96,7 @@ async function copyToClipboard(text: string) {
       document.body.removeChild(textArea);
       return successful;
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.error('复制失败:', err);
     return false;
   }
@@ -115,16 +109,13 @@ async function copyWithFeedback(text: string) {
   if (success) {
     if (lang.value === 'zh-CN') {
       ElMessage.success('复制成功');
-    }
-    else {
+    } else {
       ElMessage.success('Copy Success');
     }
-  }
-  else {
+  } else {
     if (lang.value === 'zh-CN') {
       ElMessage.error('复制失败');
-    }
-    else {
+    } else {
       ElMessage.error('Copy Failed');
     }
   }
@@ -134,14 +125,31 @@ async function copyWithFeedback(text: string) {
 </script>
 
 <template>
-  <div v-if="isComponentPage" class="doc-header" :style="{ '--text-color': isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(0, 0, 0, 0.45)', '--hover-background-color': isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)' }">
+  <div
+    v-if="isComponentPage"
+    class="doc-header"
+    :style="{
+      '--text-color': isDark
+        ? 'rgba(255, 255, 255, 0.45)'
+        : 'rgba(0, 0, 0, 0.45)',
+      '--hover-background-color': isDark
+        ? 'rgba(255, 255, 255, 0.08)'
+        : 'rgba(0, 0, 0, 0.04)'
+    }"
+  >
     <h1 class="component-name">
       {{ title }}
     </h1>
     <el-space class="description" direction="vertical" alignment="start">
       <div class="component-use">
         <span class="title">使用</span>
-        <span class="common code" @click="copyWithFeedback(`import  { ${name} }  from 'vue-element-plus-x'`)">import { {{ name }} } from 'vue-element-plus-x'</span>
+        <span
+          class="common code"
+          @click="
+            copyWithFeedback(`import  { ${name} }  from 'vue-element-plus-x'`)
+          "
+          >import { {{ name }} } from 'vue-element-plus-x'</span
+        >
       </div>
       <div class="component-source-site">
         <span class="title">源码</span>
@@ -172,7 +180,8 @@ async function copyWithFeedback(text: string) {
   padding: 0 4px;
   border-radius: 4px;
   transition: all 0.3s ease-in-out;
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-family:
+    'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 }
 .common:hover {
   background-color: var(--hover-background-color);

@@ -72,7 +72,7 @@ yarn add vue-element-plus-x --save
 
 ```vue
 <script setup>
-import { BubbleList, Sender } from 'vue-element-plus-x';
+import { BubbleList, XSender } from 'vue-element-plus-x';
 
 const list = [
   {
@@ -87,7 +87,7 @@ const list = [
     style="display: flex; flex-direction: column; height: 230px; justify-content: space-between;"
   >
     <BubbleList :list="list" />
-    <Sender />
+    <XSender />
   </div>
 </template>
 ```
@@ -116,18 +116,17 @@ app.mount('#app');
 
 ## 🌟 Implemented Components and Hooks
 
-| Component Name       | Description                                                          | Documentation Link                                              |
-| -------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------- |
-| `Bubble`             | Bubble message component (extended)                                  | [📄 Docs](https://element-plus-x.com/components/bubble/)        |
-| `BubbleList`         | Bubble message list (extended)                                       | [📄 Docs](https://element-plus-x.com/components/bubbleList/)    |
-| `Welcome`            | Welcome component                                                    | [📄 Docs](https://element-plus-x.com/components/welcome/)       |
-| `Sender`             | Smart input (with voice interaction、Built in instruction operation) | [📄 Docs](https://element-plus-x.com/components/sender/)        |
-| `MentionSender`      | Instruction input box (mention list)                                 | [📄 Docs](https://element-plus-x.com/components/MentionSender/) |
-| `Thinking`           | Thinking state component (extended)                                  | [📄 Docs](https://element-plus-x.com/components/thinking/)      |
-| `ThoughtChain`       | Thought chain component                                              | [📄 Docs](https://element-plus-x.com/components/thoughtChain/)  |
-| `useRecord`          | Browser built-in speech recognition hooks                            | [📄 Docs](https://element-plus-x.com/components/useRecord/)     |
-| `useXStream`         | Streaming API hooks                                                  | [📄 Docs](https://element-plus-x.com/components/useXStream/)    |
-| `useSend & XRequest` | Split streaming hooks (extended)                                     | [📄 Docs](https://element-plus-x.com/components/useSend/)       |
+| Component Name       | Description                                           | Documentation Link                                             |
+| -------------------- | ----------------------------------------------------- | -------------------------------------------------------------- |
+| `Bubble`             | Bubble message component (extended)                   | [📄 Docs](https://element-plus-x.com/components/bubble/)       |
+| `BubbleList`         | Bubble message list (extended)                        | [📄 Docs](https://element-plus-x.com/components/bubbleList/)   |
+| `Welcome`            | Welcome component                                     | [📄 Docs](https://element-plus-x.com/components/welcome/)      |
+| `XSender`            | Smart input (with voice interaction、mention support) | [📄 Docs](https://element-plus-x.com/zh/components/xsender/)   |
+| `Thinking`           | Thinking state component (extended)                   | [📄 Docs](https://element-plus-x.com/components/thinking/)     |
+| `ThoughtChain`       | Thought chain component                               | [📄 Docs](https://element-plus-x.com/components/thoughtChain/) |
+| `useRecord`          | Browser built-in speech recognition hooks             | [📄 Docs](https://element-plus-x.com/components/useRecord/)    |
+| `useXStream`         | Streaming API hooks                                   | [📄 Docs](https://element-plus-x.com/components/useXStream/)   |
+| `useSend & XRequest` | Split streaming hooks (extended)                      | [📄 Docs](https://element-plus-x.com/components/useSend/)      |
 
 ## 🎯 Development Plan (Updated Weekly)
 

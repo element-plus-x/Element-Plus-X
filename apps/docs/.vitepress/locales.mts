@@ -62,8 +62,6 @@ const config = {
             items: [
               { text: 'FilesCard 文件卡片', link: '/zh/components/filesCard/' },
               { text: 'Attachments 输入附件', link: '/zh/components/attachments/' },
-              { text: 'Sender 输入框', link: '/zh/components/sender/' },
-              { text: 'MentionSender 提及输入框', link: '/zh/components/mentionSender/' },
             ],
           },
           {
@@ -173,7 +171,7 @@ const config = {
           {
             text: 'New',
             items: [
-              // { text: 'XSender', link: '/zh/components/xsender/' }, // 英文文档暂没空编写
+              { text: 'XSender Template Input', link: '/en/components/xsender/' },
             ],
           },
           {
@@ -196,8 +194,7 @@ const config = {
             items: [
               { text: 'FilesCard', link: '/en/components/filesCard/' },
               { text: 'Attachments', link: '/en/components/attachments/' },
-              { text: 'Sender', link: '/en/components/sender/' },
-              { text: 'MentionSender', link: '/en/components/mentionSender/' },
+              { text: 'XSender Input Box', link: '/en/components/xsender/' },
             ],
           },
           {

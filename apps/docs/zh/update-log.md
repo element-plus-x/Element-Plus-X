@@ -9,6 +9,8 @@
   - 📂 **GitHub**：[element-plus-x/x-markdown](https://github.com/element-plus-x/x-markdown)
   - API 完全兼容，只需替换包名即可
 
+- **移除 `Sender` / `MentionSender` 组件**：Sender 和 MentionSender 组件已从组件库中移除，请使用 `XSender` 组件替代
+
 - **`Bubble` 气泡组件变更**：
   - 移除 `typing` 属性
   - 移除 `isMarkdown` 属性

@@ -1,14 +1,14 @@
 <!-- 欢迎组件首页演示 -->
 <script setup lang="ts">
 import { ElementPlus, Promotion } from '@element-plus/icons-vue';
-import { Sender } from 'vue-element-plus-x';
+import { XSender } from 'vue-element-plus-x';
 
 const senderValue = ref('你好，我是Element Plus X');
 const isSelect = ref(false);
 </script>
 
 <template>
-  <Sender
+  <XSender
     v-model="senderValue"
     variant="updown"
     :input-style="{
@@ -70,7 +70,7 @@ const isSelect = ref(false);
         </el-button>
       </div>
     </template>
-  </Sender>
+  </XSender>
 </template>
 
 <style scoped lang="less">
@@ -89,7 +89,7 @@ const isSelect = ref(false);
     /* 蓝紫 */ 0 0 30px rgba(0, 191, 255, 0.3);
   overflow: hidden;
 
-  :deep(.el-sender) {
+  :deep(.el-x-sender) {
     border: none;
   }
 

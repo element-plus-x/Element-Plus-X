@@ -201,7 +201,7 @@ function handleChange(payload: { value: boolean; status: ThinkingStatus }) {
           </div>
         </template>
       </BubbleList>
-      <Sender ref="senderRef" v-model="inputValue" @submit="startSSE">
+      <XSender ref="senderRef" v-model="inputValue" @submit="startSSE">
         <template #action-list>
           <div class="footer-container">
             <el-button
@@ -219,7 +219,7 @@ function handleChange(payload: { value: boolean; status: ThinkingStatus }) {
             </el-button>
           </div>
         </template>
-      </Sender>
+      </XSender>
     </div>
   </div>
 </template>
