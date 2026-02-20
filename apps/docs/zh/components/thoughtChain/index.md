@@ -60,8 +60,6 @@ title: 'ThoughtChain'
 | `status`          | `'loading' \| 'error' \| 'success'` | `undefined` | 节点状态标识（影响图标和颜色） |
 | `isCanExpand`     | `boolean`                           | `undefined` | 是否允许展开节点内容           |
 | `isDefaultExpand` | `boolean`                           | `undefined` | 是否默认展开节点内容           |
-| `isMarkdown`      | `boolean`                           | `undefined` | 是否启用Markdown格式渲染       |
-| `typing`          | `TypingConfig`                      | `undefined` | 打字机效果配置（同打字器组件） |
 
 ## 事件
 
@@ -83,8 +81,6 @@ title: 'ThoughtChain'
 
 2. **动态内容管理**
    - 支持内容折叠展开（可配置默认展开项）
-   - 内置打字机效果（Typewriter组件）
-   - 支持Markdown格式渲染
 
 3. **灵活样式配置**
    - 自定义时间轴宽度、点大小

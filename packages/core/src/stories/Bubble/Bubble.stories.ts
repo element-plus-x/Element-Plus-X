@@ -10,9 +10,6 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     content: { control: 'text' },
-    isMarkdown: { control: 'boolean' },
-    typing: { control: 'object' },
-    isFog: { control: 'boolean' },
     // 气泡属性
     placement: { control: 'radio', options: ['start', 'end'] },
     avatar: { control: 'text' },
@@ -38,14 +35,6 @@ const meta = {
     avatar: avatar1,
     loading: false,
     content: mdContent,
-    isMarkdown: true,
-    typing: {
-      step: 2,
-      suffix: '💗',
-      interval: 100,
-      isRequestEnd: true
-    },
-    isFog: true,
     placement: 'start',
     shape: 'round',
     variant: 'filled',
@@ -71,8 +60,7 @@ export const BubbleDemo: Story = {
 export const SoltDemo: Story = {
   args: {
     ...BubbleDemo.args,
-    content: '欢迎使用 Element Plus X',
-    ismarkdown: false
+    content: '欢迎使用 Element Plus X'
   } as Story['args'],
   render: (args: any) => ({
     components: {

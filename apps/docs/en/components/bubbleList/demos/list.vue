@@ -31,7 +31,6 @@ type listType = BubbleListItemProps & {
   role: 'user' | 'ai';
 };
 
-// Example call
 const list: BubbleListProps<listType>['list'] = generateFakeItems(5);
 
 function generateFakeItems(count: number): listType[] {
@@ -49,27 +48,22 @@ function generateFakeItems(count: number): listType[] {
     const loading = false;
     const shape = 'corner';
     const variant = role === 'ai' ? 'filled' : 'outlined';
-    const isMarkdown = false;
-    const typing = role === 'ai' ? i === count - 1 : false;
     const avatar =
       role === 'ai'
         ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
         : 'https://avatars.githubusercontent.com/u/76239030?v=4';
 
     messages.push({
-      key, // Unique identifier
-      role, // user | ai customize according to model definition
-      placement, // start | end bubble position
-      content, // Message content when streaming, just change this value
-      loading, // Current bubble loading state
-      shape, // Bubble shape
-      variant, // Bubble style
-      isMarkdown, // Whether to render as markdown
-      typing, // Whether to enable typewriter effect, this property won't conflict with streaming
-      isFog: role === 'ai', // Whether to enable typing fog effect, this effect is new in v1.1.6 and works when typing is true, this effect will override typing's suffix property
+      key,
+      role,
+      placement,
+      content,
+      loading,
+      shape,
+      variant,
       avatar,
-      avatarSize: '24px', // Avatar placeholder size
-      avatarGap: '12px' // Distance between avatar and bubble
+      avatarSize: '24px',
+      avatarGap: '12px'
     });
   }
   return messages;

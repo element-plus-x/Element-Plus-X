@@ -46,7 +46,6 @@ const config = {
           {
             text: '通用',
             items: [
-              { text: 'Typewriter 打字器', link: '/zh/components/typewriter/' },
               { text: 'Bubble 对话气泡', link: '/zh/components/bubble/' },
               { text: 'BubbleList 气泡列表', link: '/zh/components/bubbleList/' },
               { text: 'Conversations 会话管理', link: '/zh/components/conversations/' },
@@ -182,7 +181,6 @@ const config = {
           {
             text: 'General',
             items: [
-              { text: 'Typewriter', link: '/en/components/typewriter/' },
               { text: 'Bubble', link: '/en/components/bubble/' },
               { text: 'BubbleList', link: '/en/components/bubbleList/' },
               { text: 'Conversations', link: '/en/components/conversations/' },

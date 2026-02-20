@@ -10,7 +10,6 @@ import type {
 import { Check, Close, Loading } from '@element-plus/icons-vue';
 import { get } from 'radash';
 import { computed, ref, watch } from 'vue';
-import { Typewriter } from '../../components';
 
 const props = withDefaults(defineProps<ThoughtChainProps<T>>(), {
   // @ts-expect-errorFIXME: 暂时不做类型校验, vue类型检测问题
@@ -73,7 +72,6 @@ const getLineColor = computed(() => {
   return [];
 });
 
-// 计算默认展开项
 const activeNamesComputed = computed(() =>
   props.thinkingItems
     .filter(item => item.isCanExpand && item.isDefaultExpand)
@@ -102,8 +100,7 @@ function setRadialGradient(
         width:2px;
         background: linear-gradient(to bottom, ${colors[index]} 0% , ${colors[index < length ? index + 1 : index]} 100%);`
         );
-      }
-      else {
+      } else {
         line.setAttribute('style', ``);
       }
     }
@@ -114,8 +111,7 @@ function getEle() {
   if (getLineColor.value && timelineRef.value && props.lineGradient) {
     const ele = timelineRef.value.$el.children[0].children;
     setRadialGradient(getLineColor.value, ele);
-  }
-  else if (getLineColor.value && timelineRef.value && !props.lineGradient) {
+  } else if (getLineColor.value && timelineRef.value && !props.lineGradient) {
     const ele = timelineRef.value.$el.children[0].children;
     setRadialGradient([], ele);
   }
@@ -190,23 +186,17 @@ onMounted(() => {
           :hide-timestamp="item.hideTitle"
           :placement="item.placement ?? 'top'"
         >
-          <div v-if="!item.isCanExpand">
-            <Typewriter
-              :content="getThinkTitle(item)"
-              :is-markdown="item.isMarkdown"
-              :typing="item.typing"
-            />
+          <div v-if="!item.isCanExpand" class="el-thought-chain-content">
+            {{ getThinkTitle(item) }}
           </div>
           <el-collapse
             v-else-if="!item.isDefaultExpand"
             @change="handleExpand(item)"
           >
             <el-collapse-item :title="getThinkTitle(item)">
-              <Typewriter
-                :content="getThinkContent(item)"
-                :is-markdown="item.isMarkdown"
-                :typing="item.typing"
-              />
+              <div class="el-thought-chain-content">
+                {{ getThinkContent(item) }}
+              </div>
             </el-collapse-item>
           </el-collapse>
           <el-collapse
@@ -218,11 +208,9 @@ onMounted(() => {
               :title="getThinkTitle(item)"
               :name="String(getId(item))"
             >
-              <Typewriter
-                :content="getThinkContent(item)"
-                :is-markdown="item.isMarkdown"
-                :typing="item.typing"
-              />
+              <div class="el-thought-chain-content">
+                {{ getThinkContent(item) }}
+              </div>
             </el-collapse-item>
           </el-collapse>
 
@@ -271,6 +259,10 @@ onMounted(() => {
 .el-thought-chain {
   &-item-dot {
     margin: v-bind(dotMargin);
+  }
+  &-content {
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 }
 </style>

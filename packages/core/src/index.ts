@@ -10,7 +10,6 @@ import Prompts from './components/Prompts/index.vue';
 import Sender from './components/Sender/index.vue';
 import Thinking from './components/Thinking/index.vue';
 import ThoughtChain from './components/ThoughtChain/index.vue';
-import Typewriter from './components/Typewriter/index.vue';
 import Welcome from './components/Welcome/index.vue';
 import XMarkdown from './components/XMarkdown/index.vue';
 import XMarkdownAsync from './components/XMarkdownAsync/index.vue';
@@ -32,7 +31,6 @@ const ElementPlusX: Plugin = {
     app.component('Sender', Sender);
     app.component('Thinking', Thinking);
     app.component('ThoughtChain', ThoughtChain);
-    app.component('Typewriter', Typewriter);
     app.component('Welcome', Welcome);
     app.component('XMarkdown', XMarkdown);
     app.component('XMarkdownAsync', XMarkdownAsync);

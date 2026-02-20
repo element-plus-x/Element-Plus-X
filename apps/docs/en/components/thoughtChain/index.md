@@ -2,7 +2,6 @@
 title: ThoughtChain
 ---
 
-
 ## Introduction
 
 `ThoughtChain` is a timeline component used to display AI thinking processes, supporting **state management**, **content expand/collapse**, and **dynamic style configuration**. Through visual thinking step sequences, it helps users intuitively understand complex logical flows. The component has built-in multiple state feedback, transition animations, and extension slots, suitable for intelligent conversations, data analysis, process guidance, and other scenarios.
@@ -52,17 +51,15 @@ title: ThoughtChain
 
 - **ThoughtChainItemBase** Array item type definition
 
-| Parameter         | Type                                | Default      | Description                                                    |
-| ----------------- | ----------------------------------- | ------------ | -------------------------------------------------------------- |
-| `id`              | `string \| number`                  | **Required** | Node unique identifier                                         |
-| `title`           | `string`                            | `undefined`  | Main title                                                     |
-| `thinkTitle`      | `string`                            | `undefined`  | Collapse panel title (thinking title)                          |
-| `thinkContent`    | `string`                            | `undefined`  | Detailed content displayed when expanded                       |
-| `status`          | `'loading' \| 'error' \| 'success'` | `undefined`  | Node status identifier (affects icon and color)                |
-| `isCanExpand`     | `boolean`                           | `undefined`  | Whether to allow expanding node content                        |
-| `isDefaultExpand` | `boolean`                           | `undefined`  | Whether to expand node content by default                      |
-| `isMarkdown`      | `boolean`                           | `undefined`  | Whether to enable Markdown format rendering                    |
-| `typing`          | `TypingConfig`                      | `undefined`  | Typewriter effect configuration (same as typewriter component) |
+| Parameter         | Type                                | Default      | Description                                     |
+| ----------------- | ----------------------------------- | ------------ | ----------------------------------------------- |
+| `id`              | `string \| number`                  | **Required** | Node unique identifier                          |
+| `title`           | `string`                            | `undefined`  | Main title                                      |
+| `thinkTitle`      | `string`                            | `undefined`  | Collapse panel title (thinking title)           |
+| `thinkContent`    | `string`                            | `undefined`  | Detailed content displayed when expanded        |
+| `status`          | `'loading' \| 'error' \| 'success'` | `undefined`  | Node status identifier (affects icon and color) |
+| `isCanExpand`     | `boolean`                           | `undefined`  | Whether to allow expanding node content         |
+| `isDefaultExpand` | `boolean`                           | `undefined`  | Whether to expand node content by default       |
 
 ## Events
 
@@ -84,8 +81,6 @@ title: ThoughtChain
 
 2. **Dynamic Content Management**
    - Supports content collapse/expand (configurable default expanded items)
-   - Built-in typewriter effect (Typewriter component)
-   - Supports Markdown format rendering
 
 3. **Flexible Style Configuration**
    - Custom timeline width, dot size

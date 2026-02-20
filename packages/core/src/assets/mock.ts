@@ -549,8 +549,6 @@ export const messageArr: BubbleListProps<MessageItem>['list'] = [
     loading: true,
     shape: 'corner',
     variant: 'filled',
-    isMarkdown: false,
-    typing: { step: 2, suffix: '💗' },
     avatar: avatar2,
     avatarSize: '32px'
   },
@@ -562,7 +560,6 @@ export const messageArr: BubbleListProps<MessageItem>['list'] = [
     loading: true,
     shape: 'corner',
     variant: 'outlined',
-    isMarkdown: false,
     avatar: avatar1,
     avatarSize: '32px'
   },
@@ -574,8 +571,6 @@ export const messageArr: BubbleListProps<MessageItem>['list'] = [
     loading: true,
     shape: 'corner',
     variant: 'filled',
-    isMarkdown: false,
-    typing: { step: 2, suffix: '💗' },
     avatar: avatar2,
     avatarSize: '32px'
   },
@@ -587,7 +582,6 @@ export const messageArr: BubbleListProps<MessageItem>['list'] = [
     loading: true,
     shape: 'corner',
     variant: 'outlined',
-    isMarkdown: false,
     avatar: avatar1,
     avatarSize: '32px'
   },
@@ -599,8 +593,6 @@ export const messageArr: BubbleListProps<MessageItem>['list'] = [
     loading: true,
     shape: 'corner',
     variant: 'filled',
-    isMarkdown: false,
-    typing: { step: 2, suffix: '💗' },
     avatar: avatar2,
     avatarSize: '32px'
   },
@@ -612,7 +604,6 @@ export const messageArr: BubbleListProps<MessageItem>['list'] = [
     loading: true,
     shape: 'corner',
     variant: 'outlined',
-    isMarkdown: false,
     avatar: avatar1,
     avatarSize: '32px'
   },
@@ -624,8 +615,6 @@ export const messageArr: BubbleListProps<MessageItem>['list'] = [
     loading: true,
     shape: 'corner',
     variant: 'filled',
-    isMarkdown: false,
-    typing: { step: 2, suffix: '💗', isRequestEnd: true },
     avatar: avatar2,
     avatarSize: '32px'
   },
@@ -637,7 +626,6 @@ export const messageArr: BubbleListProps<MessageItem>['list'] = [
     loading: true,
     shape: 'corner',
     variant: 'outlined',
-    isMarkdown: false,
     avatar: avatar1,
     avatarSize: '32px'
   }

@@ -27,14 +27,11 @@ console.log('Hello, world!');
 \`\`\`
 `.repeat(1);
   const placement = isUser ? 'end' : 'start';
-  const typing = isUser ? false : { step: 2, suffix: '...' };
   const obj = {
     key: i,
     role: isUser ? 'user' : 'ai',
     content,
     placement,
-    typing,
-    isFog: true,
     avatar: isUser ? avatar1 : avatar2,
     avatarSize: '32px'
   };
@@ -102,7 +99,7 @@ onMounted(() => {
             :src="item.avatar"
             class="avatar"
             :style="{ width: item.avatarSize, height: item.avatarSize }"
-          >
+          />
         </template>
 
         <template #header="{ item }">

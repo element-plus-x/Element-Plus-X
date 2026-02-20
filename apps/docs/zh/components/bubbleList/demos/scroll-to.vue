@@ -17,14 +17,12 @@ import type {
   BubbleListItemProps,
   BubbleListProps
 } from 'vue-element-plus-x/types/BubbleList';
-import type { TypewriterProps } from 'vue-element-plus-x/types/Typewriter';
 
 type listType = BubbleListItemProps & {
   key: number;
   role: 'user' | 'ai';
 };
 
-// 示例调用
 const bubbleItems = ref<BubbleListProps<listType>['list']>(
   generateFakeItems(2)
 );
@@ -42,8 +40,6 @@ function generateFakeItems(count: number): listType[] {
     const loading = false;
     const shape = 'corner';
     const variant = role === 'ai' ? 'filled' : 'outlined';
-    const isMarkdown = false;
-    const typing = false;
     const avatar =
       role === 'ai'
         ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
@@ -57,8 +53,6 @@ function generateFakeItems(count: number): listType[] {
       loading,
       shape,
       variant,
-      isMarkdown,
-      typing,
       avatar,
       avatarSize: '32px'
     });
@@ -78,9 +72,6 @@ function addMessage() {
   const shape = 'corner';
   const variant = !isUser ? 'filled' : 'outlined';
   const placement = isUser ? 'end' : 'start';
-  const typing: TypewriterProps['typing'] = isUser
-    ? false
-    : { step: 5, suffix: '🍆', interval: 35 };
   const avatar = isUser
     ? 'https://avatars.githubusercontent.com/u/76239030?v=4'
     : 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
@@ -89,15 +80,12 @@ function addMessage() {
     role: isUser ? 'user' : 'ai',
     content,
     placement,
-    typing,
     avatar,
     shape,
     variant,
-    avatarSize: '32px',
-    isFog: !isUser
+    avatarSize: '32px'
   };
   bubbleItems.value.push(obj as listType);
-  // 每次添加 调用 滚动到底部 触发 自动滚动
   scrollBottom();
 }
 

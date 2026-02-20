@@ -1,3 +1,73 @@
+## [v2.0.0] - 2025-02-20
+
+### 💥 Breaking Changes
+
+- **Removed `Typewriter` component**: The typewriter component has been removed from the component library and migrated to an independent Markdown rendering library [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)
+
+- **`Bubble` component changes**:
+  - Removed `typing` property
+  - Removed `isMarkdown` property
+  - Removed `isFog` property
+  - Removed `@start`, `@writing`, `@finish` events
+
+- **`BubbleList` component changes**:
+  - Removed `triggerIndices` property
+  - `@complete` event parameter changed: no longer provides `TypewriterInstance` parameter
+
+- **`ThoughtChain` component changes**:
+  - Removed `typing` property
+  - Removed `isMarkdown` property
+
+### 📚 Migration Guide
+
+#### New Markdown Rendering Library
+
+[x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue) is a powerful Vue 3 Markdown rendering component library that supports streaming rendering, code highlighting, LaTeX math formulas, Mermaid diagrams, and more.
+
+```bash
+pnpm add x-markdown-vue
+```
+
+#### Basic Usage
+
+```vue
+<template>
+  <MarkdownRenderer :markdown="content" />
+</template>
+
+<script setup>
+import { MarkdownRenderer } from 'x-markdown-vue';
+import 'x-markdown-vue/style';
+
+const content = ref('# Hello World\n\nThis is **Markdown** content');
+</script>
+```
+
+#### Streaming Rendering (Alternative to Typing Effect)
+
+```vue
+<template>
+  <MarkdownRenderer :markdown="content" :enable-animate="true" />
+</template>
+```
+
+#### Using with Bubble Component
+
+```vue
+<template>
+  <Bubble :avatar="avatar" placement="start">
+    <template #content>
+      <MarkdownRenderer :markdown="content" />
+    </template>
+  </Bubble>
+</template>
+
+<script setup>
+import { MarkdownRenderer } from 'x-markdown-vue';
+import 'x-markdown-vue/style';
+</script>
+```
+
 ## [v1.3.0] - 2025-07-15
 
 ### 🐛 Fixes

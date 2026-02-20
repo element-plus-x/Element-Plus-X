@@ -118,7 +118,6 @@ app.mount('#app');
 
 | 组件名               | 描述                                   | 文档链接                                                           |
 | -------------------- | -------------------------------------- | ------------------------------------------------------------------ |
-| `Typewriter`         | 打字动画组件                           | [📄 文档](https://element-plus-x.com/zh/components/typewriter/)    |
 | `Bubble`             | 气泡消息组件 （拓展）                  | [📄 文档](https://element-plus-x.com/zh/components/bubble/)        |
 | `BubbleList`         | 气泡消息列表 （拓展）                  | [📄 文档](https://element-plus-x.com/zh/components/bubbleList/)    |
 | `Conversations`      | 会话管理组件 （拓展）                  | [📄 文档](https://element-plus-x.com/zh/components/conversations/) |

@@ -114,7 +114,6 @@ app.mount('#app');
 
 | Component Name       | Description                                                                    | Documentation Link                                                          |
 | -------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
-| `Typewriter`         | Typewriter animation component                                                 | [📄 Documentation](https://element-plus-x.com/en/components/typewriter/)    |
 | `Bubble`             | Extended bubble message component                                              | [📄 Documentation](https://element-plus-x.com/en/components/bubble/)        |
 | `BubbleList`         | Extended bubble message list component                                         | [📄 Documentation](https://element-plus-x.com/en/components/bubbleList/)    |
 | `Conversations`      | Extended conversation management component                                     | [📄 Documentation](https://element-plus-x.com/en/components/conversations/) |

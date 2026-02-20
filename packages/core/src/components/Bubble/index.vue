@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import type {
-  TypewriterInstance,
-  TypingConfig
-} from '../Typewriter/types.d.ts';
 import type { BubbleEmits, BubbleProps } from './types.d.ts';
-import Typewriter from '../Typewriter/index.vue';
 
 const props = withDefaults(defineProps<BubbleProps>(), {
   content: '',
@@ -23,98 +18,35 @@ const props = withDefaults(defineProps<BubbleProps>(), {
 
 const emits = defineEmits<BubbleEmits>();
 
-const internalDestroyed = ref(false); // 内部销毁状态
-// 新增：响应式变量跟踪打字状态
-const isTypingClass = ref(false);
+const internalDestroyed = ref(false);
 
-// 监听内容变化自动重置
 watch(
   () => props.content,
   (newVal, oldVal) => {
     if (newVal !== oldVal && internalDestroyed.value) {
-      restart(); // 内容变化时自动重置
+      restart();
     }
   }
 );
-
-const typewriterRef = ref<TypewriterInstance>();
-const instance: TypewriterInstance = {
-  interrupt,
-  continue: continueTyping,
-  restart,
-  destroy,
-  renderedContent: computed(() =>
-    internalDestroyed.value
-      ? ''
-      : typewriterRef.value?.renderedContent.value || ''
-  ),
-  isTyping: computed(
-    () =>
-      !internalDestroyed.value && (typewriterRef.value?.isTyping.value || false)
-  ),
-  progress: computed(() =>
-    internalDestroyed.value ? 0 : typewriterRef.value?.progress.value || 0
-  )
-};
-
-const DEFAULT_TYPING: TypingConfig = {
-  step: 2,
-  suffix: '|',
-  interval: 50,
-  isRequestEnd: true
-};
-
-const _typing = computed(() => {
-  if (typeof props.typing === 'undefined') {
-    return false;
-  }
-  else if (typeof props.typing === 'boolean') {
-    return props.typing;
-  }
-  else {
-    return Object.assign({}, DEFAULT_TYPING, props.typing);
-  }
-}) as boolean | TypingConfig;
-
-function onStart(instance: TypewriterInstance) {
-  emits('start', instance);
-}
-
-function onFinish(instance: TypewriterInstance) {
-  isTypingClass.value = false;
-  emits('finish', instance);
-}
-
-function onWriting(instance: TypewriterInstance) {
-  isTypingClass.value = true;
-  emits('writing', instance);
-}
 
 function avatarError(e: Event) {
   emits('avatarError', e);
 }
 
-function interrupt() {
-  typewriterRef.value?.interrupt();
-}
-
-function continueTyping() {
-  typewriterRef.value?.continue();
-}
-
 function restart() {
   internalDestroyed.value = false;
-  typewriterRef.value?.restart();
 }
 
 function destroy() {
-  typewriterRef.value?.destroy();
   internalDestroyed.value = true;
 }
 
-// 组件卸载时自动销毁
-onUnmounted(instance.destroy);
-defineExpose(instance);
+onUnmounted(destroy);
+
+defineExpose({
+  restart,
+  destroy
+});
 </script>
 
 <template>
@@ -124,8 +56,7 @@ defineExpose(instance);
     :class="{
       'el-bubble-start': placement === 'start',
       'el-bubble-end': placement === 'end',
-      'el-bubble-no-style': noStyle,
-      'el-bubble-is-typing': isTypingClass // 新增动态类名
+      'el-bubble-no-style': noStyle
     }"
     :style="{
       '--el-box-shadow-tertiary': `0 1px 2px 0 rgba(0, 0, 0, 0.03),
@@ -181,24 +112,12 @@ defineExpose(instance);
           'el-bubble-content-shadow': variant === 'shadow' && !noStyle
         }"
       >
+        <!-- 内容-默认 -->
         <div
-          v-if="!loading"
-          class="el-typewriter"
-          :class="{
-            'no-content': !content
-          }"
+          v-if="!loading && !$slots.content && content"
+          class="el-bubble-text"
         >
-          <Typewriter
-            v-if="!$slots.content && content"
-            ref="typewriterRef"
-            :typing="_typing"
-            :content="content"
-            :is-markdown="isMarkdown"
-            :is-fog="props.isFog"
-            @start="onStart"
-            @writing="onWriting"
-            @finish="onFinish"
-          />
+          {{ content }}
         </div>
 
         <!-- 内容-自定义 -->

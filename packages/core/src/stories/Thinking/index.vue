@@ -13,7 +13,6 @@ interface MessageItems extends MessageItem {
 }
 
 const BASE_URL = 'https://api.siliconflow.cn/v1/chat/completions';
-// 仅供测试，请勿拿去测试其他付费模型
 const API_KEY = 'sk-vfjyscildobjnrijtcllnkhtcouidcxdgjxtldzqzeowrbga';
 const MODEL = 'THUDM/GLM-Z1-9B-0414';
 
@@ -24,22 +23,18 @@ const bubbleListRef = ref<BubbleListInstance | null>(null);
 const processedIndex = ref(0);
 const attrs = useAttrs();
 
-// 封装数据处理逻辑
 function handleDataChunk(chunk: string) {
   if (chunk === ' [DONE]') {
     console.log('数据接收完毕');
-    // 停止打字器状态
     if (bubbleItems.value.length) {
-      bubbleItems.value[bubbleItems.value.length - 1].typing = false;
+      bubbleItems.value[bubbleItems.value.length - 1].loading = false;
     }
     cancel();
     return;
   }
   try {
-    // console.log('New chunk:', JSON.parse(chunk))
     const reasoningChunk = JSON.parse(chunk).choices[0].delta.reasoning_content;
     if (reasoningChunk) {
-      // 开始思考链状态
       bubbleItems.value[bubbleItems.value.length - 1].thinkingStatus =
         'thinking';
       bubbleItems.value[bubbleItems.value.length - 1].loading = true;
@@ -51,7 +46,6 @@ function handleDataChunk(chunk: string) {
 
     const parsedChunk = JSON.parse(chunk).choices[0].delta.content;
     if (parsedChunk) {
-      // 结束 思考链状态
       bubbleItems.value[bubbleItems.value.length - 1].thinkingStatus = 'end';
       bubbleItems.value[bubbleItems.value.length - 1].loading = false;
 
@@ -59,8 +53,7 @@ function handleDataChunk(chunk: string) {
         bubbleItems.value[bubbleItems.value.length - 1].content += parsedChunk;
       }
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.error('解析数据时出错:', err);
   }
 }
@@ -77,19 +70,16 @@ watch(
   { deep: true }
 );
 
-// 封装错误处理逻辑
 function handleError(err: any) {
   console.error('Fetch error:', err);
 }
 
 async function startSSE() {
   try {
-    // 添加用户输入的消息
     console.log('inputValue.value', inputValue.value);
     addMessage(inputValue.value, true);
     addMessage('', false);
 
-    // 这里有必要调用一下 BubbleList 组件的滚动到底部 手动触发 自动滚动
     bubbleListRef.value!.scrollToBottom();
 
     const response = await fetch(BASE_URL, {
@@ -111,16 +101,13 @@ async function startSSE() {
       })
     });
     const readableStream = response.body!;
-    // 重置状态
     processedIndex.value = 0;
     await startStream({ readableStream });
-  }
-  catch (err) {
+  } catch (err) {
     handleError(err);
   }
 }
 
-// 添加消息 - 维护聊天记录
 function addMessage(message: string, isUser: boolean) {
   const i = bubbleItems.value.length;
   const obj: MessageItems = {
@@ -131,12 +118,8 @@ function addMessage(message: string, isUser: boolean) {
     avatarSize: '48px',
     role: isUser ? 'user' : 'system',
     placement: isUser ? 'end' : 'start',
-    isMarkdown: !isUser,
     variant: 'shadow',
     shape: 'corner',
-    // maxWidth: '500px',
-    typing: isUser ? false : { step: 2, suffix: '❤️‍🔥', interval: 80 },
-    isFog: isUser ? false : { bgColor: '#FFFFFF' },
     loading: !isUser,
     content: message || '',
     reasoning_content: '',
@@ -145,7 +128,6 @@ function addMessage(message: string, isUser: boolean) {
   bubbleItems.value.push(obj);
 }
 
-// 展开收起 事件展示
 function handleChange(payload: { value: boolean; status: ThinkingStatus }) {
   console.log('value', payload.value, 'status', payload.status);
 }
@@ -200,9 +182,7 @@ function handleChange(payload: { value: boolean; status: ThinkingStatus }) {
               <span v-if="status === 'error'">想不出来 🥵</span>
             </template>
 
-            <template #arrow>
-              👇
-            </template>
+            <template #arrow> 👇 </template>
 
             <template #error>
               <span class="error-color">思考报错</span>
@@ -213,13 +193,12 @@ function handleChange(payload: { value: boolean; status: ThinkingStatus }) {
             </template>
           </Thinking>
 
-          <Typewriter
-            :content="item.content"
-            :loading="item.loading"
-            :typing="item.typing"
-            :is-markdown="item.isMarkdown"
-            :is-fog="item.isFog"
-          />
+          <div v-if="item.content" class="bubble-content">
+            {{ item.content }}
+          </div>
+          <div v-if="item.loading && !item.content" class="loading-dots">
+            <span>.</span><span>.</span><span>.</span>
+          </div>
         </template>
       </BubbleList>
       <Sender ref="senderRef" v-model="inputValue" @submit="startSSE">
@@ -265,6 +244,33 @@ function handleChange(payload: { value: boolean; status: ThinkingStatus }) {
     }
   }
 
+  .bubble-content {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .loading-dots {
+    span {
+      animation: blink 1s infinite;
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+    }
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
   :deep() {
     .el-bubble-list {
       padding-top: 24px;
@@ -273,11 +279,6 @@ function handleChange(payload: { value: boolean; status: ThinkingStatus }) {
     .el-bubble {
       padding: 0 12px;
       padding-bottom: 24px;
-    }
-
-    .el-typewriter {
-      border-radius: 12px;
-      overflow: hidden;
     }
 
     .markdown-body {

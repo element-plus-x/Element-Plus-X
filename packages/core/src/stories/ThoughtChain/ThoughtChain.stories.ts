@@ -14,8 +14,7 @@ const mockItems: ThoughtChainProps['thinkingItems'] = [
     thinkContent: 'Detailed explanation for **step one',
     status: 'success',
     isCanExpand: true,
-    isDefaultExpand: false,
-    isMarkdown: true
+    isDefaultExpand: false
   },
   {
     id: 2,
@@ -24,8 +23,7 @@ const mockItems: ThoughtChainProps['thinkingItems'] = [
     thinkContent: 'Here is what we know about step two.',
     status: 'loading',
     isCanExpand: true,
-    isDefaultExpand: true,
-    isMarkdown: false
+    isDefaultExpand: true
   },
   {
     id: 3,
@@ -33,8 +31,7 @@ const mockItems: ThoughtChainProps['thinkingItems'] = [
     thinkTitle: 'Last step...',
     thinkContent: 'This is the **final step** of the process',
     status: 'error',
-    isCanExpand: false,
-    isMarkdown: true
+    isCanExpand: false
   }
 ];
 

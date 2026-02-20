@@ -66,7 +66,7 @@ pnpm install
    ```
 
 3. **Submit PR**:
-   - Title format: `feat(component): Add new typewriter component`
+   - Title format: `feat(component): Add new component`
    - Description includes: feature description, usage examples, change impact
 
 4. **Review Process**:

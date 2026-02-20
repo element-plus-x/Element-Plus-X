@@ -1,3 +1,73 @@
+## [v2.0.0] - 2025-02-20
+
+### 💥 破坏性变更
+
+- **移除 `Typewriter` 打字器组件**：打字器组件已从组件库中移除，迁移至独立的 Markdown 渲染库 [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)
+
+- **`Bubble` 气泡组件变更**：
+  - 移除 `typing` 属性
+  - 移除 `isMarkdown` 属性
+  - 移除 `isFog` 属性
+  - 移除 `@start`、`@writing`、`@finish` 事件
+
+- **`BubbleList` 气泡列表组件变更**：
+  - 移除 `triggerIndices` 属性
+  - `@complete` 事件参数变更：不再提供 `TypewriterInstance` 参数
+
+- **`ThoughtChain` 思维链组件变更**：
+  - 移除 `typing` 属性
+  - 移除 `isMarkdown` 属性
+
+### 📚 迁移指南
+
+#### 新的 Markdown 渲染库
+
+[x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue) 是一个功能强大的 Vue 3 Markdown 渲染组件库，支持流式渲染、代码高亮、LaTeX 数学公式、Mermaid 图表等特性。
+
+```bash
+pnpm add x-markdown-vue
+```
+
+#### 基础用法
+
+```vue
+<template>
+  <MarkdownRenderer :markdown="content" />
+</template>
+
+<script setup>
+import { MarkdownRenderer } from 'x-markdown-vue';
+import 'x-markdown-vue/style';
+
+const content = ref('# Hello World\n\n这是 **Markdown** 内容');
+</script>
+```
+
+#### 流式渲染（替代打字效果）
+
+```vue
+<template>
+  <MarkdownRenderer :markdown="content" :enable-animate="true" />
+</template>
+```
+
+#### 与 Bubble 组件结合使用
+
+```vue
+<template>
+  <Bubble :avatar="avatar" placement="start">
+    <template #content>
+      <MarkdownRenderer :markdown="content" />
+    </template>
+  </Bubble>
+</template>
+
+<script setup>
+import { MarkdownRenderer } from 'x-markdown-vue';
+import 'x-markdown-vue/style';
+</script>
+```
+
 ## [v1.3.0] - 2025-07-15
 
 ### 🐛 修复

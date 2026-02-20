@@ -1,13 +1,34 @@
-import type { TypingConfig } from '../Typewriter/types';
-
 /**
  * 思考节点的id类型
  */
 type ThoughtChainItemId = string | number;
 
-type HexDigit = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
+type HexDigit =
+  | '0'
+  | '1'
+  | '2'
+  | '3'
+  | '4'
+  | '5'
+  | '6'
+  | '7'
+  | '8'
+  | '9'
+  | 'a'
+  | 'b'
+  | 'c'
+  | 'd'
+  | 'e'
+  | 'f'
+  | 'A'
+  | 'B'
+  | 'C'
+  | 'D'
+  | 'E'
+  | 'F';
 
-export type HexColor = `#${HexDigit}${HexDigit}${HexDigit}${HexDigit}${HexDigit}${HexDigit}`;
+export type HexColor =
+  `#${HexDigit}${HexDigit}${HexDigit}${HexDigit}${HexDigit}${HexDigit}`;
 
 export interface DefaultColor {
   loading: HexColor;
@@ -57,24 +78,16 @@ interface ThoughtChainItemBase {
    * 是否隐藏节点标题内容
    */
   hideTitle?: boolean | ((item: ThoughtChainItemBase) => boolean);
-  /**
-   *  是否使用markdown语法
-   */
-  isMarkdown?: boolean;
-  /**
-   * 是否开启打字效果
-   */
-  typing?: TypingConfig;
 }
 
 /** 指定这两个字段为必填 */
 type RequiredKeys = 'isCanExpand' | 'thinkContent';
 
-export type DefaultThoughtChainItemProps =
-  Required<Pick<ThoughtChainItemBase, RequiredKeys>> &
+export type DefaultThoughtChainItemProps = Required<
+  Pick<ThoughtChainItemBase, RequiredKeys>
+> &
   Omit<ThoughtChainItemBase, RequiredKeys>;
 
-// 再定义最终使用的 props 类型，直接使用这个合并结构即可
 export type ThoughtChainItemProps<T> = DefaultThoughtChainItemProps & T;
 
 /**

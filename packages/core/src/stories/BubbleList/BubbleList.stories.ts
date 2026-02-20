@@ -11,7 +11,6 @@ const meta = {
   argTypes: {
     autoScroll: { control: 'boolean' },
     maxHeight: { control: 'text' },
-    triggerIndices: { control: 'object' },
     alwaysShowScrollbar: { control: 'boolean' },
     showBackButton: { control: 'boolean' },
     backButtonPosition: { control: 'object' },
@@ -24,7 +23,6 @@ const meta = {
     list: messageArr,
     autoScroll: true,
     maxHeight: '500px',
-    triggerIndices: 'only-last',
     alwaysShowScrollbar: true,
     showBackButton: true,
     backButtonPosition: { bottom: '20px', left: 'calc(50% - 19px)' },
@@ -47,7 +45,6 @@ export const SoltDemo: Story = {
   args: {
     ...BubbleListDemo.args,
     content: '欢迎使用 Element Plus X',
-    ismarkdown: false,
     list: messageArr?.map(item => ({
       ...item,
       noStyle: true

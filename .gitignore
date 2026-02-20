@@ -46,6 +46,10 @@ yarn-error.log*
 
 
 .idea
+.claude
+.serena
+.trae
+new-vertion.md
 
 *storybook.log
 .oxlintrc.json.bak
