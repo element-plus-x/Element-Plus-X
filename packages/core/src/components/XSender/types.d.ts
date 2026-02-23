@@ -4,7 +4,6 @@ import type {
   MentionConfig,
   SelectConfig,
   TagData,
-  TipConfig,
   TriggerConfig,
   Write as WriteSender
 } from 'x-sender';
@@ -13,6 +12,13 @@ import type XSender from 'x-sender';
 export type FocusType = FocusSenderType;
 export type Write = WriteSender;
 export type ChatNode = AnyTagProps;
+
+export interface TipConfig {
+  tipTemplate?: string;
+  dialogTemplate?: string;
+  closeNames?: string[];
+  offsetTop?: number;
+}
 
 export interface XSenderProps {
   placeholder?: string;

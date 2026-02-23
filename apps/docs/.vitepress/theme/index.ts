@@ -5,6 +5,7 @@ import { h } from 'vue';
 import DocHeader from '../components/DocHeader.vue';
 import PageContributors from '../components/PageContributors.vue';
 import SponsorBanner from '../components/SponsorBanner.vue';
+import 'element-plus/dist/index.css';
 import 'virtual:uno.css';
 import './var.css';
 

@@ -1,6 +1,7 @@
 <!-- 欢迎组件首页演示 -->
 <script setup lang="ts">
 import type { PromptsItemsProps } from 'vue-element-plus-x/types/Prompts';
+import { ref } from 'vue';
 import { Prompts } from 'vue-element-plus-x';
 
 const items = ref<PromptsItemsProps[]>([
@@ -53,7 +54,11 @@ const items = ref<PromptsItemsProps[]>([
     border-radius: 15px;
     width: 100%;
     border: none;
-    background: linear-gradient(97deg, rgba(90, 196, 255, 0.12) 0%, rgba(174, 136, 255, 0.12) 100%);
+    background: linear-gradient(
+      97deg,
+      rgba(90, 196, 255, 0.12) 0%,
+      rgba(174, 136, 255, 0.12) 100%
+    );
   }
 
   :deep(.el-prompts-item-description) {

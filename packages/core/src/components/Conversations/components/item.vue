@@ -7,7 +7,6 @@ import type {
   ConversationMenuCommand
 } from '../types';
 import { MoreFilled } from '@element-plus/icons-vue';
-import { h } from 'vue';
 
 interface Props {
   item: ConversationItem;
@@ -88,9 +87,7 @@ const {
 } = toRefs(props);
 
 function renderIcon(icon: Component | null | undefined) {
-  if (!icon)
-    return null;
-  return h(icon);
+  return icon ?? null;
 }
 
 const prefixIconRender = computed(() => {
@@ -121,8 +118,7 @@ function handleClick(key: string) {
 const isTextOverflow = computed(() => {
   return (label: string = '') => {
     // 如果没有设置labelMaxWidth，直接返回false
-    if (!labelMaxWidth.value)
-      return false;
+    if (!labelMaxWidth.value) return false;
 
     // 创建一个临时的span元素来测量文本宽度
     const span = document.createElement('span');
@@ -270,9 +266,6 @@ function closeDropdown() {
   }
 }
 
-onMounted(() => {
-  console.log(elDropdownRef.value, '------');
-});
 /* 内置菜单 结束 */
 </script>
 
@@ -321,14 +314,16 @@ onMounted(() => {
                 class="conversation-label"
                 :class="{ 'text-gradient': isTextOverflow(item.label) }"
                 :style="labelStyle"
-              >{{ item.label }}</span>
+                >{{ item.label }}</span
+              >
             </ElTooltip>
             <span
               v-else
               class="conversation-label"
               :class="{ 'text-gradient': isTextOverflow(item.label) }"
               :style="labelStyle"
-            >{{ item.label }}</span>
+              >{{ item.label }}</span
+            >
           </div>
         </slot>
       </div>
@@ -371,7 +366,6 @@ onMounted(() => {
           >
             <template #default>
               <slot
-
                 name="more-filled"
                 v-bind="{
                   item,
@@ -387,7 +381,13 @@ onMounted(() => {
               </slot>
             </template>
             <template #dropdown>
-              <slot name="menu" v-bind="{ handleOpen: openDropdown, handleClose: closeDropdown }">
+              <slot
+                name="menu"
+                v-bind="{
+                  handleOpen: openDropdown,
+                  handleClose: closeDropdown
+                }"
+              >
                 <el-dropdown-menu :style="mergedMenuStyle">
                   <el-dropdown-item
                     v-for="menuItem in menu"

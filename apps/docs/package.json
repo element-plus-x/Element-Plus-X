@@ -24,7 +24,6 @@
     "unplugin-element-plus": "^0.10.0",
     "vite": "^6.3.5",
     "vite-plugin-eslint": "^1.8.1",
-    "vite-plugin-prismjs": "^0.0.11",
     "vite-plugin-tsx-auto-props": "^0.0.8",
     "vite-plugin-vitepress-demo": "^2.2.1",
     "vitepress": "^1.6.3",

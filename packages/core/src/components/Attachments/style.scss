@@ -94,7 +94,11 @@
   left: 0;
   bottom: 0;
   width: 50px;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0)
+  );
   z-index: 5;
 }
 
@@ -104,7 +108,11 @@
   right: 0;
   bottom: 0;
   width: 50px;
-  background: linear-gradient(to left, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0)
+  );
   z-index: 5;
 }
 
@@ -148,6 +156,10 @@
         color: var(--el-color-primary);
       }
     }
+  }
+
+  .el-upload__input {
+    display: none !important;
   }
 
   .el-icon.uploader-icon {

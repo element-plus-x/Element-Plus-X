@@ -31,7 +31,7 @@ export default defineConfig({
       ]
     }) as PluginOption,
     Components({
-      resolvers: [tovUIResolver(), ElementPlusResolver()]
+      resolvers: [tovUIResolver(), ElementPlusResolver({ importStyle: false })]
     }) as PluginOption,
     tsxAutoProps(),
     vitepressDemo({
@@ -49,7 +49,9 @@ export default defineConfig({
         '**/cache/**'
       ]
     }),
-    ElementPlus({}) as PluginOption
+    ElementPlus({
+      useSource: false
+    }) as PluginOption
   ] as Plugin[],
   // 我们使用vite中给我们提供的resolve配置项中的alias来实现一个重命名。
   resolve: {

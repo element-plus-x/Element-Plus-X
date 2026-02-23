@@ -1,6 +1,7 @@
 <!-- 欢迎组件首页演示 -->
 <script setup lang="ts">
 import type { PromptsItemsProps } from 'vue-element-plus-x/types/Prompts';
+import { ref } from 'vue';
 import { Prompts } from 'vue-element-plus-x';
 
 const items = ref<PromptsItemsProps[]>([

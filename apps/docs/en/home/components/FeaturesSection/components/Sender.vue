@@ -1,6 +1,7 @@
 <!-- 欢迎组件首页演示 -->
 <script setup lang="ts">
 import { ElementPlus, Promotion } from '@element-plus/icons-vue';
+import { ref } from 'vue';
 import { XSender } from 'vue-element-plus-x';
 
 const senderValue = ref('你好，我是Element Plus X');

@@ -48,6 +48,14 @@
   width: 0;
 }
 
+.vp-doc .custom-scrollbar .el-scrollbar__bar.is-vertical {
+  width: 8px;
+}
+
+.vp-doc .custom-scrollbar .el-scrollbar__thumb {
+  opacity: 0.5;
+}
+
 :root {
   --vp-c-default-1: var(--vp-c-gray-1);
   --vp-c-default-2: var(--vp-c-gray-2);
@@ -149,6 +157,6 @@
 }
 
 .vp-doc p {
-  margin: 0;
+  margin: 16px 0;
   line-height: inherit;
 }

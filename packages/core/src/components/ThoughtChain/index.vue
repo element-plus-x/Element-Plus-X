@@ -12,7 +12,7 @@ import { get } from 'radash';
 import { computed, ref, watch } from 'vue';
 
 const props = withDefaults(defineProps<ThoughtChainProps<T>>(), {
-  // @ts-expect-errorFIXME: 暂时不做类型校验, vue类型检测问题
+  // @ts-expect-error FIXME: 暂时不做类型校试, vue类型检测问题
   thinkingItems: () => [],
   dotSize: 'default',
   maxWidth: '600px',

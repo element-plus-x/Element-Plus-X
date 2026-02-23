@@ -4,6 +4,7 @@ import type {
   BubbleListItemProps,
   BubbleListProps
 } from 'vue-element-plus-x/types/BubbleList';
+import { ref } from 'vue';
 import { BubbleList } from 'vue-element-plus-x';
 
 type listType = BubbleListItemProps & {

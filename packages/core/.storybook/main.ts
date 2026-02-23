@@ -1,5 +1,6 @@
 import type { StorybookConfig } from '@storybook/vue3-vite';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
+import autoImportPlugin from '../.build/plugins/autoImport';
 
 // TODO: 需要处理代码展示功能
 /**
@@ -28,6 +29,20 @@ const config: StorybookConfig = {
   framework: {
     name: getAbsolutePath('@storybook/vue3-vite'),
     options: {}
+  },
+  async viteFinal(viteConfig) {
+    viteConfig.resolve = viteConfig.resolve ?? {};
+    viteConfig.resolve.alias = {
+      ...(viteConfig.resolve.alias as Record<string, string> | undefined),
+      '@components': resolve(__dirname, '../src/components'),
+      '@assets': resolve(__dirname, '../src/assets'),
+      '@hooks': resolve(__dirname, '../src/hooks')
+    };
+
+    viteConfig.plugins = viteConfig.plugins ?? [];
+    (viteConfig.plugins as unknown[]).push(...(autoImportPlugin as unknown[]));
+
+    return viteConfig;
   }
 };
 export default config;

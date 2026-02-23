@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import type { PropType } from 'vue';
+import type { MentionConfig, SelectConfig, TriggerConfig } from 'x-sender';
 import type {
   ChatNode,
   FocusType,
   ModelValue,
   SenderState,
+  TipConfig,
   Write,
-  XSenderEmits,
-  XSenderProps
+  XSenderEmits
 } from './types';
 import { onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
 import XSender from 'x-sender';
@@ -22,23 +24,71 @@ defineOptions({
 /**
  *  支持的配置属性
  */
-const props = withDefaults(defineProps<XSenderProps>(), {
-  placeholder: '请输入内容', // 输入框提示占位语
-  device: 'auto', // 使用编辑器设备类型
-  autoFocus: false, // 是否在聊天框生成后自动聚焦
-  variant: 'default', // 输入框的变体类型
-  maxLength: -1, // 限制输入框最大字数 *注 该配置项性能开销较大 非必要情况请别设置（像豆包和文心一言都不对这块做限制，不应因小失大）
-  submitType: 'enter', // 控制换行与提交模式
-  customStyle: () => ({}), // 修改输入样式
-  loading: false, // 发送按钮加载状态
-  disabled: false, // 是否禁用输入框
-  clearable: false, // 是否显示清空按钮
-  headerAnimationTimer: 300, // 展开动画时间
-  mentionConfig: undefined, // 提及弹窗配置
-  triggerConfig: undefined, // 触发弹窗配置
-  selectConfig: undefined, // 选择弹窗配置
-  tipConfig: true, // 前置提示弹窗配置
-  getPlugin: () => XSender, // 默认注入当前版本的插件依赖 当发生依赖插件bug时 可以让用户手动注入指定版本的插件依赖 避免频繁更新ELX版本
+const props = defineProps({
+  placeholder: {
+    type: String,
+    default: '请输入内容'
+  },
+  device: {
+    type: String as PropType<'pc' | 'h5' | 'auto'>,
+    default: 'auto'
+  },
+  autoFocus: {
+    type: Boolean,
+    default: false
+  },
+  variant: {
+    type: String as PropType<'default' | 'updown'>,
+    default: 'default'
+  },
+  maxLength: {
+    type: Number,
+    default: -1
+  },
+  submitType: {
+    type: String as PropType<'enter' | 'shiftEnter'>,
+    default: 'enter'
+  },
+  customStyle: {
+    type: Object as PropType<Partial<CSSStyleDeclaration>>,
+    default: () => ({})
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  clearable: {
+    type: Boolean,
+    default: false
+  },
+  headerAnimationTimer: {
+    type: Number,
+    default: 300
+  },
+  mentionConfig: {
+    type: Object as PropType<MentionConfig>,
+    default: undefined
+  },
+  triggerConfig: {
+    type: Array as PropType<TriggerConfig[]>,
+    default: undefined
+  },
+  selectConfig: {
+    type: Array as PropType<SelectConfig[]>,
+    default: undefined
+  },
+  tipConfig: {
+    type: [Boolean, Object] as PropType<boolean | TipConfig>,
+    default: true
+  },
+  getPlugin: {
+    type: Function as PropType<() => typeof XSender>,
+    default: () => XSender
+  }
 });
 /**
  *  暴露的事件
@@ -66,7 +116,12 @@ const senderState = reactive<SenderState>({
 // 创建输入框
 function createChat() {
   const Plugin = props.getPlugin ? props.getPlugin() || XSender : XSender;
-  const { EVENT_COMMON_CHANGE, EVENT_COMMON_SEND, EVENT_COMMON_TIP_STATE, EVENT_COMMON_DIALOG_CLOSE } = Plugin.EventSet;
+  const {
+    EVENT_COMMON_CHANGE,
+    EVENT_COMMON_SEND,
+    EVENT_COMMON_TIP_STATE,
+    EVENT_COMMON_DIALOG_CLOSE
+  } = Plugin.EventSet;
   sender = new Plugin(container.value!, {
     placeholder: props.placeholder,
     device: props.device,
@@ -77,12 +132,14 @@ function createChat() {
     triggerConfig: props.triggerConfig,
     selectConfig: props.selectConfig,
     tipConfig: props.tipConfig,
-    keyboardSendFun: props.submitType === 'enter'
-      ? event => !event.shiftKey && event.key === 'Enter'
-      : event => event.shiftKey && event.key === 'Enter',
-    keyboardWrapFun: props.submitType === 'shiftEnter'
-      ? event => !event.shiftKey && event.key === 'Enter'
-      : event => event.shiftKey && event.key === 'Enter'
+    keyboardSendFun:
+      props.submitType === 'enter'
+        ? event => !event.shiftKey && event.key === 'Enter'
+        : event => event.shiftKey && event.key === 'Enter',
+    keyboardWrapFun:
+      props.submitType === 'shiftEnter'
+        ? event => !event.shiftKey && event.key === 'Enter'
+        : event => event.shiftKey && event.key === 'Enter'
   });
   // 订阅发送方法
   sender.bus.on(busKey, EVENT_COMMON_SEND, onSubmit);
@@ -112,7 +169,12 @@ function getModelValue(): ModelValue {
   return {
     html: sender?.getHtml() || '',
     text: sender?.getText() || '',
-    ...(sender?.getTagData() || { mention: [], trigger: {}, select: {}, input: {} })
+    ...(sender?.getTagData() || {
+      mention: [],
+      trigger: {},
+      select: {},
+      input: {}
+    })
   };
 }
 // 提交发送方法
@@ -157,7 +219,10 @@ function selectAll() {
   const lastWriteNode = lastWrite.$el!.children[0].childNodes[0];
   const range = new Range();
   range.setStart(firstWriteNode, firstWrite.text.length ? 0 : 1);
-  range.setEnd(lastWriteNode, lastWrite.text.length ? lastWrite.text.length : 1);
+  range.setEnd(
+    lastWriteNode,
+    lastWrite.text.length ? lastWrite.text.length : 1
+  );
   const sel = sender.getSelection();
   sel.removeAllRanges();
   sel.addRange(range);
@@ -256,44 +321,77 @@ function handleInternalPaste(e: ClipboardEvent) {
 /**
  *  监听响应props的响应式修改 按需更新sender对应的配置项
  */
-watch(() => props.disabled, () => {
-  if (props.disabled) {
-    sender?.disable();
-  } else {
-    sender?.enable();
+watch(
+  () => props.disabled,
+  () => {
+    if (props.disabled) {
+      sender?.disable();
+    } else {
+      sender?.enable();
+    }
   }
-});
-watch(() => props.placeholder, () => {
-  sender?.updateConfig({ placeholder: props.placeholder });
-});
-watch(() => props.maxLength, () => {
-  sender?.updateConfig({ maxLength: props.maxLength });
-});
-watch(() => props.submitType, () => {
-  sender?.updateConfig({
-    keyboardSendFun: props.submitType === 'enter'
-      ? event => !event.shiftKey && event.key === 'Enter'
-      : event => event.shiftKey && event.key === 'Enter',
-    keyboardWrapFun: props.submitType === 'shiftEnter'
-      ? event => !event.shiftKey && event.key === 'Enter'
-      : event => event.shiftKey && event.key === 'Enter'
-  });
-});
-watch(() => props.customStyle, () => {
-  sender?.updateConfig({ chatStyle: props.customStyle });
-});
-watch(() => props.mentionConfig, () => {
-  sender?.updateConfig({ mentionConfig: props.mentionConfig });
-}, { deep: true });
-watch(() => props.triggerConfig, () => {
-  sender?.updateConfig({ triggerConfig: props.triggerConfig });
-}, { deep: true });
-watch(() => props.selectConfig, () => {
-  sender?.updateConfig({ selectConfig: props.selectConfig });
-}, { deep: true });
-watch(() => props.tipConfig, () => {
-  sender?.updateConfig({ tipConfig: props.tipConfig });
-}, { deep: true });
+);
+watch(
+  () => props.placeholder,
+  () => {
+    sender?.updateConfig({ placeholder: props.placeholder });
+  }
+);
+watch(
+  () => props.maxLength,
+  () => {
+    sender?.updateConfig({ maxLength: props.maxLength });
+  }
+);
+watch(
+  () => props.submitType,
+  () => {
+    sender?.updateConfig({
+      keyboardSendFun:
+        props.submitType === 'enter'
+          ? event => !event.shiftKey && event.key === 'Enter'
+          : event => event.shiftKey && event.key === 'Enter',
+      keyboardWrapFun:
+        props.submitType === 'shiftEnter'
+          ? event => !event.shiftKey && event.key === 'Enter'
+          : event => event.shiftKey && event.key === 'Enter'
+    });
+  }
+);
+watch(
+  () => props.customStyle,
+  () => {
+    sender?.updateConfig({ chatStyle: props.customStyle });
+  }
+);
+watch(
+  () => props.mentionConfig,
+  () => {
+    sender?.updateConfig({ mentionConfig: props.mentionConfig });
+  },
+  { deep: true }
+);
+watch(
+  () => props.triggerConfig,
+  () => {
+    sender?.updateConfig({ triggerConfig: props.triggerConfig });
+  },
+  { deep: true }
+);
+watch(
+  () => props.selectConfig,
+  () => {
+    sender?.updateConfig({ selectConfig: props.selectConfig });
+  },
+  { deep: true }
+);
+watch(
+  () => props.tipConfig,
+  () => {
+    sender?.updateConfig({ tipConfig: props.tipConfig });
+  },
+  { deep: true }
+);
 
 onMounted(() => {
   createChat();
@@ -360,10 +458,7 @@ defineExpose({
       <!-- 输入区域 -->
       <div class="el-editor-sender-chat-room" @mousedown.stop="() => {}">
         <!-- 输入框载体 这里多嵌套一层是为了存放渲染后的弹窗元素 -->
-        <div
-          ref="container"
-          class="el-editor-sender-chat"
-        />
+        <div ref="container" class="el-editor-sender-chat" />
       </div>
       <!-- 默认操作列表 -->
       <div

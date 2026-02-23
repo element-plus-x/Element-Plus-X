@@ -16,7 +16,7 @@ const plugins: PluginOption[] = [
     vueTemplate: true
   }) as PluginOption,
   Components({
-    resolvers: [ElementPlusResolver()],
+    resolvers: [ElementPlusResolver({ importStyle: false })],
     dts: 'src/components.d.ts'
   }) as PluginOption
 ];

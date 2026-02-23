@@ -5,7 +5,7 @@ import type {
   FilesType
 } from 'vue-element-plus-x/types/FilesCard';
 import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { Attachments } from 'vue-element-plus-x';
 
 type SelfFilesCardProps = FilesCardProps & {

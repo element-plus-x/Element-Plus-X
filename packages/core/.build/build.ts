@@ -49,12 +49,14 @@ const buildConfig: BuildEnvironmentOptions = {
     external: [
       'vue', // Vue 3 核心库
       'vue/jsx-runtime', // Vue JSX 运行时
-      '@element-plus/icons-vue' // Element Plus 图标库
+      '@element-plus/icons-vue', // Element Plus 图标库
+      /^element-plus/ // Element Plus 组件库
     ],
     output: {
       // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
       globals: {
-        vue: 'Vue'
+        vue: 'Vue',
+        'element-plus': 'ElementPlus'
       },
       exports: 'named', // 确保有命名导出
       assetFileNames: ((info: any) => {
