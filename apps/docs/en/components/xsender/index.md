@@ -88,24 +88,26 @@ The plugin version must be greater than `1.3.98`. The previous version was named
 
 ### Props
 
-| Property               | Type                 | Required | Default      | Description                      |
-| ---------------------- | -------------------- | -------- | ------------ | -------------------------------- |
-| `placeholder`          | string               | false    | `请输入内容` | Placeholder text                 |
-| `device`               | PC \| H5 \| auto     | false    | `auto`       | Interaction device               |
-| `autoFocus`            | boolean              | false    | `false`      | Auto focus after render          |
-| `variant`              | default \| updown    | false    | `default`    | Layout variant                   |
-| `maxLength`            | number               | false    | `-1`         | Input length limit               |
-| `submitType`           | enter \| shiftEnter  | false    | `enter`      | Submit type                      |
-| `customStyle`          | CSSStyleDeclaration  | false    | `{}`         | Custom input style               |
-| `loading`              | boolean              | false    | `false`      | Loading state                    |
-| `disabled`             | boolean              | false    | `false`      | Disabled state                   |
-| `clearable`            | boolean              | false    | `false`      | Show clear button                |
-| `headerAnimationTimer` | number               | false    | `300`        | Header animation duration        |
-| `mentionConfig`        | MentionConfig        | false    | `null`       | User mention config              |
-| `triggerConfig`        | TriggerConfig[]      | false    | `null`       | Command popup config             |
-| `selectConfig`         | SelectConfig[]       | false    | `null`       | Tag selection config             |
-| `tipConfig`            | TipConfig \| boolean | false    | `true`       | Prefix tip config                |
-| `getPlugin`            | () => typeof XSender | false    | `null`       | Custom underlying plugin version |
+| Property               | Type                 | Required | Default      | Description                                                                                       |
+| ---------------------- | -------------------- | -------- | ------------ | ------------------------------------------------------------------------------------------------- |
+| `placeholder`          | string               | false    | `请输入内容` | Placeholder text                                                                                  |
+| `device`               | PC \| H5 \| auto     | false    | `auto`       | Interaction device                                                                                |
+| `autoFocus`            | boolean              | false    | `false`      | Auto focus after render                                                                           |
+| `variant`              | default \| updown    | false    | `default`    | Layout variant                                                                                    |
+| `maxLength`            | number               | false    | `-1`         | Input length limit                                                                                |
+| `submitType`           | enter \| shiftEnter  | false    | `enter`      | Submit type                                                                                       |
+| `customStyle`          | CSSStyleDeclaration  | false    | `{}`         | Custom input style                                                                                |
+| `loading`              | boolean              | false    | `false`      | Loading state                                                                                     |
+| `disabled`             | boolean              | false    | `false`      | Disabled state                                                                                    |
+| `clearable`            | boolean              | false    | `false`      | Show clear button                                                                                 |
+| `headerAnimationTimer` | number               | false    | `300`        | Header animation duration                                                                         |
+| `mentionConfig`        | MentionConfig        | false    | `null`       | User mention config                                                                               |
+| `triggerConfig`        | TriggerConfig[]      | false    | `null`       | Command popup config                                                                              |
+| `selectConfig`         | SelectConfig[]       | false    | `null`       | Tag selection config                                                                              |
+| `tipConfig`            | TipConfig \| boolean | false    | `true`       | Prefix tip config (`true` enables defaults, `false` disables, object enables with custom options) |
+| `getPlugin`            | () => typeof XSender | false    | `null`       | Custom underlying plugin version                                                                  |
+
+`tipConfig` is passed through to the underlying `x-sender` plugin as-is. This component does not merge defaults on its own: booleans act as an on/off switch, and an object provides custom options.
 
 ### MentionConfig
 
