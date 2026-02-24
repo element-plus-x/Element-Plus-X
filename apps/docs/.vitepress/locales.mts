@@ -42,6 +42,12 @@ const config = {
             ],
           },
           {
+            text: '配置',
+            items: [
+              { text: 'ConfigProvider 全局配置', link: '/zh/components/configProvider/' },
+            ],
+          },
+          {
             text: '通用',
             items: [
               { text: 'Bubble 对话气泡', link: '/zh/components/bubble/' },
@@ -170,6 +176,12 @@ const config = {
             text: 'New',
             items: [
               { text: 'XSender Template Input', link: '/en/components/xsender/' },
+            ],
+          },
+          {
+            text: 'Configuration',
+            items: [
+              { text: 'ConfigProvider', link: '/en/components/configProvider/' },
             ],
           },
           {

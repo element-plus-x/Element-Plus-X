@@ -1,17 +1,24 @@
 import type { Plugin } from 'vitepress';
 import { fileURLToPath } from 'node:url';
 import Unocss from 'unocss/vite';
+import AutoImport from 'unplugin-auto-import/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vitepress';
 
 // 另一种 demo 插件
 // import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import locales from './locales.mts';
+import { tovUIResolver } from '../scripts/vue-element-plus-x-resolver';
 
 const cacheDir =
   process.env.NODE_ENV === 'development'
     ? `node_modules/.vitepress-cache-${process.pid}`
     : 'node_modules/.vitepress-cache';
+
+const docsUseSource =
+  process.env.DOCS_USE_SOURCE === 'true' || process.env.NODE_ENV === 'development';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -58,9 +65,22 @@ export default defineConfig({
   vite: {
     cacheDir,
     resolve: {
-      alias: {
-        'vue-element-plus-x': fileURLToPath(new URL('../../../packages/core/src/index.ts', import.meta.url)),
-      },
+      alias: docsUseSource
+        ? [
+            {
+              find: /^vue-element-plus-x$/,
+              replacement: fileURLToPath(
+                new URL('../../../packages/core/src/index.ts', import.meta.url)
+              )
+            },
+            {
+              find: /^vue-element-plus-x\/styles\/index\.css$/,
+              replacement: fileURLToPath(
+                new URL('../../../packages/core/src/styles/index.scss', import.meta.url)
+              )
+            }
+          ]
+        : [],
     },
     plugins: [
       // 配置vitepress的插件
@@ -73,11 +93,25 @@ export default defineConfig({
       //   languages: 'all', // 语言
       //   theme: 'default', // 主题
       // }) as Plugin,
+      AutoImport({
+        imports: ['vue'],
+        ignore: ['h', 'ClientOnly'],
+        dts: fileURLToPath(new URL('../auto-imports.d.ts', import.meta.url)),
+        resolvers: [
+          ElementPlusResolver({
+            exclude: /ElButtonGroup/
+          })
+        ]
+      }) as unknown as Plugin,
+      Components({
+        dts: fileURLToPath(new URL('../components.d.ts', import.meta.url)),
+        resolvers: [tovUIResolver(), ElementPlusResolver({ importStyle: false })]
+      }) as unknown as Plugin,
       groupIconVitePlugin() as Plugin,
       Unocss() as unknown as Plugin,
     ],
     ssr: {
-      noExternal: ['element-plus', 'gsap'],
+      noExternal: ['element-plus', 'gsap', 'vue-element-plus-x'],
     },
   },
 });

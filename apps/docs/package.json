@@ -27,6 +27,8 @@
     "vite-plugin-tsx-auto-props": "^0.0.8",
     "vite-plugin-vitepress-demo": "^2.2.1",
     "vitepress": "^1.6.3",
-    "vitepress-demo-plugin": "^1.4.5"
+    "vitepress-demo-plugin": "^1.4.5",
+    "unplugin-auto-import": "^19.3.0",
+    "unplugin-vue-components": "^28.8.0"
   }
 }

@@ -74,13 +74,13 @@
         flex-shrink: 0;
         width: 100%;
         font-size: 14px;
-        line-height: var(--el-font-line-height-primary);
+        line-height: 20px;
         box-sizing: border-box;
         :deep(.chat-area-wrap) {
           font-size: inherit;
           line-height: inherit;
         }
-        :deep(.chat-area-wrap p) {
+        :deep(.chat-rich-text p) {
           margin: 0 !important;
         }
         :deep(.chat-rich-text) {
