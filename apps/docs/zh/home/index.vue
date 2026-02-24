@@ -1,14 +1,25 @@
 <script setup lang="ts">
-// import { nextTick, onMounted } from 'vue';
-import {
-  Contributors,
-  FeaturesSection,
-  Footer,
-  HeroSection,
-  ProductDisplayArea,
-  ReviewsSection,
-  SupportSection
-} from './components';
+import { defineClientComponent } from 'vitepress';
+
+const HeroSection = defineClientComponent(
+  () => import('./components/HeroSection.vue')
+);
+const SupportSection = defineClientComponent(
+  () => import('./components/SupportSection.vue')
+);
+const FeaturesSection = defineClientComponent(
+  () => import('./components/FeaturesSection/index.vue')
+);
+const ProductDisplayArea = defineClientComponent(
+  () => import('./components/ProductDisplayArea.vue')
+);
+const ReviewsSection = defineClientComponent(
+  () => import('./components/ReviewsSection.vue')
+);
+const Contributors = defineClientComponent(
+  () => import('./components/Contributors.vue')
+);
+const Footer = defineClientComponent(() => import('./components/Footer.vue'));
 </script>
 
 <template>

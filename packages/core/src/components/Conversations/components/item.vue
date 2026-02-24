@@ -66,6 +66,9 @@ const slots = defineSlots();
 
 const ns = useNamespace('conversations');
 
+const isClient =
+  typeof window !== 'undefined' && typeof document !== 'undefined';
+
 const {
   item,
   itemsStyle,
@@ -121,6 +124,7 @@ const isTextOverflow = computed(() => {
   return (label: string = '') => {
     // 如果没有设置labelMaxWidth，直接返回false
     if (!labelMaxWidth.value) return false;
+    if (!isClient) return false;
 
     // 创建一个临时的span元素来测量文本宽度
     const span = document.createElement('span');
@@ -179,6 +183,7 @@ function camelToKebab(str: string) {
 function updateMenuStatus(isOpen: boolean) {
   isShowMenuBtn.value = isOpen;
   if (isOpen) {
+    if (!isClient) return;
     // 延迟执行，确保菜单已经渲染完成
     // 展开菜单时候 决定隐藏箭头
     nextTick(() => {

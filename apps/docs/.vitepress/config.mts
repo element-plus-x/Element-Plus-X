@@ -8,6 +8,11 @@ import { defineConfig } from 'vitepress';
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import locales from './locales.mts';
 
+const cacheDir =
+  process.env.NODE_ENV === 'development'
+    ? `node_modules/.vitepress-cache-${process.pid}`
+    : 'node_modules/.vitepress-cache';
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'Element-Plus-X',
@@ -51,7 +56,7 @@ export default defineConfig({
     },
   },
   vite: {
-    cacheDir: 'node_modules/.vitepress-cache',
+    cacheDir,
     resolve: {
       alias: {
         'vue-element-plus-x': fileURLToPath(new URL('../../../packages/core/src/index.ts', import.meta.url)),
