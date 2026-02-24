@@ -1,0 +1,149 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v2.*-beta.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Deploy version (v1 or v2)'
+        required: true
+        default: 'v1'
+        type: choice
+        options:
+          - v1
+          - v2
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  DOCS_USE_SOURCE: 'true'
+
+jobs:
+  build-v1:
+    name: Build V1 Docs
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm i -g pnpm
+          pnpm install
+
+      - name: Build docs
+        run: pnpm run build:docs
+
+      - name: Upload V1 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-v1
+          path: apps/docs/.vitepress/dist
+          retention-days: 1
+
+  build-v2:
+    name: Build V2 Docs
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v2.') || (github.event_name == 'workflow_dispatch' && github.event.inputs.version == 'v2')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm i -g pnpm
+          pnpm install
+
+      - name: Build docs
+        run: pnpm run build:docs
+        env:
+          VITEPRESS_VERSION: v2
+
+      - name: Upload V2 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-v2
+          path: apps/docs/.vitepress/dist
+          retention-days: 1
+
+  deploy-v1:
+    name: Deploy V1 to Server
+    needs: build-v1
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Download V1 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-v1
+          path: dist
+
+      - name: Deploy to V1 Server
+        run: |
+          echo "Deploying to v1.element-plus-x.com"
+          # 在此添加实际的部署命令
+          # 例如：rsync -avz dist/ user@server:/var/www/v1/
+          # 或者使用其他部署方式
+
+      - name: Update latest symlink
+        run: |
+          echo "Updated latest symlink to v1"
+
+  deploy-v2:
+    name: Deploy V2 to Server
+    needs: build-v2
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v2.')
+    steps:
+      - name: Download V2 artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-v2
+          path: dist
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create tarball
+        run: |
+          tar -czvf vue-element-plus-x-${{ steps.get_version.outputs.VERSION }}.tgz -C dist .
+
+      - name: Deploy to V2 Server
+        run: |
+          echo "Deploying to v2.element-plus-x.com"
+          # 在此添加实际的部署命令
+          # 上传 .tgz 到服务器的 /v2/ 目录
+
+      - name: Update latest-beta symlink
+        run: |
+          echo "Updated latest-beta symlink to ${{ steps.get_version.outputs.VERSION }}"
+
+      - name: Upload tarball artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-tarball
+          path: vue-element-plus-x-${{ steps.get_version.outputs.VERSION }}.tgz
+          retention-days: 30

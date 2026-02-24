@@ -160,3 +160,81 @@
   margin: 16px 0;
   line-height: inherit;
 }
+
+/**
+ * Sidebar Badge Styles
+ * -------------------------------------------------------------------------- */
+
+.vp-sidebar-group .vp-sidebar-item {
+  position: relative;
+}
+
+.vp-sidebar-item .vp-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sidebar-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  height: 18px;
+  min-width: 32px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 4px;
+  margin-left: 4px;
+  flex-shrink: 0;
+}
+
+.sidebar-badge--beta {
+  background-color: rgba(139, 92, 246, 0.15);
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.sidebar-badge--new {
+  background-color: rgba(52, 211, 153, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.sidebar-badge--updated {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.sidebar-badge--deprecated {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.sidebar-badge--experimental {
+  background-color: rgba(251, 191, 36, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+html.dark .sidebar-badge--new {
+  background-color: rgba(52, 211, 153, 0.2);
+}
+
+html.dark .sidebar-badge--beta {
+  background-color: rgba(139, 92, 246, 0.2);
+}
+
+html.dark .sidebar-badge--updated {
+  background-color: rgba(59, 130, 246, 0.2);
+}
+
+html.dark .sidebar-badge--deprecated {
+  background-color: rgba(239, 68, 68, 0.2);
+}
+
+html.dark .sidebar-badge--experimental {
+  background-color: rgba(251, 191, 36, 0.2);
+}

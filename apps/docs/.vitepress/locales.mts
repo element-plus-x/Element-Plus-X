@@ -28,6 +28,10 @@ const config = {
           { text: 'hook-fetch (优雅请求库)', link: 'https://jsonlee12138.github.io/hook-fetch/' },
           { text: 'ChatArea (轻量级聊天框)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
+        { text: 'v1.x (当前)', items: [
+          { text: 'v1.x (当前)', link: 'https://v1.element-plus-x.com/zh/' },
+          { text: 'v2.x (Beta)', link: 'https://v2.element-plus-x.com/zh/' },
+        ] },
         { text: 'XMarkdown', link: '/zh/components/xMarkdown/' },
         { text: '指南', link: '/zh/guide/install' },
         { text: '组件', link: '/zh/components/xsender/' },
@@ -166,6 +170,10 @@ const config = {
           { text: 'element-ui-x (Vue2)', link: 'https://element-ui-x.com/' },
           { text: 'hook-fetch (Request Lib)', link: 'https://jsonlee12138.github.io/hook-fetch/' },
           { text: 'ChatArea (Chat Box)', link: 'https://jianfv.top/ChatAreaDoc/home' },
+        ] },
+        { text: 'v1.x (Current)', items: [
+          { text: 'v1.x (Current)', link: 'https://v1.element-plus-x.com/en/' },
+          { text: 'v2.x (Beta)', link: 'https://v2.element-plus-x.com/en/' },
         ] },
         { text: 'XMarkdown', link: '/en/components/xMarkdown/' },
         { text: 'Guide', link: '/en/guide/install' },

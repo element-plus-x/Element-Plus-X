@@ -5,6 +5,15 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (beta or latest)'
+        required: true
+        default: 'latest'
+        type: choice
+        options:
+          - latest
+          - beta
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -25,29 +34,67 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: |
           npm i -g pnpm
-          # 清理缓存以解决版本冲突
           rm -rf ~/.npm/_cacache
           rm -rf node_modules/.cache
           rm -rf packages/core/node_modules
-          # 清理 pnpm store
           pnpm store prune || true
-          # 重新安装依赖
           pnpm install --force
 
       - name: Build
         run: |
-          # 构建项目 - 只构建 core 包
           (cd packages/core && \
-            # 确保类型文件存在并生成入口文件
             pnpm run aeac && \
-            # 跳过 update:plugin 步骤，避免 esbuild 版本冲突
-            # 直接构建 ES 和 UMD
             pnpm run build:es && \
             pnpm run build:umd)
+
+      - name: Determine release tag
+        id: tag_type
+        run: |
+          VERSION=$(node -p "require('./packages/core/package.json').version")
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          if [[ "$VERSION" == *"beta"* ]] || [[ "${{ github.event.inputs.tag }}" == "beta" ]]; then
+            echo "TAG=beta" >> $GITHUB_OUTPUT
+          else
+            echo "TAG=latest" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create .tgz package
+        run: |
+          cd packages/core
+          npm pack
+          mv vue-element-plus-x-*.tgz vue-element-plus-x-${{ steps.tag_type.outputs.VERSION }}.tgz
+
+      - name: Publish to npm
+        if: github.event_name == 'push' || github.event.inputs.tag
+        run: |
+          cd packages/core
+          npm publish --tag ${{ steps.tag_type.outputs.TAG }} --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-package
+          path: packages/core/vue-element-plus-x-${{ steps.tag_type.outputs.VERSION }}.tgz
+          retention-days: 90
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: packages/core/vue-element-plus-x-${{ steps.tag_type.outputs.VERSION }}.tgz
+          body_path: packages/core/CHANGELOG.md
+          draft: false
+          prerelease: ${{ steps.tag_type.outputs.TAG == 'beta' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release Pull Request
         id: create_release

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vitepress dev --port 5174",
     "build": "vitepress build",
-    "preview": "vitepress preview"
+    "preview": "vitepress preview",
+    "scan:badges": "esno scripts/scan-component-changes.ts"
   },
   "dependencies": {
     "echarts": "^5.6.0",
