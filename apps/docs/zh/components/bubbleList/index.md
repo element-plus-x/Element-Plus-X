@@ -54,21 +54,55 @@ title: 'BubbleList'
 
 <demo src="./demos/theme-overrides.vue"></demo>
 
+### 与 x-markdown-vue 结合使用
+
+从 `v2.0.0` 开始，组件库不再内置 `XMarkdown` / `XMarkdownAsync`。如需 Markdown 渲染，请使用独立包 [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)，或查看专属文档：[XMarkdown](/zh/components/xMarkdown/)。
+
+#### 安装
+
+```bash
+pnpm add x-markdown-vue
+```
+
+#### 基础用法（列表消息渲染 Markdown）
+
+````vue
+<template>
+  <BubbleList :list="list">
+    <template #content="{ item }">
+      <MarkdownRenderer :markdown="item.content" :enable-animate="true" />
+    </template>
+  </BubbleList>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { BubbleList } from 'vue-element-plus-x';
+import { MarkdownRenderer } from 'x-markdown-vue';
+import 'x-markdown-vue/style';
+
+const list = ref([
+  { content: '## 标题\n\n- 列表项 1\n- 列表项 2', placement: 'start' },
+  { content: '```ts\nconsole.log(\"hello\")\n```', placement: 'end' }
+]);
+</script>
+````
+
 ## 属性
 
-| 属性名                | 类型                                           | <div style="width: 70px">是否必填</div> | 默认值                                         | 说明                                                                                                                                                                            |
-| --------------------- | ---------------------------------------------- | --------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `list`                | Array                                          | 是                                      | 无                                             | 包含气泡信息的数组，每个元素为一个对象，包含 `content`、`placement`、`loading`、`shape`、`variant`、`isMarkdown`、`typing` 等 `Bubble` 属性，用于配置每个气泡的显示内容和样式。 |
-| `autoScroll`          | Boolean                                        | 否                                      | true                                           | 是否开启自动滚动。                                                                                                                                                              |
-| `maxHeight`           | String                                         | 否                                      | -                                              | 气泡列表list的最大高度(默认继承wrapper容器高度)。                                                                                                                               |
-| `alwaysShowScrollbar` | Boolean                                        | 否                                      | false                                          | 是否一直显示滚动条，默认为 `false`。                                                                                                                                            |
-| `backButtonThreshold` | Number                                         | 否                                      | 80                                             | 返回底部按钮显示阈值，当滚动条距离底部大于该值时，会显示返回底部按钮。                                                                                                          |
-| `showBackButton`      | Boolean                                        | 否                                      | true                                           | 是否显示返回底部按钮，默认为 `true`。                                                                                                                                           |
-| `backButtonPosition`  | `{ bottom: '20px', left: 'calc(50% - 19px)' }` | 否                                      | `{ bottom: '20px', left: 'calc(50% - 19px)' }` | 返回底部按钮的位置, 默认底部居中展示。                                                                                                                                          |
-| `btnLoading`          | Boolean                                        | 否                                      | true                                           | 是否开启返回底部按钮 loading 状态，默认为 `true`。                                                                                                                              |
-| `btnColor`            | String                                         | 否                                      | '#409EFF'                                      | 返回底部按钮的颜色，默认为 `'#409EFF'`。                                                                                                                                        |
-| `btnIconSize`         | Number                                         | 否                                      | 24                                             | 返回底部按钮的图标大小，默认为 24px。                                                                                                                                           |
-| `triggerIndices`      | 'only-last' \| 'all' \| number[]               | 否                                      | 'only-last'                                    | 触发`complete`事件的气泡 `索引数组`，默认为 `'only-last'`。                                                                                                                     |
+| 属性名                | 类型                                           | <div style="width: 70px">是否必填</div> | 默认值                                         | 说明                                                                                                                                                                                             |
+| --------------------- | ---------------------------------------------- | --------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `list`                | Array                                          | 是                                      | 无                                             | 包含气泡信息的数组，每个元素为一个对象，包含 `content`、`placement`、`loading`、`shape`、`variant` 等 `Bubble` 属性，用于配置每个气泡的显示内容和样式。Markdown 场景可配合 `#content` 插槽渲染。 |
+| `autoScroll`          | Boolean                                        | 否                                      | true                                           | 是否开启自动滚动。                                                                                                                                                                               |
+| `maxHeight`           | String                                         | 否                                      | -                                              | 气泡列表list的最大高度(默认继承wrapper容器高度)。                                                                                                                                                |
+| `alwaysShowScrollbar` | Boolean                                        | 否                                      | false                                          | 是否一直显示滚动条，默认为 `false`。                                                                                                                                                             |
+| `backButtonThreshold` | Number                                         | 否                                      | 80                                             | 返回底部按钮显示阈值，当滚动条距离底部大于该值时，会显示返回底部按钮。                                                                                                                           |
+| `showBackButton`      | Boolean                                        | 否                                      | true                                           | 是否显示返回底部按钮，默认为 `true`。                                                                                                                                                            |
+| `backButtonPosition`  | `{ bottom: '20px', left: 'calc(50% - 19px)' }` | 否                                      | `{ bottom: '20px', left: 'calc(50% - 19px)' }` | 返回底部按钮的位置, 默认底部居中展示。                                                                                                                                                           |
+| `btnLoading`          | Boolean                                        | 否                                      | true                                           | 是否开启返回底部按钮 loading 状态，默认为 `true`。                                                                                                                                               |
+| `btnColor`            | String                                         | 否                                      | '#409EFF'                                      | 返回底部按钮的颜色，默认为 `'#409EFF'`。                                                                                                                                                         |
+| `btnIconSize`         | Number                                         | 否                                      | 24                                             | 返回底部按钮的图标大小，默认为 24px。                                                                                                                                                            |
+| `triggerIndices`      | 'only-last' \| 'all' \| number[]               | 否                                      | 'only-last'                                    | 触发`complete`事件的气泡 `索引数组`，默认为 `'only-last'`。                                                                                                                                      |
 
 ## 事件
 

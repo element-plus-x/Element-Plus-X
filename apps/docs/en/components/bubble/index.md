@@ -47,7 +47,7 @@ Override `Bubble` theme tokens via `ConfigProvider.themeOverrides`. See the full
 
 ### Using with x-markdown-vue
 
-Starting from v2.0.0, the Typewriter component has been removed. For Markdown rendering functionality, please use [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue).
+Starting from v2.0.0, the Typewriter component has been removed. For Markdown rendering functionality, please use [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue) or see the dedicated page: [XMarkdown](/en/components/xMarkdown/).
 
 #### Installation
 

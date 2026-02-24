@@ -47,7 +47,7 @@ title: 'Bubble'
 
 ### 与 x-markdown-vue 结合使用
 
-从 v2.0.0 开始，Typewriter 组件已移除。如需 Markdown 渲染功能，请使用 [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)。
+从 v2.0.0 开始，Typewriter 组件已移除。如需 Markdown 渲染功能，请使用 [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)，或查看专属文档：[XMarkdown](/zh/components/xMarkdown/)。
 
 #### 安装
 

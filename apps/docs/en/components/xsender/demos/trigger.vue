@@ -4,8 +4,8 @@ title: 自定义指令
 ---
 
 默认可以通过自定义设置触发符触发选择弹窗。
-可以通过 `setTrigger` 插入一个提及用户标签。
-使用 `setChatNode` 可以高度预设输入框的模板内容。
+可以通过 `setTrigger` 插入一个指令标签。
+使用 `setChatNode` 可以预设输入框内容（如文案、指令等）。
 </docs>
 
 <script setup lang="ts">
@@ -66,7 +66,7 @@ function onSetModel() {
     <div style="margin-bottom: 20px">
       <el-button type="primary" @click="onSetBasic"> API插入 </el-button>
       <el-button type="primary" @click="onSetModel">
-        预设模版内容插入
+        预设输入内容插入
       </el-button>
     </div>
 

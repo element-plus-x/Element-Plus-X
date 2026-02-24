@@ -21,12 +21,15 @@ const isComponentPage = computed(() => {
 
 const contributors = computed<Contributor[]>(() => {
   const filePath = page.value.filePath;
+  if (!filePath) return [];
   const paths = filePath.split('/');
-  const componentName = paths[paths.length - 2].toLowerCase();
-  const contributors = _contributors[
-    componentName as keyof typeof _contributors
-  ] as Contributor[];
-  return contributors;
+  const componentName = paths[paths.length - 2]?.toLowerCase();
+  if (!componentName) return [];
+  return (
+    (_contributors as Record<string, Contributor[] | undefined>)[
+      componentName
+    ] ?? []
+  );
 });
 
 // 处理图片加载错误

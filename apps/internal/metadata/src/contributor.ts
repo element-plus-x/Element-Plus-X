@@ -1,10 +1,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
-const owner = 'element-plus-x';
-const repo = 'Element-Plus-X';
-const githubToken = ''; // 推荐设置token防止被限流
+const owner = process.env.ELX_GITHUB_OWNER || 'element-plus-x';
+const repo = process.env.ELX_GITHUB_REPO || 'Element-Plus-X';
+const githubToken = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || ''; // 推荐设置token防止被限流
+
+const githubHeaders: Record<string, string> = {
+  Accept: 'application/vnd.github+json',
+  'User-Agent': 'element-plus-x-metadata'
+};
+if (githubToken) githubHeaders.Authorization = `Bearer ${githubToken}`;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const componentsDir = path.resolve(
@@ -43,9 +50,16 @@ async function getRepoContributors(): Promise<RepoContributor[]> {
     try {
       const url = `https://api.github.com/repos/${owner}/${repo}/contributors?per_page=100&page=${page}`;
       const res = await fetch(url, {
-        headers: githubToken ? { Authorization: `Bearer ${githubToken}` } : {}
+        headers: githubHeaders
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => null);
+      if (!res.ok) {
+        throw new Error(
+          `GitHub API 请求失败: ${res.status} ${res.statusText} ${JSON.stringify(
+            data
+          )}`
+        );
+      }
       if (!Array.isArray(data) || data.length === 0) break;
       contributors.push(
         ...data.map((c: any) => ({
@@ -71,9 +85,16 @@ async function getCommits(subPath: string): Promise<CommitContributor[]> {
     try {
       const url = `https://api.github.com/repos/${owner}/${repo}/commits?path=${encodeURIComponent(subPath)}&per_page=100&page=${page}`;
       const res = await fetch(url, {
-        headers: githubToken ? { Authorization: `Bearer ${githubToken}` } : {}
+        headers: githubHeaders
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => null);
+      if (!res.ok) {
+        throw new Error(
+          `GitHub API 请求失败: ${res.status} ${res.statusText} ${JSON.stringify(
+            data
+          )}`
+        );
+      }
       if (!Array.isArray(data) || data.length === 0) break;
       contributors.push(
         ...data

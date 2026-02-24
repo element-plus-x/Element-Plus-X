@@ -5,7 +5,7 @@ title: 标签选择框
 
 可以通过 `setSelect` 插入一个标签选择框提供用户选择预设内容。
 使用 `showSelect` 可以基于传入的元素唤起选择弹窗。
-使用 `setChatNode` 可以高度预设输入框的模板内容。
+使用 `setChatNode` 可以预设输入框内容（如文案、标签选择等）。
 </docs>
 
 <script setup lang="ts">
@@ -65,7 +65,7 @@ function onSetModel() {
         外部唤起选择弹窗
       </el-button>
       <el-button type="primary" @click="onSetModel">
-        预设模版内容插入
+        预设输入内容插入
       </el-button>
     </div>
     <XSender ref="senderRef" variant="updown" :select-config="selectConfig" />

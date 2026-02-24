@@ -28,6 +28,7 @@ const config = {
           { text: 'hook-fetch (优雅请求库)', link: 'https://jsonlee12138.github.io/hook-fetch/' },
           { text: 'ChatArea (轻量级聊天框)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
+        { text: 'XMarkdown', link: '/zh/components/xMarkdown/' },
         { text: '指南', link: '/zh/guide/install' },
         { text: '组件', link: '/zh/components/xsender/' },
       ],
@@ -38,7 +39,8 @@ const config = {
           {
             text: '上新',
             items: [
-              { text: 'XSender 模版输入框', link: '/zh/components/xsender/' },
+              { text: 'XSender 输入框', link: '/zh/components/xsender/' },
+              { text: 'XMarkdown（独立包）', link: '/zh/components/xMarkdown/' },
             ],
           },
           {
@@ -165,6 +167,7 @@ const config = {
           { text: 'hook-fetch (Request Lib)', link: 'https://jsonlee12138.github.io/hook-fetch/' },
           { text: 'ChatArea (Chat Box)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
+        { text: 'XMarkdown', link: '/en/components/xMarkdown/' },
         { text: 'Guide', link: '/en/guide/install' },
         { text: 'Components', link: '/en/components/xsender/' },
       ],
@@ -175,7 +178,8 @@ const config = {
           {
             text: 'New',
             items: [
-              { text: 'XSender Template Input', link: '/en/components/xsender/' },
+              { text: 'XSender Input', link: '/en/components/xsender/' },
+              { text: 'XMarkdown (External)', link: '/en/components/xMarkdown/' },
             ],
           },
           {

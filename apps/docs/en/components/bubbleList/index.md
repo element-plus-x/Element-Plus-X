@@ -53,21 +53,55 @@ Override `BubbleList` theme tokens via `ConfigProvider.themeOverrides`. See the 
 
 <demo src="./demos/theme-overrides.vue"></demo>
 
+### Using with x-markdown-vue
+
+Starting from `v2.0.0`, the component library no longer bundles `XMarkdown` / `XMarkdownAsync`. For Markdown rendering, use [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue) or see the dedicated page: [XMarkdown](/en/components/xMarkdown/).
+
+#### Installation
+
+```bash
+pnpm add x-markdown-vue
+```
+
+#### Basic Usage (render Markdown per message)
+
+````vue
+<template>
+  <BubbleList :list="list">
+    <template #content="{ item }">
+      <MarkdownRenderer :markdown="item.content" :enable-animate="true" />
+    </template>
+  </BubbleList>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { BubbleList } from 'vue-element-plus-x';
+import { MarkdownRenderer } from 'x-markdown-vue';
+import 'x-markdown-vue/style';
+
+const list = ref([
+  { content: '## Title\n\n- Item 1\n- Item 2', placement: 'start' },
+  { content: '```ts\nconsole.log(\"hello\")\n```', placement: 'end' }
+]);
+</script>
+````
+
 ## Props
 
-| Name                  | Type                                           | <div style="width: 70px">Required</div> | Default                                        | Description                                                                                                                                                                                                 |
-| --------------------- | ---------------------------------------------- | --------------------------------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `list`                | Array                                          | Yes                                     | None                                           | Array containing bubble information. Each element is an object with `content`, `placement`, `loading`, `shape`, `variant`, and other `Bubble` properties to configure the display and style of each bubble. |
-| `autoScroll`          | Boolean                                        | No                                      | true                                           | Whether to enable automatic scrolling.                                                                                                                                                                      |
-| `maxHeight`           | String                                         | No                                      | '-'                                            | Maximum height of the bubble list container.(By default, the height of the wrapper container is inherited)                                                                                                  |
-| `alwaysShowScrollbar` | Boolean                                        | No                                      | false                                          | Whether to always show the scrollbar. Default is `false`.                                                                                                                                                   |
-| `backButtonThreshold` | Number                                         | No                                      | 80                                             | Back to bottom button display threshold. When the scrollbar is more than this distance from the bottom, the button will be shown.                                                                           |
-| `showBackButton`      | Boolean                                        | No                                      | true                                           | Whether to show the back to bottom button. Default is `true`.                                                                                                                                               |
-| `backButtonPosition`  | `{ bottom: '20px', left: 'calc(50% - 19px)' }` | No                                      | `{ bottom: '20px', left: 'calc(50% - 19px)' }` | Position of the back to bottom button. Default is centered at the bottom.                                                                                                                                   |
-| `btnLoading`          | Boolean                                        | No                                      | true                                           | Whether to enable loading state for the back to bottom button. Default is `true`.                                                                                                                           |
-| `btnColor`            | String                                         | No                                      | '#409EFF'                                      | Color of the back to bottom button. Default is `'#409EFF'`.                                                                                                                                                 |
-| `btnIconSize`         | Number                                         | No                                      | 24                                             | Icon size of the back to bottom button. Default is 24px.                                                                                                                                                    |
-| `triggerIndices`      | 'only-last' \| 'all' \| number[]               | No                                      | 'only-last'                                    | Index array of bubbles that trigger the `complete` event. Default is `'only-last'`.                                                                                                                         |
+| Name                  | Type                                           | <div style="width: 70px">Required</div> | Default                                        | Description                                                                                                                                                                                                                                               |
+| --------------------- | ---------------------------------------------- | --------------------------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `list`                | Array                                          | Yes                                     | None                                           | Array containing bubble information. Each element is an object with `content`, `placement`, `loading`, `shape`, `variant`, and other `Bubble` properties to configure the display and style of each bubble. For Markdown, render via the `#content` slot. |
+| `autoScroll`          | Boolean                                        | No                                      | true                                           | Whether to enable automatic scrolling.                                                                                                                                                                                                                    |
+| `maxHeight`           | String                                         | No                                      | '-'                                            | Maximum height of the bubble list container.(By default, the height of the wrapper container is inherited)                                                                                                                                                |
+| `alwaysShowScrollbar` | Boolean                                        | No                                      | false                                          | Whether to always show the scrollbar. Default is `false`.                                                                                                                                                                                                 |
+| `backButtonThreshold` | Number                                         | No                                      | 80                                             | Back to bottom button display threshold. When the scrollbar is more than this distance from the bottom, the button will be shown.                                                                                                                         |
+| `showBackButton`      | Boolean                                        | No                                      | true                                           | Whether to show the back to bottom button. Default is `true`.                                                                                                                                                                                             |
+| `backButtonPosition`  | `{ bottom: '20px', left: 'calc(50% - 19px)' }` | No                                      | `{ bottom: '20px', left: 'calc(50% - 19px)' }` | Position of the back to bottom button. Default is centered at the bottom.                                                                                                                                                                                 |
+| `btnLoading`          | Boolean                                        | No                                      | true                                           | Whether to enable loading state for the back to bottom button. Default is `true`.                                                                                                                                                                         |
+| `btnColor`            | String                                         | No                                      | '#409EFF'                                      | Color of the back to bottom button. Default is `'#409EFF'`.                                                                                                                                                                                               |
+| `btnIconSize`         | Number                                         | No                                      | 24                                             | Icon size of the back to bottom button. Default is 24px.                                                                                                                                                                                                  |
+| `triggerIndices`      | 'only-last' \| 'all' \| number[]               | No                                      | 'only-last'                                    | Index array of bubbles that trigger the `complete` event. Default is `'only-last'`.                                                                                                                                                                       |
 
 ## Events
 

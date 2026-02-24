@@ -5,7 +5,7 @@ title: 提及用户
 
 默认可以通过 `@` 触发提及用户选择弹窗。
 可以通过 `setMention` 插入一个提及用户标签。
-使用 `setChatNode` 可以高度预设输入框的模板内容。
+使用 `setChatNode` 可以预设输入框内容（如文案、提及等）。
 </docs>
 
 <script setup lang="ts">
@@ -20,16 +20,16 @@ const mentionConfig = ref({
   options: [
     {
       name: '用户1',
-      id: 'user1',
+      id: 'user1'
     },
     {
       name: '用户2',
-      id: 'user2',
+      id: 'user2'
     },
     {
       name: '用户3',
-      id: 'user3',
-    },
+      id: 'user3'
+    }
   ]
 });
 
@@ -47,7 +47,7 @@ function onSetModel() {
       {
         type: 'Mention',
         id: 'user1',
-        name: '用户1',
+        name: '用户1'
       },
       {
         type: 'Write',
@@ -60,15 +60,17 @@ function onSetModel() {
 
 <template>
   <div>
-    <div style="margin-bottom: 20px;">
-      <el-button type="primary" @click="onSetBasic">API插入</el-button>
-      <el-button type="primary" @click="onSetModel">预设模版内容插入</el-button>
+    <div style="margin-bottom: 20px">
+      <el-button type="primary" @click="onSetBasic"> API插入 </el-button>
+      <el-button type="primary" @click="onSetModel">
+        预设输入内容插入
+      </el-button>
     </div>
     <XSender
       ref="senderRef"
       variant="updown"
       :mention-config="mentionConfig"
       placeholder="敲击 @键 唤起提及用户选择"
-    ></XSender>
+    />
   </div>
 </template>
