@@ -46,6 +46,15 @@ This component can be used together with components like `BubbleList` to achieve
 
 <demo src="./demos/color.vue"></demo>
 
+### Theme Overrides (themeOverrides)
+
+Override `Thinking` theme tokens via `ConfigProvider.themeOverrides`. See the full token list and template:
+
+- [Theme Tokens](/en/guide/theme-tokens#thinking)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
 ### Slot Customization
 
 <demo src="./demos/solt.vue"></demo>

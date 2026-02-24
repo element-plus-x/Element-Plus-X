@@ -1,4 +1,5 @@
 import type { Plugin } from 'vitepress';
+import { fileURLToPath } from 'node:url';
 import Unocss from 'unocss/vite';
 import { defineConfig } from 'vitepress';
 
@@ -50,6 +51,12 @@ export default defineConfig({
     },
   },
   vite: {
+    cacheDir: 'node_modules/.vitepress-cache',
+    resolve: {
+      alias: {
+        'vue-element-plus-x': fileURLToPath(new URL('../../../packages/core/src/index.ts', import.meta.url)),
+      },
+    },
     plugins: [
       // 配置vitepress的插件
       // https://github.com/antfu/vite-plugin-inspect

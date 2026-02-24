@@ -6,7 +6,7 @@ import { debounce } from 'radash';
 const props = withDefaults(defineProps<FileListProps>(), {
   items: () => [],
   overflow: 'scrollX',
-  listStyle: () => ({}),
+  listStyle: () => ({})
 });
 
 const containerRef = ref<HTMLDivElement | null>(null);
@@ -19,18 +19,21 @@ const TOLERANCE = 1;
 
 function checkPing() {
   const containerEle = containerRef.value;
-  if (!containerEle)
-    return;
+  if (!containerEle) return;
 
   if (props.overflow === 'scrollX') {
     pingStart.value = Math.abs(containerEle.scrollLeft) >= TOLERANCE;
-    pingEnd.value = containerEle.scrollWidth - containerEle.clientWidth - Math.abs(containerEle.scrollLeft) >= TOLERANCE;
-  }
-  else if (props.overflow === 'scrollY') {
+    pingEnd.value =
+      containerEle.scrollWidth -
+        containerEle.clientWidth -
+        Math.abs(containerEle.scrollLeft) >=
+      TOLERANCE;
+  } else if (props.overflow === 'scrollY') {
     pingStart.value = containerEle.scrollTop !== 0;
-    pingEnd.value = containerEle.scrollHeight - containerEle.clientHeight !== containerEle.scrollTop;
-  }
-  else {
+    pingEnd.value =
+      containerEle.scrollHeight - containerEle.clientHeight !==
+      containerEle.scrollTop;
+  } else {
     pingStart.value = false;
     pingEnd.value = false;
   }
@@ -40,9 +43,15 @@ function onScrollOffset(offset: -1 | 1) {
   const containerEle = containerRef.value;
   if (containerEle) {
     containerEle.scrollTo({
-      left: props.overflow === 'scrollX' ? containerEle.scrollLeft + offset * containerEle.clientWidth : containerEle.scrollLeft,
-      top: props.overflow === 'scrollY' ? containerEle.scrollTop + offset * containerEle.clientHeight : containerEle.scrollTop,
-      behavior: 'smooth',
+      left:
+        props.overflow === 'scrollX'
+          ? containerEle.scrollLeft + offset * containerEle.clientWidth
+          : containerEle.scrollLeft,
+      top:
+        props.overflow === 'scrollY'
+          ? containerEle.scrollTop + offset * containerEle.clientHeight
+          : containerEle.scrollTop,
+      behavior: 'smooth'
     });
   }
 }
@@ -83,8 +92,8 @@ watch(
   },
   {
     immediate: true, // 组件初始化时立即调用一次
-    deep: true, // 如果 items 是对象或数组，需要深度监听
-  },
+    deep: true // 如果 items 是对象或数组，需要深度监听
+  }
 );
 
 function onDragStart() {
@@ -107,8 +116,9 @@ function onDragEnd() {
     ref="wrapperRef"
     class="elx-attachments-wrapper"
     :class="{
-      'elx-attachments-overflow-ping-start': overflow === 'scrollX' && pingStart,
-      'elx-attachments-overflow-ping-end': overflow === 'scrollX' && pingEnd,
+      'elx-attachments-overflow-ping-start':
+        overflow === 'scrollX' && pingStart,
+      'elx-attachments-overflow-ping-end': overflow === 'scrollX' && pingEnd
     }"
     :style="listStyle"
     @dragstart="onDragStart"
@@ -116,27 +126,37 @@ function onDragEnd() {
   >
     <!-- 背景层 -->
     <div class="elx-attachments-background">
-      <div v-if="overflow === 'scrollX' && pingStart" class="elx-attachments-background-start" />
-      <div v-if="overflow === 'scrollX' && pingEnd" class="elx-attachments-background-end" />
+      <div
+        v-if="overflow === 'scrollX' && pingStart"
+        class="elx-attachments-background-start"
+      />
+      <div
+        v-if="overflow === 'scrollX' && pingEnd"
+        class="elx-attachments-background-end"
+      />
     </div>
     <div
       ref="containerRef"
       class="elx-attachments"
       :class="{
-        [`elx-attachments-overflow-${overflow}`]: overflow,
+        [`elx-attachments-overflow-${overflow}`]: overflow
       }"
       :style="{
-        ...(overflow === 'scrollX' ? { whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden' } : {}),
-        ...(overflow === 'scrollY' ? { overflowX: 'hidden', overflowY: 'auto' } : {}),
-        ...(overflow === 'wrap' ? { display: 'flex', flexWrap: 'wrap' } : {}),
+        ...(overflow === 'scrollX'
+          ? { whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden' }
+          : {}),
+        ...(overflow === 'scrollY'
+          ? { overflowX: 'hidden', overflowY: 'auto' }
+          : {}),
+        ...(overflow === 'wrap' ? { display: 'flex', flexWrap: 'wrap' } : {})
       }"
       @scroll="checkPing"
     >
       <transition-group
-        name="card-motion"
+        name="elx-attachments-card-motion"
         tag="div"
         :css="true"
-        move-class="card-motion-move"
+        move-class="elx-attachments-card-motion-move"
       >
         <el-card
           v-for="item in items"
@@ -187,19 +207,19 @@ function onDragEnd() {
 
 <style scoped>
 /* 入场动画 */
-.card-motion-enter-active,
-.card-motion-move {
+.elx-attachments-card-motion-enter-active,
+.elx-attachments-card-motion-move {
   transition: all 0.3s ease;
 }
 
-.card-motion-leave-active {
+.elx-attachments-card-motion-leave-active {
   position: absolute;
   transition: all 0.3s ease;
   opacity: 0;
 }
 
-.card-motion-enter-from,
-.card-motion-leave-to {
+.elx-attachments-card-motion-enter-from,
+.elx-attachments-card-motion-leave-to {
   opacity: 0;
   transform: translateY(-10px);
 }
@@ -220,19 +240,19 @@ function onDragEnd() {
   transform: translateY(-50%);
   z-index: 10;
   /* 以下为默认样式，用户自定义时会覆盖 */
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
+  background-color: var(--elx-attachments-nav-bg, rgba(0, 0, 0, 0.3));
+  color: var(--elx-attachments-nav-color, #ffffff);
   border: none;
   padding: 4px 0px;
   border-radius: 3px;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--elx-attachments-nav-bg-hover, rgba(0, 0, 0, 0.5));
   }
 
   &:active {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: var(--elx-attachments-nav-bg-active, rgba(0, 0, 0, 0.7));
   }
 }
 
@@ -264,7 +284,11 @@ function onDragEnd() {
   left: 0;
   bottom: 0;
   width: 50px;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+  background: linear-gradient(
+    to right,
+    rgba(var(--elx-attachments-fade-rgb, 255, 255, 255), 0.8),
+    rgba(var(--elx-attachments-fade-rgb, 255, 255, 255), 0)
+  );
 }
 
 .elx-attachments-background-end {
@@ -273,7 +297,11 @@ function onDragEnd() {
   right: 0;
   bottom: 0;
   width: 50px;
-  background: linear-gradient(to left, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+  background: linear-gradient(
+    to left,
+    rgba(var(--elx-attachments-fade-rgb, 255, 255, 255), 0.8),
+    rgba(var(--elx-attachments-fade-rgb, 255, 255, 255), 0)
+  );
 }
 
 /* 隐藏横向滚动条 */

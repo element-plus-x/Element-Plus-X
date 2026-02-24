@@ -6,9 +6,7 @@ import { ElMessage } from 'element-plus';
 
 <template>
   <div class="component-container">
-    <div class="component-title">
-      自定义样式
-    </div>
+    <div class="component-title">自定义样式</div>
 
     <FilesCard v-bind="$attrs" />
 
@@ -30,12 +28,8 @@ import { ElMessage } from 'element-plus';
     <FilesCard v-bind="$attrs">
       <template #content="{ item }">
         <div class="custom-card">
-          <div class="custom-card-title">
-            {{ item.name }} -- 自定义内容
-          </div>
-          <div class="custom-card-content">
-            文件大小：{{ item.fileSize }}
-          </div>
+          <div class="custom-card-title">{{ item.name }} -- 自定义内容</div>
+          <div class="custom-card-content">文件大小：{{ item.fileSize }}</div>
         </div>
       </template>
     </FilesCard>
@@ -67,9 +61,7 @@ import { ElMessage } from 'element-plus';
     </div>
 
     <FilesCard v-bind="$attrs">
-      <template #name-prefix="{ item }">
-        原文件名：{{ item.prefix }}
-      </template>
+      <template #name-prefix="{ item }"> 原文件名：{{ item.prefix }} </template>
     </FilesCard>
 
     <div class="component-title">
@@ -78,9 +70,7 @@ import { ElMessage } from 'element-plus';
     </div>
 
     <FilesCard v-bind="$attrs">
-      <template #name-prefix>
-        🤳
-      </template>
+      <template #name-prefix> 🤳 </template>
     </FilesCard>
 
     <div class="component-title">
@@ -89,9 +79,7 @@ import { ElMessage } from 'element-plus';
     </div>
 
     <FilesCard v-bind="$attrs">
-      <template #name-suffix>
-        🤳
-      </template>
+      <template #name-suffix> 🤳 </template>
     </FilesCard>
 
     <div class="component-title">
@@ -100,16 +88,13 @@ import { ElMessage } from 'element-plus';
     </div>
 
     <FilesCard v-bind="$attrs">
-      <template #del-icon>
-        🙅
-      </template>
+      <template #del-icon> 🙅 </template>
     </FilesCard>
   </div>
 </template>
 
 <style scoped lang="scss">
 .component-container {
-  background-color: white !important;
   border: 0 !important;
   padding: 12px !important;
   border-radius: 15px !important;

@@ -34,7 +34,7 @@
       "require": "./dist/umd/index.js"
     },
     "./es/*": "./dist/es/*",
-    "./styles/*": "./dist/styles/*",
+    "./styles/*": "./dist/es/styles/*",
     "./types/*": "./types/components/*/types.d.ts"
   },
   "main": "dist/es/index.js",

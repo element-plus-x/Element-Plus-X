@@ -7,16 +7,17 @@ import { Prompts } from 'vue-element-plus-x';
 const items = ref<PromptsItemsProps[]>([
   {
     key: '1',
-    label: '你好, 我是 Element Plus X',
-    description: '这里用于显示一组与当前上下文相关的预定义的问题或建议。',
+    label: 'Hi, I’m Element Plus X',
+    description:
+      'Display a set of predefined questions or suggestions related to the current context.',
     children: [
       {
         key: '1-1',
-        description: 'vue 真的移除了虚拟 dom 嘛？'
+        description: 'Did Vue really remove the Virtual DOM?'
       },
       {
         key: '1-2',
-        description: '如何在项目中引入 Element-Plus-X？'
+        description: 'How do I install and use Element Plus X in my project?'
       }
     ]
   }
@@ -43,14 +44,14 @@ const items = ref<PromptsItemsProps[]>([
     /* 蓝紫 */ 0 0 30px rgba(0, 191, 255, 0.3);
   overflow: hidden;
 
-  :deep(.el-prompts-items) {
+  :deep(.elx-prompts__items) {
     border-radius: inherit;
     width: 100%;
     border: none;
     background: transparent !important;
   }
 
-  :deep(.el-prompts-item) {
+  :deep(.elx-prompts__item) {
     border-radius: 15px;
     width: 100%;
     border: none;
@@ -61,12 +62,12 @@ const items = ref<PromptsItemsProps[]>([
     );
   }
 
-  :deep(.el-prompts-item-description) {
+  :deep(.elx-prompts__item-description) {
     margin-bottom: 4px !important;
   }
 
-  :deep(.el-prompts-item) {
-    .el-prompts-item-label {
+  :deep(.elx-prompts__item) {
+    .elx-prompts__item-label {
       /* 设置字体大小和粗细 */
       font-size: 1.05em;
       font-weight: bold;
@@ -92,7 +93,7 @@ const items = ref<PromptsItemsProps[]>([
       animation: gradientShift 5s ease infinite;
     }
 
-    .el-prompts-item-description {
+    .elx-prompts__item-description {
       font-size: 0.875rem;
       color: rgba(0, 255, 255);
     }

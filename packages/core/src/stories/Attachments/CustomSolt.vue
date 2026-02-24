@@ -19,9 +19,7 @@ const {
 
 <template>
   <div class="component-container">
-    <div class="component-title">
-      附件上传组件-自定义左右按钮、列表内容
-    </div>
+    <div class="component-title">附件上传组件-自定义左右按钮、列表内容</div>
     <Attachments
       v-bind="{ ...$attrs }"
       :items="files"
@@ -64,7 +62,6 @@ const {
 
 <style scoped lang="scss">
 .component-container {
-  background-color: white;
   padding: 12px;
   border-radius: 15px;
   display: flex;

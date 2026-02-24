@@ -1,14 +1,14 @@
 /* CSS 动画样式调整 */
-.card-motion-enter-active,
-.card-motion-move,
-.card-motion-leave-active {
+.elx-attachments-card-motion-enter-active,
+.elx-attachments-card-motion-move,
+.elx-attachments-card-motion-leave-active {
   transition: all 0.3s ease;
   opacity: 1;
   transform: translateX(0);
 }
 
-.card-motion-enter-from,
-.card-motion-leave-to {
+.elx-attachments-card-motion-enter-from,
+.elx-attachments-card-motion-leave-to {
   opacity: 0;
   /* 从左侧外进入（进场）/ 移动到右侧外（退场） */
   transform: translateX(-100%);
@@ -16,7 +16,7 @@
   /* 如果你希望从左侧稍微偏移进入，可以用 translateX(-10px) */
 }
 
-.card-motion-leave-active {
+.elx-attachments-card-motion-leave-active {
   /* 退场时从当前位置移动到右侧外 */
   transform: translateX(100%);
   opacity: 0;
@@ -50,19 +50,19 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
+  background-color: var(--elx-attachments-nav-bg, rgba(0, 0, 0, 0.3));
+  color: var(--elx-attachments-nav-color, #ffffff);
   border: none;
   padding: 4px 0px;
   border-radius: 3px;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--elx-attachments-nav-bg-hover, rgba(0, 0, 0, 0.5));
   }
 
   &:active {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: var(--elx-attachments-nav-bg-active, rgba(0, 0, 0, 0.7));
   }
 }
 
@@ -96,8 +96,8 @@
   width: 50px;
   background: linear-gradient(
     to right,
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0)
+    rgba(var(--elx-attachments-fade-rgb, 255, 255, 255), 0.8),
+    rgba(var(--elx-attachments-fade-rgb, 255, 255, 255), 0)
   );
   z-index: 5;
 }
@@ -110,8 +110,8 @@
   width: 50px;
   background: linear-gradient(
     to left,
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0)
+    rgba(var(--elx-attachments-fade-rgb, 255, 255, 255), 0.8),
+    rgba(var(--elx-attachments-fade-rgb, 255, 255, 255), 0)
   );
   z-index: 5;
 }
@@ -152,7 +152,7 @@
     &:hover {
       border-color: var(--el-color-primary);
 
-      .el-icon.uploader-icon {
+      .el-icon.elx-attachments__uploader-icon {
         color: var(--el-color-primary);
       }
     }
@@ -162,9 +162,12 @@
     display: none !important;
   }
 
-  .el-icon.uploader-icon {
+  .el-icon.elx-attachments__uploader-icon {
     font-size: 28px;
-    color: #8c939d;
+    color: var(
+      --elx-attachments-upload-icon-color,
+      var(--elx-text-color-placeholder, #8c939d)
+    );
     text-align: center;
     width: var(--elx-attachments-upload-icon-size);
     height: var(--elx-attachments-upload-icon-size);
@@ -195,7 +198,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: rgba(225, 225, 225, 0.3);
+  background: var(--elx-attachments-drop-bg, rgba(225, 225, 225, 0.3));
   backdrop-filter: blur(2px);
 
   .elx-attachments-drop-area-icon {

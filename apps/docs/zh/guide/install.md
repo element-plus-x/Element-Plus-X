@@ -24,35 +24,17 @@ yarn add vue-element-plus-x --save
 
 :::
 
-**CDN 引入**
+**CDN 引入（可选）**
+
+推荐优先使用包管理器安装。若要通过 CDN 方式引入，请以实际发布产物为准：
 
 ```html
-<!-- 该方法 有待测试 -->
-<!-- CDN 引入 -->
-<script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
+<script src="https://unpkg.com/vue-element-plus-x@latest/dist/umd/index.js"></script>
 ```
 
-#### **三、验证安装**
+#### **三、使用方式**
 
-1. 检查 `package.json` 文件是否包含：
-
-   ```json
-   {
-     "dependencies": {
-       "vue-element-plus-x": "^1.3.0"
-     }
-   }
-   ```
-
-2. 运行项目验证组件是否可用：
-
-   ```bash
-   npm run dev
-   ```
-
-#### **四、按需加载说明**
-
-内置 **Tree Shaking** 优化，无需额外配置
+内置 **Tree Shaking** 优化，支持按需引入与全量引入。
 
 1. **按需引入**
 
@@ -80,14 +62,14 @@ const list = [
 
 2. **全量引入**
 
-```
+```ts
 // main.ts
-import { createApp } from 'vue'
-import ElementPlusX from 'vue-element-plus-x'
-import App from './App.vue'
+import { createApp } from 'vue';
+import ElementPlusX from 'vue-element-plus-x';
+import App from './App.vue';
 
-const app = createApp(App)
+const app = createApp(App);
 // 使用 app.use() 全局引入
-app.use(ElementPlusX)
-app.mount('#app')
+app.use(ElementPlusX);
+app.mount('#app');
 ```

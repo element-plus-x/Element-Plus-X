@@ -61,12 +61,10 @@ watch(
       <el-button :disabled="loading" @click="handleStart">
         {{ loading ? 'Recording' : 'Start Recording' }}
       </el-button>
-      <el-button :disabled="!loading" @click="stop">
-        Stop Recording
-      </el-button>
+      <el-button :disabled="!loading" @click="stop"> Stop Recording </el-button>
     </div>
 
-    <Sender ref="senderRef" v-model="value" @submit="submit">
+    <XSender ref="senderRef" v-model="value" @submit="submit">
       <template #action-list>
         <div class="btn-list">
           <el-button
@@ -97,9 +95,9 @@ watch(
           </el-button>
         </div>
       </template>
-    </Sender>
+    </XSender>
 
-    <Sender ref="senderRef" v-model="value" @submit="submit">
+    <XSender ref="senderRef" v-model="value" @submit="submit">
       <template #action-list>
         <div class="btn-list">
           <el-button
@@ -128,9 +126,9 @@ watch(
           </el-button>
         </div>
       </template>
-    </Sender>
+    </XSender>
 
-    <Sender ref="senderRef" v-model="value" @submit="submit">
+    <XSender ref="senderRef" v-model="value" @submit="submit">
       <template #action-list>
         <div class="btn-list">
           <el-button
@@ -158,7 +156,7 @@ watch(
           </el-button>
         </div>
       </template>
-    </Sender>
+    </XSender>
   </div>
 </template>
 

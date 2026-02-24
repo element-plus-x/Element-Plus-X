@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import { Brush } from '@element-plus/icons-vue';
 import { defineEmits } from 'vue';
+import { useNamespace } from '../../../../hooks/useNamespace';
 
 const props = defineProps({
   disabled: {
@@ -11,10 +12,11 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['clear']);
+const ns = useNamespace('x-sender');
 </script>
 
 <template>
-  <div class="el-send-button">
+  <div :class="ns.e('clear-button')">
     <el-button circle :disabled="props.disabled" @click="emit('clear')">
       <el-icon><Brush /></el-icon>
     </el-button>
@@ -22,7 +24,7 @@ const emit = defineEmits(['clear']);
 </template>
 
 <style scoped lang="scss">
-.el-send-button {
+.elx-x-sender__clear-button {
   :deep() {
     .el-button {
       .el-icon {

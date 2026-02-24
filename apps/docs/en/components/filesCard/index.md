@@ -2,7 +2,6 @@
 title: FilesCard
 ---
 
-
 ## Introduction
 
 The `FilesCard` component is a flexible file display component that supports visual presentation of various file types (images, documents, compressed files, etc.), including file icons, names, descriptions, status and other information. It provides rich customization options and interactive features, suitable for file management, upload preview and other scenarios.
@@ -33,11 +32,20 @@ The `FilesCard` component is a flexible file display component that supports vis
 
 <demo src="./demos/custom-color.vue"></demo>
 
+### Theme Overrides (themeOverrides)
+
+Override `FilesCard` theme tokens via `ConfigProvider.themeOverrides`. See the full token list and template:
+
+- [Theme Tokens](/en/guide/theme-tokens#filescard)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
 ## Properties
 
 | Property Name    | Type                               | Required | Default           | Description                                                                                       |
 | ---------------- | ---------------------------------- | -------- | ----------------- | ------------------------------------------------------------------------------------------------- |
-| `uid`            | `string \| number`                 | Yes       |        | File unique identifier                                                                            |
+| `uid`            | `string \| number`                 | Yes      |                   | File unique identifier                                                                            |
 | `name`           | `string`                           | No       | `undefined`       | File name (supports automatic suffix parsing to match icons)                                      |
 | `fileSize`       | `number`                           | No       | `undefined`       | File size (unit: bytes, automatically converted to readable format)                               |
 | `fileType`       | `string`                           | No       | `undefined`       | File type (priority higher than `name` suffix parsing, e.g. `'image'`, `'document'`)              |

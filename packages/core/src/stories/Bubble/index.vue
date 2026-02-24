@@ -1,18 +1,10 @@
 <script setup lang="ts">
 import Bubble from '@components/Bubble/index.vue';
 import ConfigProvider from '@components/ConfigProvider/index.vue';
-import markdownItMermaid from '@jsonlee_12138/markdown-it-mermaid';
-
-const mdPlugins = [
-  markdownItMermaid({
-    forceLegacyMathML: true,
-    delay: 100
-  })
-];
 </script>
 
 <template>
-  <ConfigProvider :md-plugins="mdPlugins">
+  <ConfigProvider>
     <div class="component-container">
       <p>
         1.3.0 版本支持 打字器 雾化效果 使用 Mermaid.js 支持简单的图表和函数公式
@@ -34,7 +26,6 @@ const mdPlugins = [
 
 <style scoped lang="scss">
 .component-container {
-  background-color: white;
   padding: 12px;
   border-radius: 15px;
 }

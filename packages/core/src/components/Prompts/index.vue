@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import type {
-  PromptsEmits,
-  PromptsItemsProps,
-  PromptsProps
-} from './types.d.ts';
+import type { PromptsEmits, PromptsItemsProps, PromptsProps } from './types';
+import { useNamespace } from '../../hooks/useNamespace';
 
 const props = withDefaults(defineProps<PromptsProps>(), {
   items: () => [],
@@ -14,15 +11,14 @@ const props = withDefaults(defineProps<PromptsProps>(), {
 });
 
 const emits = defineEmits<PromptsEmits>();
+const ns = useNamespace('prompts');
 
 const hoveredKeys = ref(new Set());
 const activeKeys = ref(new Set());
 
 function handleItemClick(item: PromptsItemsProps) {
-  if (item.disabled)
-    return;
-  if (item.children && item.children.length > 0)
-    return;
+  if (item.disabled) return;
+  if (item.children && item.children.length > 0) return;
   emits('itemClick', item);
 }
 
@@ -52,30 +48,30 @@ function isActive(key: string | number) {
 </script>
 
 <template>
-  <div class="el-prompts" :style="props.style">
+  <div :class="ns.b()" :style="props.style">
     <slot v-if="$slots.title || props.title" name="title">
-      <div class="el-prompts-title">
+      <div :class="ns.e('title')">
         {{ title }}
       </div>
     </slot>
 
     <div
-      class="el-prompts-items"
-      :class="{
-        'el-prompts-items-wrap': props.wrap,
-        'el-prompts-items-vertical': props.vertical
-      }"
+      :class="[
+        ns.e('items'),
+        props.wrap ? ns.em('items', 'wrap') : '',
+        props.vertical ? ns.em('items', 'vertical') : ''
+      ]"
     >
       <div
         v-for="item in items"
         :key="item.key"
-        class="el-prompts-item"
-        :class="{
-          'el-prompts-item-disabled': item.disabled,
-          'el-prompts-item-gap': item.icon || $slots.icon,
-          hovered: isHovered(item.key),
-          actived: isActive(item.key)
-        }"
+        :class="[
+          ns.e('item'),
+          item.disabled ? ns.em('item', 'disabled') : '',
+          item.icon || $slots.icon ? ns.em('item', 'gap') : '',
+          isHovered(item.key) ? ns.em('item', 'hovered') : '',
+          isActive(item.key) ? ns.em('item', 'actived') : ''
+        ]"
         :style="{
           ...item.itemStyle,
           ...(isHovered(item.key)
@@ -95,15 +91,15 @@ function isActive(key: string | number) {
         @mousedown.stop="handleMouseDown(item.key)"
         @mouseup.stop="handleMouseUp(item.key)"
       >
-        <div class="item-content-container">
+        <div :class="ns.e('item-content-container')">
           <slot v-if="$slots.icon || item.icon" name="icon" :item="item">
-            <el-icon class="el-prompts-item-icon">
+            <el-icon :class="ns.e('item-icon')">
               <component :is="item.icon" />
             </el-icon>
           </slot>
-          <div class="el-prompts-item-content">
+          <div :class="ns.e('item-content')">
             <slot v-if="$slots.label || item.label" name="label" :item="item">
-              <h6 class="el-prompts-item-label">
+              <h6 :class="ns.e('item-label')">
                 {{ item.label }}
               </h6>
             </slot>
@@ -112,7 +108,7 @@ function isActive(key: string | number) {
               name="description"
               :item="item"
             >
-              <p class="el-prompts-item-description">
+              <p :class="ns.e('item-description')">
                 {{ item.description }}
               </p>
             </slot>
@@ -120,7 +116,7 @@ function isActive(key: string | number) {
           <!-- 递归渲染子项 -->
           <div
             v-if="item.children && item.children.length > 0"
-            class="el-prompts-children"
+            :class="ns.e('children')"
           >
             <!-- 递归调用自身，传递子项数据和必要的 props -->
             <index

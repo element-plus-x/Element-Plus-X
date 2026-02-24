@@ -27,7 +27,6 @@ function handleMenuCommand(
 
 <style lang="scss" scoped>
 .component-container {
-  background-color: white;
   padding: 12px;
   border-radius: 15px;
   overflow: auto;

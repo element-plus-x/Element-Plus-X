@@ -1,4 +1,4 @@
-.conversations-container {
+.elx-conversations {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -9,7 +9,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.conversations-list {
+.elx-conversations__list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -19,7 +19,7 @@
   box-sizing: border-box;
 }
 
-.conversations-scroll-wrapper {
+.elx-conversations__scroll-wrapper {
   flex: 1;
   overflow: hidden;
   position: relative;
@@ -40,7 +40,7 @@
 }
 
 // 加载更多
-.conversations-load-more {
+.elx-conversations__load-more {
   display: flex;
   width: calc(100% - 20px);
   padding: 4px 0;
@@ -50,11 +50,11 @@
   gap: 3px;
   height: 100%;
   color: #909399;
-  background-color: var(--conversation-list-auto-bg-color, #fff);
+  background-color: var(--elx-conversations-list-auto-bg-color, #fff);
 }
 
 // 加载动画
-.conversations-load-more-is-loading {
+.elx-conversations__load-more-icon {
   margin-top: 2px;
   animation: spinloading 2s linear infinite;
 }
@@ -69,25 +69,25 @@
   }
 }
 
-.scroll-content {
+.elx-conversations__scroll-content {
   min-height: 100%;
 }
 
-.loading-more {
+.elx-conversations__loading-more {
   text-align: center;
   padding: 10px 0;
   color: #909399;
   font-size: 14px;
 }
 
-.conversation-group {
+.elx-conversations__group {
   position: relative;
 
   &:last-child {
     margin-bottom: 0;
   }
 
-  .conversation-group-title {
+  .elx-conversations__group-title {
     font-size: 14px;
     color: #909399;
     padding: 8px 0;
@@ -101,23 +101,23 @@
     box-sizing: border-box;
   }
 
-  .sticky-title {
+  .elx-conversations__group-title--sticky {
     position: sticky;
     top: 0;
     z-index: 20;
-    background-color: var(--conversation-list-auto-bg-color, #fff);
+    background-color: var(--elx-conversations-list-auto-bg-color, #fff);
   }
 
-  .active-sticky {
+  .elx-conversations__group-title--active-sticky {
     z-index: 10;
   }
 
-  .conversation-group-items {
+  .elx-conversations__group-items {
     padding-top: 0;
   }
 }
 
-.scroll-to-top-btn {
+.elx-conversations__to-top-btn {
   position: absolute;
   right: 16px;
   bottom: 16px;

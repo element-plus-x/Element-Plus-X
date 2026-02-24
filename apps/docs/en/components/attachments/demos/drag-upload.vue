@@ -25,12 +25,9 @@ const dragArea = ref();
 watch(
   () => isFull.value,
   () => {
-    console.log('isFull.value', isFull.value);
-
     if (isFull.value) {
       dragArea.value = document.body;
-    }
-    else {
+    } else {
       dragArea.value = 'drag-area';
     }
   },
@@ -38,17 +35,13 @@ watch(
 );
 
 function handleBeforUpload(file: any) {
-  console.log('before', file);
   if (file.size > 1024 * 1024 * 2) {
     ElMessage.error('File size cannot exceed 2MB!');
     return false;
   }
 }
 
-async function handleUploadDrop(files: any, props: any) {
-  console.log('drop', files);
-  console.log('props', props);
-
+async function handleUploadDrop(files: any, _props: any) {
   if (files && files.length > 0) {
     if (files[0].type === '') {
       ElMessage.error('Folder upload is not allowed!');
@@ -90,7 +83,6 @@ async function handleHttpRequest(options: any) {
 
 function handleDeleteCard(item: SelfFilesCardProps) {
   files.value = files.value.filter((items: any) => items.id !== item.id);
-  console.log('delete', item);
   ElMessage.success('Delete successful');
 }
 </script>

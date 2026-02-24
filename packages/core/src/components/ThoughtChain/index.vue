@@ -6,14 +6,13 @@ import type {
   ThoughtChainEmits,
   ThoughtChainItemBase,
   ThoughtChainProps
-} from './types.d.ts';
+} from './types';
 import { Check, Close, Loading } from '@element-plus/icons-vue';
 import { get } from 'radash';
 import { computed, ref, watch } from 'vue';
+import { useNamespace } from '../../hooks/useNamespace';
 
 const props = withDefaults(defineProps<ThoughtChainProps<T>>(), {
-  // @ts-expect-error FIXME: 暂时不做类型校试, vue类型检测问题
-  thinkingItems: () => [],
   dotSize: 'default',
   maxWidth: '600px',
   lineGradient: false,
@@ -25,6 +24,9 @@ const props = withDefaults(defineProps<ThoughtChainProps<T>>(), {
 });
 
 const emits = defineEmits<ThoughtChainEmits<T>>();
+const ns = useNamespace('thought-chain');
+
+const thinkingItems = computed(() => props.thinkingItems ?? []);
 
 const defaultDotBackgroundColor: DefaultColor = {
   loading: '#e6a23c',
@@ -56,8 +58,8 @@ function getNodeBtnColor(item: T) {
 }
 
 const getLineColor = computed(() => {
-  if (props.thinkingItems.length) {
-    const arr = props.thinkingItems.map(item => {
+  if (thinkingItems.value.length) {
+    const arr = thinkingItems.value.map(item => {
       const _type_ = getType(item);
       if (_type_) {
         return props.dotBackgroundColor
@@ -73,7 +75,7 @@ const getLineColor = computed(() => {
 });
 
 const activeNamesComputed = computed(() =>
-  props.thinkingItems
+  thinkingItems.value
     .filter(item => item.isCanExpand && item.isDefaultExpand)
     .map(item => String(getId(item)))
 );
@@ -171,22 +173,22 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="el-thought-chain">
+  <div :class="ns.b()">
     <el-timeline
       ref="timelineRef"
       :style="{
         maxWidth: `${maxWidth}`
       }"
     >
-      <TransitionGroup name="thought-chain" tag="el-timeline-item">
+      <TransitionGroup :name="ns.b()" tag="el-timeline-item">
         <el-timeline-item
-          v-for="item in props.thinkingItems"
+          v-for="item in thinkingItems"
           :key="getId(item)"
           :timestamp="getTitle(item)"
           :hide-timestamp="item.hideTitle"
           :placement="item.placement ?? 'top'"
         >
-          <div v-if="!item.isCanExpand" class="el-thought-chain-content">
+          <div v-if="!item.isCanExpand" :class="ns.e('content')">
             {{ getThinkTitle(item) }}
           </div>
           <el-collapse
@@ -194,7 +196,7 @@ onMounted(() => {
             @change="handleExpand(item)"
           >
             <el-collapse-item :title="getThinkTitle(item)">
-              <div class="el-thought-chain-content">
+              <div :class="ns.e('content')">
                 {{ getThinkContent(item) }}
               </div>
             </el-collapse-item>
@@ -208,7 +210,7 @@ onMounted(() => {
               :title="getThinkTitle(item)"
               :name="String(getId(item))"
             >
-              <div class="el-thought-chain-content">
+              <div :class="ns.e('content')">
                 {{ getThinkContent(item) }}
               </div>
             </el-collapse-item>
@@ -216,7 +218,7 @@ onMounted(() => {
 
           <template #dot>
             <div
-              :class="{ 'el-thought-chain-item-dot': !$slots.icon }"
+              :class="{ [ns.e('item-dot')]: !$slots.icon }"
               style="position: relative"
             >
               <slot name="icon" :item="item">
@@ -232,7 +234,7 @@ onMounted(() => {
                   }"
                 >
                   <template #loading>
-                    <el-icon class="thought-chain-loading">
+                    <el-icon :class="ns.e('loading')">
                       <Loading />
                     </el-icon>
                   </template>
@@ -256,13 +258,12 @@ onMounted(() => {
 <style lang="scss" scoped src="./style.scss"></style>
 
 <style lang="scss" scoped>
-.el-thought-chain {
-  &-item-dot {
-    margin: v-bind(dotMargin);
-  }
-  &-content {
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
+.elx-thought-chain__item-dot {
+  margin: v-bind(dotMargin);
+}
+
+.elx-thought-chain__content {
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 </style>

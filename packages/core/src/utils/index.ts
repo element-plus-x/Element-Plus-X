@@ -1,4 +1,4 @@
-import type { FilesType } from '../components/FilesCard/types.d.ts';
+import type { FilesType } from '../components/FilesCard/types';
 
 /* 公共 相关 开始 */
 /* 公共 相关 结束 */

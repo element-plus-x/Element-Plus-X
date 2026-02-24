@@ -20,7 +20,8 @@ const getStartedText = '快速开始';
 const previewText = '组件预览';
 const githubText = 'GitHub';
 
-onMounted(() => {
+onMounted(async () => {
+  await document.fonts?.ready;
   textAnimation();
   scrollTriggerAnimation();
 });
@@ -89,7 +90,7 @@ async function copyInstallCommand() {
 
 // 页面跳转
 function handleClick() {
-  location.href = '/zh/components/XSender/';
+  location.href = '/zh/components/xsender/';
 }
 
 // 在线预览
@@ -212,10 +213,7 @@ function handleGithub() {
 
     <div class="right-container">
       <div class="glow-container">
-        <img
-          src="https://element-plus-x.com/logo.png"
-          class="w-[256px] h-[256px] relative z-10"
-        />
+        <img src="/logo.png" class="w-[256px] h-[256px] relative z-10" />
       </div>
     </div>
   </section>

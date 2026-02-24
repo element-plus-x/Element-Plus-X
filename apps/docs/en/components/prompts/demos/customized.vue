@@ -93,8 +93,8 @@ function handleItemClick(item: PromptsItemsProps) {
 </template>
 
 <style scoped lang="less">
-:deep(.el-prompts) {
-  .el-prompts-title {
+:deep(.elx-prompts) {
+  .elx-prompts__title {
     color: #fff;
     font-size: 16px;
     font-weight: 700;

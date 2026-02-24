@@ -1,14 +1,14 @@
-.el-bubble-list-wrapper {
+.elx-bubble-list {
   position: relative;
   height: 100%;
 }
-.el-bubble-list {
+.elx-bubble-list__list {
   display: flex;
   flex-direction: column;
   gap: 16px;
   overflow: auto;
   scroll-behavior: smooth;
-  max-height: var(--el-bubble-list-max-height);
+  max-height: var(--elx-bubble-list-max-height);
   position: relative;
   /* 默认滚动条样式（透明） */
   &::-webkit-scrollbar {
@@ -40,7 +40,7 @@
   }
 
   /* 始终显示滚动条模式 */
-  &.always-scrollbar {
+  &.elx-bubble-list__list--always-scrollbar {
     &::-webkit-scrollbar-thumb {
       background: #c1c1c1;
     }
@@ -53,7 +53,7 @@
 
 /* 火狐浏览器滚动条样式 */
 @supports (scrollbar-color: auto) {
-  .el-bubble-list {
+  .elx-bubble-list__list {
     scrollbar-color: transparent transparent;
     scrollbar-width: thin;
 
@@ -61,13 +61,13 @@
       scrollbar-color: #c1c1c1 transparent;
     }
 
-    &.always-scrollbar {
+    &.elx-bubble-list__list--always-scrollbar {
       scrollbar-color: #c1c1c1 transparent;
     }
   }
 }
 
-.el-bubble-list-default-back-button {
+.elx-bubble-list__back-button {
   position: absolute;
   user-select: none;
   cursor: pointer;
@@ -92,13 +92,13 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
-  .el-bubble-list-back-to-bottom-icon {
-    font-size: var(--el-bubble-list-btn-size);
+  .elx-bubble-list__back-to-bottom-icon {
+    font-size: var(--elx-bubble-list-btn-size);
     position: relative;
 
-    .back-to-bottom-loading-svg-bg {
+    .elx-bubble-list__back-to-bottom-loading {
       position: absolute;
-      font-size: calc(var(--el-bubble-list-btn-size) + 26px);
+      font-size: calc(var(--elx-bubble-list-btn-size) + 26px);
       animation: is-loading 1s infinite linear;
     }
 
@@ -115,7 +115,7 @@
 }
 
 // 如果是有自定义插槽，则初始化默认样式
-.el-bubble-list-back-to-bottom-solt {
+.elx-bubble-list__back-button--slot {
   position: sticky;
   user-select: none;
   cursor: initial;

@@ -1,7 +1,7 @@
-.el-prompts {
+.elx-prompts {
   display: flex;
   flex-direction: column;
-  .el-prompts-title {
+  .elx-prompts__title {
     margin-block-start: 0;
     font-weight: normal;
     color: rgba(0, 0, 0, 0.45);
@@ -11,11 +11,12 @@
     box-sizing: border-box;
     word-break: break-word;
     font-family:
-      BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
-      'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+      BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+      'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+      'Segoe UI Symbol', 'Noto Color Emoji';
   }
 
-  .el-prompts-items {
+  .elx-prompts__items {
     display: flex;
     gap: 12px;
     overflow-x: auto;
@@ -27,16 +28,16 @@
     box-sizing: border-box;
   }
 
-  .el-prompts-items-wrap {
+  .elx-prompts__items--wrap {
     flex-wrap: wrap;
   }
 
-  .el-prompts-items-vertical {
+  .elx-prompts__items--vertical {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .el-prompts-item {
+  .elx-prompts__item {
     flex: none;
     display: flex;
     height: 100%;
@@ -52,38 +53,38 @@
     border: 1px solid #f0f0f0;
   }
 
-  .el-prompts-item-disabled {
+  .elx-prompts__item--disabled {
     pointer-events: none;
     background: rgba(0, 0, 0, 0.04);
   }
 
-  .el-prompts-item-gap {
+  .elx-prompts__item--gap {
     gap: 8px;
   }
 
-  .hovered {
+  .elx-prompts__item--hovered {
     cursor: pointer;
     background: rgba(0, 0, 0, 0.08);
   }
 
-  .actived {
+  .elx-prompts__item--actived {
     background: rgba(0, 0, 0, 0.15);
   }
 
-  .item-content-container {
+  .elx-prompts__item-content-container {
     display: flex;
     flex-direction: column;
     flex: 1;
   }
 
-  .el-prompts-item-content {
+  .elx-prompts__item-content {
     flex: auto;
     min-width: 0;
     display: flex;
     gap: 4px;
     flex-direction: column;
     align-items: flex-start;
-    .el-prompts-item-icon {
+    .elx-prompts__item-icon {
       margin: 0;
       padding: 0;
       font-size: 14px;
@@ -92,7 +93,7 @@
       white-space: normal;
     }
 
-    .el-prompts-item-label {
+    .elx-prompts__item-label {
       color: rgba(0, 0, 0, 0.88);
       font-weight: 500;
       margin: 0;
@@ -102,7 +103,7 @@
       text-align: start;
       white-space: normal;
     }
-    .el-prompts-item-description {
+    .elx-prompts__item-description {
       color: rgba(0, 0, 0, 0.45);
       margin: 0;
       padding: 0;
@@ -114,8 +115,8 @@
   }
 
   // 限制子项的宽度
-  .el-prompts-children {
-    .el-prompts-items-vertical {
+  .elx-prompts__children {
+    .elx-prompts__items--vertical {
       align-items: initial;
     }
   }

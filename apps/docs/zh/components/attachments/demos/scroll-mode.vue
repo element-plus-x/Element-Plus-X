@@ -50,8 +50,8 @@ onMounted(() => {
         Math.floor(Math.random() * typeList.length)
       ] as FilesType,
       // description: `描述 ${index}`,
-      url: 'https://www.baidu.com',
-      thumbUrl: 'https://www.baidu.com',
+      url: '/logo.png',
+      thumbUrl: '/logo.png',
       imgFile: new File([], 'test.txt'),
       showDelIcon: true
     });
@@ -59,17 +59,13 @@ onMounted(() => {
 });
 
 function handleBeforUpload(file: any) {
-  console.log('befor', file);
   if (file.size > 1024 * 1024 * 2) {
     ElMessage.error('文件大小不能超过 2MB!');
     return false;
   }
 }
 
-async function handleUploadDrop(files: any, props: any) {
-  console.log('drop', files);
-  console.log('props', props);
-
+async function handleUploadDrop(files: any, _props: any) {
   if (files && files.length > 0) {
     if (files[0].type === '') {
       ElMessage.error('禁止上传文件夹！');
@@ -111,7 +107,6 @@ async function handleHttpRequest(options: any) {
 
 function handleDeleteCard(item: SelfFilesCardProps) {
   files.value = files.value.filter((items: any) => items.id !== item.id);
-  console.log('delete', item);
   ElMessage.success('删除成功');
 }
 </script>

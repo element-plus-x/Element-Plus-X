@@ -1,5 +1,5 @@
 ---
-title: Welcome
+title: 'Welcome'
 ---
 
 ## 介绍
@@ -27,6 +27,15 @@ title: Welcome
 ### 自定义副标题
 
 <demo src="./demos/extra.vue"></demo>
+
+### 自定义主题
+
+通过 `ConfigProvider.themeOverrides` 覆盖 `Welcome` 的主题变量。完整变量表与可复制模板见：
+
+- [主题变量总表](/zh/guide/theme-tokens#welcome)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme.vue"></demo>
 
 ## 属性
 

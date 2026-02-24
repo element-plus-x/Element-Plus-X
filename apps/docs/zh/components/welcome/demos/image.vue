@@ -20,7 +20,7 @@ const bgColor =
       description="用 vue3 对 ant-design-x 的复刻。后续将会集成 AI 工作流编排组件 和 md 多功能渲染组件，给 Vue 开发社区 一个好用的 AI 组件库"
     >
       <template #image>
-        <img src="https://element-plus-x.com/logo.png" style="width: 80px">
+        <img src="/logo.png" style="width: 80px" />
       </template>
     </Welcome>
   </div>

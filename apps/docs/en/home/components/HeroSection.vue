@@ -13,14 +13,15 @@ const installCommand = 'pnpm install vue-element-plus-x';
 
 // 文本内容
 const titleLine1 = 'Element Plus X';
-const titleLine2 = 'Vue3 生成式AI组件库';
+const titleLine2 = 'Vue 3 Generative AI Component Library';
 const subtitle =
-  '💖开箱即用的 企业级 AI 交互组件库，让开发者 构建 AIGC 智能界面像搭积木一样简单。';
-const getStartedText = '快速开始';
-const previewText = '组件预览';
+  '💖 An out-of-the-box, enterprise-ready AI interaction component library—build AIGC interfaces as easily as stacking blocks.';
+const getStartedText = 'Get Started';
+const previewText = 'Preview';
 const githubText = 'GitHub';
 
-onMounted(() => {
+onMounted(async () => {
+  await document.fonts?.ready;
   textAnimation();
   scrollTriggerAnimation();
 });
@@ -83,13 +84,13 @@ async function copyInstallCommand() {
     copied.value = true;
     setTimeout(() => (copied.value = false), 2000);
   } catch (err) {
-    console.error('复制失败:', err);
+    console.error('Copy failed:', err);
   }
 }
 
 // 页面跳转
 function handleClick() {
-  location.href = '/en/components/xmarkdown/';
+  location.href = '/en/components/xsender/';
 }
 
 // 在线预览
@@ -212,10 +213,7 @@ function handleGithub() {
 
     <div class="right-container">
       <div class="glow-container">
-        <img
-          src="https://element-plus-x.com/logo.png"
-          class="w-[256px] h-[256px] relative z-10"
-        />
+        <img src="/logo.png" class="w-[256px] h-[256px] relative z-10" />
       </div>
     </div>
   </section>

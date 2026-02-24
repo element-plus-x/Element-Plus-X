@@ -1,10 +1,10 @@
 <docs>
 ---
-title: 词槽输入框
+title: 输入框
 ---
 
-可以通过 `setInput` 插入一个词槽输入框提供用户填写输入预设内容。
-使用 `setChatNode` 可以高度预设输入框的模板内容。
+可以通过 `setInput` 插入一个输入框，提供用户填写预设内容。
+使用 `setChatNode` 可以预设输入框的模板内容。
 </docs>
 
 <script setup lang="ts">
@@ -50,13 +50,12 @@ function onSetModel() {
 <template>
   <div>
     <div style="margin-bottom: 20px">
-      <el-button type="primary" @click="onSetBasic">基础插入</el-button>
-      <el-button type="primary" @click="onSetValue">定义默认值插入</el-button>
-      <el-button type="primary" @click="onSetModel">预设模板内容插入</el-button>
+      <el-button type="primary" @click="onSetBasic"> 基础插入 </el-button>
+      <el-button type="primary" @click="onSetValue"> 定义默认值插入 </el-button>
+      <el-button type="primary" @click="onSetModel">
+        预设模板内容插入
+      </el-button>
     </div>
-    <XSender
-      ref="senderRef"
-      variant="updown"
-    ></XSender>
+    <XSender ref="senderRef" variant="updown" />
   </div>
 </template>

@@ -21,7 +21,6 @@ const config = {
       // 中文导航 - 所有链接都加上 /zh/ 前缀
       nav: [
         { text: '交流邀请', link: '/zh/introduce' },
-        { text: '开发计划', link: '/zh/roadmap' },
         { text: '更新日志', link: '/zh/update-log' },
         { text: '生态', items: [
           { text: 'ruoyi-element-ai (模板项目)', link: 'https://chat-docs.element-plus-x.com/' },
@@ -30,7 +29,7 @@ const config = {
           { text: 'ChatArea (轻量级聊天框)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
         { text: '指南', link: '/zh/guide/install' },
-        { text: '组件', link: '/zh/components/bubble/' },
+        { text: '组件', link: '/zh/components/xsender/' },
       ],
 
       // 中文侧边栏
@@ -153,7 +152,6 @@ const config = {
       // 英文导航 - 所有链接都加上 /en/ 前缀
       nav: [
         { text: 'Invitation', link: '/en/introduce' },
-        { text: 'Roadmap', link: '/en/roadmap' },
         { text: 'Changelog', link: '/en/update-log' },
         { text: 'Ecosystem', items: [
           { text: 'ruoyi-element-ai (Template)', link: 'https://chat-docs.element-plus-x.com/' },
@@ -162,7 +160,7 @@ const config = {
           { text: 'ChatArea (Chat Box)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
         { text: 'Guide', link: '/en/guide/install' },
-        { text: 'Components', link: '/en/components/bubble/' },
+        { text: 'Components', link: '/en/components/xsender/' },
       ],
 
       // 英文侧边栏

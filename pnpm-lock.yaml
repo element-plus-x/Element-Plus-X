@@ -99,9 +99,6 @@ importers:
       vite-plugin-eslint:
         specifier: ^1.8.1
         version: 1.8.1(eslint@9.33.0(jiti@2.5.1))(vite@6.3.5(@types/node@24.2.1)(jiti@2.5.1)(less@4.4.0)(sass@1.90.0)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.1))
-      vite-plugin-prismjs:
-        specifier: ^0.0.11
-        version: 0.0.11(prismjs@1.30.0)
       vite-plugin-tsx-auto-props:
         specifier: ^0.0.8
         version: 0.0.8(typescript@5.8.3)(vite@6.3.5(@types/node@24.2.1)(jiti@2.5.1)(less@4.4.0)(sass@1.90.0)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.1))
@@ -2675,11 +2672,6 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  babel-plugin-prismjs@2.1.0:
-    resolution: {integrity: sha512-ehzSKYfeAz4U78zi/sfwsjDPlq0LvDKxNefcZTJ/iKBu+plsHsLqZhUeGf1+82LAcA35UZGbU6ksEx2Utphc/g==}
-    peerDependencies:
-      prismjs: ^1.18.0
-
   babel-walk@3.0.0-canary-5:
     resolution: {integrity: sha512-GAwkz0AihzY5bkwIY5QDR+LvsRQgB/B+1foMPvi0FZPMl5fjD7ICiznUiBdLYMH1QYe6vqu4gWYytZOccLouFw==}
     engines: {node: '>= 10.0.0'}
@@ -5030,10 +5022,6 @@ packages:
     resolution: {integrity: sha512-Qb1gy5OrP5+zDf2Bvnzdl3jsTf1qXVMazbvCoKhtKqVs4/YK4ozX4gKQJJVyNe+cajNPn0KoC0MC3FUmaHWEmQ==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
 
-  prismjs@1.30.0:
-    resolution: {integrity: sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==}
-    engines: {node: '>=6'}
-
   process@0.11.10:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
     engines: {node: '>= 0.6.0'}
@@ -5882,10 +5870,6 @@ packages:
     resolution: {integrity: sha512-NF30p0GwtfSAmVlxo2NgPXM2rEdtgV7LFi4lkzajKD7P3Ru/ZAFmI533M0Z5qyMZpvNMxVGkewzpjD0HOWtbDQ==}
     peerDependencies:
       vite: '*'
-
-  vite-plugin-prismjs@0.0.11:
-    resolution: {integrity: sha512-20NBQxg/zH+3FTrlU6BQTob720xkuXNYtrx7psAQ4E6pMcRDeLEK77QU9kXURU587+f2To7ASH1JVTGbXVV/vQ==}
-    engines: {node: '>=12.0.0'}
 
   vite-plugin-tsx-auto-props@0.0.8:
     resolution: {integrity: sha512-IZ8bPsi88CPzyz+RD7ra8kC+p2H+22AQVZY8DJE3cfYYXQ+q3k+TCSC1dfpblaNpOA4U2WDyVWp70R5TF9WqXQ==}
@@ -9207,10 +9191,6 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
-  babel-plugin-prismjs@2.1.0(prismjs@1.30.0):
-    dependencies:
-      prismjs: 1.30.0
-
   babel-walk@3.0.0-canary-5:
     dependencies:
       '@babel/types': 7.28.2
@@ -11911,8 +11891,6 @@ snapshots:
       ansi-styles: 5.2.0
       react-is: 17.0.2
 
-  prismjs@1.30.0: {}
-
   process@0.11.10: {}
 
   promise@7.3.1:
@@ -12904,14 +12882,6 @@ snapshots:
       magic-string: 0.30.17
       picocolors: 1.1.1
       vite: 6.3.5(@types/node@24.2.1)(jiti@2.5.1)(less@4.4.0)(sass@1.90.0)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.1)
-
-  vite-plugin-prismjs@0.0.11(prismjs@1.30.0):
-    dependencies:
-      '@babel/core': 7.28.0
-      babel-plugin-prismjs: 2.1.0(prismjs@1.30.0)
-    transitivePeerDependencies:
-      - prismjs
-      - supports-color
 
   vite-plugin-tsx-auto-props@0.0.8(typescript@5.8.3)(vite@6.3.5(@types/node@24.2.1)(jiti@2.5.1)(less@4.4.0)(sass@1.90.0)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.1)):
     dependencies:

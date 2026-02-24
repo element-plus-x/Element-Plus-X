@@ -24,35 +24,17 @@ yarn add vue-element-plus-x --save
 
 :::
 
-**CDN Import**
+**CDN Import (Optional)**
+
+We recommend installing via a package manager. If you want to use a CDN build, please verify the published artifacts:
 
 ```html
-<!-- This method needs testing -->
-<!-- CDN Import -->
-<script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
+<script src="https://unpkg.com/vue-element-plus-x@latest/dist/umd/index.js"></script>
 ```
 
-#### **III. Verify Installation**
+#### **III. Usage**
 
-1. Check if the `package.json` file contains:
-
-   ```json
-   {
-     "dependencies": {
-       "vue-element-plus-x": "^1.3.0"
-     }
-   }
-   ```
-
-2. Run the project to verify if components are available:
-
-   ```bash
-   npm run dev
-   ```
-
-#### **IV. On-demand Loading Instructions**
-
-Built-in **Tree Shaking** optimization, no additional configuration required
+Built-in **Tree Shaking** optimization. Both on-demand import and full import are supported.
 
 1. **On-demand Import**
 

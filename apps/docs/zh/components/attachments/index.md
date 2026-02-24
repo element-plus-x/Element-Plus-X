@@ -28,6 +28,15 @@ title: 'Attachments'
 
 <demo src="./demos/custom-scroll-buttons.vue"></demo>
 
+### 自定义主题
+
+通过 `ConfigProvider.themeOverrides` 覆盖 `Attachments` 的主题变量。完整变量表与可复制模板见：
+
+- [主题变量总表](/zh/guide/theme-tokens#attachments)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
 ## 属性
 
 | 属性名           | 类型                                         | 是否必填 | 默认值      | 描述                                                          |

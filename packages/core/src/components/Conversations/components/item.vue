@@ -7,6 +7,7 @@ import type {
   ConversationMenuCommand
 } from '../types';
 import { MoreFilled } from '@element-plus/icons-vue';
+import { useNamespace } from '../../../hooks/useNamespace';
 
 interface Props {
   item: ConversationItem;
@@ -52,7 +53,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
 const emit = defineEmits<{
   (e: 'click', key: string): void;
   (
@@ -63,6 +63,8 @@ const emit = defineEmits<{
 }>();
 
 const slots = defineSlots();
+
+const ns = useNamespace('conversations');
 
 const {
   item,
@@ -272,14 +274,14 @@ function closeDropdown() {
 <template>
   <li
     :key="item.key"
-    class="conversation-item"
-    :class="{
-      disabled: item.disabled,
-      active,
-      hovered: item.disabled ? false : isHovered,
-      'menu-opened': isShowMenuBtn,
-      'always-show-built-in-menu': alwaysShowBuiltInMenu
-    }"
+    :class="[
+      ns.b('item'),
+      item.disabled ? ns.bm('item', 'disabled') : '',
+      active ? ns.bm('item', 'active') : '',
+      item.disabled ? '' : isHovered ? ns.bm('item', 'hovered') : '',
+      isShowMenuBtn ? ns.bm('item', 'menu-opened') : '',
+      alwaysShowBuiltInMenu ? ns.bm('item', 'always-show-built-in-menu') : ''
+    ]"
     :style="{
       ...itemsStyle,
       ...(isHovered ? itemsHoverStyle : {}),
@@ -290,11 +292,11 @@ function closeDropdown() {
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
   >
-    <div class="conversation-content">
+    <div :class="ns.be('item', 'content')">
       <!-- 标签区域 - 通过插槽自定义 -->
-      <div class="conversation-content-main">
+      <div :class="ns.be('item', 'content-main')">
         <!-- 前缀图标 -->
-        <span v-if="prefixIconRender" class="conversation-prefix-icon">
+        <span v-if="prefixIconRender" :class="ns.be('item', 'prefix-icon')">
           <el-icon>
             <component :is="prefixIconRender" />
           </el-icon>
@@ -302,7 +304,7 @@ function closeDropdown() {
 
         <slot name="label">
           <!-- 标签和时间戳 -->
-          <div class="conversation-label-container">
+          <div :class="ns.be('item', 'label-container')">
             <ElTooltip
               v-if="showTooltip && isTextOverflow(item.label)"
               :content="item.label"
@@ -311,16 +313,24 @@ function closeDropdown() {
               effect="dark"
             >
               <span
-                class="conversation-label"
-                :class="{ 'text-gradient': isTextOverflow(item.label) }"
+                :class="[
+                  ns.be('item', 'label'),
+                  isTextOverflow(item.label)
+                    ? ns.bem('item', 'label', 'gradient')
+                    : ''
+                ]"
                 :style="labelStyle"
                 >{{ item.label }}</span
               >
             </ElTooltip>
             <span
               v-else
-              class="conversation-label"
-              :class="{ 'text-gradient': isTextOverflow(item.label) }"
+              :class="[
+                ns.be('item', 'label'),
+                isTextOverflow(item.label)
+                  ? ns.bem('item', 'label', 'gradient')
+                  : ''
+              ]"
               :style="labelStyle"
               >{{ item.label }}</span
             >
@@ -329,7 +339,7 @@ function closeDropdown() {
       </div>
 
       <!-- 后缀图标 -->
-      <span v-if="suffixIconRender" class="conversation-suffix-icon">
+      <span v-if="suffixIconRender" :class="ns.be('item', 'suffix-icon')">
         <ElIcon>
           <component :is="suffixIconRender" />
         </ElIcon>
@@ -338,12 +348,12 @@ function closeDropdown() {
       <!-- 菜单区域 - 只在hover或active状态下显示 -->
       <div
         v-show="(shouldShowMenu && showBuiltInMenu) || alwaysShowBuiltInMenu"
-        class="conversation-dropdown-menu-container"
+        :class="ns.be('item', 'dropdown-menu-container')"
       >
         <div
           v-show="menu && menu.length"
           ref="menuButtonRef"
-          class="conversation-dropdown-more"
+          :class="ns.be('item', 'dropdown-more')"
           @click="e => e.stopPropagation()"
         >
           <el-dropdown
@@ -354,8 +364,8 @@ function closeDropdown() {
             :teleported="menuTeleported"
             :popper-class="
               menuClassName
-                ? `conversation-dropdown-menu ${menuClassName}`
-                : 'conversation-dropdown-menu'
+                ? `${ns.b('dropdown-menu')} ${menuClassName}`
+                : ns.b('dropdown-menu')
             "
             :max-height="menuMaxHeight"
             :disabled="item.disabled"
@@ -375,7 +385,7 @@ function closeDropdown() {
                   isDisabled: item.disabled
                 }"
               >
-                <el-icon class="conversation-dropdown-more-icon">
+                <el-icon :class="ns.b('dropdown-more-icon')">
                   <MoreFilled />
                 </el-icon>
               </slot>

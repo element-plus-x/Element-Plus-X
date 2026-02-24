@@ -1,0 +1,43 @@
+:root {
+  --elx-color-primary: var(--el-color-primary, #409eff);
+  --elx-color-success: var(--el-color-success, #67c23a);
+  --elx-color-warning: var(--el-color-warning, #e6a23c);
+  --elx-color-danger: var(--el-color-danger, #f56c6c);
+  --elx-color-info: var(--el-color-info, #909399);
+
+  --elx-text-color-primary: var(--el-text-color-primary, #303133);
+  --elx-text-color-regular: var(--el-text-color-regular, #606266);
+  --elx-text-color-secondary: var(--el-text-color-secondary, #909399);
+  --elx-text-color-placeholder: var(--el-text-color-placeholder, #a8abb2);
+
+  --elx-bg-page: var(--elx-fill-color-light);
+  --elx-bg-surface: #ffffff;
+
+  --elx-border-color: var(--el-border-color, #dcdfe6);
+  --elx-border-radius-base: var(--el-border-radius-base, 4px);
+  --elx-border-radius-small: var(--el-border-radius-small, 2px);
+  --elx-border-radius-round: var(--el-border-radius-round, 20px);
+
+  --elx-fill-color: var(--el-fill-color, #f0f2f5);
+  --elx-fill-color-light: var(--el-fill-color-light, #f5f7fa);
+
+  --elx-padding-xs: 4px;
+  --elx-padding-sm: 8px;
+  --elx-padding-md: 12px;
+  --elx-padding-lg: 16px;
+  --elx-padding-xl: 20px;
+
+  --elx-box-shadow: var(--el-box-shadow, 0 2px 12px 0 rgba(0, 0, 0, 0.1));
+  --elx-box-shadow-light: var(
+    --el-box-shadow-light,
+    0 2px 8px 0 rgba(0, 0, 0, 0.06)
+  );
+
+  --elx-attachments-fade-rgb: 255, 255, 255;
+  --elx-attachments-nav-bg: rgba(0, 0, 0, 0.3);
+  --elx-attachments-nav-bg-hover: rgba(0, 0, 0, 0.5);
+  --elx-attachments-nav-bg-active: rgba(0, 0, 0, 0.7);
+  --elx-attachments-nav-color: #ffffff;
+  --elx-attachments-drop-bg: rgba(225, 225, 225, 0.3);
+  --elx-attachments-upload-icon-color: var(--elx-text-color-placeholder);
+}

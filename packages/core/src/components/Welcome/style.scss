@@ -1,96 +1,99 @@
-.welcome-container {
-  --border-radius: 8px;
-  --icon-size: 64px;
-  --icon-size-small: 48px;
-  --gap: 16px;
-  --gap-small: 8px;
-  --padding: 24px;
-  --color-filled-bg: #e6f4ff;
-  --color-filled-border: #91caff;
-  --color-title: rgba(0, 0, 0, 0.88);
-  --color-description: rgba(0, 0, 0, 0.65);
+.elx-welcome {
+  --elx-welcome-border-radius: 8px;
+  --elx-welcome-icon-size: 64px;
+  --elx-welcome-icon-size-small: 48px;
+  --elx-welcome-gap: 16px;
+  --elx-welcome-gap-small: 8px;
+  --elx-welcome-padding: 24px;
+  --elx-welcome-filled-bg: #e6f4ff;
+  --elx-welcome-filled-border: #91caff;
+  --elx-welcome-title-color: rgba(0, 0, 0, 0.88);
+  --elx-welcome-description-color: rgba(0, 0, 0, 0.65);
 
   display: flex;
-  gap: var(--gap);
-  padding: var(--padding);
-  border-radius: var(--border-radius);
+  gap: var(--elx-welcome-gap);
+  padding: var(--elx-welcome-padding);
+  border-radius: var(--elx-welcome-border-radius);
 
-  &.welcome-filled {
-    background-color: var(--color-filled-bg);
-    border: 1px solid var(--color-filled-border);
+  &.elx-welcome--filled {
+    background-color: var(--elx-welcome-filled-bg);
+    border: 1px solid var(--elx-welcome-filled-border);
   }
 
-  &.welcome-borderless {
+  &.elx-welcome--borderless {
+    background-color: var(--elx-welcome-filled-bg);
     border: none;
   }
 
-  &.welcome-rtl {
+  &.elx-welcome--rtl {
     direction: rtl;
   }
 }
 
-.welcome-icon {
-  // 图标容器样式
+.elx-welcome__icon {
   flex: 0 0 auto;
-  width: var(--icon-size);
-  height: var(--icon-size);
+  width: var(--elx-welcome-icon-size);
+  height: var(--elx-welcome-icon-size);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: calc(var(--border-radius) / 2);
+  border-radius: calc(var(--elx-welcome-border-radius) / 2);
   overflow: hidden;
   font-size: 24px;
 
   .icon-image {
     width: 100%;
     height: 100%;
-    object-fit: contain;
     padding: 4px;
+
+    :deep(.el-image__inner) {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
   }
 
-  // 小尺寸适配
   @media (max-width: 480px) {
-    width: var(--icon-size-small);
-    height: var(--icon-size-small);
+    width: var(--elx-welcome-icon-size-small);
+    height: var(--elx-welcome-icon-size-small);
   }
 }
 
-.content-wrapper {
+.elx-welcome__content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--gap-small);
+  gap: var(--elx-welcome-gap-small);
 }
 
-.title-wrapper {
+.elx-welcome__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: var(--gap-small);
+  gap: var(--elx-welcome-gap-small);
 }
 
-.welcome-title {
+.elx-welcome__title {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
-  color: var(--color-title);
+  color: var(--elx-welcome-title-color);
 }
 
-.welcome-extra {
+.elx-welcome__extra {
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: var(--gap-small);
+  gap: var(--elx-welcome-gap-small);
 
-  /* 如果内容需要换行 */
   :deep(*) {
     flex-shrink: 0;
   }
 }
 
-.welcome-description {
+.elx-welcome__description {
   margin: 0;
   font-size: 14px;
-  color: var(--color-description);
+  color: var(--elx-welcome-description-color);
   line-height: 1.5;
 }

@@ -1,10 +1,10 @@
 <docs>
 ---
-title: 词槽输入框
+title: Input
 ---
 
-可以通过 `setInput` 插入一个词槽输入框提供用户填写输入预设内容。
-使用 `setChatNode` 可以高度预设输入框的模板内容。
+Use `setInput` to insert an input field for preset values.
+Use `setChatNode` to preset template content for the input.
 </docs>
 
 <script setup lang="ts">

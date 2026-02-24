@@ -2,7 +2,6 @@
 title: Prompts
 ---
 
-
 ## Introduction
 
 `Prompts` is used to display a set of predefined questions or suggestions related to the current context.
@@ -45,7 +44,7 @@ title: Prompts
 | `items`    | `PromptsItemsProps[]` | No       | `[]`    | Array of prompt items, each element contains label, icon, description and other information (see structure details below) |
 | `wrap`     | `boolean`             | No       | `false` | Whether to allow prompt items to wrap automatically (only effective in horizontal layout)                                 |
 | `vertical` | `boolean`             | No       | `false` | Whether to arrange prompt items vertically (layout direction is column in vertical mode)                                  |
-| `style`    | `CSSProperties`       | No       | `{}`    | Custom styles for component container (directly applied to the outermost `div.el-prompts`)                                |
+| `style`    | `CSSProperties`       | No       | `{}`    | Custom styles for component container (directly applied to the outermost `div.elx-prompts`)                               |
 
 **`PromptsItemsProps` Structure Details** (single prompt item attributes):
 

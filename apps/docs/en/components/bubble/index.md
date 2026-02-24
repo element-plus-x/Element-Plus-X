@@ -36,6 +36,15 @@ title: Bubble
 
 <demo src="./demos/variant-and-shape.vue"></demo>
 
+### Theme Overrides (themeOverrides)
+
+Override `Bubble` theme tokens via `ConfigProvider.themeOverrides`. See the full token list and template:
+
+- [Theme Tokens](/en/guide/theme-tokens#bubble)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
 ### Using with x-markdown-vue
 
 Starting from v2.0.0, the Typewriter component has been removed. For Markdown rendering functionality, please use [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue).

@@ -43,14 +43,14 @@ const items = ref<PromptsItemsProps[]>([
     /* 蓝紫 */ 0 0 30px rgba(0, 191, 255, 0.3);
   overflow: hidden;
 
-  :deep(.el-prompts-items) {
+  :deep(.elx-prompts__items) {
     border-radius: inherit;
     width: 100%;
     border: none;
     background: transparent !important;
   }
 
-  :deep(.el-prompts-item) {
+  :deep(.elx-prompts__item) {
     border-radius: 15px;
     width: 100%;
     border: none;
@@ -61,12 +61,12 @@ const items = ref<PromptsItemsProps[]>([
     );
   }
 
-  :deep(.el-prompts-item-description) {
+  :deep(.elx-prompts__item-description) {
     margin-bottom: 4px !important;
   }
 
-  :deep(.el-prompts-item) {
-    .el-prompts-item-label {
+  :deep(.elx-prompts__item) {
+    .elx-prompts__item-label {
       /* 设置字体大小和粗细 */
       font-size: 1.05em;
       font-weight: bold;
@@ -92,7 +92,7 @@ const items = ref<PromptsItemsProps[]>([
       animation: gradientShift 5s ease infinite;
     }
 
-    .el-prompts-item-description {
+    .elx-prompts__item-description {
       font-size: 0.875rem;
       color: rgba(0, 255, 255);
     }

@@ -4,7 +4,7 @@ title: 'XSender'
 
 ## Introduction
 
-`XSender` is a component with built-in smart conversation features including **template input**, **tag selection**, **command popup**, **user mention**, and other scenarios.
+`XSender` is a component with built-in smart conversation features including **input**, **tag selection**, **command popup**, **user mention**, and other scenarios.
 
 :::warning
 
@@ -64,7 +64,7 @@ The plugin version must be greater than `1.3.98`. The previous version was named
 
 ## Advanced Usage
 
-### Template Input
+### Input
 
 <demo src="./demos/input.vue"></demo>
 

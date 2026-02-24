@@ -128,10 +128,6 @@ app.mount('#app');
 | `useXStream`         | Streaming API hooks                                   | [📄 Docs](https://element-plus-x.com/components/useXStream/)   |
 | `useSend & XRequest` | Split streaming hooks (extended)                      | [📄 Docs](https://element-plus-x.com/components/useSend/)      |
 
-## 🎯 Development Plan (Updated Weekly)
-
-🎀 We will collect everyone's encountered problems and demand scenarios in various aspects such as issues and communication groups, and develop short-term and long-term development plans. For more details, please move on 👉 **[Development Plan](https://element-plus-x.com/en/roadmap.html)**
-
 ## 🤝 Contribute
 
 1. **Fork the repository** → 2. **Create a Feature branch** → 3. **Submit a Pull Request**

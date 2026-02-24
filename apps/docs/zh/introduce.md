@@ -132,10 +132,6 @@ app.mount('#app');
 | `useXStream`         | 流模式接口 Hooks                   | [📄 文档](https://element-plus-x.com/zh/components/useXStream/)    |
 | `useSend & XRequest` | 流模式 hooks 的拆分 （拓展）       | [📄 文档](https://element-plus-x.com/zh/components/useSend/)       |
 
-## 🎯开发计划 (每周更新)
-
-🎀我们会在 issue 、交流群 等多方面收集大家的遇到的问题，和需求场景，制定短期和长期的开发计划，查看详情请移步👉 **[开发计划](https://element-plus-x.com/zh/roadmap.html)**
-
 ## 🤝 参与贡献
 
 1. **Fork 仓库** → 2. **创建 Feature 分支** → 3. **提交 Pull Request**

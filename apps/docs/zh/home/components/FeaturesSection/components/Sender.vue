@@ -90,7 +90,7 @@ const isSelect = ref(false);
     /* 蓝紫 */ 0 0 30px rgba(0, 191, 255, 0.3);
   overflow: hidden;
 
-  :deep(.el-editor-sender-wrap) {
+  :deep(.elx-x-sender) {
     border: none;
   }
 

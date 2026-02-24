@@ -4,11 +4,9 @@ import { FilesCard } from '../../components';
 
 <template>
   <div class="component-container">
-    <div class="component-title">
-      文件卡片
-    </div>
+    <div class="component-title">文件卡片</div>
     <FilesCard v-bind="$attrs" />
-    <br>
+    <br />
     <FilesCard
       v-bind="$attrs"
       name="FilesCardDemo.png"
@@ -20,7 +18,6 @@ import { FilesCard } from '../../components';
 
 <style scoped lang="scss">
 .component-container {
-  background-color: white;
   padding: 12px;
   border-radius: 15px;
   overflow: auto;

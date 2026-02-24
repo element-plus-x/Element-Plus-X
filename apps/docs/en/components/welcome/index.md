@@ -28,6 +28,15 @@ The `Welcome` component can clearly communicate to users the scope of achievable
 
 <demo src="./demos/extra.vue"></demo>
 
+### Theme Overrides (themeOverrides)
+
+Override `Welcome` theme tokens via `ConfigProvider.themeOverrides`. See the full token list and template:
+
+- [Theme Tokens](/en/guide/theme-tokens#welcome)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
 ## Properties
 
 | Property Name   | Type   | Required | Default | Description                                                            |

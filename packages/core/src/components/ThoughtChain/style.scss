@@ -1,5 +1,5 @@
-.el-thought-chain {
-  &-item-dot {
+.elx-thought-chain {
+  &__item-dot {
     margin: v-bind(dotMargin);
     :deep(.el-button) {
       cursor: default !important;
@@ -57,23 +57,23 @@
   }
 }
 
-.thought-chain-move,
-.thought-chain-enter-active,
-.thought-chain-leave-active {
+.elx-thought-chain-move,
+.elx-thought-chain-enter-active,
+.elx-thought-chain-leave-active {
   transition: all 0.5s ease;
 }
 
-.thought-chain-enter-from,
-.thought-chain-leave-to {
+.elx-thought-chain-enter-from,
+.elx-thought-chain-leave-to {
   opacity: 0;
   transform: translateY(10px) scaleY(0.9);
 }
 
-.thought-chain-leave-active {
+.elx-thought-chain-leave-active {
   position: absolute;
 }
 
-.thought-chain-loading {
+.elx-thought-chain__loading {
   animation: rotating 1.5s linear infinite;
   transform-origin: center center;
   will-change: transform;

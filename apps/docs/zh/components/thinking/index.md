@@ -46,6 +46,15 @@ title: 'Thinking'
 
 <demo src="./demos/color.vue"></demo>
 
+### 自定义主题
+
+通过 `ConfigProvider.themeOverrides` 覆盖 `Thinking` 的主题变量。完整变量表与可复制模板见：
+
+- [主题变量总表](/zh/guide/theme-tokens#thinking)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
 ### 插槽定制
 
 <demo src="./demos/solt.vue"></demo>

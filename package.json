@@ -14,7 +14,7 @@
     "build:storybook": "pnpm run build:storybook --filter=vue-element-plus-x",
     "dev:metadata": "turbo run dev --filter=element-plus-x-metadata",
     "build:metadata": "turbo run build --filter=element-plus-x-metadata",
-    "dev:docs": "turbo run dev --filter=docs",
+    "dev:docs": "pnpm -C apps/docs dev",
     "build:docs": "turbo run build --filter=docs",
     "ci:publish": "pnpm changeset publish -r --filter=vue-element-plus-x --otp=${NPM_OTP:-}",
     "dev": "npm run dev:playground",

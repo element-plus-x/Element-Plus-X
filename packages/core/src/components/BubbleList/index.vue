@@ -1,7 +1,8 @@
 <script setup lang="ts" generic="T extends BubbleProps">
 import type { BubbleProps } from '../Bubble/types';
-import type { BubbleListProps } from './types.d.ts';
+import type { BubbleListProps } from './types';
 import { ArrowDownBold } from '@element-plus/icons-vue';
+import { useNamespace } from '../../hooks/useNamespace';
 import useScrollDetector from '../../utils/useScrollDetector.ts';
 import Bubble from '../Bubble/index.vue';
 import loadingBg from './loading.vue';
@@ -21,27 +22,13 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   btnIconSize: 24
 });
 const TOLERANCE = 30;
+const ns = useNamespace('bubble-list');
 
-function initStyle() {
-  document.documentElement.style.setProperty(
-    '--el-bubble-list-max-height',
-    props.maxHeight || '100%'
-  );
-  document.documentElement.style.setProperty(
-    '--el-bubble-list-btn-size',
-    `${props.btnIconSize}px`
-  );
-}
-
-onMounted(() => {
-  initStyle();
-});
-
-watch(
-  () => [props.maxHeight, props.btnIconSize],
-  () => {
-    initStyle();
-  }
+const wrapperStyle = computed(() =>
+  ns.cssVarBlock({
+    'max-height': props.maxHeight || '100%',
+    'btn-size': `${props.btnIconSize}px`
+  })
 );
 
 const scrollContainer = ref<HTMLElement | null>(null);
@@ -88,7 +75,7 @@ function scrollToBubble(index: number) {
   const container = scrollContainer.value;
   if (!container) return;
 
-  const bubbles = container.querySelectorAll('.el-bubble');
+  const bubbles = container.querySelectorAll(`.${ns.namespace.value}-bubble`);
   if (index >= bubbles.length) return;
 
   stopAutoScrollToBottom.value = true;
@@ -109,7 +96,7 @@ function scrollToBubble(index: number) {
 function autoScroll() {
   if (scrollContainer.value) {
     const listBubbles = scrollContainer.value!.querySelectorAll(
-      '.el-bubble-content-wrapper'
+      `.${ns.namespace.value}-bubble__content-wrapper`
     );
     const secondLastItem = listBubbles[listBubbles.length - 2];
     const { top, bottom } = secondLastItem.getBoundingClientRect();
@@ -157,11 +144,13 @@ defineExpose({
 </script>
 
 <template>
-  <div class="el-bubble-list-wrapper">
+  <div :class="ns.b()" :style="wrapperStyle">
     <div
       ref="scrollContainer"
-      class="el-bubble-list"
-      :class="{ 'always-scrollbar': props.alwaysShowScrollbar }"
+      :class="[
+        ns.e('list'),
+        props.alwaysShowScrollbar ? ns.em('list', 'always-scrollbar') : ''
+      ]"
       @scroll="handleScroll"
     >
       <Bubble
@@ -201,10 +190,10 @@ defineExpose({
     </div>
     <div
       v-if="showBackToBottom && hasVertical"
-      class="el-bubble-list-default-back-button"
-      :class="{
-        'el-bubble-list-back-to-bottom-solt': $slots.backToBottom
-      }"
+      :class="[
+        ns.e('back-button'),
+        $slots.backToBottom ? ns.em('back-button', 'slot') : ''
+      ]"
       :style="{
         bottom: backButtonPosition.bottom,
         left: backButtonPosition.left
@@ -213,13 +202,13 @@ defineExpose({
     >
       <slot name="backToBottom">
         <el-icon
-          class="el-bubble-list-back-to-bottom-icon"
+          :class="ns.e('back-to-bottom-icon')"
           :style="{ color: props.btnColor }"
         >
           <ArrowDownBold />
           <loadingBg
             v-if="props.btnLoading"
-            class="back-to-bottom-loading-svg-bg"
+            :class="ns.e('back-to-bottom-loading')"
           />
         </el-icon>
       </slot>

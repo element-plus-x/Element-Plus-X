@@ -28,6 +28,15 @@ The `Attachments` component is a feature-rich attachment management component th
 
 <demo src="./demos/custom-scroll-buttons.vue"></demo>
 
+### Theme Overrides (themeOverrides)
+
+Override `Attachments` theme tokens via `ConfigProvider.themeOverrides`. See the full token list and template:
+
+- [Theme Tokens](/en/guide/theme-tokens#attachments)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
 ## Props
 
 | Name             | Type                                         | Required | Default     | Description                                                                                 |

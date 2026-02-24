@@ -2,7 +2,6 @@
 title: Conversations
 ---
 
-
 ## Introduction
 
 `Conversations` is a session management component developed based on Vue 3 and Element Plus, supporting grouped display, menu interaction, scroll loading, custom styles and other features. Suitable for message lists, file management, task grouping and other scenarios, it meets diverse business needs through flexible configuration and slot extensions.
@@ -41,6 +40,15 @@ title: Conversations
 
 <demo src="./demos/absolute-custom.vue"></demo>
 
+### Theme Overrides (themeOverrides)
+
+Override `Conversations` theme tokens via `ConfigProvider.themeOverrides`. See the full token list and template:
+
+- [Theme Tokens](/en/guide/theme-tokens#conversations)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
 ## Properties
 
 | Property Name          | Type                          | Required | Default   | Description                                                                              |
@@ -60,14 +68,14 @@ title: Conversations
 
 ## Slots
 
-| Slot Name      | Parameters                                                | Description                                                                                                |
-| -------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `#groupTitle`  | `{ group: GroupItem }`                                    | Custom group title, supports adding icons or special styles                                                |
-| `#label`       | `{ item: ConversationItem<T> }`                           | Custom session item label content, supports text overflow handling or rich text                            |
-| `#more-filled` | `{ item, isHovered, isActive, isMenuOpened, isDisabled }` | Session item right side additional content, displays status indicators (e.g.: disabled mark, action icons) |
-| `#menu`        | `{ item: ConversationItem<T>, handleOpen, handleClose }`                           | Custom menu content, supports buttons, icons or complex interactive components,`handleOpen`used to control the opening of the drop-down menu, `handleClose`used to control the closing of drop-down menus.                             |
-| `#header`      | -                                                         | Container header slot, for adding search bars, filter buttons and other custom content                     |
-| `#footer`      | -                                                         | Container footer slot, for adding pagination, statistics and other custom content                          |
+| Slot Name      | Parameters                                                | Description                                                                                                                                                                                                |
+| -------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `#groupTitle`  | `{ group: GroupItem }`                                    | Custom group title, supports adding icons or special styles                                                                                                                                                |
+| `#label`       | `{ item: ConversationItem<T> }`                           | Custom session item label content, supports text overflow handling or rich text                                                                                                                            |
+| `#more-filled` | `{ item, isHovered, isActive, isMenuOpened, isDisabled }` | Session item right side additional content, displays status indicators (e.g.: disabled mark, action icons)                                                                                                 |
+| `#menu`        | `{ item: ConversationItem<T>, handleOpen, handleClose }`  | Custom menu content, supports buttons, icons or complex interactive components,`handleOpen`used to control the opening of the drop-down menu, `handleClose`used to control the closing of drop-down menus. |
+| `#header`      | -                                                         | Container header slot, for adding search bars, filter buttons and other custom content                                                                                                                     |
+| `#footer`      | -                                                         | Container footer slot, for adding pagination, statistics and other custom content                                                                                                                          |
 
 ## Events
 
@@ -93,7 +101,6 @@ title: Conversations
 3. **Performance Optimization**
 
 - Lazy loading feature: automatically loads more data when scrolling to bottom, reduces initial rendering pressure
-- Virtual scrolling (planned): supports ultra-large list scenarios, improves memory usage efficiency
 
 4. **Highly Customizable**
 

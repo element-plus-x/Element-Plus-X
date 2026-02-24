@@ -19,9 +19,9 @@ const selectConfig = ref([
     dialogTitle: '图像风格',
     key: 'style',
     options: [
-      { id: '1', name: '人像摄影', preview: 'https://jianfv.top/style/style1.webp' },
-      { id: '2', name: '电影写真', preview: 'https://jianfv.top/style/style2.webp' },
-      { id: '3', name: '中国风', preview: 'https://jianfv.top/style/style3.webp' }
+      { id: '1', name: '人像摄影', preview: '/logo.png' },
+      { id: '2', name: '电影写真', preview: '/logo.png' },
+      { id: '3', name: '中国风', preview: '/logo.png' }
     ],
     multiple: false // 是否开启多选
   }
@@ -59,15 +59,15 @@ function onSetModel() {
 
 <template>
   <div>
-    <div style="margin-bottom: 20px;">
-      <el-button type="primary" @click="onSetBasic">API插入</el-button>
-      <el-button id="target" type="primary" @click="openSelectDialog">外部唤起选择弹窗</el-button>
-      <el-button type="primary" @click="onSetModel">预设模版内容插入</el-button>
+    <div style="margin-bottom: 20px">
+      <el-button type="primary" @click="onSetBasic"> API插入 </el-button>
+      <el-button id="target" type="primary" @click="openSelectDialog">
+        外部唤起选择弹窗
+      </el-button>
+      <el-button type="primary" @click="onSetModel">
+        预设模版内容插入
+      </el-button>
     </div>
-    <XSender
-      ref="senderRef"
-      variant="updown"
-      :select-config="selectConfig"
-    ></XSender>
+    <XSender ref="senderRef" variant="updown" :select-config="selectConfig" />
   </div>
 </template>

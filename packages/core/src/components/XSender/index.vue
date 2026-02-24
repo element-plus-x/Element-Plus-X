@@ -12,6 +12,7 @@ import type {
 } from './types';
 import { onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
 import XSender from 'x-sender';
+import { useNamespace } from '../../hooks/useNamespace';
 import ClearButton from './components/ClearButton/index.vue';
 import LoadingButton from './components/LoadingButton/index.vue';
 import SendButton from './components/SendButton/index.vue';
@@ -90,10 +91,19 @@ const props = defineProps({
     default: () => XSender
   }
 });
+
 /**
  *  暴露的事件
  */
 const emits = defineEmits<XSenderEmits>();
+
+const ns = useNamespace('x-sender');
+
+const rootStyle = computed(() =>
+  ns.cssVarBlock({
+    'header-duration': `${props.headerAnimationTimer}ms`
+  })
+);
 
 const instance = getCurrentInstance();
 
@@ -428,45 +438,39 @@ defineExpose({
 </script>
 
 <template>
-  <div
-    class="el-editor-sender-wrap"
-    :style="{
-      '--el-editor-sender-header-duration': `${headerAnimationTimer}ms`
-    }"
-  >
+  <div :class="ns.b()" :style="rootStyle">
     <!-- 头部容器 -->
-    <Transition name="slide">
-      <div v-if="$slots.header" class="el-editor-sender-header">
-        <div class="el-editor-sender-header-container">
+    <Transition :name="`${ns.b()}-slide`">
+      <div v-if="$slots.header" :class="ns.e('header')">
+        <div :class="ns.e('header-container')">
           <slot name="header" />
         </div>
       </div>
     </Transition>
     <!-- 内容容器 -->
     <div
-      class="el-editor-sender-content"
-      :class="{ 'content-variant-updown': props.variant === 'updown' }"
+      :class="[
+        ns.e('content'),
+        props.variant === 'updown' ? ns.em('content', 'variant-updown') : ''
+      ]"
       @mousedown="onContentMouseDown"
     >
       <!-- Prefix 前缀 -->
       <div
         v-if="$slots.prefix && props.variant === 'default'"
-        class="el-editor-sender-prefix"
+        :class="ns.e('prefix')"
       >
         <slot name="prefix" />
       </div>
       <!-- 输入区域 -->
-      <div class="el-editor-sender-chat-room" @mousedown.stop="() => {}">
+      <div :class="ns.e('chat-room')" @mousedown.stop="() => {}">
         <!-- 输入框载体 这里多嵌套一层是为了存放渲染后的弹窗元素 -->
-        <div ref="container" class="el-editor-sender-chat" />
+        <div ref="container" :class="ns.e('chat')" />
       </div>
       <!-- 默认操作列表 -->
-      <div
-        v-if="props.variant === 'default'"
-        class="el-editor-sender-action-list"
-      >
+      <div v-if="props.variant === 'default'" :class="ns.e('action-list')">
         <slot name="action-list">
-          <div class="el-editor-sender-action-list-presets">
+          <div :class="ns.e('action-list-presets')">
             <SendButton
               v-if="!props.loading"
               :disabled="senderState.isEmpty || props.disabled"
@@ -486,17 +490,17 @@ defineExpose({
       <!-- 变体操作列表 -->
       <div
         v-else-if="props.variant === 'updown'"
-        class="el-editor-sender-updown-action-list"
+        :class="ns.e('updown-action-list')"
       >
         <!-- 变体 updown： Prefix 前缀 -->
-        <div v-if="$slots.prefix" class="el-editor-sender-prefix">
+        <div v-if="$slots.prefix" :class="ns.e('prefix')">
           <slot name="prefix" />
         </div>
 
         <!-- 变体 updown：操作列表 -->
-        <div class="el-editor-sender-action-list">
+        <div :class="ns.e('action-list')">
           <slot name="action-list">
-            <div class="el-editor-sender-action-list-presets">
+            <div :class="ns.e('action-list-presets')">
               <SendButton
                 v-if="!props.loading"
                 :disabled="senderState.isEmpty || props.disabled"
@@ -516,8 +520,8 @@ defineExpose({
       </div>
     </div>
     <!-- 底部容器 -->
-    <Transition name="slide">
-      <div v-if="$slots.footer" class="el-editor-sender-footer">
+    <Transition :name="`${ns.b()}-slide`">
+      <div v-if="$slots.footer" :class="ns.e('footer')">
         <slot name="footer" />
       </div>
     </Transition>

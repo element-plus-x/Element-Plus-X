@@ -36,6 +36,7 @@ const buildConfig: BuildEnvironmentOptions = {
     entry: {
       index: resolve(__dirname, '../src/index.ts'),
       components: resolve(__dirname, '../src/components.ts'),
+      styles: resolve(__dirname, '../src/styles/index.ts'),
       ...entriesObj,
       ...hooksEntriesObj
     },
@@ -67,6 +68,12 @@ const buildConfig: BuildEnvironmentOptions = {
               .replace('src/components/', '')
               .replace('index.vue', 'index.css');
             return `es/${fileName}`;
+          }
+          if (srcName.includes('src/styles/')) {
+            const fileName = srcName
+              .replace('src/styles/', '')
+              .replace(/\.(ts|tsx|js|scss|sass|css)$/, '.css');
+            return `es/styles/${fileName}`;
           }
         }
         return info.name;

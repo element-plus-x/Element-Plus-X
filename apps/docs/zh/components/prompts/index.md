@@ -44,7 +44,7 @@ title: 'Prompts'
 | `items`    | `PromptsItemsProps[]` | 否       | `[]`    | 提示项数组，每个元素包含标签、图标、描述等信息（具体结构见下方说明） |
 | `wrap`     | `boolean`             | 否       | `false` | 是否允许提示项自动换行（仅水平排列时生效）                           |
 | `vertical` | `boolean`             | 否       | `false` | 是否垂直排列提示项（垂直模式下布局方向为列排列）                     |
-| `style`    | `CSSProperties`       | 否       | `{}`    | 组件容器的自定义样式（直接作用于最外层`div.el-prompts`）             |
+| `style`    | `CSSProperties`       | 否       | `{}`    | 组件容器的自定义样式（直接作用于最外层`div.elx-prompts`）            |
 
 **`PromptsItemsProps` 结构说明**（单个提示项属性）：
 

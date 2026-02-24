@@ -1,4 +1,20 @@
-## [v2.0.0] - 2025-02-20
+---
+title: 更新日志
+---
+
+本页记录文档与版本变更摘要；如需查看发版详情请以仓库 Releases/Changesets 为准。
+
+## [v2.0.0] - 2026-02-20
+
+### 🎨 主题
+
+- 完善 `ConfigProvider` 主题能力：支持 `light/dark` 切换，并与 VitePress 深色模式联动
+- 支持通过 `themeOverrides` 覆盖 `--elx-*` 主题变量（全局应用到 `html`）
+
+### 📚 文档
+
+- 新增《主题配置》指南（以 VitePress 为主）
+- `ConfigProvider` 文档补充主题变量前缀说明，并在侧边栏增加入口
 
 ### 💥 破坏性变更
 
@@ -87,7 +103,7 @@ import 'x-markdown-vue/style';
 
 ### 📚文档更新
 
-- 开发文档更新，开发计划更新。
+- 开发文档更新。
 - 修改在线预览为 `storybook` 项目
 
 ### 🛠 改进
@@ -175,7 +191,6 @@ import 'x-markdown-vue/style';
 
 ### 📚文档更新
 
-- 更新线上开发计划文档，展示我们陆续的开发计划。有想法提 pr 的伙伴，可以先看看我们的开发计划，有感兴趣的模块，可以进交流群，一起研究推进 **[开发计划](https://element-plus-x.com/zh/roadmap.html)**
 - 更新首页介绍，交流要求文档。`antdx` 全部组件已经复刻完毕。
 
 ## [v1.1.6] - 2025-04-16
@@ -201,7 +216,6 @@ import 'x-markdown-vue/style';
 
 ### 📚文档更新
 
-- 更新线上开发计划文档，展示我们陆续的开发计划。有想法提 pr 的伙伴，可以先看看我们的开发计划，有感兴趣的模块，可以进交流群，一起研究推进 **[开发计划](https://element-plus-x.com/zh/roadmap.html)**
 - 更新 **`指南文档`** 中的 **[开发文档](https://element-plus-x.com/guide/develop.html)** ，修复文档介绍错误问题
 
 ## [v1.1.1] - 2025-04-06
@@ -248,7 +262,6 @@ import 'x-markdown-vue/style';
 
 ### 📚 文档更新
 
-- 更新线上开发计划文档，会给大家展示我们陆续的开发计划。有想法提 pr 的伙伴，可以先看看我们的开发计划，有感兴趣的模块，可以进交流群，一起研究推进 **[开发计划](https://element-plus-x.com/zh/roadmap.html)**
 - 更新 **`指南文档`** 中的 **[开发文档](https://element-plus-x.com/guide/develop.html)** ，着重修改 **开发命令**、**贡献代码**、**本地调试** 全流程介绍。 规范 `开发` 和 `pr` 提交
 
 ## [v1.0.6] - 2025-03-23

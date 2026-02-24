@@ -63,7 +63,7 @@ function generateGradientColor(): string {
 
     <Welcome
       :direction="value"
-      icon="https://camo.githubusercontent.com/4ea7fdaabf101c16965c0bd3ead816c9d7726a59b06f0800eb7c9a30212d5a6a/68747470733a2f2f63646e2e656c656d656e742d706c75732d782e636f6d2f656c656d656e742d706c75732d782e706e67"
+      icon="/logo.png"
       title="欢迎使用 Element Plus X 💖"
       description="这是描述信息 ~"
       :style="{ background: bgColor }"
@@ -71,7 +71,7 @@ function generateGradientColor(): string {
 
     <Welcome
       :direction="value"
-      icon="https://camo.githubusercontent.com/4ea7fdaabf101c16965c0bd3ead816c9d7726a59b06f0800eb7c9a30212d5a6a/68747470733a2f2f63646e2e656c656d656e742d706c75732d782e636f6d2f656c656d656e742d706c75732d782e706e67"
+      icon="/logo.png"
       title="欢迎使用 Element Plus X 💖"
       extra="副标题"
       description="这是描述信息 ~"
@@ -95,7 +95,7 @@ function generateGradientColor(): string {
 
     <Welcome
       :direction="value"
-      icon="https://camo.githubusercontent.com/4ea7fdaabf101c16965c0bd3ead816c9d7726a59b06f0800eb7c9a30212d5a6a/68747470733a2f2f63646e2e656c656d656e742d706c75732d782e636f6d2f656c656d656e742d706c75732d782e706e67"
+      icon="/logo.png"
       variant="borderless"
       title="欢迎使用 Element Plus X 💖"
       description="这是描述信息 ~"
@@ -104,7 +104,7 @@ function generateGradientColor(): string {
 
     <Welcome
       :direction="value"
-      icon="https://camo.githubusercontent.com/4ea7fdaabf101c16965c0bd3ead816c9d7726a59b06f0800eb7c9a30212d5a6a/68747470733a2f2f63646e2e656c656d656e742d706c75732d782e636f6d2f656c656d656e742d706c75732d782e706e67"
+      icon="/logo.png"
       variant="borderless"
       title="欢迎使用 Element Plus X 💖"
       extra="副标题"

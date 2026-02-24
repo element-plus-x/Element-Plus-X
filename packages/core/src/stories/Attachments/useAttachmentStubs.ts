@@ -1,8 +1,5 @@
-import type { FileListProps } from '@components/Attachments/types.d.ts';
-import type {
-  FilesCardProps,
-  FilesType
-} from '@components/FilesCard/types.d.ts';
+import type { FileListProps } from '@components/Attachments/types';
+import type { FilesCardProps, FilesType } from '@components/FilesCard/types';
 import { colorMap1 } from '@assets/mock.ts';
 import { ElMessage } from 'element-plus';
 import { ref } from 'vue';
@@ -40,8 +37,7 @@ export function useAttachmentStubs(initValue: SelfFilesCardProps[] = []) {
   }
   function handleUploadDrop(dropped: File[], props: FileListProps) {
     console.log(dropped, props);
-    if (!dropped.length)
-      return;
+    if (!dropped.length) return;
     if (dropped[0].type === '') {
       ElMessage.error('禁止上传文件夹！');
       return false;

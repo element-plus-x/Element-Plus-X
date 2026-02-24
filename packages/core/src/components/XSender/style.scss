@@ -1,4 +1,4 @@
-.el-editor-sender-wrap {
+.elx-x-sender {
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -32,21 +32,21 @@
     }
   }
 
-  .el-editor-sender-header {
+  .elx-x-sender__header {
     display: flex;
     flex-direction: column;
     gap: var(--el-padding-xs, 8px);
     width: 100%;
     margin: 0;
     padding: 0;
-    .el-editor-sender-header-container {
+    .elx-x-sender__header-container {
       border-bottom-width: var(--el-border-width);
       border-bottom-style: solid;
       border-bottom-color: var(--el-border-color);
     }
   }
 
-  .el-editor-sender-content {
+  .elx-x-sender__content {
     display: flex;
     width: 100%;
     padding-block: 4px;
@@ -55,7 +55,7 @@
     box-sizing: border-box;
     align-items: flex-end;
 
-    .el-editor-sender-prefix {
+    .elx-x-sender__prefix {
       display: flex;
       align-items: center;
       padding-left: 10px;
@@ -63,24 +63,46 @@
       flex: none;
     }
 
-    .el-editor-sender-chat-room {
+    .elx-x-sender__chat-room {
       position: relative;
       width: 100%;
-      height: 100%;
       display: flex;
-      align-items: center;
       flex-direction: column;
-      align-self: center;
       box-sizing: border-box;
-      .el-editor-sender-chat {
+      min-height: 44px;
+      .elx-x-sender__chat {
         flex-shrink: 0;
         width: 100%;
         font-size: 14px;
         line-height: var(--el-font-line-height-primary);
         box-sizing: border-box;
+        :deep(.chat-area-wrap) {
+          font-size: inherit;
+          line-height: inherit;
+        }
+        :deep(.chat-area-wrap p) {
+          margin: 0 !important;
+        }
         :deep(.chat-rich-text) {
           font-family: inherit;
           font-size: inherit;
+          line-height: inherit;
+          min-height: 44px;
+          scrollbar-width: thin;
+          &::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+          }
+          &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            box-shadow: inset 0 0 5px #61b8b31a;
+            background-color: #0003;
+          }
+          &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px #57afbb1a;
+            border-radius: 10px;
+            background: #ededed;
+          }
           .chat-grid-wrap {
             font-size: inherit;
             span {
@@ -94,6 +116,7 @@
           color: var(--el-text-color-placeholder);
           font-weight: bold;
           font-size: inherit;
+          line-height: inherit;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
@@ -106,56 +129,56 @@
       }
     }
 
-    .el-editor-sender-action-list {
+    .elx-x-sender__action-list {
       display: flex;
       align-items: center;
       height: 44px;
-      .el-editor-sender-action-list-presets {
+      .elx-x-sender__action-list-presets {
         display: flex;
         gap: var(--el-padding-xs, 8px);
         flex-direction: row-reverse;
       }
     }
 
-    &.content-variant-updown {
+    &.elx-x-sender__content--variant-updown {
       display: flex;
       flex-direction: column;
       align-items: initial;
 
-      .el-editor-sender-updown-action-list {
+      .elx-x-sender__updown-action-list {
         display: flex;
         justify-content: space-between;
         gap: 8px;
         // 前缀
-        .el-editor-sender-prefix {
+        .elx-x-sender__prefix {
           flex: initial;
         }
 
-        .el-editor-sender-action-list {
+        .elx-x-sender__action-list {
           margin-left: auto;
         }
       }
     }
   }
 
-  .el-editor-sender-footer {
+  .elx-x-sender__footer {
     border-top-width: var(--el-border-width);
     border-top-style: solid;
     border-top-color: var(--el-border-color);
   }
 
-  .slide-enter-active,
-  .slide-leave-active {
+  .elx-x-sender-slide-enter-active,
+  .elx-x-sender-slide-leave-active {
     height: calc-size(max-content, size);
     opacity: 1;
     transition:
-      height var(--el-editor-sender-header-duration),
-      opacity var(--el-editor-sender-header-duration),
-      border var(--el-editor-sender-header-duration);
+      height var(--elx-x-sender-header-duration),
+      opacity var(--elx-x-sender-header-duration),
+      border var(--elx-x-sender-header-duration);
     overflow: hidden;
   }
-  .slide-enter-from,
-  .slide-leave-to {
+  .elx-x-sender-slide-enter-from,
+  .elx-x-sender-slide-leave-to {
     height: 0;
     opacity: 0 !important;
   }

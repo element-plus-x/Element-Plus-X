@@ -96,7 +96,6 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .component-container {
-  background-color: white;
   padding: 12px;
   border-radius: 15px;
   overflow: auto;

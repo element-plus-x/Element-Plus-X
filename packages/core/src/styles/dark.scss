@@ -1,0 +1,27 @@
+html.dark {
+  color-scheme: dark;
+
+  --elx-color-primary: #409eff;
+
+  --elx-text-color-primary: #e5eaf3;
+  --elx-text-color-regular: #cfd3dc;
+  --elx-text-color-secondary: #a3a6ad;
+  --elx-text-color-placeholder: #8d9095;
+
+  --elx-bg-page: #1b1b1f;
+  --elx-bg-surface: #141414;
+
+  --elx-border-color: #4c4d4f;
+  --elx-fill-color: #303030;
+  --elx-fill-color-light: #262727;
+
+  --elx-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
+
+  --elx-attachments-fade-rgb: 20, 20, 20;
+  --elx-attachments-nav-bg: rgba(255, 255, 255, 0.12);
+  --elx-attachments-nav-bg-hover: rgba(255, 255, 255, 0.18);
+  --elx-attachments-nav-bg-active: rgba(255, 255, 255, 0.25);
+  --elx-attachments-nav-color: #ffffff;
+  --elx-attachments-drop-bg: rgba(255, 255, 255, 0.08);
+  --elx-attachments-upload-icon-color: var(--elx-text-color-secondary);
+}

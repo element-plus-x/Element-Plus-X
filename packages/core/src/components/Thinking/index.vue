@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import type {
-  ThinkingEmits,
-  ThinkingProps,
-  ThinkingStatus
-} from './types.d.ts';
+import type { ThinkingEmits, ThinkingProps, ThinkingStatus } from './types';
 import {
   ArrowUpBold,
   CircleCloseFilled,
@@ -11,6 +7,7 @@ import {
   Opportunity,
   SuccessFilled
 } from '@element-plus/icons-vue';
+import { useNamespace } from '../../hooks/useNamespace';
 
 const props = withDefaults(defineProps<ThinkingProps>(), {
   content: '',
@@ -21,12 +18,23 @@ const props = withDefaults(defineProps<ThinkingProps>(), {
   buttonWidth: '160px',
   duration: '0.2s',
   maxWidth: '500px',
-  backgroundColor: '#fcfcfc',
-  color: 'var(--el-color-info)'
+  backgroundColor: 'var(--elx-thinking-content-bg, rgba(0, 0, 0, 0.02))',
+  color: 'var(--elx-thinking-content-color, var(--elx-text-color-regular))'
 });
 
 // 定义组件 Emits
 const emit = defineEmits<ThinkingEmits>();
+const ns = useNamespace('thinking');
+
+const rootStyle = computed(() =>
+  ns.cssVarBlock({
+    'button-width': props.buttonWidth,
+    'animation-duration': props.duration,
+    'content-wrapper-width': props.maxWidth,
+    'content-wrapper-background-color': props.backgroundColor,
+    'content-wrapper-color': props.color
+  })
+);
 
 const isExpanded = ref(props.modelValue);
 
@@ -64,54 +72,57 @@ watch(
 </script>
 
 <template>
-  <div
-    class="el-thinking"
-    :style="{
-      '--el-thinking-button-width': props.buttonWidth,
-      '--el-thinking-animation-duration': props.duration,
-      '--el-thinking-content-wrapper-width': props.maxWidth,
-      '--el-thinking-content-wrapper-background-color': props.backgroundColor,
-      '--el-thinking-content-wrapper-color': props.color
-    }"
-  >
+  <div :class="ns.b()" :style="rootStyle">
     <!-- 触发按钮 -->
     <button
-      class="trigger"
-      :class="[status, { disabled: !props.disabled }]"
+      :class="[
+        ns.e('trigger'),
+        ns.em('trigger', status),
+        props.disabled ? ns.em('trigger', 'disabled') : ''
+      ]"
       :disabled="props.disabled"
       @click="changeExpand"
     >
-      <span class="status-icon">
+      <span :class="ns.e('status-icon')">
         <slot name="status-icon" :status="props.status">
           <el-icon
             v-if="status === 'thinking'"
-            class="is-loading el-icon-center"
+            :class="[ns.is('loading'), ns.e('icon-center')]"
           >
             <Loading />
           </el-icon>
 
-          <el-icon v-if="status === 'start'" class="el-icon-center start-color">
+          <el-icon
+            v-if="status === 'start'"
+            :class="[ns.e('icon-center'), ns.e('start-color')]"
+          >
             <Opportunity />
           </el-icon>
 
-          <el-icon v-if="status === 'end'" class="el-icon-center end-color">
+          <el-icon
+            v-if="status === 'end'"
+            :class="[ns.e('icon-center'), ns.e('end-color')]"
+          >
             <SuccessFilled />
           </el-icon>
 
-          <el-icon v-if="status === 'error'" class="el-icon-center error-color">
+          <el-icon
+            v-if="status === 'error'"
+            :class="[ns.e('icon-center'), ns.e('error-color')]"
+          >
             <CircleCloseFilled />
           </el-icon>
 
           <el-icon
             v-if="status === 'cancel'"
-            class="el-icon-center cancel-color"
+            :class="[ns.e('icon-center'), ns.e('cancel-color')]"
           >
             <CircleCloseFilled />
           </el-icon>
         </slot>
       </span>
 
-      <span class="label">
+      <span :class="ns.e('label')">
         <slot name="label" :status="props.status">
           {{
             status === 'thinking'
@@ -127,14 +138,17 @@ watch(
         </slot>
       </span>
 
-      <transition name="rotate">
+      <transition :name="`${ns.b()}-rotate`">
         <span
           v-if="!props.disabled"
-          class="arrow el-icon-center"
-          :class="{ expanded: isExpanded }"
+          :class="[
+            ns.e('arrow'),
+            ns.e('icon-center'),
+            isExpanded ? ns.em('arrow', 'expanded') : ''
+          ]"
         >
           <slot name="arrow">
-            <el-icon class="el-icon-center">
+            <el-icon :class="ns.e('icon-center')">
               <ArrowUpBold />
             </el-icon>
           </slot>
@@ -143,14 +157,16 @@ watch(
     </button>
 
     <!-- 内容区域 -->
-    <Transition name="slide">
+    <Transition :name="`${ns.b()}-slide`">
       <div
         v-show="isExpanded"
         v-if="displayedContent"
-        class="content-wrapper"
-        :class="{ 'error-state': status === 'error' }"
+        :class="[
+          ns.e('content-wrapper'),
+          status === 'error' ? ns.em('content-wrapper', 'error-state') : ''
+        ]"
       >
-        <div class="content">
+        <div :class="ns.e('content')">
           <slot
             v-if="status !== 'error'"
             name="content"
@@ -160,7 +176,7 @@ watch(
           </slot>
 
           <slot v-else name="error" :error-content="displayedContent">
-            <div class="error-message">
+            <div :class="ns.e('error-message')">
               {{ displayedContent }}
             </div>
           </slot>

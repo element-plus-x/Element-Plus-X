@@ -9,12 +9,14 @@ import type {
   ConversationItem,
   ConversationItemUseOptions,
   ConversationMenuCommand,
+  ConversationsEmits,
   GroupableOptions,
   GroupItem
 } from './types';
-import type { ConversationsEmits } from './types.d.ts';
+
 import { Delete, Edit, Loading, Top } from '@element-plus/icons-vue';
 import { get } from 'radash';
+import { useNamespace } from '../../hooks/useNamespace';
 import Item from './components/item.vue';
 
 const props = withDefaults(defineProps<Conversation<T>>(), {
@@ -65,6 +67,7 @@ const props = withDefaults(defineProps<Conversation<T>>(), {
 });
 
 const emits = defineEmits<ConversationsEmits>();
+const ns = useNamespace('conversations');
 
 // const activeKey = defineModel<V>('active', { required: false });
 const activeKey = computed({
@@ -113,6 +116,13 @@ const mergedStyle = computed(() => {
   return { ...defaultStyle, ...props.style };
 });
 
+const containerStyle = computed(() => {
+  return ns.cssVarBlock({
+    'label-height': `${props.labelHeight}px`,
+    'list-auto-bg-color': mergedStyle.value.backgroundColor as string
+  });
+});
+
 // const activeKey = computed<V>({
 //   get(){
 //     return props.active as V
@@ -139,8 +149,7 @@ const mergedStyle = computed(() => {
 
 function handleClick(item: ConversationItemUseOptions<T>) {
   // 如果是disabled状态，则不允许选中
-  if (item.disabled)
-    return;
+  if (item.disabled) return;
   emits('change', item);
   activeKey.value = item.uniqueKey as string | number;
 }
@@ -159,8 +168,7 @@ const filteredItems = computed(() => {
 // 根据分组方式进行分组
 const groups = computed(() => {
   // 如果不需要分组，则返回空数组
-  if (!shouldUseGrouping.value)
-    return [];
+  if (!shouldUseGrouping.value) return [];
 
   // 检查filteredItems是否有值
   if (!filteredItems.value || filteredItems.value.length === 0) {
@@ -202,10 +210,8 @@ const groups = computed(() => {
   if (typeof props.groupable === 'object' && props.groupable.sort) {
     return groupArray.sort((a, b) => {
       // 确保未分组总是在最后
-      if (a.isUngrouped)
-        return 1;
-      if (b.isUngrouped)
-        return -1;
+      if (a.isUngrouped) return 1;
+      if (b.isUngrouped) return -1;
 
       const sortFn = (props.groupable as GroupableOptions).sort;
       return sortFn ? sortFn(a.key, b.key) : 0;
@@ -215,10 +221,8 @@ const groups = computed(() => {
   // 否则只确保未分组在最后，不做其他排序
   return groupArray.sort((a, b) => {
     // 确保未分组总是在最后
-    if (a.isUngrouped)
-      return 1;
-    if (b.isUngrouped)
-      return -1;
+    if (a.isUngrouped) return 1;
+    if (b.isUngrouped) return -1;
 
     // 不做其他排序
     return 0;
@@ -241,13 +245,11 @@ function handleScroll(e: any) {
 
   // 获取当前滚动容器
   const scrollbar = scrollbarRef.value;
-  if (!scrollbar)
-    return;
+  if (!scrollbar) return;
 
   // 使用scrollbar的wrapRef获取真实DOM以获取正确的尺寸
   const wrap = scrollbar.wrapRef;
-  if (!wrap)
-    return;
+  if (!wrap) return;
 
   // 检查是否需要加载更多
   // 当滚动到距离底部20px时触发加载
@@ -268,16 +270,14 @@ function handleScroll(e: any) {
 
 // 更新标题吸顶状态
 function updateStickyStatus(_e: any) {
-  if (!shouldUseGrouping.value || groups.value.length === 0)
-    return;
+  if (!shouldUseGrouping.value || groups.value.length === 0) return;
 
   // 先清空当前的吸顶组
   stickyGroupKeys.value.clear();
 
   // 获取滚动容器
   const scrollContainer = scrollbarRef.value?.wrapRef;
-  if (!scrollContainer)
-    return;
+  if (!scrollContainer) return;
 
   // 如果只有一个分组，直接设置为吸顶状态
   if (groups.value.length === 1) {
@@ -343,8 +343,7 @@ function updateStickyStatus(_e: any) {
 
 // 加载更多数据
 function loadMoreData() {
-  if (!props.loadMore)
-    return;
+  if (!props.loadMore) return;
   props.loadMore();
 }
 
@@ -381,42 +380,41 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    class="conversations-container"
-    :style="{
-      '--conversation-label-height': `${props.labelHeight}px`,
-      '--conversation-list-auto-bg-color': mergedStyle.backgroundColor
-    }"
-  >
+  <div :class="ns.b()" :style="containerStyle">
     <slot name="header" />
-    <ul class="conversations-list" :style="mergedStyle">
+    <ul :class="ns.e('list')" :style="mergedStyle">
       <!-- 滚动区域容器 -->
-      <li class="conversations-scroll-wrapper">
+      <li :class="ns.e('scroll-wrapper')">
         <el-scrollbar
           ref="scrollbarRef"
           height="100%"
-          class="custom-scrollbar"
+          :class="ns.e('scrollbar')"
           always
           @scroll="handleScroll"
         >
-          <div class="scroll-content">
+          <div :class="ns.e('scroll-content')">
             <template v-if="shouldUseGrouping">
               <!-- 分组显示 -->
               <div
                 v-for="group in groups"
                 :key="group.key"
                 :ref="el => bindGroupRef(el, group)"
-                class="conversation-group"
+                :class="ns.e('group')"
               >
                 <div
-                  class="conversation-group-title sticky-title"
-                  :class="{ 'active-sticky': stickyGroupKeys.has(group.key) }"
+                  :class="[
+                    ns.e('group-title'),
+                    ns.em('group-title', 'sticky'),
+                    stickyGroupKeys.has(group.key)
+                      ? ns.em('group-title', 'active-sticky')
+                      : ''
+                  ]"
                 >
                   <slot name="groupTitle" v-bind="{ group }">
                     {{ group.title }}
                   </slot>
                 </div>
-                <div class="conversation-group-items">
+                <div :class="ns.e('group-items')">
                   <Item
                     v-for="item in group.children"
                     :key="item.uniqueKey"
@@ -458,8 +456,14 @@ onMounted(() => {
                       <slot name="more-filled" v-bind="moreFilledSoltProps" />
                     </template>
 
-                    <template v-if="$slots.menu" #menu="{ handleOpen, handleClose }">
-                      <slot name="menu" v-bind="{ item, handleOpen, handleClose }" />
+                    <template
+                      v-if="$slots.menu"
+                      #menu="{ handleOpen, handleClose }"
+                    >
+                      <slot
+                        name="menu"
+                        v-bind="{ item, handleOpen, handleClose }"
+                      />
                     </template>
                   </Item>
                 </div>
@@ -508,17 +512,23 @@ onMounted(() => {
                   <slot name="more-filled" v-bind="moreFilledSoltProps" />
                 </template>
 
-                <template v-if="$slots.menu" #menu="{ handleOpen, handleClose }">
-                  <slot name="menu" v-bind="{ item, handleOpen, handleClose }" />
+                <template
+                  v-if="$slots.menu"
+                  #menu="{ handleOpen, handleClose }"
+                >
+                  <slot
+                    name="menu"
+                    v-bind="{ item, handleOpen, handleClose }"
+                  />
                 </template>
               </Item>
             </template>
           </div>
 
           <!-- 加载更多 -->
-          <div v-if="props.loadMoreLoading" class="conversations-load-more">
+          <div v-if="props.loadMoreLoading" :class="ns.e('load-more')">
             <slot name="load-more">
-              <el-icon class="conversations-load-more-is-loading">
+              <el-icon :class="ns.e('load-more-icon')">
                 <Loading />
               </el-icon>
               <span>加载更多...</span>
@@ -531,7 +541,7 @@ onMounted(() => {
     <!-- 滚动到顶部按钮 -->
     <el-button
       v-show="showScrollTop && props.showToTopBtn"
-      class="scroll-to-top-btn"
+      :class="ns.e('to-top-btn')"
       circle
       @click="scrollToTop"
     >

@@ -97,7 +97,7 @@ export interface ThoughtChainProps<T = ThoughtChainItemBase> {
   /**
    * 显示的节点列表
    */
-  thinkingItems: ThoughtChainItemProps<T>[];
+  thinkingItems?: ThoughtChainItemProps<T>[];
   /**
    * 节点id的key
    */

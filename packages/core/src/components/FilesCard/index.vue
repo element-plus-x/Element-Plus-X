@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FilesCardEmits, FilesCardProps } from './types.d.ts';
+import type { FilesCardEmits, FilesCardProps } from './types';
 import { CircleCloseFilled, View } from '@element-plus/icons-vue';
 import { getFileType, getSize, previewImage } from '../../utils/index.ts';
 import useFileNameParser from '../../utils/useFileNameParser.ts';
@@ -42,10 +42,8 @@ const _previewImg = ref<string | undefined>(undefined);
 /* 图片类型文件预览 结束 */
 
 const _fileType = computed(() => {
-  if (fileType.value)
-    return fileType.value;
-  if (!name.value)
-    return undefined;
+  if (fileType.value) return fileType.value;
+  if (!name.value) return undefined;
   if (!nameSuffix.value) {
     return 'unknown';
   }
@@ -55,8 +53,7 @@ const _fileType = computed(() => {
 const _fileTypeUpperCase = computed(() => {
   if (fileType.value)
     return fileType.value.replace(/^\w/, match => match.toUpperCase());
-  if (!name.value)
-    return '';
+  if (!name.value) return '';
   if (!nameSuffix.value) {
     return 'Unknown';
   }
@@ -81,12 +78,9 @@ const _description = computed(() => {
 const isImageFile = computed(() => _fileType.value === 'image');
 const isSquareVariant = computed(() => imgVariant.value === 'square');
 const _previewImgUrl = computed(() => {
-  if (!isImageFile.value)
-    return undefined;
-  if (thumbUrl.value)
-    return thumbUrl.value;
-  if (url.value)
-    return url.value;
+  if (!isImageFile.value) return undefined;
+  if (thumbUrl.value) return thumbUrl.value;
+  if (url.value) return url.value;
   return _previewImg.value;
 });
 
@@ -107,12 +101,10 @@ watch(
       try {
         const url = await previewImage(newFile);
         _previewImg.value = url;
-      }
-      catch (error) {
+      } catch (error) {
         console.error('Preview failed:', error);
       }
-    }
-    else {
+    } else {
       _previewImg.value = undefined;
     }
   },
@@ -177,9 +169,10 @@ defineExpose({
       <!-- 图片文件处理区域（新增遮罩层逻辑） -->
       <template v-if="isImageFile">
         <div
-          class="image-preview-container"
+          class="elx-files-card__image-preview"
           :class="{
-            'image-preview-container-square': isSquareVariant && isImageFile
+            'elx-files-card__image-preview--square':
+              isSquareVariant && isImageFile
           }"
           @mouseenter="imageHovered = true"
           @mouseleave="imageHovered = false"
@@ -206,20 +199,23 @@ defineExpose({
 
           <!-- 遮罩层 -->
           <!-- 悬停时才展示 -->
-          <transition name="fade">
+          <transition name="elx-files-card-fade">
             <slot
               v-if="
-                imageHovered
-                  && _previewImgUrl
-                  && props.imgPreviewMask
-                  && props.imgPreview
+                imageHovered &&
+                _previewImgUrl &&
+                props.imgPreviewMask &&
+                props.imgPreview
               "
               name="image-preview-actions"
               v-bind="{
                 item: { ...props, prefix: namePrefix, suffix: nameSuffix }
               }"
             >
-              <div class="preview-mask" @click="handlePreviewAction('mask')">
+              <div
+                class="elx-files-card__preview-mask"
+                @click="handlePreviewAction('mask')"
+              >
                 <el-icon>
                   <View />
                 </el-icon>
@@ -232,18 +228,18 @@ defineExpose({
           <!-- 状态判断显示区域 -->
           <div
             v-if="props.status === 'uploading' && isSquareVariant"
-            class="preview-mask-loading"
+            class="elx-files-card__preview-mask-loading"
           >
             <el-progress
               color="#fff"
               type="circle"
               :percentage="props.percent"
-              class="circle-progress"
+              class="elx-files-card__circle-progress"
             />
           </div>
           <div
             v-else-if="props.status === 'error' && isSquareVariant"
-            class="preview-mask-error"
+            class="elx-files-card__preview-mask-error"
           >
             <span class="error-text">{{ props.errorTip || '上传失败' }}</span>
           </div>
@@ -253,8 +249,8 @@ defineExpose({
 
     <slot
       v-if="
-        ($slots.content || props.name || description)
-          && !(isSquareVariant && isImageFile)
+        ($slots.content || props.name || description) &&
+        !(isSquareVariant && isImageFile)
       "
       name="content"
       v-bind="{ item: props }"

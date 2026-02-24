@@ -15,16 +15,14 @@ const bgColor =
   <div style="display: flex; flex-direction: column; gap: 12px">
     <Welcome
       direction="rtl"
-      icon="https://element-plus-x.com/logo.png"
+      icon="/logo.png"
       variant="borderless"
       :style="{ background: bgColor }"
       title="Welcome to Element Plus X 💖"
       description="A Vue 3 recreation of ant-design-x. Later will integrate AI workflow orchestration components and multi-functional md rendering components, providing the Vue development community with a useful AI component library"
     >
       <template #extra>
-        <el-button link type="primary">
-          About Me
-        </el-button>
+        <el-button link type="primary"> About Me </el-button>
       </template>
     </Welcome>
   </div>

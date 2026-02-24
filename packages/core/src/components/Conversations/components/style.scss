@@ -1,4 +1,4 @@
-.conversation-item {
+.elx-conversations-item {
   padding: 14px 10px;
   margin-right: 20px;
   border-radius: 8px;
@@ -9,39 +9,39 @@
     margin-top: 4px;
   }
 
-  &.disabled {
+  &.elx-conversations-item--disabled {
     opacity: 0.5;
     cursor: not-allowed;
     color: #c0c4cc;
   }
 
-  &.active {
+  &.elx-conversations-item--active {
     background-color: #f0f0f0;
   }
 
-  &.hovered,
+  &.elx-conversations-item--hovered,
   &:hover {
     background-color: #f0f0f0;
   }
 
-  &.menu-opened {
+  &.elx-conversations-item--menu-opened {
     background-color: #f0f0f0;
   }
 }
 
-.conversation-content {
+.elx-conversations-item__content {
   display: flex;
   align-items: center;
-  height: var(--conversation-label-height, 20px);
+  height: var(--elx-conversations-label-height, 20px);
 
-  .conversation-prefix-icon {
+  .elx-conversations-item__prefix-icon {
     margin-right: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .conversation-content-main {
+  .elx-conversations-item__content-main {
     flex: 1;
     display: flex;
     align-items: center;
@@ -49,7 +49,7 @@
     overflow: hidden;
   }
 
-  .conversation-label-container {
+  .elx-conversations-item__label-container {
     flex: 1;
     display: flex;
     justify-content: space-between;
@@ -57,39 +57,43 @@
     overflow: hidden;
   }
 
-  .conversation-label {
+  .elx-conversations-item__label {
     font-size: 14px;
     color: #303133;
     position: relative;
     white-space: nowrap;
 
-    &.text-gradient {
+    &.elx-conversations-item__label--gradient {
       mask-image: linear-gradient(to right, black 60%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(
+        to right,
+        black 60%,
+        transparent 100%
+      );
     }
   }
 
-  .conversation-timestamp {
+  .elx-conversations-item__timestamp {
     font-size: 14px;
     color: #909399;
     margin-left: 8px;
   }
 
-  .conversation-suffix-icon {
+  .elx-conversations-item__suffix-icon {
     margin-left: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .conversation-dropdown-more {
+  .elx-conversations-item__dropdown-more {
     justify-self: center;
     height: 100%;
     display: flex;
     align-items: center;
   }
 
-  .conversation-dropdown-more-icon {
+  .elx-conversations-dropdown-more-icon {
     font-size: 16px;
     padding: 2px;
     border-radius: 5px;
@@ -98,15 +102,15 @@
     }
   }
 
-  .conversation-menu {
+  .elx-conversations-item__menu {
     margin-left: 8px;
     display: flex;
     align-items: center;
     opacity: 0;
     transition: opacity 0.2s ease;
 
-    .hovered &,
-    .active & {
+    .elx-conversations-item--hovered &,
+    .elx-conversations-item--active & {
       opacity: 1;
     }
   }

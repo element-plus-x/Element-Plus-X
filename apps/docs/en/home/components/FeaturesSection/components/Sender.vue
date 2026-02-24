@@ -4,7 +4,7 @@ import { ElementPlus, Promotion } from '@element-plus/icons-vue';
 import { ref } from 'vue';
 import { XSender } from 'vue-element-plus-x';
 
-const senderValue = ref('你好，我是Element Plus X');
+const senderValue = ref('Hi, I’m Element Plus X');
 const isSelect = ref(false);
 </script>
 
@@ -57,7 +57,7 @@ const isSelect = ref(false);
           <el-icon>
             <ElementPlus />
           </el-icon>
-          <span>深度思考</span>
+          <span>Deep Thinking</span>
         </div>
       </div>
     </template>
@@ -90,7 +90,7 @@ const isSelect = ref(false);
     /* 蓝紫 */ 0 0 30px rgba(0, 191, 255, 0.3);
   overflow: hidden;
 
-  :deep(.el-editor-sender-wrap) {
+  :deep(.elx-x-sender) {
     border: none;
   }
 

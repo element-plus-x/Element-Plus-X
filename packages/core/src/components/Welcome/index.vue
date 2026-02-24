@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import type { WelcomeProps } from './types.d.ts';
+import type { WelcomeProps } from './types';
+import { useNamespace } from '../../hooks/useNamespace';
+import { useTheme } from '../../hooks/useTheme';
 
 const props = withDefaults(defineProps<WelcomeProps>(), {
   variant: 'filled' as const,
@@ -21,17 +23,26 @@ const {
   style,
   styles
 } = toRefs(props);
+
+const ns = useNamespace('welcome');
+const { getCommonOverrides, getComponentOverrides, toCssVars } = useTheme();
+
+const themeStyle = computed(() => {
+  return {
+    ...toCssVars(getCommonOverrides()),
+    ...toCssVars(getComponentOverrides('Welcome'))
+  };
+});
+
+const containerStyle = computed(() => {
+  return {
+    ...themeStyle.value,
+    ...(style.value || {})
+  };
+});
 // 提取计算逻辑到独立函数
 function getContainerClass() {
-  return [
-    prefixCls.value || 'welcome',
-    className.value,
-    rootClassName.value,
-    `welcome-${variant.value}`,
-    {
-      'welcome-rtl': direction.value === 'rtl'
-    }
-  ];
+  return [prefixCls.value || ns.b(), className.value, rootClassName.value];
 }
 
 const getIconClass = () => classNames.value?.icon;
@@ -52,54 +63,51 @@ const descriptionClass = computed(getDescriptionClass);
 </script>
 
 <template>
-  <div :class="containerClass" :style="style" class="welcome-container">
-    <!-- S image -->
+  <div
+    :class="[
+      containerClass,
+      ns.m(variant),
+      direction === 'rtl' ? ns.m('rtl') : ''
+    ]"
+    :style="containerStyle"
+  >
     <slot name="image">
       <div
         v-if="hasIcon"
-        :class="iconClass"
+        :class="[ns.e('icon'), iconClass]"
         :style="styles?.icon"
-        class="welcome-icon"
       >
         <el-image :src="icon" class="icon-image" />
       </div>
     </slot>
-    <!-- E image -->
 
-    <div class="content-wrapper">
-      <!-- S 标题 & Extra -->
-      <div v-if="hasTitleOrExtra" class="title-wrapper">
+    <div :class="ns.e('content')">
+      <div v-if="hasTitleOrExtra" :class="ns.e('header')">
         <div
           v-if="title"
-          :class="titleClass"
+          :class="[ns.e('title'), titleClass]"
           :style="styles?.title"
-          class="welcome-title"
         >
           {{ title }}
         </div>
         <div
           v-if="hasExtraOrSlot"
-          :class="extraClass"
+          :class="[ns.e('extra'), extraClass]"
           :style="styles?.extra"
-          class="welcome-extra"
         >
           <slot name="extra">
             {{ extra }}
           </slot>
         </div>
       </div>
-      <!-- E 标题 & Extra -->
 
-      <!-- S 描述信息 -->
       <div
         v-if="hasDescription"
-        :class="descriptionClass"
+        :class="[ns.e('description'), descriptionClass]"
         :style="styles?.description"
-        class="welcome-description"
       >
         {{ description }}
       </div>
-      <!-- E 描述信息 -->
     </div>
   </div>
 </template>

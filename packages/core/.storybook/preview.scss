@@ -1,0 +1,24 @@
+html,
+body {
+  background-color: var(--elx-bg-page) !important;
+  color: var(--elx-text-color-primary);
+}
+
+.sb-show-main {
+  background-color: var(--elx-bg-page) !important;
+}
+
+.dark .sb-show-main,
+html.dark .sb-show-main {
+  background-color: var(--elx-bg-page) !important;
+}
+
+.sbdocs-wrapper,
+.sbdocs,
+.sbdocs-content {
+  background: transparent !important;
+}
+
+#storybook-root {
+  padding: 16px;
+}

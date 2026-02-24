@@ -1,4 +1,4 @@
-import type { FilesType } from './types.d.ts';
+import type { FilesType } from './types';
 
 export const colorMap: Record<FilesType, string> = {
   word: '#0078D4',
@@ -16,5 +16,5 @@ export const colorMap: Record<FilesType, string> = {
   link: '#2962FF',
   zip: '#673AB7',
   file: '#FFC757',
-  unknown: '#6E9DA4',
+  unknown: '#6E9DA4'
 };

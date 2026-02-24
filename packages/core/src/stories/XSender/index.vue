@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { XSenderProps } from '@components/XSender/types.d.ts';
+import type { XSenderProps } from '@components/XSender/types';
 import type { XSender } from '../../components';
 import { computed, onMounted, ref } from 'vue';
 
@@ -38,109 +38,107 @@ function switchHeader() {
   showHeaderFlog.value = !showHeaderFlog.value;
 }
 function setChatNode() {
-  editorRef.value?.setChatNode(
+  editorRef.value?.setChatNode([
     [
-      [
-        {
-          type: 'Write',
-          text: '用户'
-        },
-        {
-          type: 'Mention',
-          id: '5',
-          name: '张三丰'
-        },
-        {
-          type: 'Write',
-          text: '选择了'
-        },
-        {
-          type: 'Trigger',
-          key: '/',
-          id: 'draw',
-          name: '绘图'
-        },
-        {
-          type: 'Write',
-          text: '指令'
-        }
-      ],
-      [
-        {
-          type: 'Write',
-          text: '请根据以下文案内容绘制一张图片'
-        },
-        {
-          type: 'Input',
-          key: 'content',
-          placeholder: '文案内容',
-          text: '太阳由那扇大玻璃窗透入屋内，先是落在墙上，接着映照到桌上，最终，也照到了我那可爱的小床上来咯'
-        },
-        {
-          type: 'Write',
-          text: '。风格是'
-        },
-        {
-          type: 'Select',
-          key: 'style-single',
-          id: '3',
-          name: '中国风'
-        },
-        {
-          type: 'Write',
-          text: '，画面内是'
-        },
-        {
-          type: 'Input',
-          key: 'content',
-          placeholder: '画面内容',
-          text: '光从大落地窗照进房间内，照在墙面、地板、桌子、床上'
-        },
-        {
-          type: 'Write',
-          text: '。画面主体要突出，画面的色彩搭配和整体氛围要贴合文案所围绕的主题。'
-        },
-      ],
-      [
-        {
-          type: 'Write',
-          text: '输出的图片尺寸大小'
-        },
-        {
-          type: 'Input',
-          key: 'size',
-          placeholder: '512x512',
-          text: ''
-        }
-      ],
-      [
-        {
-          type: 'Write',
-          text: '输出的图片格式'
-        },
-        {
-          type: 'Input',
-          key: 'format',
-          placeholder: 'png',
-          text: ''
-        }
-      ],
-      [
-        {
-          type: 'Write',
-          text: '最后再顺便帮我解释一下这个'
-        },
-        {
-          type: 'Custom',
-          html: '<img width="auto" height="22px" style="vertical-align: bottom;" src="https://cdn.element-plus-x.com/element-plus-x.png" alt="">'
-        },
-        {
-          type: 'Write',
-          text: 'LOGO所表达的意思。'
-        }
-      ]
+      {
+        type: 'Write',
+        text: '用户'
+      },
+      {
+        type: 'Mention',
+        id: '5',
+        name: '张三丰'
+      },
+      {
+        type: 'Write',
+        text: '选择了'
+      },
+      {
+        type: 'Trigger',
+        key: '/',
+        id: 'draw',
+        name: '绘图'
+      },
+      {
+        type: 'Write',
+        text: '指令'
+      }
+    ],
+    [
+      {
+        type: 'Write',
+        text: '请根据以下文案内容绘制一张图片'
+      },
+      {
+        type: 'Input',
+        key: 'content',
+        placeholder: '文案内容',
+        text: '太阳由那扇大玻璃窗透入屋内，先是落在墙上，接着映照到桌上，最终，也照到了我那可爱的小床上来咯'
+      },
+      {
+        type: 'Write',
+        text: '。风格是'
+      },
+      {
+        type: 'Select',
+        key: 'style-single',
+        id: '3',
+        name: '中国风'
+      },
+      {
+        type: 'Write',
+        text: '，画面内是'
+      },
+      {
+        type: 'Input',
+        key: 'content',
+        placeholder: '画面内容',
+        text: '光从大落地窗照进房间内，照在墙面、地板、桌子、床上'
+      },
+      {
+        type: 'Write',
+        text: '。画面主体要突出，画面的色彩搭配和整体氛围要贴合文案所围绕的主题。'
+      }
+    ],
+    [
+      {
+        type: 'Write',
+        text: '输出的图片尺寸大小'
+      },
+      {
+        type: 'Input',
+        key: 'size',
+        placeholder: '512x512',
+        text: ''
+      }
+    ],
+    [
+      {
+        type: 'Write',
+        text: '输出的图片格式'
+      },
+      {
+        type: 'Input',
+        key: 'format',
+        placeholder: 'png',
+        text: ''
+      }
+    ],
+    [
+      {
+        type: 'Write',
+        text: '最后再顺便帮我解释一下这个'
+      },
+      {
+        type: 'Custom',
+        html: '<img width="auto" height="22px" style="vertical-align: bottom;" src="https://cdn.element-plus-x.com/element-plus-x.png" alt="">'
+      },
+      {
+        type: 'Write',
+        text: 'LOGO所表达的意思。'
+      }
     ]
-  );
+  ]);
 }
 function setHtml() {
   editorRef.value?.setHtml(
@@ -148,7 +146,10 @@ function setHtml() {
   );
 }
 function openSelectDialog() {
-  editorRef.value?.showSelect('style-single', document.getElementById('dialogBtn')!);
+  editorRef.value?.showSelect(
+    'style-single',
+    document.getElementById('dialogBtn')!
+  );
 }
 
 function pasteFile(firstFile: File, fileList: FileList) {
@@ -211,9 +212,7 @@ onMounted(() => {
       <template v-if="showHeaderFlog" #header>
         <div class="header-self-wrap">
           <div class="header-self-title">
-            <div class="header-left">
-              💯 欢迎使用 Element Plus X
-            </div>
+            <div class="header-left">💯 欢迎使用 Element Plus X</div>
             <div class="header-right">
               <el-button @click.stop="closeHeader">
                 <span>关闭头部</span>
@@ -305,12 +304,7 @@ onMounted(() => {
             >
               打开前置提示标签
             </el-button>
-            <el-button
-              dark
-              type="primary"
-              plain
-              @click="editorRef?.closeTip()"
-            >
+            <el-button dark type="primary" plain @click="editorRef?.closeTip()">
               关闭前置提示标签
             </el-button>
             <el-button

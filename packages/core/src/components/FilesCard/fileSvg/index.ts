@@ -1,5 +1,5 @@
 import type { Component } from 'vue';
-import type { FilesType } from '../types.d.ts';
+import type { FilesType } from '../types';
 import audio from './audio.vue';
 import code from './code.vue';
 import database from './database.vue';
@@ -44,5 +44,5 @@ export default {
   // 通用文件/文件夹类
   file,
   // 未知文件类
-  unknown,
+  unknown
 } as Record<FilesType, Component>;

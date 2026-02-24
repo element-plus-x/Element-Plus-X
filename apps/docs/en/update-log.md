@@ -1,4 +1,20 @@
-## [v2.0.0] - 2025-02-20
+---
+title: Changelog
+---
+
+This page summarizes notable changes. For full release details, refer to GitHub Releases/Changesets.
+
+## [v2.0.0] - 2026-02-20
+
+### 🎨 Theme
+
+- Improved `ConfigProvider` theme support: `light/dark` switching and VitePress dark mode integration
+- Added support for overriding `--elx-*` theme variables via `themeOverrides` (applied globally on `html`)
+
+### 📚 Documentation
+
+- Added a Theme guide focused on VitePress integration
+- Updated `ConfigProvider` docs (CSS variable prefix note) and exposed it in the sidebar
 
 ### 💥 Breaking Changes
 
@@ -87,7 +103,7 @@ import 'x-markdown-vue/style';
 
 ### 📚 Documentation Updates
 
-- Updated development documentation and development roadmap
+- Updated development documentation
 - Changed online preview to `storybook` project
 
 ### 🛠 Improvements
@@ -175,7 +191,6 @@ import 'x-markdown-vue/style';
 
 ### 📚 Documentation Updates
 
-- Updated online development roadmap documentation, showcasing our ongoing development plans. Partners who want to submit PRs can first check our development roadmap, and if interested in any modules, can join the discussion group to research and advance together **[Development Roadmap](https://element-plus-x.com/roadmap.html)**
 - Updated homepage introduction and communication requirements documentation. All `antdx` components have been fully replicated
 
 ## [v1.1.6] - 2025-04-16
@@ -201,7 +216,6 @@ import 'x-markdown-vue/style';
 
 ### 📚 Documentation Updates
 
-- Updated online development roadmap documentation, showcasing our ongoing development plans. Partners who want to submit PRs can first check our development roadmap, and if interested in any modules, can join the discussion group to research and advance together **[Development Roadmap](https://element-plus-x.com/roadmap.html)**
 - Updated **`Guide Documentation`** **[Development Documentation](https://element-plus-x.com/guide/develop.html)**, fixed documentation introduction error issues
 
 ## [v1.1.1] - 2025-04-06
@@ -248,7 +262,6 @@ import 'x-markdown-vue/style';
 
 ### 📚 Documentation Updates
 
-- Updated online development roadmap documentation, will showcase our ongoing development plans. Partners who want to submit PRs can first check our development roadmap, and if interested in any modules, can join the discussion group to research and advance together **[Development Roadmap](https://element-plus-x.com/roadmap.html)**
 - Updated **`Guide Documentation`** **[Development Documentation](https://element-plus-x.com/guide/develop.html)**, focusing on modifying **development commands**, **contributing code**, **local debugging** full process introduction. Standardize `development` and `pr` submission
 
 ## [v1.0.6] - 2025-03-23

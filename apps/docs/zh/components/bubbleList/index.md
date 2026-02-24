@@ -45,6 +45,15 @@ title: 'BubbleList'
 
 <demo src="./demos/on-complete.vue"></demo>
 
+### 自定义主题
+
+通过 `ConfigProvider.themeOverrides` 覆盖 `BubbleList` 的主题变量。完整变量表与可复制模板见：
+
+- [主题变量总表](/zh/guide/theme-tokens#bubblelist)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
 ## 属性
 
 | 属性名                | 类型                                           | <div style="width: 70px">是否必填</div> | 默认值                                         | 说明                                                                                                                                                                            |

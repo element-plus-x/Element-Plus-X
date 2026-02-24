@@ -1,51 +1,51 @@
-.el-bubble {
+.elx-bubble {
   display: flex;
   gap: var(--el-bubble-avatar-placeholder-gap);
 }
 
-.el-bubble-avatar-size {
+.elx-bubble__avatar-size {
   :deep(.el-avatar) {
     width: var(--el-bubble-avatar-placeholder-width);
     height: var(--el-bubble-avatar-placeholder-height);
   }
 }
 
-.el-bubble-avatar-placeholder {
+.elx-bubble__avatar-placeholder {
   width: var(--el-bubble-avatar-placeholder-width);
   height: var(--el-bubble-avatar-placeholder-height);
 }
 
-.el-bubble-start {
-  .el-bubble-content-wrapper {
-    .el-bubble-content-corner {
+.elx-bubble--start {
+  .elx-bubble__content-wrapper {
+    .elx-bubble__content--corner {
       border-start-start-radius: calc(var(--el-border-radius-base) - 2px);
     }
   }
 }
 
-.el-bubble-end {
+.elx-bubble--end {
   justify-content: end;
   flex-direction: row-reverse;
 
-  .el-bubble-content-wrapper {
+  .elx-bubble__content-wrapper {
     align-items: flex-end;
 
-    .el-bubble-content-corner {
+    .elx-bubble__content--corner {
       border-start-end-radius: calc(var(--el-border-radius-base) - 2px);
     }
   }
 }
 
-.el-bubble-no-style {
-  .el-bubble-content-wrapper {
-    .el-bubble-content {
+.elx-bubble--no-style {
+  .elx-bubble__content-wrapper {
+    .elx-bubble__content {
       background-color: transparent;
       padding: 0;
     }
   }
 }
 
-.el-bubble-content-wrapper {
+.elx-bubble__content-wrapper {
   flex: auto;
   display: flex;
   flex-direction: column;
@@ -53,26 +53,33 @@
   min-width: 0;
   max-width: 100%;
 
-  .el-bubble-header,
-  .el-bubble-content,
-  .el-bubble-footer {
+  .elx-bubble__header,
+  .elx-bubble__content,
+  .elx-bubble__footer {
     font-size: var(--el-font-size-base);
     color: var(--el-text-color-primary);
     line-height: var(--el-font-line-height-primary);
   }
 
-  .el-bubble-content {
-    background-color: var(--el-fill-color);
-    padding: var(--el-padding-sm, 12px) calc(var(--el-padding-sm, 12px) + 4px);
-    border-radius: calc(var(--el-border-radius-base) + 4px);
+  .elx-bubble__content {
+    background: var(--elx-bubble-bg, var(--el-fill-color));
+    padding: var(--elx-bubble-padding-y, var(--el-padding-sm, 12px))
+      var(--elx-bubble-padding-x, calc(var(--el-padding-sm, 12px) + 4px));
+    border-radius: var(
+      --elx-bubble-radius,
+      calc(var(--el-border-radius-base) + 4px)
+    );
     position: relative;
     box-sizing: border-box;
     min-width: 0;
-    max-width: var(--bubble-content-max-width);
-    color: var(--el-text-color-primary);
+    max-width: var(--elx-bubble-content-max-width);
+    color: var(--elx-bubble-text-color, var(--el-text-color-primary));
     font-size: var(--el-font-size-base);
     line-height: var(--el-font-line-height-primary);
-    min-height: calc(var(--el-padding-sm, 12px) * 2 + var(--el-font-line-height-primary) * var(--el-font-size-base));
+    min-height: calc(
+      var(--el-padding-sm, 12px) * 2 + var(--el-font-line-height-primary) *
+        var(--el-font-size-base)
+    );
     word-break: break-word;
 
     // 打字器没有内容时候展示高度
@@ -83,46 +90,48 @@
   }
 
   // 气泡圆角
-  .el-bubble-content-round {
+  .elx-bubble__content--round {
     border-radius: var(--el-border-radius-round);
   }
 
   // 气泡样式
-  .el-bubble-content-filled {
-    background-color: var(--el-fill-color);
+  .elx-bubble__content--filled {
+    background: var(--elx-bubble-bg, var(--el-fill-color));
   }
 
-  .el-bubble-content-borderless {
-    background-color: var(--el-fill-color);
-    border: var(--el-border-width) solid var(--el-border-color);
+  .elx-bubble__content--borderless {
+    background: var(--elx-bubble-bg, var(--el-fill-color));
+    border: var(--el-border-width) solid
+      var(--elx-bubble-border-color, var(--el-border-color));
   }
 
-  .el-bubble-content-outlined {
+  .elx-bubble__content--outlined {
     background: none;
-    border: var(--el-border-width) solid var(--el-border-color);
+    border: var(--el-border-width) solid
+      var(--elx-bubble-border-color, var(--el-border-color));
   }
 
-  .el-bubble-content-shadow {
+  .elx-bubble__content--shadow {
     background: none;
     // box-shadow: var(--el-box-shadow-tertiary);
-    box-shadow: var(--el-box-shadow);
+    box-shadow: var(--elx-bubble-shadow, var(--el-box-shadow));
   }
 
-  .el-bubble-content-loading {
+  .elx-bubble__content--loading {
     width: fit-content;
 
-    .el-bubble-loading-wrap {
+    .elx-bubble__loading-wrap {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 5px;
     }
 
-    .dot {
+    .elx-bubble__dot {
       will-change: transform;
       width: 5px;
       height: 5px;
-      background-color: var(--el-color-primary);
+      background-color: var(--elx-bubble-dot-color, var(--el-color-primary));
       border-radius: 50%;
       animation: wave 1s infinite ease-in-out;
     }
@@ -148,7 +157,7 @@
     }
   }
 
-  .el-bubble-footer {
+  .elx-bubble__footer {
     margin-top: var(--el-padding-sm, 12px);
   }
 }

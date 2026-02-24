@@ -36,6 +36,15 @@ title: 'Bubble'
 
 <demo src="./demos/variant-and-shape.vue"></demo>
 
+### 自定义主题
+
+通过 `ConfigProvider.themeOverrides` 覆盖 `Bubble` 的主题变量。完整变量表与可复制模板见：
+
+- [主题变量总表](/zh/guide/theme-tokens#bubble)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
 ### 与 x-markdown-vue 结合使用
 
 从 v2.0.0 开始，Typewriter 组件已移除。如需 Markdown 渲染功能，请使用 [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)。

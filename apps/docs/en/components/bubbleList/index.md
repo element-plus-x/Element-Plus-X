@@ -44,6 +44,15 @@ This is only needed in very special cases. It is not suitable for streaming outp
 
 <demo src="./demos/on-complete.vue"></demo>
 
+### Theme Overrides (themeOverrides)
+
+Override `BubbleList` theme tokens via `ConfigProvider.themeOverrides`. See the full token list and template:
+
+- [Theme Tokens](/en/guide/theme-tokens#bubblelist)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
 ## Props
 
 | Name                  | Type                                           | <div style="width: 70px">Required</div> | Default                                        | Description                                                                                                                                                                                                 |

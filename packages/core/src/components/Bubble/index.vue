@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { BubbleEmits, BubbleProps } from './types.d.ts';
+import type { BubbleEmits, BubbleProps } from './types';
+import { useNamespace } from '../../hooks/useNamespace';
 
 const props = withDefaults(defineProps<BubbleProps>(), {
   content: '',
@@ -19,6 +20,7 @@ const props = withDefaults(defineProps<BubbleProps>(), {
 const emits = defineEmits<BubbleEmits>();
 
 const internalDestroyed = ref(false);
+const ns = useNamespace('bubble');
 
 watch(
   () => props.content,
@@ -52,17 +54,17 @@ defineExpose({
 <template>
   <div
     v-if="!internalDestroyed"
-    class="el-bubble"
-    :class="{
-      'el-bubble-start': placement === 'start',
-      'el-bubble-end': placement === 'end',
-      'el-bubble-no-style': noStyle
-    }"
+    :class="[
+      ns.b(),
+      placement === 'start' ? ns.m('start') : '',
+      placement === 'end' ? ns.m('end') : '',
+      noStyle ? ns.m('no-style') : ''
+    ]"
     :style="{
       '--el-box-shadow-tertiary': `0 1px 2px 0 rgba(0, 0, 0, 0.03),
       0 1px 6px -1px rgba(0, 0, 0, 0.02),
       0 2px 4px 0 rgba(0, 0, 0, 0.02)`,
-      '--bubble-content-max-width': `${maxWidth}`,
+      '--elx-bubble-content-max-width': `${maxWidth}`,
       '--el-bubble-avatar-placeholder-width': `${$slots.avatar ? '' : avatarSize}`,
       '--el-bubble-avatar-placeholder-height': `${$slots.avatar ? '' : avatarSize}`,
       '--el-bubble-avatar-placeholder-gap': `${avatarGap}`
@@ -71,7 +73,7 @@ defineExpose({
     <!-- 头像 -->
     <div
       v-if="!$slots.avatar && avatar"
-      class="el-bubble-avatar el-bubble-avatar-size"
+      :class="[ns.e('avatar'), ns.e('avatar-size')]"
     >
       <el-avatar
         :size="0"
@@ -86,36 +88,40 @@ defineExpose({
     <!-- 头像属性进行占位 -->
     <div
       v-if="!$slots.avatar && !avatar && avatarSize"
-      class="el-bubble-avatar-placeholder"
+      :class="ns.e('avatar-placeholder')"
     />
 
-    <div v-if="$slots.avatar" class="el-bubble-avatar">
+    <div v-if="$slots.avatar" :class="ns.e('avatar')">
       <slot name="avatar" />
     </div>
 
     <!-- 内容 -->
-    <div class="el-bubble-content-wrapper">
+    <div :class="ns.e('content-wrapper')">
       <!-- 头部内容 -->
-      <div v-if="$slots.header" class="el-bubble-header">
+      <div v-if="$slots.header" :class="ns.e('header')">
         <slot name="header" />
       </div>
 
       <div
-        class="el-bubble-content"
-        :class="{
-          'el-bubble-content-loading': loading,
-          'el-bubble-content-round': shape === 'round' && !noStyle,
-          'el-bubble-content-corner': shape === 'corner' && !noStyle,
-          'el-bubble-content-filled': variant === 'filled' && !noStyle,
-          'el-bubble-content-borderless': variant === 'borderless' && !noStyle,
-          'el-bubble-content-outlined': variant === 'outlined' && !noStyle,
-          'el-bubble-content-shadow': variant === 'shadow' && !noStyle
-        }"
+        :class="[
+          ns.e('content'),
+          loading ? ns.em('content', 'loading') : '',
+          shape === 'round' && !noStyle ? ns.em('content', 'round') : '',
+          shape === 'corner' && !noStyle ? ns.em('content', 'corner') : '',
+          variant === 'filled' && !noStyle ? ns.em('content', 'filled') : '',
+          variant === 'borderless' && !noStyle
+            ? ns.em('content', 'borderless')
+            : '',
+          variant === 'outlined' && !noStyle
+            ? ns.em('content', 'outlined')
+            : '',
+          variant === 'shadow' && !noStyle ? ns.em('content', 'shadow') : ''
+        ]"
       >
         <!-- 内容-默认 -->
         <div
           v-if="!loading && !$slots.content && content"
-          class="el-bubble-text"
+          :class="ns.e('text')"
         >
           {{ content }}
         </div>
@@ -127,22 +133,22 @@ defineExpose({
         />
 
         <!-- 加载中-默认 -->
-        <div v-if="loading && !$slots.loading" class="el-bubble-loading-wrap">
+        <div v-if="loading && !$slots.loading" :class="ns.e('loading-wrap')">
           <div
             v-for="(_, index) in 3"
             :key="index"
-            class="dot"
+            :class="ns.e('dot')"
             :style="{ animationDelay: `${index * 0.2}s` }"
           />
         </div>
 
         <!-- 加载中-自定义 -->
-        <div v-if="loading && $slots.loading" class="el-bubble-loading-wrap">
+        <div v-if="loading && $slots.loading" :class="ns.e('loading-wrap')">
           <slot name="loading" />
         </div>
       </div>
 
-      <div v-if="$slots.footer" class="el-bubble-footer">
+      <div v-if="$slots.footer" :class="ns.e('footer')">
         <slot name="footer" />
       </div>
     </div>

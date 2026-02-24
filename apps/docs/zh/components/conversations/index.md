@@ -40,6 +40,15 @@ title: 'Conversations'
 
 <demo src="./demos/absolute-custom.vue"></demo>
 
+### 自定义主题
+
+通过 `ConfigProvider.themeOverrides` 覆盖 `Conversations` 的主题变量。完整变量表与可复制模板见：
+
+- [主题变量总表](/zh/guide/theme-tokens#conversations)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
 ## 属性
 
 | 属性名                 | 类型                          | 是否必填 | 默认值    | 描述                                                      |
@@ -59,14 +68,14 @@ title: 'Conversations'
 
 ## 插槽
 
-| 插槽名         | 参数                                                      | 描述                                                       |
-| -------------- | --------------------------------------------------------- | ---------------------------------------------------------- |
-| `#groupTitle`  | `{ group: GroupItem }`                                    | 自定义分组标题，支持添加图标或特殊样式                     |
-| `#label`       | `{ item: ConversationItem<T> }`                           | 自定义会话项标签内容，支持文本溢出处理或富文本             |
-| `#more-filled` | `{ item, isHovered, isActive, isMenuOpened, isDisabled }` | 会话项右侧附加内容，显示状态标识（如：禁用标记、操作图标） |
-| `#menu`        | `{ item: ConversationItem<T>, handleOpen, handleClose }`                           | 自定义菜单内容，支持按钮、图标或复杂交互组件,`handleOpen`用来手动控制下拉菜单的开启,`handleClose`用来手动控制下拉菜单的关闭.               |
-| `#header`      | -                                                         | 容器头部插槽，用于添加搜索栏、筛选按钮等自定义内容         |
-| `#footer`      | -                                                         | 容器底部插槽，用于添加分页、统计信息等自定义内容           |
+| 插槽名         | 参数                                                      | 描述                                                                                                                         |
+| -------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `#groupTitle`  | `{ group: GroupItem }`                                    | 自定义分组标题，支持添加图标或特殊样式                                                                                       |
+| `#label`       | `{ item: ConversationItem<T> }`                           | 自定义会话项标签内容，支持文本溢出处理或富文本                                                                               |
+| `#more-filled` | `{ item, isHovered, isActive, isMenuOpened, isDisabled }` | 会话项右侧附加内容，显示状态标识（如：禁用标记、操作图标）                                                                   |
+| `#menu`        | `{ item: ConversationItem<T>, handleOpen, handleClose }`  | 自定义菜单内容，支持按钮、图标或复杂交互组件,`handleOpen`用来手动控制下拉菜单的开启,`handleClose`用来手动控制下拉菜单的关闭. |
+| `#header`      | -                                                         | 容器头部插槽，用于添加搜索栏、筛选按钮等自定义内容                                                                           |
+| `#footer`      | -                                                         | 容器底部插槽，用于添加分页、统计信息等自定义内容                                                                             |
 
 ## 事件
 
@@ -92,7 +101,6 @@ title: 'Conversations'
 3. **性能优化**
 
 - 懒加载功能：滚动至底部自动加载更多数据，减少初始渲染压力
-- 虚拟滚动（规划中）：支持超大列表场景，提升内存使用效率
 
 4. **高度可定制**
 
