@@ -123,8 +123,7 @@ function handleClick(key: string) {
 const isTextOverflow = computed(() => {
   return (label: string = '') => {
     // 如果没有设置labelMaxWidth，直接返回false
-    if (!labelMaxWidth.value) return false;
-    if (!isClient) return false;
+    if (!labelMaxWidth.value || !isClient) return false;
 
     // 创建一个临时的span元素来测量文本宽度
     const span = document.createElement('span');
