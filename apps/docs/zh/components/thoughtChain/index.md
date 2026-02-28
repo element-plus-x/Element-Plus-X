@@ -1,12 +1,6 @@
 ---
-badge:
-  type: 'new'
-  version: '2.0.0-beta.0'
+title: 'ThoughtChain'
 ---
-
----
-
-## title: 'ThoughtChain'
 
 ## 介绍
 

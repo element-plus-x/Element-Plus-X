@@ -14,7 +14,7 @@ import { reactive, ref } from 'vue';
 const senderRef = ref<InstanceType<typeof XSender>>();
 
 const tipConfig = reactive({
-  offsetTop: -3
+  offsetTop: 0
 });
 
 function onOpen() {
@@ -30,15 +30,12 @@ function onClose() {
 </script>
 
 <template>
-  <div style="margin-bottom: 20px;">
-    <el-button type="primary" @click="onOpen">打开前置标签</el-button>
-    <el-button type="primary" @click="onClose">关闭前置标签</el-button>
+  <div style="margin-bottom: 20px">
+    <el-button type="primary" @click="onOpen"> 打开前置标签 </el-button>
+    <el-button type="primary" @click="onClose"> 关闭前置标签 </el-button>
   </div>
-  <div style="margin-bottom: 20px;">
+  <div style="margin-bottom: 20px">
     <span>前置标签状态：{{ senderRef?.senderState.tipShow }}</span>
   </div>
-  <XSender
-    ref="senderRef"
-    :tip-config="tipConfig"
-  ></XSender>
+  <XSender ref="senderRef" :tip-config="tipConfig" />
 </template>

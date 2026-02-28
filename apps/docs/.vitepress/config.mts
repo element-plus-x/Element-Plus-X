@@ -1,3 +1,4 @@
+import { execSync } from 'node:child_process';
 import type { Plugin } from 'vitepress';
 import { fileURLToPath } from 'node:url';
 import Unocss from 'unocss/vite';
@@ -11,6 +12,16 @@ import { defineConfig } from 'vitepress';
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import locales from './locales.mts';
 import { tovUIResolver } from '../scripts/vue-element-plus-x-resolver';
+
+function getGitBranch(): string {
+  try {
+    return execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf-8' }).trim();
+  } catch {
+    return 'main';
+  }
+}
+
+const gitBranch = getGitBranch();
 
 const cacheDir =
   process.env.NODE_ENV === 'development'
@@ -34,7 +45,7 @@ export default defineConfig({
     logo: '/logo.png',
     logoLink: '/zh/',
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/HeJiaYue520/Element-Plus-X' },
+      { icon: 'github', link: `https://github.com/element-plus-x/Element-Plus-X` },
       {
         icon: {
           svg: '<svg t="1741408990097" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1514" width="200" height="200"><path d="M64 960V128h832v832z" fill="#CB3837" p-id="1515"></path><path d="M192 320h576v512h-128V448H448v384H192z" fill="#FFFFFF" p-id="1516"></path></svg>',
@@ -64,6 +75,9 @@ export default defineConfig({
   },
   vite: {
     cacheDir,
+    define: {
+      __VITE_GITHUB_BRANCH__: JSON.stringify(gitBranch),
+    },
     resolve: {
       alias: docsUseSource
         ? [

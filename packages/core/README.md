@@ -126,11 +126,11 @@ pnpm add x-markdown-vue
 
 ```vue
 <template>
-  <XMarkdown :markdown="content" />
+  <MarkdownRenderer :markdown="content" />
 </template>
 
 <script setup lang="ts">
-import { XMarkdown } from 'x-markdown-vue';
+import { MarkdownRenderer } from 'x-markdown-vue';
 import 'x-markdown-vue/style';
 
 const content = ref('# Hello World');

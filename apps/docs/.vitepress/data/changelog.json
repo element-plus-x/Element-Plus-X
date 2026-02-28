@@ -1,0 +1,130 @@
+{
+  "Welcome": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 Welcome 欢迎组件"
+      ]
+    }
+  ],
+  "Attachments": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 Attachments 附件上传组件"
+      ]
+    }
+  ],
+  "Bubble": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 Bubble 对话气泡组件",
+        "新增 BubbleList 气泡列表组件"
+      ]
+    }
+  ],
+  "BubbleList": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 BubbleList 气泡列表组件"
+      ]
+    }
+  ],
+  "Conversations": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 Conversations 会话管理组件"
+      ]
+    }
+  ],
+  "FilesCard": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 FilesCard 文件卡片组件"
+      ]
+    }
+  ],
+  "Prompts": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 Prompts 提示集组件"
+      ]
+    }
+  ],
+  "Thinking": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 Thinking 思考中组件"
+      ]
+    }
+  ],
+  "ThoughtChain": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 ThoughtChain 思维链组件"
+      ]
+    }
+  ],
+  "useRecord": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 useRecord、useSend、useXStream 等工具 Hooks"
+      ]
+    }
+  ],
+  "useSend": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 useRecord、useSend、useXStream 等工具 Hooks"
+      ]
+    }
+  ],
+  "useXStream": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 useRecord、useSend、useXStream 等工具 Hooks"
+      ]
+    }
+  ],
+  "XMarkdown": [],
+  "XSender": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 XSender 输入框组件"
+      ]
+    }
+  ],
+  "ConfigProvider": [
+    {
+      "version": "2.0.0-beta.0",
+      "date": "2025-02-24",
+      "changes": [
+        "新增 ConfigProvider 全局配置组件"
+      ]
+    }
+  ]
+}

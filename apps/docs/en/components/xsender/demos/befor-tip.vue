@@ -14,7 +14,7 @@ import { reactive, ref } from 'vue';
 const senderRef = ref<InstanceType<typeof XSender>>();
 
 const tipConfig = reactive({
-  offsetTop: -3
+  offsetTop: 0
 });
 
 function onOpen() {

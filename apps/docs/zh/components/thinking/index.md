@@ -1,8 +1,5 @@
 ---
 title: 'Thinking'
-badge:
-  type: 'new'
-  version: '2.0.0-beta.0'
 ---
 
 ## 介绍

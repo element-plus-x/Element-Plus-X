@@ -3,44 +3,7 @@ import { Edit, ElementPlus } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 import { useData } from 'vitepress';
 import { computed } from 'vue';
-
-const zhMap = {
-  Welcome: 'Welcome 欢迎',
-  Attachments: 'Attachments 附件上传组件',
-  Bubble: 'Bubble 对话气泡',
-  BubbleList: 'BubbleList 气泡列表',
-  Conversations: 'Conversations 会话管理组件',
-  EditorSender: 'EditorSender 编辑输入框',
-  FilesCard: 'FilesCard 文件卡片',
-  Prompts: 'Prompts 提示集组件',
-  Thinking: 'Thinking 思考中',
-  ThoughtChain: 'ThoughtChain 思维链',
-  Typewriter: 'Typewriter 打字器',
-  useRecord: 'useRecord',
-  useSend: 'useSend & XRequest',
-  useXStream: 'useXStream',
-  XMarkdown: 'XMarkdown 渲染组件',
-  XSender: 'XSender 输入框'
-};
-
-const enMap = {
-  Welcome: 'Welcome Component',
-  Attachments: 'Attachments File Upload Component',
-  Bubble: 'Bubble Component',
-  BubbleList: 'BubbleList Component',
-  Conversations: 'Conversations Component',
-  EditorSender: 'EditorSender Input Box',
-  FilesCard: 'FilesCard Component',
-  Prompts: 'Prompts Component',
-  Thinking: 'Thinking Component',
-  ThoughtChain: 'ThoughtChain Component',
-  Typewriter: 'Typewriter Component',
-  useRecord: 'useRecord',
-  useSend: 'useSend & XRequest',
-  useXStream: 'useXStream',
-  XMarkdown: 'XMarkdown Rendering Component',
-  XSender: 'XSender Input Box'
-};
+import { componentImports, componentTitles } from '../config/component-config';
 
 const { frontmatter, lang, page, isDark } = useData();
 const name = computed(() => {
@@ -48,19 +11,42 @@ const name = computed(() => {
 });
 
 const title = computed(() => {
-  return lang.value === 'zh-CN'
-    ? zhMap[name.value as keyof typeof zhMap]
-    : enMap[name.value as keyof typeof enMap];
+  const config = componentTitles[name.value as keyof typeof componentTitles];
+  if (!config) return name.value;
+  return lang.value === 'zh-CN' ? config.zh : config.en;
+});
+
+const importStatement = computed(() => {
+  const specialConfig =
+    componentImports[name.value as keyof typeof componentImports];
+  if (specialConfig) {
+    return specialConfig.styleStatement
+      ? `${specialConfig.importStatement}\n${specialConfig.styleStatement}`
+      : specialConfig.importStatement;
+  }
+  return `import { ${name.value} } from 'vue-element-plus-x'`;
+});
+
+const specialConfig = computed(() => {
+  return componentImports[name.value as keyof typeof componentImports];
 });
 
 const isComponentPage = computed(() => {
   return page.value.filePath.includes('components');
 });
 
+declare const __VITE_GITHUB_BRANCH__: string;
+
+const GITHUB_REPO = 'element-plus-x/Element-Plus-X';
+const GITHUB_BRANCH = __VITE_GITHUB_BRANCH__ || 'main';
+
 const sourceLink = computed(() => {
+  if (specialConfig.value?.externalSourceLink) {
+    return specialConfig.value.externalSourceLink;
+  }
   if (isComponentPage.value) {
     const isHook = name.value?.includes('use');
-    return `https://github.com/HeJiaYue520/Element-Plus-X/blob/main/packages/core/src/${isHook ? 'hooks' : 'components'}/${name.value}${isHook ? '.ts' : ''}`;
+    return `https://github.com/${GITHUB_REPO}/blob/${GITHUB_BRANCH}/packages/core/src/${isHook ? 'hooks' : 'components'}/${name.value}${isHook ? '.ts' : ''}`;
   } else {
     return '';
   }
@@ -68,7 +54,7 @@ const sourceLink = computed(() => {
 
 const docEditLink = computed(() => {
   if (isComponentPage.value) {
-    return `https://github.com/HeJiaYue520/Element-Plus-X/edit/main/apps/docs/${page.value.filePath}`;
+    return `https://github.com/${GITHUB_REPO}/blob/${GITHUB_BRANCH}/apps/docs/${page.value.filePath}`;
   } else {
     return '';
   }
@@ -143,19 +129,30 @@ async function copyWithFeedback(text: string) {
     <el-space class="description" direction="vertical" alignment="start">
       <div class="component-use">
         <span class="title">使用</span>
-        <span
-          class="common code"
-          @click="
-            copyWithFeedback(`import  { ${name} }  from 'vue-element-plus-x'`)
-          "
-          >import { {{ name }} } from 'vue-element-plus-x'</span
-        >
+        <span class="common code" @click="copyWithFeedback(importStatement)">{{
+          importStatement
+        }}</span>
       </div>
       <div class="component-source-site">
         <span class="title">源码</span>
         <a :href="sourceLink" target="_blank" class="source-link common">
           <el-icon><ElementPlus /></el-icon>
-          <span>components/{{ name }}</span>
+          <span v-if="specialConfig?.externalSourceLink">{{
+            specialConfig.externalSourceLink.replace('https://github.com/', '')
+          }}</span>
+          <span v-else>components/{{ name }}</span>
+        </a>
+      </div>
+      <div v-if="specialConfig?.npmLink" class="component-npm-site">
+        <span class="title">NPM</span>
+        <a
+          :href="specialConfig.npmLink"
+          target="_blank"
+          class="npm-link common"
+        >
+          <span>{{
+            specialConfig.npmLink.replace('https://www.npmjs.com/package/', '')
+          }}</span>
         </a>
       </div>
       <div class="component-doc-site">
@@ -180,6 +177,7 @@ async function copyWithFeedback(text: string) {
   padding: 0 4px;
   border-radius: 4px;
   transition: all 0.3s ease-in-out;
+  white-space: pre-wrap;
   font-family:
     'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 }
@@ -213,6 +211,19 @@ async function copyWithFeedback(text: string) {
     gap: 4px;
   }
   .source-link:hover {
+    text-decoration: underline;
+  }
+}
+.component-npm-site {
+  font-size: 14px;
+  display: flex;
+  gap: 24px;
+  .npm-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .npm-link:hover {
     text-decoration: underline;
   }
 }
