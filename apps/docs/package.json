@@ -10,6 +10,7 @@
     "scan:badges": "esno scripts/scan-component-changes.ts"
   },
   "dependencies": {
+    "x-markdown-vue": "^0.0.1-beta.108",
     "echarts": "^5.6.0",
     "element-plus-x-metadata": "workspace:^",
     "gsap": "^3.13.0",

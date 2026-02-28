@@ -64,11 +64,23 @@ Starting from `v2.0.0`, the component library no longer bundles `XMarkdown` / `X
 
 ```bash
 pnpm add x-markdown-vue
+pnpm add katex
+pnpm add shiki shiki-stream
 ```
 
-#### Basic Usage (render Markdown per message)
+::: tip
+If you need code block syntax highlighting, please install `shiki` and `shiki-stream`. Otherwise, you may see this error in the console: `Streaming highlighter initialization failed: Error: Failed to load shiki-stream module`
+:::
 
-````vue
+#### Basic Usage
+
+<demo src="./demos/with-markdown.vue"></demo>
+
+#### Streaming Rendering
+
+By setting the `enable-animate` property, you can achieve a typewriter effect:
+
+```vue
 <template>
   <BubbleList :list="list">
     <template #content="{ item }">
@@ -84,11 +96,10 @@ import { MarkdownRenderer } from 'x-markdown-vue';
 import 'x-markdown-vue/style';
 
 const list = ref([
-  { content: '## Title\n\n- Item 1\n- Item 2', placement: 'start' },
-  { content: '```ts\nconsole.log(\"hello\")\n```', placement: 'end' }
+  { content: '', placement: 'start' } // Streaming content will be updated dynamically
 ]);
 </script>
-````
+```
 
 ## Props
 

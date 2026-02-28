@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import { messageArr } from '@assets/mock';
 import CustomSolt from './CustomSolt.vue';
 import BubbleList from './index.vue';
+import WithMarkdown from './WithMarkdown.vue';
 
 const meta = {
   title: 'Example/BubbleList 气泡列表',
@@ -60,5 +61,15 @@ export const SoltDemo: Story = {
       };
     },
     template: `<CustomSolt v-bind="attrs" />`
+  })
+};
+
+export const WithMarkdownDemo: Story = {
+  name: '与 x-markdown-vue 结合使用',
+  render: () => ({
+    components: {
+      WithMarkdown
+    },
+    template: `<WithMarkdown />`
   })
 };

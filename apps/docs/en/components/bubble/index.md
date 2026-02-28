@@ -56,7 +56,17 @@ Starting from v2.0.0, the Typewriter component has been removed. For Markdown re
 
 ```bash
 pnpm add x-markdown-vue
+pnpm add katex
+pnpm add shiki shiki-stream
 ```
+
+::: tip
+If you need code block syntax highlighting, please install `shiki` and `shiki-stream`. Otherwise, you may see this error in the console: `Streaming highlighter initialization failed: Error: Failed to load shiki-stream module`
+:::
+
+#### Full Demo
+
+<demo src="./demos/with-markdown.vue"></demo>
 
 #### Basic Usage
 

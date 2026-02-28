@@ -69,7 +69,7 @@ function addSidebarBadges() {
     badge.textContent = badgeConfig.text || badgeConfig.type;
 
     const textSpan =
-      link.querySelector('.link-text') || link.querySelector('.text') || link;
+      link.querySelector('.link-text') || link.querySelector('.text');
     if (textSpan) {
       textSpan.appendChild(badge);
     } else {

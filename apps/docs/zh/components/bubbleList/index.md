@@ -65,11 +65,23 @@ badge:
 
 ```bash
 pnpm add x-markdown-vue
+pnpm add katex
+pnpm add shiki shiki-stream
 ```
 
-#### 基础用法（列表消息渲染 Markdown）
+::: tip
+如果需要代码块语法高亮功能，请安装 `shiki` 和 `shiki-stream`。否则控制台可能会报错：`Streaming highlighter initialization failed: Error: Failed to load shiki-stream module`
+:::
 
-````vue
+#### 基础用法
+
+<demo src="./demos/with-markdown.vue"></demo>
+
+#### 流式渲染
+
+通过设置 `enable-animate` 属性，可以实现打字机效果：
+
+```vue
 <template>
   <BubbleList :list="list">
     <template #content="{ item }">
@@ -85,11 +97,10 @@ import { MarkdownRenderer } from 'x-markdown-vue';
 import 'x-markdown-vue/style';
 
 const list = ref([
-  { content: '## 标题\n\n- 列表项 1\n- 列表项 2', placement: 'start' },
-  { content: '```ts\nconsole.log(\"hello\")\n```', placement: 'end' }
+  { content: '', placement: 'start' } // 流式内容会动态更新
 ]);
 </script>
-````
+```
 
 ## 属性
 

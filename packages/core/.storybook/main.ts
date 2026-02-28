@@ -42,6 +42,20 @@ const config: StorybookConfig = {
     viteConfig.plugins = viteConfig.plugins ?? [];
     (viteConfig.plugins as unknown[]).push(...(autoImportPlugin as unknown[]));
 
+    viteConfig.optimizeDeps = viteConfig.optimizeDeps ?? {};
+    viteConfig.optimizeDeps.include = viteConfig.optimizeDeps.include ?? [];
+    (viteConfig.optimizeDeps.include as string[]).push(
+      'shiki',
+      'shiki-stream',
+      'x-markdown-vue'
+    );
+
+    viteConfig.ssr = viteConfig.ssr ?? {};
+    viteConfig.ssr.noExternal = viteConfig.ssr.noExternal ?? [];
+    if (Array.isArray(viteConfig.ssr.noExternal)) {
+      viteConfig.ssr.noExternal.push('shiki', 'shiki-stream', 'x-markdown-vue');
+    }
+
     return viteConfig;
   }
 };

@@ -56,7 +56,17 @@ badge:
 
 ```bash
 pnpm add x-markdown-vue
+pnpm add katex
+pnpm add shiki shiki-stream
 ```
+
+::: tip
+如果需要代码块语法高亮功能，请安装 `shiki` 和 `shiki-stream`。否则控制台可能会报错：`Streaming highlighter initialization failed: Error: Failed to load shiki-stream module`
+:::
+
+#### 完整演示
+
+<demo src="./demos/with-markdown.vue"></demo>
 
 #### 基础用法
 

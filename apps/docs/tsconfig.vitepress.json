@@ -1,4 +1,4 @@
 {
   "extends": ["./tsconfig.json"],
-  "include": [".vitepress/**/*.ts", ".vitepress/**/*.tsx", ".vitepress/**/*.vue", "components.d.ts", ".vitepress/locales.mts"]
+  "include": [".vitepress/**/*.ts", ".vitepress/**/*.tsx", ".vitepress/**/*.vue", ".vitepress/**/*.d.ts", "components.d.ts", ".vitepress/locales.mts"]
 }
