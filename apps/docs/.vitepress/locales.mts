@@ -20,8 +20,6 @@ const config = {
       },
       // 中文导航 - 所有链接都加上 /zh/ 前缀
       nav: [
-        { text: '交流邀请', link: '/zh/introduce' },
-        { text: '更新日志', link: '/zh/update-log' },
         { text: '生态', items: [
           { text: 'ruoyi-element-ai (模板项目)', link: 'https://chat-docs.element-plus-x.com/' },
           { text: 'element-ui-x (vue2版本)', link: 'https://element-ui-x.com/' },
@@ -32,7 +30,6 @@ const config = {
           { text: 'v1.x (当前)', link: 'https://v1.element-plus-x.com/zh/' },
           { text: 'v2.x (Beta)', link: 'https://v2.element-plus-x.com/zh/' },
         ] },
-        { text: 'XMarkdown', link: '/zh/components/xMarkdown/' },
         { text: '指南', link: '/zh/guide/install' },
         { text: '组件', link: '/zh/components/xsender/' },
       ],
@@ -99,6 +96,24 @@ const config = {
               { text: '开发指南', link: '/zh/guide/develop' },
             ],
           },
+          {
+            text: '社区',
+            items: [
+              { text: '交流邀请', link: '/zh/introduce' },
+            ],
+          },
+          {
+            text: '变更',
+            items: [
+              { text: '更新日志', link: '/zh/update-log' },
+            ],
+          },
+          {
+            text: '贡献',
+            items: [
+              { text: '贡献指南', link: '/zh/guide/contribution' },
+            ],
+          },
         ],
       },
 
@@ -163,8 +178,6 @@ const config = {
 
       // 英文导航 - 所有链接都加上 /en/ 前缀
       nav: [
-        { text: 'Invitation', link: '/en/introduce' },
-        { text: 'Changelog', link: '/en/update-log' },
         { text: 'Ecosystem', items: [
           { text: 'ruoyi-element-ai (Template)', link: 'https://chat-docs.element-plus-x.com/' },
           { text: 'element-ui-x (Vue2)', link: 'https://element-ui-x.com/' },
@@ -175,7 +188,6 @@ const config = {
           { text: 'v1.x (Current)', link: 'https://v1.element-plus-x.com/en/' },
           { text: 'v2.x (Beta)', link: 'https://v2.element-plus-x.com/en/' },
         ] },
-        { text: 'XMarkdown', link: '/en/components/xMarkdown/' },
         { text: 'Guide', link: '/en/guide/install' },
         { text: 'Components', link: '/en/components/xsender/' },
       ],
@@ -241,6 +253,24 @@ const config = {
             items: [
               { text: 'Installation', link: '/en/guide/install' },
               { text: 'Development', link: '/en/guide/develop' },
+            ],
+          },
+          {
+            text: 'Community',
+            items: [
+              { text: 'Invitation', link: '/en/introduce' },
+            ],
+          },
+          {
+            text: 'Changelog',
+            items: [
+              { text: 'Changelog', link: '/en/update-log' },
+            ],
+          },
+          {
+            text: 'Contribution',
+            items: [
+              { text: 'Contribution Guide', link: '/en/guide/contribution' },
             ],
           },
         ],

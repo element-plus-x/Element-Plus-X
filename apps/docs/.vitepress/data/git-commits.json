@@ -1,0 +1,1432 @@
+{
+  "generatedAt": "2026-02-28T16:38:43.509Z",
+  "totalCommits": 44,
+  "versions": [
+    {
+      "version": "unreleased",
+      "date": "2026-02-28",
+      "commits": [
+        {
+          "hash": "0621d9afc52ac5f4ec5bc288665df7fb08b8ec8a",
+          "shortHash": "0621d9a",
+          "type": "feature",
+          "scope": "",
+          "subject": "文档架构重构与组件样式修正",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2026-02-28",
+          "tags": []
+        },
+        {
+          "hash": "592680981fa5b0d29d48f384ac29a7b96587e49b",
+          "shortHash": "5926809",
+          "type": "feature",
+          "scope": "",
+          "subject": "修改2.0.0版本号，新增版本域名下拉框和组件菜单左侧目录徽标",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2026-02-25",
+          "tags": [
+            "2.0.0-beta.0"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "1.3.98-backup",
+      "date": "2026-01-24",
+      "commits": [
+        {
+          "hash": "588acb8c97c3d644f01fd0852e8dd529f22c440e",
+          "shortHash": "588acb8",
+          "type": "chore",
+          "scope": "",
+          "subject": "[feat](XSender)：配置属性说明文档",
+          "breaking": false,
+          "issues": [],
+          "author": "jianfv",
+          "authorEmail": "1596170432@qq.com",
+          "date": "2026-01-24",
+          "tags": [
+            "v1.3.98-backup"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "1.3.8",
+      "date": "2025-12-14",
+      "commits": [
+        {
+          "hash": "ac84d0820afe2ccbc2ce515750bca0a61bb82fb9",
+          "shortHash": "ac84d08",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求,尝试解决发包报错问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "vue-element-plus-x@1.3.98",
+            "v1.3.98"
+          ]
+        },
+        {
+          "hash": "0d1750efe2f4c78d5de0ba37a2b89b828ee2e7d0",
+          "shortHash": "0d1750e",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求,尝试解决发包报错问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.97"
+          ]
+        },
+        {
+          "hash": "a478c9699b89ec2064fd08e1e6f99f2e20debcc4",
+          "shortHash": "a478c96",
+          "type": "fix",
+          "scope": "",
+          "subject": "修复 GitHub Actions 中的 changeset action 参数错误",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.96"
+          ]
+        },
+        {
+          "hash": "b22372e78d1870577b275ec48730a03bc20569ed",
+          "shortHash": "b22372e",
+          "type": "fix",
+          "scope": "",
+          "subject": "修复 changeset 配置中的包名错误",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.95"
+          ]
+        },
+        {
+          "hash": "1ccd7741ef2d01d8c8cacbb344e4e04b5f028b29",
+          "shortHash": "1ccd774",
+          "type": "fix",
+          "scope": "",
+          "subject": "修复 changeset 配置中的包依赖问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.94"
+          ]
+        },
+        {
+          "hash": "26a038b96652d226346440f63d34c1964a5743b1",
+          "shortHash": "26a038b",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求,尝试解决发包报错问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.93"
+          ]
+        },
+        {
+          "hash": "3e8aeff7bded7784f9d6f992d242b90e44b8b1ec",
+          "shortHash": "3e8aeff",
+          "type": "fix",
+          "scope": "",
+          "subject": "修复 GitHub Actions 中 Vue 3 Composition API 类型识别问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.92"
+          ]
+        },
+        {
+          "hash": "db5e6622dd86c7a9043e8f062d58d1804c6bc917",
+          "shortHash": "db5e662",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求,尝试解决发包报错问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.91"
+          ]
+        },
+        {
+          "hash": "5b6832386540ecf1a8a4691c44b828f520bb8b46",
+          "shortHash": "5b68323",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求,尝试解决发包报错问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.9"
+          ]
+        },
+        {
+          "hash": "ff5623beedb51793a56116f54c7292dc400f5385",
+          "shortHash": "ff5623b",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求,尝试解决发包报错问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.89"
+          ]
+        },
+        {
+          "hash": "fe17afeca07bee70d7a6dcfc204d11562954b2bb",
+          "shortHash": "fe17afe",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求,尝试解决发包报错问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.88"
+          ]
+        },
+        {
+          "hash": "4bbbaa6da8d4ec2e4ede1399263049e001af85c2",
+          "shortHash": "4bbbaa6",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.87"
+          ]
+        },
+        {
+          "hash": "fb13429142f83026b2cf0144420ab16e57a75a17",
+          "shortHash": "fb13429",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.86",
+            "v1.3.85"
+          ]
+        },
+        {
+          "hash": "a87b6963b836b61fcbba193a8fc3d10ba5865c2f",
+          "shortHash": "a87b696",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.84"
+          ]
+        },
+        {
+          "hash": "7ffb0d0eb62c5e01f3bfb86b51cb3ac4c85ad66b",
+          "shortHash": "7ffb0d0",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.83"
+          ]
+        },
+        {
+          "hash": "abcdeb045421b7a7fa343779149b29b1e4ebad66",
+          "shortHash": "abcdeb0",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.82"
+          ]
+        },
+        {
+          "hash": "ca43e558bbe855259f90a80f74f2dd1f33ef636b",
+          "shortHash": "ca43e55",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.81"
+          ]
+        },
+        {
+          "hash": "5ab8ced38ab09e3c48256f110d074f4dff94ac5a",
+          "shortHash": "5ab8ced",
+          "type": "feature",
+          "scope": "",
+          "subject": "合并部分pr请求",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-12-14",
+          "tags": [
+            "v1.3.8"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "1.3.6.beta.1",
+      "date": "2025-12-04",
+      "commits": [
+        {
+          "hash": "0e36c6429dbc14b87dc5b3887b78aaa1e01c280f",
+          "shortHash": "0e36c64",
+          "type": "fix",
+          "scope": "",
+          "subject": "修改ci",
+          "breaking": false,
+          "issues": [],
+          "author": "Json_Lee",
+          "authorEmail": "2622336659@qq.com",
+          "date": "2025-12-04",
+          "tags": [
+            "v1.3.6.beta.1"
+          ]
+        },
+        {
+          "hash": "77c57f5cf5b7e0a69adfce2cacf3c5c3a6caf50d",
+          "shortHash": "77c57f5",
+          "type": "docs",
+          "scope": "",
+          "subject": "更新文档，解决官网构建报错问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-08-04",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "date": "2025-05-06",
+      "commits": [
+        {
+          "hash": "11026d9bca4211f877c44c7d6233459fa764675a",
+          "shortHash": "11026d9",
+          "type": "docs",
+          "scope": "",
+          "subject": "v1.2.0 上新",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "hejiayue520zzy@gmail.com",
+          "date": "2025-05-06",
+          "tags": [
+            "vue-element-plus-x@1.2.0",
+            "v1.2.0"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "commits": [
+        {
+          "hash": "89d6412dac441d4eef416baea12e1461a91a4dc3",
+          "shortHash": "89d6412",
+          "type": "fix",
+          "scope": "",
+          "subject": "文档更新，修复已知bug, v1.1.6 版本更新",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-04-16",
+          "tags": [
+            "vue-element-plus-x@1.1.6",
+            "v1.1.6"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "1.1.4",
+      "date": "2025-04-14",
+      "commits": [
+        {
+          "hash": "55dbe0b34aabe7fc0aa22f63d19b267fc4b51c9d",
+          "shortHash": "55dbe0b",
+          "type": "docs",
+          "scope": "",
+          "subject": "v1.1.4上新",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "hejiayue520zzy@gmail.com",
+          "date": "2025-04-14",
+          "tags": [
+            "vue-element-plus-x@1.1.4",
+            "v1.1.4"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "1.1.3",
+      "date": "2025-04-08",
+      "commits": [
+        {
+          "hash": "da1fb1643f43e45fa69f253e17d76714ff5b585a",
+          "shortHash": "da1fb16",
+          "type": "fix",
+          "scope": "",
+          "subject": "修复 Thinking scss 1.1.3",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "2834007710@qq.com",
+          "date": "2025-04-08",
+          "tags": [
+            "vue-element-plus-x@1.1.3",
+            "v1.1.3"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "1.1.2",
+      "date": "2025-04-07",
+      "commits": [
+        {
+          "hash": "871e4a6867e465f55cc538c5b39ac17d2b074556",
+          "shortHash": "871e4a6",
+          "type": "fix",
+          "scope": "",
+          "subject": "修复 Thinking scss 问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "hejiayue520zzy@gmail.com",
+          "date": "2025-04-07",
+          "tags": [
+            "vue-element-plus-x@1.1.2",
+            "v1.1.2"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "2025-04-06",
+      "commits": [
+        {
+          "hash": "3bdd21b17557787acdf50df25513d97c71a88011",
+          "shortHash": "3bdd21b",
+          "type": "docs",
+          "scope": "",
+          "subject": "v1.1.1上线",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "hejiayue520zzy@gmail.com",
+          "date": "2025-04-06",
+          "tags": [
+            "vue-element-plus-x@1.1.1",
+            "v1.1.1"
+          ]
+        },
+        {
+          "hash": "4b6f387b798a7160466cf819d6924c6fbfbac7c8",
+          "shortHash": "4b6f387",
+          "type": "fix",
+          "scope": "",
+          "subject": "上新 v1.1.0",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "hejiayue520zzy@gmail.com",
+          "date": "2025-04-06",
+          "tags": [
+            "vue-element-plus-x@1.1.0",
+            "v1.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "1.0.7",
+      "date": "2025-03-30",
+      "commits": [
+        {
+          "hash": "472adcd03c0c4ccea29b1a2831fec72fc57f93cd",
+          "shortHash": "472adcd",
+          "type": "docs",
+          "scope": "",
+          "subject": "修改包版本，解决 npm 发包地址 交流群二维码不正确问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "hejiayue520zzy@gmail.com",
+          "date": "2025-03-30",
+          "tags": [
+            "vue-element-plus-x@1.0.81",
+            "v1.0.81"
+          ]
+        },
+        {
+          "hash": "afc221add3413ef3f6c2fd8affcfddfc7e5f19e8",
+          "shortHash": "afc221a",
+          "type": "docs",
+          "scope": "",
+          "subject": "重新打包覆盖 1.0.7 版本 交流群二维码不更新问题",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "hejiayue520zzy@gmail.com",
+          "date": "2025-03-30",
+          "tags": [
+            "vue-element-plus-x@1.0.8",
+            "v1.0.8"
+          ]
+        },
+        {
+          "hash": "2f793fe1e40894a31f9ed0c2555ea9cc6e3e09a9",
+          "shortHash": "2f793fe",
+          "type": "feature",
+          "scope": "",
+          "subject": "新增 useRecord useSend useXStream 钩子函数和 XRequest 工具类",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "hejiayue520zzy@gmail.com",
+          "date": "2025-03-30",
+          "tags": [
+            "vue-element-plus-x@1.0.7",
+            "v1.0.7"
+          ]
+        },
+        {
+          "hash": "ec015808c06552702e871ba5e73188ee13bc6e13",
+          "shortHash": "ec01580",
+          "type": "fix",
+          "scope": "",
+          "subject": "修改xrequest的send方法",
+          "breaking": false,
+          "issues": [],
+          "author": "Json_Lee",
+          "authorEmail": "2622336659@qq.com",
+          "date": "2025-03-30",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "version": "1.0.4",
+      "date": "2025-03-23",
+      "commits": [
+        {
+          "hash": "56f7cafd4a1d8122f7f9b8f0a563ac049bb84412",
+          "shortHash": "56f7caf",
+          "type": "docs",
+          "scope": "",
+          "subject": "更新readme 新增英文 readme",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "hejiayue520zzy@gmail.com",
+          "date": "2025-03-23",
+          "tags": [
+            "vue-element-plus-x@1.0.6",
+            "v1.0.6"
+          ]
+        },
+        {
+          "hash": "8faa19e59cfd160f224696bba772be283bd3b2ca",
+          "shortHash": "8faa19e",
+          "type": "feature",
+          "scope": "",
+          "subject": "add v1.0.5",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "hejiayue520zzy@gmail.com",
+          "date": "2025-03-23",
+          "tags": [
+            "vue-element-plus-x@1.0.5",
+            "v1.0.5"
+          ]
+        },
+        {
+          "hash": "0fd999c83a6e5683a614a2d088a8a7686b919ff2",
+          "shortHash": "0fd999c",
+          "type": "docs",
+          "scope": "",
+          "subject": "tagv1.0.4",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "hejiayue520zzy@gmail.com",
+          "date": "2025-03-23",
+          "tags": [
+            "v1.0.4"
+          ]
+        },
+        {
+          "hash": "c7f36aace16c056d62b700ad9cc3e953820f3714",
+          "shortHash": "c7f36aa",
+          "type": "fix",
+          "scope": "",
+          "subject": "修复发包内容丢失",
+          "breaking": false,
+          "issues": [],
+          "author": "Json_Lee",
+          "authorEmail": "2622336659@qq.com",
+          "date": "2025-03-22",
+          "tags": [
+            "vue-element-plus-x@1.0.3",
+            "v1.0.3"
+          ]
+        },
+        {
+          "hash": "63338e6998b50a91ce13ae77ca318becaa4c01ec",
+          "shortHash": "63338e6",
+          "type": "fix",
+          "scope": "",
+          "subject": "修复bubbleList范型bug",
+          "breaking": false,
+          "issues": [],
+          "author": "Json_Lee",
+          "authorEmail": "2622336659@qq.com",
+          "date": "2025-03-22",
+          "tags": [
+            "v1.0.2"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "1.0.2",
+      "date": "2025-03-22",
+      "commits": [
+        {
+          "hash": "a1ae043249889fb24da68ae161232b1e874c1f56",
+          "shortHash": "a1ae043",
+          "type": "fix",
+          "scope": "",
+          "subject": "新版本",
+          "breaking": false,
+          "issues": [],
+          "author": "Json_Lee",
+          "authorEmail": "2622336659@qq.com",
+          "date": "2025-03-09",
+          "tags": [
+            "vue-element-plus-x@0.0.9",
+            "v0.0.9"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.0.8",
+      "date": "2025-03-08",
+      "commits": [
+        {
+          "hash": "71d687759220432fd5270f36804a2f34861ca4bf",
+          "shortHash": "71d6877",
+          "type": "fix",
+          "scope": "",
+          "subject": "修改文档在线地址，修改演示地址",
+          "breaking": false,
+          "issues": [],
+          "author": "何嘉悦",
+          "authorEmail": "hejiayue520zzy@gmail.com",
+          "date": "2025-03-08",
+          "tags": [
+            "v0.0.8"
+          ]
+        },
+        {
+          "hash": "225251aa1ae52f94730b54463b169ca5611ba1b4",
+          "shortHash": "225251a",
+          "type": "fix",
+          "scope": "",
+          "subject": "移除npm中的map文件",
+          "breaking": false,
+          "issues": [],
+          "author": "Json_Lee",
+          "authorEmail": "2622336659@qq.com",
+          "date": "2025-03-08",
+          "tags": [
+            "vue-element-plus-x@0.0.6"
+          ]
+        },
+        {
+          "hash": "327b8682e861f9e6fdb459fb33c07dc519c291ba",
+          "shortHash": "327b868",
+          "type": "fix",
+          "scope": "",
+          "subject": "修改ci",
+          "breaking": false,
+          "issues": [],
+          "author": "Json_Lee",
+          "authorEmail": "2622336659@qq.com",
+          "date": "2025-03-08",
+          "tags": [
+            "v0.0.5"
+          ]
+        },
+        {
+          "hash": "427c113dd3e60f4736db8c92489de9e11229ed3e",
+          "shortHash": "427c113",
+          "type": "fix",
+          "scope": "",
+          "subject": "修复ci",
+          "breaking": false,
+          "issues": [],
+          "author": "Json_Lee",
+          "authorEmail": "2622336659@qq.com",
+          "date": "2025-03-08",
+          "tags": [
+            "v0.0.3"
+          ]
+        }
+      ]
+    }
+  ],
+  "allCommits": [
+    {
+      "hash": "0621d9afc52ac5f4ec5bc288665df7fb08b8ec8a",
+      "shortHash": "0621d9a",
+      "type": "feature",
+      "scope": "",
+      "subject": "文档架构重构与组件样式修正",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2026-02-28",
+      "tags": []
+    },
+    {
+      "hash": "592680981fa5b0d29d48f384ac29a7b96587e49b",
+      "shortHash": "5926809",
+      "type": "feature",
+      "scope": "",
+      "subject": "修改2.0.0版本号，新增版本域名下拉框和组件菜单左侧目录徽标",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2026-02-25",
+      "tags": [
+        "2.0.0-beta.0"
+      ]
+    },
+    {
+      "hash": "588acb8c97c3d644f01fd0852e8dd529f22c440e",
+      "shortHash": "588acb8",
+      "type": "chore",
+      "scope": "",
+      "subject": "[feat](XSender)：配置属性说明文档",
+      "breaking": false,
+      "issues": [],
+      "author": "jianfv",
+      "authorEmail": "1596170432@qq.com",
+      "date": "2026-01-24",
+      "tags": [
+        "v1.3.98-backup"
+      ]
+    },
+    {
+      "hash": "ac84d0820afe2ccbc2ce515750bca0a61bb82fb9",
+      "shortHash": "ac84d08",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求,尝试解决发包报错问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "vue-element-plus-x@1.3.98",
+        "v1.3.98"
+      ]
+    },
+    {
+      "hash": "0d1750efe2f4c78d5de0ba37a2b89b828ee2e7d0",
+      "shortHash": "0d1750e",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求,尝试解决发包报错问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.97"
+      ]
+    },
+    {
+      "hash": "a478c9699b89ec2064fd08e1e6f99f2e20debcc4",
+      "shortHash": "a478c96",
+      "type": "fix",
+      "scope": "",
+      "subject": "修复 GitHub Actions 中的 changeset action 参数错误",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.96"
+      ]
+    },
+    {
+      "hash": "b22372e78d1870577b275ec48730a03bc20569ed",
+      "shortHash": "b22372e",
+      "type": "fix",
+      "scope": "",
+      "subject": "修复 changeset 配置中的包名错误",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.95"
+      ]
+    },
+    {
+      "hash": "1ccd7741ef2d01d8c8cacbb344e4e04b5f028b29",
+      "shortHash": "1ccd774",
+      "type": "fix",
+      "scope": "",
+      "subject": "修复 changeset 配置中的包依赖问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.94"
+      ]
+    },
+    {
+      "hash": "26a038b96652d226346440f63d34c1964a5743b1",
+      "shortHash": "26a038b",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求,尝试解决发包报错问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.93"
+      ]
+    },
+    {
+      "hash": "3e8aeff7bded7784f9d6f992d242b90e44b8b1ec",
+      "shortHash": "3e8aeff",
+      "type": "fix",
+      "scope": "",
+      "subject": "修复 GitHub Actions 中 Vue 3 Composition API 类型识别问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.92"
+      ]
+    },
+    {
+      "hash": "db5e6622dd86c7a9043e8f062d58d1804c6bc917",
+      "shortHash": "db5e662",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求,尝试解决发包报错问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.91"
+      ]
+    },
+    {
+      "hash": "5b6832386540ecf1a8a4691c44b828f520bb8b46",
+      "shortHash": "5b68323",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求,尝试解决发包报错问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.9"
+      ]
+    },
+    {
+      "hash": "ff5623beedb51793a56116f54c7292dc400f5385",
+      "shortHash": "ff5623b",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求,尝试解决发包报错问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.89"
+      ]
+    },
+    {
+      "hash": "fe17afeca07bee70d7a6dcfc204d11562954b2bb",
+      "shortHash": "fe17afe",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求,尝试解决发包报错问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.88"
+      ]
+    },
+    {
+      "hash": "4bbbaa6da8d4ec2e4ede1399263049e001af85c2",
+      "shortHash": "4bbbaa6",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.87"
+      ]
+    },
+    {
+      "hash": "fb13429142f83026b2cf0144420ab16e57a75a17",
+      "shortHash": "fb13429",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.86",
+        "v1.3.85"
+      ]
+    },
+    {
+      "hash": "a87b6963b836b61fcbba193a8fc3d10ba5865c2f",
+      "shortHash": "a87b696",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.84"
+      ]
+    },
+    {
+      "hash": "7ffb0d0eb62c5e01f3bfb86b51cb3ac4c85ad66b",
+      "shortHash": "7ffb0d0",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.83"
+      ]
+    },
+    {
+      "hash": "abcdeb045421b7a7fa343779149b29b1e4ebad66",
+      "shortHash": "abcdeb0",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.82"
+      ]
+    },
+    {
+      "hash": "ca43e558bbe855259f90a80f74f2dd1f33ef636b",
+      "shortHash": "ca43e55",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.81"
+      ]
+    },
+    {
+      "hash": "5ab8ced38ab09e3c48256f110d074f4dff94ac5a",
+      "shortHash": "5ab8ced",
+      "type": "feature",
+      "scope": "",
+      "subject": "合并部分pr请求",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-12-14",
+      "tags": [
+        "v1.3.8"
+      ]
+    },
+    {
+      "hash": "0e36c6429dbc14b87dc5b3887b78aaa1e01c280f",
+      "shortHash": "0e36c64",
+      "type": "fix",
+      "scope": "",
+      "subject": "修改ci",
+      "breaking": false,
+      "issues": [],
+      "author": "Json_Lee",
+      "authorEmail": "2622336659@qq.com",
+      "date": "2025-12-04",
+      "tags": [
+        "v1.3.6.beta.1"
+      ]
+    },
+    {
+      "hash": "77c57f5cf5b7e0a69adfce2cacf3c5c3a6caf50d",
+      "shortHash": "77c57f5",
+      "type": "docs",
+      "scope": "",
+      "subject": "更新文档，解决官网构建报错问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-08-04",
+      "tags": []
+    },
+    {
+      "hash": "11026d9bca4211f877c44c7d6233459fa764675a",
+      "shortHash": "11026d9",
+      "type": "docs",
+      "scope": "",
+      "subject": "v1.2.0 上新",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "hejiayue520zzy@gmail.com",
+      "date": "2025-05-06",
+      "tags": [
+        "vue-element-plus-x@1.2.0",
+        "v1.2.0"
+      ]
+    },
+    {
+      "hash": "89d6412dac441d4eef416baea12e1461a91a4dc3",
+      "shortHash": "89d6412",
+      "type": "fix",
+      "scope": "",
+      "subject": "文档更新，修复已知bug, v1.1.6 版本更新",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-04-16",
+      "tags": [
+        "vue-element-plus-x@1.1.6",
+        "v1.1.6"
+      ]
+    },
+    {
+      "hash": "55dbe0b34aabe7fc0aa22f63d19b267fc4b51c9d",
+      "shortHash": "55dbe0b",
+      "type": "docs",
+      "scope": "",
+      "subject": "v1.1.4上新",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "hejiayue520zzy@gmail.com",
+      "date": "2025-04-14",
+      "tags": [
+        "vue-element-plus-x@1.1.4",
+        "v1.1.4"
+      ]
+    },
+    {
+      "hash": "da1fb1643f43e45fa69f253e17d76714ff5b585a",
+      "shortHash": "da1fb16",
+      "type": "fix",
+      "scope": "",
+      "subject": "修复 Thinking scss 1.1.3",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "2834007710@qq.com",
+      "date": "2025-04-08",
+      "tags": [
+        "vue-element-plus-x@1.1.3",
+        "v1.1.3"
+      ]
+    },
+    {
+      "hash": "871e4a6867e465f55cc538c5b39ac17d2b074556",
+      "shortHash": "871e4a6",
+      "type": "fix",
+      "scope": "",
+      "subject": "修复 Thinking scss 问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "hejiayue520zzy@gmail.com",
+      "date": "2025-04-07",
+      "tags": [
+        "vue-element-plus-x@1.1.2",
+        "v1.1.2"
+      ]
+    },
+    {
+      "hash": "3bdd21b17557787acdf50df25513d97c71a88011",
+      "shortHash": "3bdd21b",
+      "type": "docs",
+      "scope": "",
+      "subject": "v1.1.1上线",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "hejiayue520zzy@gmail.com",
+      "date": "2025-04-06",
+      "tags": [
+        "vue-element-plus-x@1.1.1",
+        "v1.1.1"
+      ]
+    },
+    {
+      "hash": "4b6f387b798a7160466cf819d6924c6fbfbac7c8",
+      "shortHash": "4b6f387",
+      "type": "fix",
+      "scope": "",
+      "subject": "上新 v1.1.0",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "hejiayue520zzy@gmail.com",
+      "date": "2025-04-06",
+      "tags": [
+        "vue-element-plus-x@1.1.0",
+        "v1.1.0"
+      ]
+    },
+    {
+      "hash": "472adcd03c0c4ccea29b1a2831fec72fc57f93cd",
+      "shortHash": "472adcd",
+      "type": "docs",
+      "scope": "",
+      "subject": "修改包版本，解决 npm 发包地址 交流群二维码不正确问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "hejiayue520zzy@gmail.com",
+      "date": "2025-03-30",
+      "tags": [
+        "vue-element-plus-x@1.0.81",
+        "v1.0.81"
+      ]
+    },
+    {
+      "hash": "afc221add3413ef3f6c2fd8affcfddfc7e5f19e8",
+      "shortHash": "afc221a",
+      "type": "docs",
+      "scope": "",
+      "subject": "重新打包覆盖 1.0.7 版本 交流群二维码不更新问题",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "hejiayue520zzy@gmail.com",
+      "date": "2025-03-30",
+      "tags": [
+        "vue-element-plus-x@1.0.8",
+        "v1.0.8"
+      ]
+    },
+    {
+      "hash": "2f793fe1e40894a31f9ed0c2555ea9cc6e3e09a9",
+      "shortHash": "2f793fe",
+      "type": "feature",
+      "scope": "",
+      "subject": "新增 useRecord useSend useXStream 钩子函数和 XRequest 工具类",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "hejiayue520zzy@gmail.com",
+      "date": "2025-03-30",
+      "tags": [
+        "vue-element-plus-x@1.0.7",
+        "v1.0.7"
+      ]
+    },
+    {
+      "hash": "ec015808c06552702e871ba5e73188ee13bc6e13",
+      "shortHash": "ec01580",
+      "type": "fix",
+      "scope": "",
+      "subject": "修改xrequest的send方法",
+      "breaking": false,
+      "issues": [],
+      "author": "Json_Lee",
+      "authorEmail": "2622336659@qq.com",
+      "date": "2025-03-30",
+      "tags": []
+    },
+    {
+      "hash": "56f7cafd4a1d8122f7f9b8f0a563ac049bb84412",
+      "shortHash": "56f7caf",
+      "type": "docs",
+      "scope": "",
+      "subject": "更新readme 新增英文 readme",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "hejiayue520zzy@gmail.com",
+      "date": "2025-03-23",
+      "tags": [
+        "vue-element-plus-x@1.0.6",
+        "v1.0.6"
+      ]
+    },
+    {
+      "hash": "8faa19e59cfd160f224696bba772be283bd3b2ca",
+      "shortHash": "8faa19e",
+      "type": "feature",
+      "scope": "",
+      "subject": "add v1.0.5",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "hejiayue520zzy@gmail.com",
+      "date": "2025-03-23",
+      "tags": [
+        "vue-element-plus-x@1.0.5",
+        "v1.0.5"
+      ]
+    },
+    {
+      "hash": "0fd999c83a6e5683a614a2d088a8a7686b919ff2",
+      "shortHash": "0fd999c",
+      "type": "docs",
+      "scope": "",
+      "subject": "tagv1.0.4",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "hejiayue520zzy@gmail.com",
+      "date": "2025-03-23",
+      "tags": [
+        "v1.0.4"
+      ]
+    },
+    {
+      "hash": "c7f36aace16c056d62b700ad9cc3e953820f3714",
+      "shortHash": "c7f36aa",
+      "type": "fix",
+      "scope": "",
+      "subject": "修复发包内容丢失",
+      "breaking": false,
+      "issues": [],
+      "author": "Json_Lee",
+      "authorEmail": "2622336659@qq.com",
+      "date": "2025-03-22",
+      "tags": [
+        "vue-element-plus-x@1.0.3",
+        "v1.0.3"
+      ]
+    },
+    {
+      "hash": "63338e6998b50a91ce13ae77ca318becaa4c01ec",
+      "shortHash": "63338e6",
+      "type": "fix",
+      "scope": "",
+      "subject": "修复bubbleList范型bug",
+      "breaking": false,
+      "issues": [],
+      "author": "Json_Lee",
+      "authorEmail": "2622336659@qq.com",
+      "date": "2025-03-22",
+      "tags": [
+        "v1.0.2"
+      ]
+    },
+    {
+      "hash": "a1ae043249889fb24da68ae161232b1e874c1f56",
+      "shortHash": "a1ae043",
+      "type": "fix",
+      "scope": "",
+      "subject": "新版本",
+      "breaking": false,
+      "issues": [],
+      "author": "Json_Lee",
+      "authorEmail": "2622336659@qq.com",
+      "date": "2025-03-09",
+      "tags": [
+        "vue-element-plus-x@0.0.9",
+        "v0.0.9"
+      ]
+    },
+    {
+      "hash": "71d687759220432fd5270f36804a2f34861ca4bf",
+      "shortHash": "71d6877",
+      "type": "fix",
+      "scope": "",
+      "subject": "修改文档在线地址，修改演示地址",
+      "breaking": false,
+      "issues": [],
+      "author": "何嘉悦",
+      "authorEmail": "hejiayue520zzy@gmail.com",
+      "date": "2025-03-08",
+      "tags": [
+        "v0.0.8"
+      ]
+    },
+    {
+      "hash": "225251aa1ae52f94730b54463b169ca5611ba1b4",
+      "shortHash": "225251a",
+      "type": "fix",
+      "scope": "",
+      "subject": "移除npm中的map文件",
+      "breaking": false,
+      "issues": [],
+      "author": "Json_Lee",
+      "authorEmail": "2622336659@qq.com",
+      "date": "2025-03-08",
+      "tags": [
+        "vue-element-plus-x@0.0.6"
+      ]
+    },
+    {
+      "hash": "327b8682e861f9e6fdb459fb33c07dc519c291ba",
+      "shortHash": "327b868",
+      "type": "fix",
+      "scope": "",
+      "subject": "修改ci",
+      "breaking": false,
+      "issues": [],
+      "author": "Json_Lee",
+      "authorEmail": "2622336659@qq.com",
+      "date": "2025-03-08",
+      "tags": [
+        "v0.0.5"
+      ]
+    },
+    {
+      "hash": "427c113dd3e60f4736db8c92489de9e11229ed3e",
+      "shortHash": "427c113",
+      "type": "fix",
+      "scope": "",
+      "subject": "修复ci",
+      "breaking": false,
+      "issues": [],
+      "author": "Json_Lee",
+      "authorEmail": "2622336659@qq.com",
+      "date": "2025-03-08",
+      "tags": [
+        "v0.0.3"
+      ]
+    }
+  ]
+}

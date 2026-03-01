@@ -7,7 +7,8 @@
     "dev": "vitepress dev --port 5174",
     "build": "vitepress build",
     "preview": "vitepress preview",
-    "scan:badges": "esno scripts/scan-component-changes.ts"
+    "scan:badges": "esno scripts/scan-component-changes.ts",
+    "check-types": "tsc --noEmit -p tsconfig.node.json"
   },
   "dependencies": {
     "x-markdown-vue": "^0.0.1-beta.108",

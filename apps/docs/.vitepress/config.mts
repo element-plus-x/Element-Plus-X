@@ -92,9 +92,22 @@ export default defineConfig({
               replacement: fileURLToPath(
                 new URL('../../../packages/core/src/styles/index.scss', import.meta.url)
               )
+            },
+            {
+              find: '@configs',
+              replacement: fileURLToPath(
+                new URL('../../../configs', import.meta.url)
+              )
             }
           ]
-        : [],
+        : [
+            {
+              find: '@configs',
+              replacement: fileURLToPath(
+                new URL('../../../configs', import.meta.url)
+              )
+            }
+          ],
     },
     plugins: [
       // 配置vitepress的插件
@@ -119,6 +132,7 @@ export default defineConfig({
       }) as unknown as Plugin,
       Components({
         dts: fileURLToPath(new URL('../components.d.ts', import.meta.url)),
+        dirs: [fileURLToPath(new URL('./components', import.meta.url))],
         resolvers: [tovUIResolver(), ElementPlusResolver({ importStyle: false })]
       }) as unknown as Plugin,
       groupIconVitePlugin() as Plugin,

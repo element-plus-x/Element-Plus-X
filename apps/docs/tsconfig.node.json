@@ -5,7 +5,18 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@configs/*": ["../../configs/*"]
+    }
   },
-  "include": ["vite.config.mts", "scripts/**/*.ts"]
+  "include": [
+    "vite.config.mts",
+    "scripts/**/*.ts",
+    ".vitepress/config/**/*.ts",
+    "../../configs/**/*.ts"
+  ]
 }

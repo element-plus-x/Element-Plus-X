@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import { Edit, ElementPlus } from '@element-plus/icons-vue';
+import { Edit, ElementPlus, Timer } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 import { useData } from 'vitepress';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { componentImports, componentTitles } from '../config/component-config';
+import ChangelogDrawer from './ChangelogDrawer.vue';
 
 const { frontmatter, lang, page, isDark } = useData();
+const changelogVisible = ref(false);
 const name = computed(() => {
   return frontmatter.value.title;
 });
@@ -157,14 +159,24 @@ async function copyWithFeedback(text: string) {
       </div>
       <div class="component-doc-site">
         <span class="title">文档</span>
-        <a :href="docEditLink" target="_blank" class="edit-link common">
-          <el-icon>
-            <Edit />
-          </el-icon>
-          <span>{{ lang === 'zh-CN' ? '编辑此页' : 'Edit this page' }}</span>
-        </a>
+        <div class="doc-actions">
+          <a :href="docEditLink" target="_blank" class="edit-link common">
+            <el-icon>
+              <Edit />
+            </el-icon>
+            <span>{{ lang === 'zh-CN' ? '编辑此页' : 'Edit this page' }}</span>
+          </a>
+          <span class="divider" />
+          <span class="changelog-link common" @click="changelogVisible = true">
+            <el-icon>
+              <Timer />
+            </el-icon>
+            <span>{{ lang === 'zh-CN' ? '更新日志' : 'Changelog' }}</span>
+          </span>
+        </div>
       </div>
     </el-space>
+    <ChangelogDrawer v-model="changelogVisible" :component-name="name" />
   </div>
 </template>
 
@@ -231,13 +243,30 @@ async function copyWithFeedback(text: string) {
   font-size: 14px;
   display: flex;
   gap: 24px;
-  .edit-link {
+
+  .doc-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .edit-link,
+  .changelog-link {
     display: flex;
     align-items: center;
     gap: 4px;
   }
-  .edit-link:hover {
+
+  .edit-link:hover,
+  .changelog-link:hover {
     text-decoration: underline;
+  }
+
+  .divider {
+    width: 1px;
+    height: 12px;
+    background-color: var(--el-border-color);
+    margin: 0 4px;
   }
 }
 </style>

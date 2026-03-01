@@ -1,0 +1,68 @@
+name: ✨ 功能请求
+description: 提出一个新功能建议
+labels: [feature]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 问题描述
+      description: 这个功能解决了什么问题？请描述你遇到的不便
+      placeholder: 我希望能够...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: 期望的解决方案
+      description: 你希望如何实现这个功能
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 备选方案
+      description: 你考虑过的其他解决方案
+    validations:
+      required: false
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: 相关组件
+      description: 这个功能请求与哪个组件相关？
+      options:
+        - Core (核心)
+        - Bubble
+        - BubbleList
+        - Conversation
+        - Dialog
+        - File
+        - Message
+        - Sender
+        - Suggestion
+        - Welcome
+        - 其他
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 优先级
+      options:
+        - 低
+        - 中
+        - 高
+      default: 1
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 补充信息
+      description: 其他你认为有帮助的信息
+    validations:
+      required: false

@@ -1,0 +1,70 @@
+name: 🐛 Bug 报告
+description: 报告一个 bug 帮助我们改进
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 清晰描述你遇到的问题
+      placeholder: 请描述你遇到的 bug...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤
+      description: 如何复现这个问题
+      placeholder: |
+        1. 打开 '...'
+        2. 点击 '...'
+        3. 滚动到 '...'
+        4. 看到错误
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为
+      description: 你期望发生什么
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际行为
+      description: 实际发生了什么
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 组件库版本
+      placeholder: 'vue-element-plus-x@1.0.0'
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境信息
+      description: 请提供你的运行环境信息
+      placeholder: |
+        - OS: [e.g. Windows 11]
+        - Browser: [e.g. Chrome 120]
+        - Vue version: [e.g. 3.4.0]
+        - Element Plus version: [e.g. 2.5.0]
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 截图或演示
+      description: 如果有截图或 GIF 演示，请附上
+    validations:
+      required: false

@@ -5,6 +5,7 @@ import Theme from 'vitepress/theme';
 import { defineComponent, h, onMounted } from 'vue';
 import { ConfigProvider } from 'vue-element-plus-x';
 import DocHeader from '../components/DocHeader.vue';
+import FullChangelog from '../components/FullChangelog.vue';
 import PageContributors from '../components/PageContributors.vue';
 import SponsorBanner from '../components/SponsorBanner.vue';
 import { componentBadges } from '../config/component-config';
@@ -82,5 +83,6 @@ export default {
   },
   enhanceApp({ app }: { app: App }) {
     app.component('demo', AntdTheme);
+    app.component('FullChangelog', FullChangelog);
   }
 };

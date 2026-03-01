@@ -1,129 +1,970 @@
 {
-  "Welcome": [
+  "ConfigProvider": [
     {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
+      "version": "2.0.0",
+      "date": "2026-02-20",
       "changes": [
-        "新增 Welcome 欢迎组件"
+        {
+          "type": "docs",
+          "content": "新增《主题配置》指南（以 VitePress 为主）",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "文档补充主题变量前缀说明，并在侧边栏增加入口",
+          "emoji": "📚"
+        },
+        {
+          "type": "style",
+          "content": "完善 `ConfigProvider` 主题能力：支持 `light/dark` 切换，并与 VitePress 深色模式联动",
+          "emoji": "💄"
+        },
+        {
+          "type": "style",
+          "content": "支持通过 `themeOverrides` 覆盖 `--elx-*` 主题变量（全局应用到 `html`）",
+          "emoji": "💄"
+        }
       ]
     }
   ],
-  "Attachments": [
+  "Typewriter": [
     {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
+      "version": "2.0.0",
+      "date": "2026-02-20",
       "changes": [
-        "新增 Attachments 附件上传组件"
+        {
+          "type": "breaking",
+          "content": "打字器组件已从组件库中移除，迁移至独立的 Markdown 渲染库 [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)",
+          "emoji": "💥"
+        }
+      ]
+    },
+    {
+      "version": "1.3.0",
+      "date": "2025-07-15",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 **`Typewriter`** 打字组件，完成事件不生效问题",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "打字器组件的 **markdown-it** ，新增了 **`prismjs`** 高亮代码块样式文件，开发者可以自行引入\n**`Typewriter`** 打字器组件的 **markdown-it** ，新增了 **`Mermaid.js`** 用来支持简单的 **图表** 和 **函数** 的渲染\n**`Typewriter`** 打字器组件的 **markdown-it** ，开放了第三方 mdPlugins 插件的接收处理，和第三方代码高亮 highlight 逻辑处理，详情可移步👉 [Typewriter文档](https://element-plus-x.com/zh/components/typewriter/)",
+          "emoji": "🚀"
+        },
+        {
+          "type": "fix",
+          "content": "修复 **`Typewriter`** 打字组件，md 代码高亮输出时候，超出最大宽度的样式问题。",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "打字器组件，新增 **雾化效果**。**`Bubble`** 气泡组件、**`BubbleList`** 气泡列表组件，在不自定义内容插槽的时候，自动继承，支持雾化效果属性。",
+          "emoji": "🚀"
+        }
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 `Typewriter` 打字器组件在 流模式接口输出下，卡顿的问题。",
+          "emoji": "🐛"
+        }
+      ]
+    }
+  ],
+  "XMarkdown": [
+    {
+      "version": "2.0.0",
+      "date": "2026-02-20",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "XMarkdown 组件已从组件库中移除，迁移至独立的 NPM 包 [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)\n- 📦 **新包地址**：[x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue)\n- 📂 **GitHub**：[element-plus-x/x-markdown](https://github.com/element-plus-x/x-markdown)\n- API 完全兼容，只需替换包名即可",
+          "emoji": "💥"
+        }
+      ]
+    },
+    {
+      "version": "1.3.0",
+      "date": "2025-07-15",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "渲染组件强势来袭 ，用于渲染内置样式和自定义组件的 `markdown 组件`。增量更新+自定义渲染 双加持",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "MentionSender": [
+    {
+      "version": "2.0.0",
+      "date": "2026-02-20",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "Sender 和 MentionSender 组件已从组件库中移除，请使用 `XSender` 组件替代",
+          "emoji": "💥"
+        }
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "上新 **`MentionSender`** 组件，这是 **`Sender`** 组件另一种**指令**的方式",
+          "emoji": "🚀"
+        }
       ]
     }
   ],
   "Bubble": [
     {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
+      "version": "2.0.0",
+      "date": "2026-02-20",
       "changes": [
-        "新增 Bubble 对话气泡组件",
-        "新增 BubbleList 气泡列表组件"
+        {
+          "type": "breaking",
+          "content": "`Bubble` 气泡组件变更\n- 移除 `typing` 属性\n- 移除 `isMarkdown` 属性\n- 移除 `isFog` 属性\n- 移除 `@start`、`@writing`、`@finish` 事件",
+          "emoji": "💥"
+        }
+      ]
+    },
+    {
+      "version": "1.0.4",
+      "date": "2025-03-23",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复bubbleList范型bug",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "63338e6",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "0.9.x",
+      "date": "2025-03-20",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "组件：\n- 弃用 `typing.speed` 属性值，改用 `typing.step`（与 ant-design-x 对齐）",
+          "emoji": "💥"
+        }
+      ]
+    },
+    {
+      "version": "0.9.x-2025-03-14",
+      "date": "2025-03-14",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "组件：\n- 弃用 `typing.step` 属性值，改用 `typing.speed` 控制打字速度",
+          "emoji": "💥"
+        },
+        {
+          "type": "feature",
+          "content": "`Bubble` 组件\n- 新增 `avatar-size` 和 `avatar-gap` 属性，控制无头像时的气泡样式",
+          "emoji": "🚀"
+        }
       ]
     }
   ],
   "BubbleList": [
     {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
+      "version": "2.0.0",
+      "date": "2026-02-20",
       "changes": [
-        "新增 BubbleList 气泡列表组件"
+        {
+          "type": "breaking",
+          "content": "`BubbleList` 气泡列表组件变更\n- 移除 `triggerIndices` 属性\n- `@complete` 事件参数变更：不再提供 `TypewriterInstance` 参数",
+          "emoji": "💥"
+        }
       ]
-    }
-  ],
-  "Conversations": [
+    },
     {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
+      "version": "1.2.0",
+      "date": "2025-05-05",
       "changes": [
-        "新增 Conversations 会话管理组件"
+        {
+          "type": "fix",
+          "content": "修复 **`BubbleList`** 气泡列表组件，清空数组后，再次新增气泡，失去自动滚动的问题。",
+          "emoji": "🐛"
+        }
       ]
-    }
-  ],
-  "FilesCard": [
+    },
     {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
+      "version": "1.1.6",
+      "date": "2025-04-16",
       "changes": [
-        "新增 FilesCard 文件卡片组件"
+        {
+          "type": "feature",
+          "content": "组件新增 **回到底部按钮**，同时新增 悬停内容区域出现滚动条。增强交互体验",
+          "emoji": "🚀"
+        }
       ]
-    }
-  ],
-  "Prompts": [
+    },
     {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
+      "version": "1.1.1",
+      "date": "2025-04-06",
       "changes": [
-        "新增 Prompts 提示集组件"
+        {
+          "type": "fix",
+          "content": "修复 `BubbleList` 气泡列表组件，在流式接口输出下，自动滚动失效问题。并将 `BubbleList` 组件，和打字器组件解耦。",
+          "emoji": "🐛"
+        },
+        {
+          "type": "fix",
+          "content": "修复 `BubbleList` 气泡列表组件，`maxWidth` 失效问题。",
+          "emoji": "🐛",
+          "issues": [
+            "46"
+          ]
+        }
       ]
-    }
-  ],
-  "Thinking": [
+    },
     {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
+      "version": "0.9.x",
+      "date": "2025-03-20",
       "changes": [
-        "新增 Thinking 思考中组件"
+        {
+          "type": "feature",
+          "content": "`BubbleList` 组件\n- 新增 `trigger-indices` 属性，用于监听指定气泡的 `@complete` 完成回调",
+          "emoji": "🚀"
+        }
       ]
     }
   ],
   "ThoughtChain": [
     {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
+      "version": "2.0.0",
+      "date": "2026-02-20",
       "changes": [
-        "新增 ThoughtChain 思维链组件"
+        {
+          "type": "breaking",
+          "content": "`ThoughtChain` 思维链组件变更\n- 移除 `typing` 属性\n- 移除 `isMarkdown` 属性",
+          "emoji": "💥"
+        }
+      ]
+    }
+  ],
+  "Docs": [
+    {
+      "version": "1.3.0",
+      "date": "2025-07-15",
+      "changes": [
+        {
+          "type": "refactor",
+          "content": "移出 `playground` 文件，新增 `storybook` 实时预览的模式做展示",
+          "emoji": "♻️"
+        },
+        {
+          "type": "docs",
+          "content": "开发文档更新。",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "修改在线预览为 `storybook` 项目",
+          "emoji": "📚"
+        }
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "更新 **`指南文档`** 中的 **[开发文档](https://element-plus-x.com/guide/develop.html)** ，修复文档介绍错误问题",
+          "emoji": "📚"
+        }
+      ]
+    },
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "更新 **`指南文档`** 中的 **[开发文档](https://element-plus-x.com/guide/develop.html)** ，着重修改 **开发命令**、**贡献代码**、**本地调试** 全流程介绍。 规范 `开发` 和 `pr` 提交",
+          "emoji": "📚"
+        }
+      ]
+    },
+    {
+      "version": "1.0.6",
+      "date": "2025-03-23",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "完善中/英文文档内容",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "新增文档更新日志模块",
+          "emoji": "📚"
+        }
+      ]
+    }
+  ],
+  "Types": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "**TS类型引入 写法变更** ，升级后请修改原来的类型写法\n以前的写法：太长了\n```vue\nimport { BubbleProps } from\n'vue-element-plus-x/types/components/Bubble/types.d.ts'\n```\nv1.2.0 以后写法：简洁一些\n```vue\nimport { BubbleProps } from 'vue-element-plus-x/types/Bubble'\n```",
+          "emoji": "💥"
+        }
+      ]
+    }
+  ],
+  "AutoImport": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "自动引入冲突问题，如果你的项目中使用了 **unplugin-auto-import/vite** 自动引入了 **vue** 和 **ElementPlus** ，可能会在控制台看到这个报错![image-20250505212717436](/public/image-20250505212717436.png)![image-20250505213158083](/public/image-20250505213158083.png)\n```tex\nh 函数的问题是 由于组件库内置 Mermaid.js 美人鱼Js 处理基础的图表和函数，但是 Mermaid.js 内置一个渲染 h 方法，和 vue 中的 h 函数冲突导致的。\nElButtonGroup 报错是由于 unplugin-vue-components/resolvers 这个包的 ElementPlusResolver 会回到主重复引入的问题。\n```\n**解决方案：修改项目 vite 配置**\n```ts\n// vite.config.ts\n// plugin 部分\nplugins: [\nAutoImport({\nimports: ['vue'],\nignore: ['h'], // 忽略自动导入 h\nresolvers: [\nElementPlusResolver({\nexclude: /ElButtonGroup/ // 忽略自动导入 ElButtonGroup\n})\n],\ndts: 'src/auto-import.d.ts'\n}),\nComponents({\nresolvers: [ElementPlusResolver()]\n})\n];\n```\n在项目后续的使用 h 函数中，手动引入。ElButtonGroup 暂时没有遇到有使用的地方，感觉是 unplugin-vue-components/resolvers 包没有更新对 ElButtonGroup 的处理导致的。在 elementplus 源码中都貌似没有看到有使用的地方。\n```vue\nimport { h } from 'vue'\n```\n💩因为是做的二次开发，所以发现问题后，暂时选择这么处理。如果有更好，更优雅的解决方案可以和我们联系，交流下处理方案。💩",
+          "emoji": "💥"
+        }
+      ]
+    }
+  ],
+  "Sender": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 **`Sender`** 、 **`MentionSender`** footer 插槽 点击后自动聚焦问题。",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "组件新增 **变体**、**底部**、**指令触发功能**。",
+          "emoji": "🚀"
+        },
+        {
+          "type": "refactor",
+          "content": "组件 优化在没有值的情况下的发送按钮的状态为禁用， 方法也会被禁用。\n但是这样就会有一个问题：有这么一个场景，当用户只是上传了一个文件，没有去在输入框中传值，此时的内置发送按钮也是禁用状态，且 @submit 事件也是禁用状态。所以我们决定针对这一情况，新增 `submit-btn-disabled` 属性，提供开发者主动控制。 在特殊场景下，开发者自定义内置发送按钮的禁用启用。(自定义 #action-list 时，此属性对 submit 事件同样生效。)",
+          "emoji": "♻️",
+          "author": "submit"
+        },
+        {
+          "type": "refactor",
+          "content": "组件 新增 `input-style` 属性，供开发者自定义内置的输入框样式。",
+          "emoji": "♻️"
+        }
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "输入框组件：双向绑定的写法变更。 由之前的 `v-model:value` 变更为 `v-model` 直接绑定",
+          "emoji": "💥"
+        },
+        {
+          "type": "fix",
+          "content": "修复 `Sender` 输入框组件在 `v-model` 双向绑定失效问题",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 `Sender` 输入框组件在 `loading` 状态下，依然可以触发 `` 方法的 bug",
+          "emoji": "🐛",
+          "issues": [
+            "22"
+          ],
+          "author": "submit"
+        },
+        {
+          "type": "fix",
+          "content": "修复 `Sender` 输入框组件在 `read-only` 状态下，依然可以触发值的修改 的 bug",
+          "emoji": "🐛"
+        },
+        {
+          "type": "refactor",
+          "content": "优化兼容性， `Sender` 输入框组件，由于使用 `defineModel` 语法，该语法仅在 **`Vue 3.4+`** 版本中可用，导致较多用户，因 Vue 版本问题，在控制台有报错，现已将此写法改用低版本写法。**(无缝替换，不用更改原写法)**",
+          "emoji": "♻️"
+        }
+      ]
+    },
+    {
+      "version": "0.9.x",
+      "date": "2025-03-20",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "`Sender` 组件\n- 新增 `@recording-change` 事件，监听内置录音按钮点击状态\n- 新增开始录音（`startRecording`）和结束录音（`stopRecording`）实例方法",
+          "emoji": "🚀"
+        },
+        {
+          "type": "fix",
+          "content": "修复 `Sender` 输入框组件 `autosize` 属性失效 bug",
+          "emoji": "🐛"
+        }
+      ]
+    }
+  ],
+  "Prompts": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "提示集组件，用于显示一组与当前上下文相关的预定义的问题或建议。",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Conversations": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "会话管理组件。支持分组展示、菜单交互、滚动加载、自定义样式等功能。适用于消息列表、文件管理、任务分组等场景，通过灵活的配置和插槽扩展，满足多样化的业务需求。",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "FilesCard": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "文件卡片组件，附支持多种文件类型（图片、文档、压缩包等）的可视化呈现，包含文件图标、名称、描述、状态等信息。",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Attachments": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "附件上传组件，附件管理组件，支持文件列表展示、上传、拖拽交互、滚动浏览等功能，适用于需要处理多文件上传和展示的场景（如表单附件、文件管理界面）。",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Thinking": [
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 **`Thinking`** 思考中组件展开 收起动画卡顿 bug。",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "1.1.3",
+      "date": "2025-04-08",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 Thinking scss 1.1.3",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "da1fb16",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.1.2",
+      "date": "2025-04-07",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 Thinking scss 问题",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "871e4a6",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 `Thinking` 思考中组件，和 `ThoughtChain` 思维链组件 ，用于在流式接口输出下，展示思考过程。、",
+          "emoji": "🚀",
+          "issues": [
+            "32",
+            "45"
+          ]
+        }
+      ]
+    }
+  ],
+  "Welcome": [
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 `Welcom` 欢迎组件，方便用户快速集成好看的欢迎介绍卡片",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Hooks": [
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 `useRecord` 钩子函数，解决用户在自定义 `Sender` 输入框的 `#action-list` 插槽时候，又同时想保留组件内置的 浏览器语音识别 API 方法。可以使用这个 hooks。",
+          "emoji": "🚀"
+        },
+        {
+          "type": "feature",
+          "content": "新增 两个 hooks 钩子函数 ，和一个 工具类。针对 sse 协议的流式请求 ， ` 数据 (渲染层)` + `请求 (控制层)` 进行状态的管理。方便 `Vue` 开发者，在使用流式接口时，方便对请求状态进行处理；方便对需要的数据进行渲染。\n| 钩子函数   | 使用                                                                                                                                                             | 特点             |\n| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |\n| useXStream | 单独使用：可自动获取流式数据；支持开始流式请求、中断流式请求；                                                                                                   | 偏封装，便捷使用 |\n| useSend    | 可单独使用：传入开始和结束方法，返回方法 loading 状态。<br />不支持返回数据，如需对数据和请求状态支持，需要和 **XRequest** 组合使用                              | 偏底层，灵活控制 |\n| XRequest   | 可单独使用：配置接口基础地址，使用 send 发送请求，实例上有很多这个请求的状态监听。<br />通过监听事件的回调对数据做处理。一般在项目中和 **useSend** 钩子 组合使用 | 偏底层，灵活控制 |",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Build": [
+    {
+      "version": "1.0.6",
+      "date": "2025-03-23",
+      "changes": [
+        {
+          "type": "refactor",
+          "content": "集成 ESLint 9.x 和 Oxlint，规范开发流程",
+          "emoji": "♻️"
+        },
+        {
+          "type": "refactor",
+          "content": "新增打包配置：自动根据组件文件名导出全量/按需组件",
+          "emoji": "♻️"
+        }
+      ]
+    }
+  ],
+  "Typography": [
+    {
+      "version": "0.9.x",
+      "date": "2025-03-20",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "组件：\n- 弃用 `speed` 属性，改用 `step` 属性（与 ant-design-x 对齐）\n- 弃用 `typedjs` 实现打字效果，流式输出失效，且每次流式输出会导致组件重新渲染",
+          "emoji": "💥"
+        },
+        {
+          "type": "feature",
+          "content": "`Typography`/`Bubble` 组件\n- 新增中断输出（`pause`）、继续打字（`resume`）和销毁（`destroy`）实例方法\n- 新增操作监听事件",
+          "emoji": "🚀"
+        },
+        {
+          "type": "fix",
+          "content": "修复 `Typography` 打字器组件渲染 bug",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "0.9.x-2025-03-14",
+      "date": "2025-03-14",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "组件：\n- 弃用 `step` 属性，改用 `speed` 属性控制打字速度",
+          "emoji": "💥"
+        },
+        {
+          "type": "fix",
+          "content": "修复 `Typography` 打字器组件渲染 bug",
+          "emoji": "🐛"
+        }
+      ]
+    }
+  ],
+  "Core": [
+    {
+      "version": "unreleased",
+      "date": "2026-02-28",
+      "changes": [
+        {
+          "type": "chore",
+          "content": "文档架构重构与组件样式修正",
+          "emoji": "🔧",
+          "author": "何嘉悦",
+          "hash": "0621d9a",
+          "source": "commit"
+        },
+        {
+          "type": "chore",
+          "content": "修改2.0.0版本号，新增版本域名下拉框和组件菜单左侧目录徽标",
+          "emoji": "🔧",
+          "author": "何嘉悦",
+          "hash": "5926809",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.3.8",
+      "date": "2025-12-14",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 GitHub Actions 中的 changeset action 参数错误",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "a478c96",
+          "source": "commit"
+        },
+        {
+          "type": "fix",
+          "content": "修复 changeset 配置中的包名错误",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "b22372e",
+          "source": "commit"
+        },
+        {
+          "type": "fix",
+          "content": "修复 changeset 配置中的包依赖问题",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "1ccd774",
+          "source": "commit"
+        },
+        {
+          "type": "fix",
+          "content": "修复 GitHub Actions 中 Vue 3 Composition API 类型识别问题",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "3e8aeff",
+          "source": "commit"
+        },
+        {
+          "type": "chore",
+          "content": "合并部分pr请求,尝试解决发包报错问题",
+          "emoji": "🔧",
+          "author": "何嘉悦",
+          "hash": "ac84d08",
+          "source": "commit"
+        },
+        {
+          "type": "chore",
+          "content": "合并部分pr请求",
+          "emoji": "🔧",
+          "author": "何嘉悦",
+          "hash": "4bbbaa6",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.3.6.beta.1",
+      "date": "2025-12-04",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修改ci",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "0e36c64",
+          "source": "commit"
+        },
+        {
+          "type": "docs",
+          "content": "更新文档，解决官网构建报错问题",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "77c57f5",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "date": "2025-05-06",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "v1.2.0 上新",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "11026d9",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "文档更新，修复已知bug, v1.1.6 版本更新",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "89d6412",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.1.4",
+      "date": "2025-04-14",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "v1.1.4上新",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "55dbe0b",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "上新 v1.1.0",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "4b6f387",
+          "source": "commit"
+        },
+        {
+          "type": "docs",
+          "content": "v1.1.1上线",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "3bdd21b",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.0.7",
+      "date": "2025-03-30",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "修改包版本，解决 npm 发包地址 交流群二维码不正确问题",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "472adcd",
+          "source": "commit"
+        },
+        {
+          "type": "docs",
+          "content": "重新打包覆盖 1.0.7 版本 交流群二维码不更新问题",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "afc221a",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.0.4",
+      "date": "2025-03-23",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复发包内容丢失",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "c7f36aa",
+          "source": "commit"
+        },
+        {
+          "type": "docs",
+          "content": "更新readme 新增英文 readme",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "56f7caf",
+          "source": "commit"
+        },
+        {
+          "type": "docs",
+          "content": "tagv1.0.4",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "0fd999c",
+          "source": "commit"
+        },
+        {
+          "type": "chore",
+          "content": "add v1.0.5",
+          "emoji": "🔧",
+          "author": "何嘉悦",
+          "hash": "8faa19e",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.0.2",
+      "date": "2025-03-22",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "新版本",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "a1ae043",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "0.0.8",
+      "date": "2025-03-08",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修改文档在线地址，修改演示地址",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "71d6877",
+          "source": "commit"
+        },
+        {
+          "type": "fix",
+          "content": "移除npm中的map文件",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "225251a",
+          "source": "commit"
+        },
+        {
+          "type": "fix",
+          "content": "修改ci",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "327b868",
+          "source": "commit"
+        },
+        {
+          "type": "fix",
+          "content": "修复ci",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "427c113",
+          "source": "commit"
+        }
+      ]
+    }
+  ],
+  "XSender": [
+    {
+      "version": "1.3.98-backup",
+      "date": "2026-01-24",
+      "changes": [
+        {
+          "type": "chore",
+          "content": "[feat](XSender)：配置属性说明文档",
+          "emoji": "🔧",
+          "author": "jianfv",
+          "hash": "588acb8",
+          "source": "commit"
+        }
       ]
     }
   ],
   "useRecord": [
     {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
+      "version": "1.0.7",
+      "date": "2025-03-30",
       "changes": [
-        "新增 useRecord、useSend、useXStream 等工具 Hooks"
+        {
+          "type": "chore",
+          "content": "新增 useRecord useSend useXStream 钩子函数和 XRequest 工具类",
+          "emoji": "🔧",
+          "author": "何嘉悦",
+          "hash": "2f793fe",
+          "source": "commit"
+        }
       ]
     }
   ],
-  "useSend": [
+  "XRequest": [
     {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
+      "version": "1.0.7",
+      "date": "2025-03-30",
       "changes": [
-        "新增 useRecord、useSend、useXStream 等工具 Hooks"
-      ]
-    }
-  ],
-  "useXStream": [
-    {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
-      "changes": [
-        "新增 useRecord、useSend、useXStream 等工具 Hooks"
-      ]
-    }
-  ],
-  "XMarkdown": [],
-  "XSender": [
-    {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
-      "changes": [
-        "新增 XSender 输入框组件"
-      ]
-    }
-  ],
-  "ConfigProvider": [
-    {
-      "version": "2.0.0-beta.0",
-      "date": "2025-02-24",
-      "changes": [
-        "新增 ConfigProvider 全局配置组件"
+        {
+          "type": "fix",
+          "content": "修改xrequest的send方法",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "ec01580",
+          "source": "commit"
+        }
       ]
     }
   ]
