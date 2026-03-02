@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@configs/*": ["configs/*"]
+    }
+  },
+  "include": ["configs/**/*.ts", "scripts/**/*.ts"],
+  "exclude": ["node_modules", "dist", "**/dist/**"]
+}
