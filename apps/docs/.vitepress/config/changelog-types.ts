@@ -6,7 +6,7 @@ import {
   getEmoji,
   getLabel,
   TYPE_ENUM
-} from '@configs/commit-types';
+} from '../../../../configs/commit-types';
 
 export interface ChangelogTypeConfig {
   commitTypes: string[];
