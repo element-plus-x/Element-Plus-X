@@ -22,6 +22,9 @@ concurrency:
 permissions:
   contents: write
 
+env:
+  VITE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   release:
     runs-on: ubuntu-latest

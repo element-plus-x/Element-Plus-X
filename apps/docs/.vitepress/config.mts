@@ -1,5 +1,5 @@
-import { execSync } from 'node:child_process';
 import type { Plugin } from 'vitepress';
+import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import Unocss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
@@ -10,13 +10,14 @@ import { defineConfig } from 'vitepress';
 // 另一种 demo 插件
 // import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
-import locales from './locales.mts';
 import { tovUIResolver } from '../scripts/vue-element-plus-x-resolver';
+import locales from './locales.mts';
 
 function getGitBranch(): string {
   try {
     return execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf-8' }).trim();
-  } catch {
+  }
+  catch {
     return 'main';
   }
 }
@@ -77,6 +78,7 @@ export default defineConfig({
     cacheDir,
     define: {
       __VITE_GITHUB_BRANCH__: JSON.stringify(gitBranch),
+      'import.meta.env.VITE_GITHUB_TOKEN': JSON.stringify(env.VITE_GITHUB_TOKEN || ''),
     },
     resolve: {
       alias: docsUseSource

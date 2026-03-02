@@ -109,6 +109,12 @@ const config = {
             ],
           },
           {
+            text: '反馈',
+            items: [
+              { text: '问题反馈', link: '/zh/issue' },
+            ],
+          },
+          {
             text: '贡献',
             items: [
               { text: '贡献指南', link: '/zh/guide/contribution' },

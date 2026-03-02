@@ -28,6 +28,7 @@ permissions:
 
 env:
   DOCS_USE_SOURCE: 'true'
+  VITE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build-v1:
