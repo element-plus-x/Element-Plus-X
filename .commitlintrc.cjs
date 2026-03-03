@@ -2,6 +2,29 @@
 // 注意：类型定义需要与 configs/commit-types.ts 保持同步
 // Note: Type definitions must be kept in sync with configs/commit-types.ts
 /** @type {import('cz-git').UserConfig} */
+
+const COMMIT_TYPES = [
+  { type: 'feat', emoji: '🚀', zhLabel: '新增功能', enLabel: 'A new feature' },
+  { type: 'fix', emoji: '🐛', zhLabel: '修复缺陷', enLabel: 'A bug fix' },
+  { type: 'docs', emoji: '📚', zhLabel: '文档更新', enLabel: 'Documentation only changes' },
+  { type: 'style', emoji: '💄', zhLabel: '代码格式', enLabel: 'Changes that do not affect the meaning of the code' },
+  { type: 'refactor', emoji: '♻️', zhLabel: '代码重构', enLabel: 'A code change that neither fixes a bug nor adds a feature' },
+  { type: 'perf', emoji: '⚡', zhLabel: '性能优化', enLabel: 'A code change that improves performance' },
+  { type: 'test', emoji: '✅', zhLabel: '测试相关', enLabel: 'Adding missing tests or correcting existing tests' },
+  { type: 'build', emoji: '📦', zhLabel: '构建相关', enLabel: 'Changes that affect the build system or external dependencies' },
+  { type: 'ci', emoji: '👷', zhLabel: 'CI 配置', enLabel: 'Changes to our CI configuration files and scripts' },
+  { type: 'chore', emoji: '🔧', zhLabel: '其他修改', enLabel: 'Other changes that do not modify src or test files' },
+  { type: 'revert', emoji: '⏪', zhLabel: '回退代码', enLabel: 'Revert to a commit' },
+  { type: 'breaking', emoji: '💥', zhLabel: '破坏性变更', enLabel: 'Breaking changes' }
+];
+
+const TYPE_ENUM = COMMIT_TYPES.map(t => t.type);
+
+const TYPES_PROMPT = COMMIT_TYPES.map(t => ({
+  value: t.type,
+  name: `${t.type}:     ${t.emoji} ${t.zhLabel}     | ${t.enLabel}`
+}));
+
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
@@ -9,20 +32,7 @@ module.exports = {
     'type-enum': [
       2,
       'always',
-      [
-        'build',
-        'chore',
-        'ci',
-        'docs',
-        'feat',
-        'fix',
-        'perf',
-        'refactor',
-        'revert',
-        'style',
-        'test',
-        'breaking',
-      ],
+      TYPE_ENUM
     ],
   },
   prompt: {
@@ -45,20 +55,7 @@ module.exports = {
       confirmCommit:
         '是否提交或修改commit ? | Are you sure you want to proceed with the commit above?',
     },
-    types: [
-      { value: 'feat', name: 'feat:     🚀 新增功能     | A new feature' },
-      { value: 'fix', name: 'fix:      🐛 修复缺陷     | A bug fix' },
-      { value: 'docs', name: 'docs:     📚 文档更新     | Documentation only changes' },
-      { value: 'style', name: 'style:    💄 代码格式     | Changes that do not affect the meaning of the code' },
-      { value: 'refactor', name: 'refactor: ♻️  代码重构     | A code change that neither fixes a bug nor adds a feature' },
-      { value: 'perf', name: 'perf:     ⚡ 性能提升     | A code change that improves performance' },
-      { value: 'test', name: 'test:     ✅ 测试相关     | Adding missing tests or correcting existing tests' },
-      { value: 'build', name: 'build:    📦 构建相关     | Changes that affect the build system or external dependencies' },
-      { value: 'ci', name: 'ci:       👷 持续集成     | Changes to our CI configuration files and scripts' },
-      { value: 'revert', name: 'revert:   ⏪ 回退代码     | Revert to a commit' },
-      { value: 'chore', name: 'chore:    🔧 其他修改     | Other changes that do not modify src or test files' },
-      { value: 'breaking', name: 'breaking: 💥 破坏性变更   | Breaking changes' },
-    ],
+    types: TYPES_PROMPT,
     useEmoji: false,
     emojiAlign: 'center',
     useAI: false,

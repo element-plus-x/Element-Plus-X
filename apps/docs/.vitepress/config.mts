@@ -98,6 +98,12 @@ export default defineConfig({
               replacement: fileURLToPath(
                 new URL('../../../configs', import.meta.url)
               )
+            },
+            {
+              find: '@components',
+              replacement: fileURLToPath(
+                new URL('../../../packages/core/src/components', import.meta.url)
+              )
             }
           ]
         : [

@@ -9,6 +9,7 @@ export interface CommitTypeConfig {
   description: string;
   descriptionZh: string;
   aliases?: string[];
+  issueLabel: string;
 }
 
 export const COMMIT_TYPES: CommitTypeConfig[] = [
@@ -22,7 +23,8 @@ export const COMMIT_TYPES: CommitTypeConfig[] = [
     borderColor: '#91caff',
     description: 'A new feature',
     descriptionZh: '新增功能',
-    aliases: ['feature']
+    aliases: ['feature'],
+    issueLabel: '🚀 feat: 新增功能'
   },
   {
     type: 'fix',
@@ -33,7 +35,8 @@ export const COMMIT_TYPES: CommitTypeConfig[] = [
     bgColor: '#f6ffed',
     borderColor: '#b7eb8f',
     description: 'A bug fix',
-    descriptionZh: '修复缺陷'
+    descriptionZh: '修复缺陷',
+    issueLabel: '🐛 fix: 修复缺陷'
   },
   {
     type: 'docs',
@@ -44,7 +47,8 @@ export const COMMIT_TYPES: CommitTypeConfig[] = [
     bgColor: '#f9f0ff',
     borderColor: '#d3adf7',
     description: 'Documentation only changes',
-    descriptionZh: '文档更新'
+    descriptionZh: '文档更新',
+    issueLabel: '📚 docs: 文档更新'
   },
   {
     type: 'style',
@@ -55,7 +59,8 @@ export const COMMIT_TYPES: CommitTypeConfig[] = [
     bgColor: '#fff0f6',
     borderColor: '#ffadd2',
     description: 'Code style changes (formatting, semicolons, etc)',
-    descriptionZh: '代码格式（不影响逻辑）'
+    descriptionZh: '代码格式（不影响逻辑）',
+    issueLabel: '💄 style: 代码格式'
   },
   {
     type: 'refactor',
@@ -66,7 +71,8 @@ export const COMMIT_TYPES: CommitTypeConfig[] = [
     bgColor: '#fff7e6',
     borderColor: '#ffd591',
     description: 'Code refactoring',
-    descriptionZh: '代码重构'
+    descriptionZh: '代码重构',
+    issueLabel: '♻️ refactor: 代码重构'
   },
   {
     type: 'perf',
@@ -77,7 +83,8 @@ export const COMMIT_TYPES: CommitTypeConfig[] = [
     bgColor: '#e6fffb',
     borderColor: '#87e8de',
     description: 'Performance improvements',
-    descriptionZh: '性能优化'
+    descriptionZh: '性能优化',
+    issueLabel: '⚡ perf: 性能优化'
   },
   {
     type: 'test',
@@ -88,7 +95,8 @@ export const COMMIT_TYPES: CommitTypeConfig[] = [
     bgColor: '#f0f5ff',
     borderColor: '#adc6ff',
     description: 'Adding or updating tests',
-    descriptionZh: '测试相关'
+    descriptionZh: '测试相关',
+    issueLabel: '✅ test: 测试相关'
   },
   {
     type: 'build',
@@ -99,7 +107,8 @@ export const COMMIT_TYPES: CommitTypeConfig[] = [
     bgColor: '#fafafa',
     borderColor: '#d9d9d9',
     description: 'Build system changes',
-    descriptionZh: '构建相关'
+    descriptionZh: '构建相关',
+    issueLabel: '📦 build: 构建相关'
   },
   {
     type: 'ci',
@@ -110,7 +119,8 @@ export const COMMIT_TYPES: CommitTypeConfig[] = [
     bgColor: '#f3f4f6',
     borderColor: '#c4c7cc',
     description: 'CI configuration changes',
-    descriptionZh: 'CI 配置'
+    descriptionZh: 'CI 配置',
+    issueLabel: '👷 ci: 持续集成'
   },
   {
     type: 'chore',
@@ -121,7 +131,8 @@ export const COMMIT_TYPES: CommitTypeConfig[] = [
     bgColor: '#fafafa',
     borderColor: '#d9d9d9',
     description: 'Other changes that do not modify src or test files',
-    descriptionZh: '其他修改'
+    descriptionZh: '其他修改',
+    issueLabel: '🔧 chore: 其他修改'
   },
   {
     type: 'revert',
@@ -132,7 +143,8 @@ export const COMMIT_TYPES: CommitTypeConfig[] = [
     bgColor: '#fff1f0',
     borderColor: '#ffa39e',
     description: 'Revert changes',
-    descriptionZh: '回退代码'
+    descriptionZh: '回退代码',
+    issueLabel: '⏪ revert: 回退代码'
   },
   {
     type: 'breaking',
@@ -143,7 +155,8 @@ export const COMMIT_TYPES: CommitTypeConfig[] = [
     bgColor: '#fff1f0',
     borderColor: '#ff4d4f',
     description: 'Breaking changes',
-    descriptionZh: '破坏性变更'
+    descriptionZh: '破坏性变更',
+    issueLabel: '💥 breaking: 破坏性变更'
   }
 ];
 
@@ -180,7 +193,8 @@ export function getCommitTypeConfig(type: string): CommitTypeConfig {
       bgColor: '#fafafa',
       borderColor: '#d9d9d9',
       description: 'Other changes',
-      descriptionZh: '其他修改'
+      descriptionZh: '其他修改',
+      issueLabel: '🔧 chore: 其他修改'
     }
   );
 }
@@ -208,4 +222,11 @@ export function getBorderColor(type: string): string {
 export function getLabel(type: string, lang: 'zh' | 'en' = 'zh'): string {
   const config = getCommitTypeConfig(type);
   return lang === 'zh' ? config.zhLabel : config.enLabel;
+}
+
+export function getIssueCategoryOptions(): { label: string; value: string }[] {
+  return COMMIT_TYPES.map(config => ({
+    label: config.issueLabel,
+    value: config.type
+  }));
 }

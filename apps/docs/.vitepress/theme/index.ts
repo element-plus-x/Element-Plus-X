@@ -4,6 +4,7 @@ import { useData } from 'vitepress';
 import Theme from 'vitepress/theme';
 import { defineComponent, h, onMounted } from 'vue';
 import { ConfigProvider } from 'vue-element-plus-x';
+import IssueForm from '../../zh/guide/issue/index.vue';
 import DocHeader from '../components/DocHeader.vue';
 import FullChangelog from '../components/FullChangelog.vue';
 import PageContributors from '../components/PageContributors.vue';
@@ -84,5 +85,6 @@ export default {
   enhanceApp({ app }: { app: App }) {
     app.component('demo', AntdTheme);
     app.component('FullChangelog', FullChangelog);
+    app.component('IssueForm', IssueForm);
   }
 };

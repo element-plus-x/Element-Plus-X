@@ -11,10 +11,11 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "paths": {
-      "@vue-element-plus-x/utils": ["packages/utils/src"],
-      "@vue-element-plus-x/icons": ["packages/icons/src"],
-      "vue-element-plus-x": ["packages/vue-element-plus-x/src"],
-      "vue-element-plus-x/*": ["packages/vue-element-plus-x/src/*"]
+      "@configs/*": ["../../configs/*"],
+      "@vue-element-plus-x/utils": ["../../packages/utils/src"],
+      "@vue-element-plus-x/icons": ["../../packages/icons/src"],
+      "vue-element-plus-x": ["../../packages/vue-element-plus-x/src"],
+      "vue-element-plus-x/*": ["../../packages/vue-element-plus-x/src/*"]
     },
     "resolveJsonModule": true,
     // "types": ["vitest/globals"],
