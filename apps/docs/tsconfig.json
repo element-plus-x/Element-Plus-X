@@ -11,11 +11,7 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "paths": {
-      "@configs/*": ["../../configs/*"],
-      "@vue-element-plus-x/utils": ["../../packages/utils/src"],
-      "@vue-element-plus-x/icons": ["../../packages/icons/src"],
-      "vue-element-plus-x": ["../../packages/vue-element-plus-x/src"],
-      "vue-element-plus-x/*": ["../../packages/vue-element-plus-x/src/*"]
+      "@configs/*": ["../../configs/*"]
     },
     "resolveJsonModule": true,
     // "types": ["vitest/globals"],

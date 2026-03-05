@@ -1,36 +1,24 @@
 import process from 'node:process';
 
-const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+import { createGitHubClient, createLogger } from './lib/index';
 
-const headers: Record<string, string> = {
-  Accept: 'application/vnd.github+json',
-  'X-GitHub-Api-Version': '2022-11-28'
-};
-
-if (token) headers.Authorization = `Bearer ${token}`;
+const logger = createLogger({ prefix: 'GitHub' });
 
 async function main() {
-  const target = token ? 'token' : 'no-token';
-  const res = await fetch('https://api.github.com/user', { headers });
+  const client = createGitHubClient();
+  const result = await client.verifyToken();
 
-  if (!token) {
-    console.log('GITHUB_TOKEN/GH_TOKEN 未设置，无法验证');
+  if (result.success) {
+    logger.success(`Token 验证成功`);
+    logger.info(`登录用户: ${result.login || 'unknown'}`);
+    process.exit(0);
+  } else {
+    logger.error(result.error || '验证失败');
     process.exit(1);
   }
-
-  if (!res.ok) {
-    const text = await res.text().catch(() => '');
-    console.log(`GitHub Token 验证失败: ${res.status} ${res.statusText}`);
-    if (text) console.log(text.slice(0, 400));
-    process.exit(1);
-  }
-
-  const data = (await res.json()) as { login?: string };
-  console.log(`GitHub Token 验证成功 (${target})`);
-  console.log(`登录用户: ${data.login || 'unknown'}`);
 }
 
-main().catch(() => {
-  console.log('GitHub Token 验证失败: 运行异常');
+main().catch(error => {
+  logger.error(`验证异常: ${error}`);
   process.exit(1);
 });

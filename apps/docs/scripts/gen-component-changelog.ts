@@ -216,8 +216,9 @@ function detectTypeFromHeader(headerText: string): string {
     lowerText.includes('improve') ||
     lowerText.includes('改进') ||
     lowerText.includes('优化')
-  )
+  ) {
     return 'refactor';
+  }
   if (lowerText.includes('perf') || lowerText.includes('性能')) return 'perf';
   if (lowerText.includes('style') || lowerText.includes('样式')) return 'style';
   if (lowerText.includes('test') || lowerText.includes('测试')) return 'test';
@@ -433,6 +434,24 @@ const AUTO_CHANGELOG_PATH = path.join(
   'auto-changelog.json'
 );
 
+const LEGACY_CHANGELOG_ZH_PATH = path.join(
+  rootDir,
+  'apps',
+  'docs',
+  '.vitepress',
+  'data',
+  'legacy-changelog-zh.json'
+);
+
+const LEGACY_CHANGELOG_EN_PATH = path.join(
+  rootDir,
+  'apps',
+  'docs',
+  '.vitepress',
+  'data',
+  'legacy-changelog-en.json'
+);
+
 interface AutoChangelogData {
   generatedAt: string;
   sources: {
@@ -477,6 +496,8 @@ function main() {
 
   let changesetData: ComponentChangelog = {};
   let autoData: ComponentChangelog = {};
+  let legacyDataZh: ComponentChangelog = {};
+  let legacyDataEn: ComponentChangelog = {};
 
   if (fs.existsSync(CHANGELOG_PATH)) {
     console.log('  Reading changeset log (CHANGELOG.md)...');
@@ -501,8 +522,32 @@ function main() {
     }
   }
 
+  if (fs.existsSync(LEGACY_CHANGELOG_ZH_PATH)) {
+    console.log('  Reading legacy changelog (legacy-changelog-zh.json)...');
+    try {
+      legacyDataZh = JSON.parse(
+        fs.readFileSync(LEGACY_CHANGELOG_ZH_PATH, 'utf-8')
+      );
+    } catch (e) {
+      console.warn('    Failed to parse legacy-changelog-zh.json:', e);
+    }
+  }
+
+  if (fs.existsSync(LEGACY_CHANGELOG_EN_PATH)) {
+    console.log('  Reading legacy changelog (legacy-changelog-en.json)...');
+    try {
+      legacyDataEn = JSON.parse(
+        fs.readFileSync(LEGACY_CHANGELOG_EN_PATH, 'utf-8')
+      );
+    } catch (e) {
+      console.warn('    Failed to parse legacy-changelog-en.json:', e);
+    }
+  }
+
   const finalData: ComponentChangelog = {};
 
+  mergeChangelogs(finalData, legacyDataZh);
+  mergeChangelogs(finalData, legacyDataEn);
   mergeChangelogs(finalData, autoData);
   mergeChangelogs(finalData, changesetData);
 

@@ -29,6 +29,9 @@ import type {
 type listType = BubbleListItemProps & {
   key: number;
   role: 'user' | 'ai';
+  isMarkdown?: boolean;
+  typing?: boolean;
+  isFog?: boolean;
 };
 
 // 示例调用

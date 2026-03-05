@@ -12,7 +12,7 @@
 
 <div align="center">
 
-**简体中文** | [English](../en/introduce.md)
+**简体中文** | [English](/en/guide/introduce)
 
 </div>&emsp;
 

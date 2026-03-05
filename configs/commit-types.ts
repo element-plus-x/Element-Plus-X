@@ -1,16 +1,4 @@
-export interface CommitTypeConfig {
-  type: string;
-  emoji: string;
-  zhLabel: string;
-  enLabel: string;
-  color: string;
-  bgColor: string;
-  borderColor: string;
-  description: string;
-  descriptionZh: string;
-  aliases?: string[];
-  issueLabel: string;
-}
+import type { CommitTypeConfig } from './types';
 
 export const COMMIT_TYPES: CommitTypeConfig[] = [
   {
@@ -224,9 +212,14 @@ export function getLabel(type: string, lang: 'zh' | 'en' = 'zh'): string {
   return lang === 'zh' ? config.zhLabel : config.enLabel;
 }
 
-export function getIssueCategoryOptions(): { label: string; value: string }[] {
+export function getIssueCategoryOptions(
+  lang: 'zh' | 'en' = 'zh'
+): { label: string; value: string }[] {
   return COMMIT_TYPES.map(config => ({
-    label: config.issueLabel,
+    label:
+      lang === 'zh'
+        ? config.issueLabel
+        : `${config.emoji} ${config.type}: ${config.enLabel}`,
     value: config.type
   }));
 }

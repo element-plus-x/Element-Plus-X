@@ -20,47 +20,52 @@ interface DataType {
 const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   {
     codeId: '1',
+    id: '1',
     status: 'success',
     isCanExpand: true,
     isDefaultExpand: true,
     self_title: 'Success - Main Title',
     self_thinkTitle: 'Thinking Content Title - Default Expanded',
-    self_thinkContent: 'Search text'.repeat(10)
+    self_thinkContent: 'Search text'.repeat(10),
+    thinkContent: 'Search text'.repeat(10)
   },
   {
     codeId: '2',
+    id: '2',
     self_title: 'Loading - Main Title',
     status: 'loading',
     isCanExpand: true,
     isDefaultExpand: false,
     self_thinkTitle: 'Thinking Content Title',
-    self_thinkContent: 'Search text'.repeat(10)
+    self_thinkContent: 'Search text'.repeat(10),
+    thinkContent: 'Search text'.repeat(10)
   },
   {
     codeId: '3',
+    id: '3',
     self_title: 'Failed - Main Title',
     status: 'error',
     isCanExpand: true,
     isDefaultExpand: false,
     self_thinkTitle: 'Thinking Content Title',
-    self_thinkContent: 'Search text'.repeat(10)
+    self_thinkContent: 'Search text'.repeat(10),
+    thinkContent: 'Search text'.repeat(10)
   },
   {
     codeId: '4',
+    id: '4',
     self_title: 'Thank You - Main Title',
     status: 'success',
     isCanExpand: true,
     isDefaultExpand: true,
     self_thinkTitle: 'Thinking Content Title',
-    self_thinkContent: 'Search text'.repeat(10)
+    self_thinkContent: 'Search text'.repeat(10),
+    thinkContent: 'Search text'.repeat(10)
   }
 ];
 
-function handleExpand(value: string[]) {
-  const expandedItems = thinkingItems.filter(item =>
-    value.includes(item.codeId)
-  );
-  console.log(expandedItems);
+function handleExpand(item: ThoughtChainItemProps<DataType>) {
+  console.log(item);
 }
 </script>
 
@@ -71,7 +76,7 @@ function handleExpand(value: string[]) {
     title-key="self_title"
     think-title-key="self_thinkTitle"
     think-content-key="self_thinkContent"
-    @handle-expand="(value: string[]) => handleExpand(value)"
+    @handle-expand="handleExpand"
   />
 </template>
 

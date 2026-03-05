@@ -20,39 +20,47 @@ interface DataType {
 const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   {
     codeId: '1',
+    id: '1',
     status: 'success',
     isCanExpand: true,
     isDefaultExpand: true,
     self_title: 'Success - Main Title',
     self_thinkTitle: 'Thinking Content Title - Default Expanded',
-    self_thinkContent: 'Search text'.repeat(10)
+    self_thinkContent: 'Search text'.repeat(10),
+    thinkContent: 'Search text'.repeat(10)
   },
   {
     codeId: '2',
+    id: '2',
     self_title: 'Loading - Main Title',
     status: 'loading',
     isCanExpand: true,
     isDefaultExpand: false,
     self_thinkTitle: 'Thinking Content Title',
-    self_thinkContent: 'Search text'.repeat(10)
+    self_thinkContent: 'Search text'.repeat(10),
+    thinkContent: 'Search text'.repeat(10)
   },
   {
     codeId: '3',
+    id: '3',
     self_title: 'Failed - Main Title',
     status: 'error',
     isCanExpand: true,
     isDefaultExpand: false,
     self_thinkTitle: 'Thinking Content Title',
-    self_thinkContent: 'Search text'.repeat(10)
+    self_thinkContent: 'Search text'.repeat(10),
+    thinkContent: 'Search text'.repeat(10)
   },
   {
     codeId: '4',
+    id: '4',
     self_title: 'Thank You - Main Title',
     status: 'success',
     isCanExpand: true,
     isDefaultExpand: true,
     self_thinkTitle: 'Thinking Content Title',
-    self_thinkContent: 'Search text'.repeat(10)
+    self_thinkContent: 'Search text'.repeat(10),
+    thinkContent: 'Search text'.repeat(10)
   }
 ];
 </script>

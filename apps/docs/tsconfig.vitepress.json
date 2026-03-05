@@ -1,4 +1,20 @@
 {
   "extends": ["./tsconfig.json"],
-  "include": [".vitepress/**/*.ts", ".vitepress/**/*.tsx", ".vitepress/**/*.vue", ".vitepress/**/*.d.ts", "components.d.ts", ".vitepress/locales.mts"]
+  "exclude": [
+    "components.d.ts"
+  ],
+  "include": [
+    "env.d.ts",
+    "auto-imports.d.ts",
+    ".vitepress/**/*.ts",
+    ".vitepress/**/*.tsx",
+    ".vitepress/**/*.vue",
+    ".vitepress/**/*.d.ts",
+    ".vitepress/locales.mts",
+    "zh/**/*.vue",
+    "zh/**/*.ts",
+    "en/**/*.vue",
+    "en/**/*.ts",
+    "../../configs/**/*.ts"
+  ]
 }

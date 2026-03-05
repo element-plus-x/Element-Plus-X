@@ -6,22 +6,6 @@
       "changes": [
         {
           "type": "chore",
-          "content": "Documentation architecture refactoring and component style fixes",
-          "emoji": "🔧",
-          "author": "何嘉悦",
-          "hash": "0621d9a",
-          "source": "commit"
-        },
-        {
-          "type": "chore",
-          "content": "Updated 2.0.0 version number, added version domain dropdown and component menu left sidebar badges",
-          "emoji": "🔧",
-          "author": "何嘉悦",
-          "hash": "5926809",
-          "source": "commit"
-        },
-        {
-          "type": "chore",
           "content": "文档架构重构与组件样式修正",
           "emoji": "🔧",
           "author": "何嘉悦",
@@ -42,38 +26,6 @@
       "version": "1.3.8",
       "date": "2025-12-14",
       "changes": [
-        {
-          "type": "fix",
-          "content": "Fixed changeset action parameter errors in GitHub Actions",
-          "emoji": "🐛",
-          "author": "何嘉悦",
-          "hash": "a478c96",
-          "source": "commit"
-        },
-        {
-          "type": "fix",
-          "content": "Fixed package name errors in changeset configuration",
-          "emoji": "🐛",
-          "author": "何嘉悦",
-          "hash": "b22372e",
-          "source": "commit"
-        },
-        {
-          "type": "fix",
-          "content": "Fixed package dependency issues in changeset configuration",
-          "emoji": "🐛",
-          "author": "何嘉悦",
-          "hash": "1ccd774",
-          "source": "commit"
-        },
-        {
-          "type": "fix",
-          "content": "Fixed Vue 3 Composition API type recognition issues in GitHub Actions",
-          "emoji": "🐛",
-          "author": "何嘉悦",
-          "hash": "3e8aeff",
-          "source": "commit"
-        },
         {
           "type": "fix",
           "content": "修复 GitHub Actions 中的 changeset action 参数错误",
@@ -108,22 +60,6 @@
         },
         {
           "type": "chore",
-          "content": "Merged some PR requests, attempting to resolve publishing errors",
-          "emoji": "🔧",
-          "author": "何嘉悦",
-          "hash": "ac84d08",
-          "source": "commit"
-        },
-        {
-          "type": "chore",
-          "content": "Merged some PR requests",
-          "emoji": "🔧",
-          "author": "何嘉悦",
-          "hash": "4bbbaa6",
-          "source": "commit"
-        },
-        {
-          "type": "chore",
           "content": "合并部分pr请求,尝试解决发包报错问题",
           "emoji": "🔧",
           "author": "何嘉悦",
@@ -146,26 +82,10 @@
       "changes": [
         {
           "type": "fix",
-          "content": "Updated CI configuration",
-          "emoji": "🐛",
-          "author": "Json_Lee",
-          "hash": "0e36c64",
-          "source": "commit"
-        },
-        {
-          "type": "fix",
           "content": "修改ci",
           "emoji": "🐛",
           "author": "Json_Lee",
           "hash": "0e36c64",
-          "source": "commit"
-        },
-        {
-          "type": "docs",
-          "content": "Updated documentation, resolved website build errors",
-          "emoji": "📚",
-          "author": "何嘉悦",
-          "hash": "77c57f5",
           "source": "commit"
         },
         {
@@ -188,18 +108,8 @@
           "emoji": "📚"
         },
         {
-          "type": "docs",
-          "content": "Updated development documentation and development roadmap",
-          "emoji": "📚"
-        },
-        {
           "type": "chore",
           "content": "移出 playground 文件，新增 storybook 实时预览的模式做展示",
-          "emoji": "🔧"
-        },
-        {
-          "type": "chore",
-          "content": "Removed playground files, added storybook real-time preview mode for demonstrations",
           "emoji": "🔧"
         }
       ]
@@ -214,11 +124,6 @@
           "emoji": "💥"
         },
         {
-          "type": "breaking",
-          "content": "Types: TypeScript type import syntax change. After upgrade, please modify the original type syntax",
-          "emoji": "💥"
-        },
-        {
           "type": "docs",
           "content": "更新线上开发计划文档，展示陆续的开发计划",
           "emoji": "📚"
@@ -227,24 +132,6 @@
           "type": "docs",
           "content": "更新首页介绍，交流要求文档。antdx 全部组件已经复刻完毕",
           "emoji": "📚"
-        },
-        {
-          "type": "docs",
-          "content": "Updated online development roadmap documentation, showcasing ongoing development plans",
-          "emoji": "📚"
-        },
-        {
-          "type": "docs",
-          "content": "Updated homepage introduction and communication requirements documentation. All Ant Design X components have been fully replicated",
-          "emoji": "📚"
-        },
-        {
-          "type": "docs",
-          "content": "v1.2.0 Release",
-          "emoji": "📚",
-          "author": "何嘉悦",
-          "hash": "11026d9",
-          "source": "commit"
         },
         {
           "type": "docs",
@@ -262,14 +149,6 @@
       "changes": [
         {
           "type": "fix",
-          "content": "Documentation updates, fixed known bugs, v1.1.6 version update",
-          "emoji": "🐛",
-          "author": "何嘉悦",
-          "hash": "89d6412",
-          "source": "commit"
-        },
-        {
-          "type": "fix",
           "content": "文档更新，修复已知bug, v1.1.6 版本更新",
           "emoji": "🐛",
           "author": "何嘉悦",
@@ -285,16 +164,6 @@
           "type": "docs",
           "content": "更新指南文档中的开发文档，修复文档介绍错误问题",
           "emoji": "📚"
-        },
-        {
-          "type": "docs",
-          "content": "Updated online development roadmap documentation, showcasing ongoing development plans",
-          "emoji": "📚"
-        },
-        {
-          "type": "docs",
-          "content": "Updated development documentation in guide docs, fixed documentation introduction errors",
-          "emoji": "📚"
         }
       ]
     },
@@ -302,14 +171,6 @@
       "version": "1.1.4",
       "date": "2025-04-14",
       "changes": [
-        {
-          "type": "docs",
-          "content": "v1.1.4 Release",
-          "emoji": "📚",
-          "author": "何嘉悦",
-          "hash": "55dbe0b",
-          "source": "commit"
-        },
         {
           "type": "docs",
           "content": "v1.1.4上新",
@@ -333,16 +194,6 @@
           "type": "docs",
           "content": "更新指南文档中的开发文档，着重修改开发命令、贡献代码、本地调试全流程介绍。规范开发和 pr 提交",
           "emoji": "📚"
-        },
-        {
-          "type": "docs",
-          "content": "Updated online development roadmap documentation, showcasing ongoing development plans",
-          "emoji": "📚"
-        },
-        {
-          "type": "docs",
-          "content": "Updated development documentation in guide docs, focusing on development commands, contributing code, and local debugging workflow. Standardized development and PR submission",
-          "emoji": "📚"
         }
       ]
     },
@@ -352,26 +203,10 @@
       "changes": [
         {
           "type": "fix",
-          "content": "v1.1.0 Release",
-          "emoji": "🐛",
-          "author": "何嘉悦",
-          "hash": "4b6f387",
-          "source": "commit"
-        },
-        {
-          "type": "fix",
           "content": "上新 v1.1.0",
           "emoji": "🐛",
           "author": "何嘉悦",
           "hash": "4b6f387",
-          "source": "commit"
-        },
-        {
-          "type": "docs",
-          "content": "v1.1.1 Online",
-          "emoji": "📚",
-          "author": "何嘉悦",
-          "hash": "3bdd21b",
           "source": "commit"
         },
         {
@@ -388,22 +223,6 @@
       "version": "1.0.7",
       "date": "2025-03-30",
       "changes": [
-        {
-          "type": "docs",
-          "content": "Updated package version, fixed npm publish address and community QR code issues",
-          "emoji": "📚",
-          "author": "何嘉悦",
-          "hash": "472adcd",
-          "source": "commit"
-        },
-        {
-          "type": "docs",
-          "content": "Rebuilt and overwrote 1.0.7 version to fix community QR code not updating issue",
-          "emoji": "📚",
-          "author": "何嘉悦",
-          "hash": "afc221a",
-          "source": "commit"
-        },
         {
           "type": "docs",
           "content": "修改包版本，解决 npm 发包地址 交流群二维码不正确问题",
@@ -432,11 +251,6 @@
           "emoji": "♻️"
         },
         {
-          "type": "refactor",
-          "content": "Optimized compatibility: Sender input component previously used defineModel syntax which is only available in Vue 3.4+. Now changed to lower version syntax (seamless replacement, no changes needed)",
-          "emoji": "♻️"
-        },
-        {
           "type": "docs",
           "content": "更新线上开发计划文档，会给大家展示陆续的开发计划",
           "emoji": "📚"
@@ -444,16 +258,6 @@
         {
           "type": "docs",
           "content": "更新指南文档中的开发文档，着重修改开发命令、贡献代码、本地调试全流程介绍。规范开发和 pr 提交",
-          "emoji": "📚"
-        },
-        {
-          "type": "docs",
-          "content": "Updated online development roadmap documentation, showcasing ongoing development plans",
-          "emoji": "📚"
-        },
-        {
-          "type": "docs",
-          "content": "Updated development documentation in guide docs, focusing on development commands, contributing code, and local debugging workflow. Standardized development and PR submission",
           "emoji": "📚"
         }
       ]
@@ -473,16 +277,6 @@
           "emoji": "📚"
         },
         {
-          "type": "docs",
-          "content": "Improved Chinese/English documentation content",
-          "emoji": "📚"
-        },
-        {
-          "type": "docs",
-          "content": "Added documentation changelog module",
-          "emoji": "📚"
-        },
-        {
           "type": "chore",
           "content": "集成 ESLint 9.x 和 Oxlint，规范开发流程",
           "emoji": "🔧"
@@ -490,16 +284,6 @@
         {
           "type": "chore",
           "content": "新增打包配置：自动根据组件文件名导出全量/按需组件",
-          "emoji": "🔧"
-        },
-        {
-          "type": "chore",
-          "content": "Integrated ESLint 9.x and Oxlint to standardize development process",
-          "emoji": "🔧"
-        },
-        {
-          "type": "chore",
-          "content": "Added build configuration: automatically export full/on-demand components based on component file names",
           "emoji": "🔧"
         }
       ]
@@ -510,34 +294,10 @@
       "changes": [
         {
           "type": "fix",
-          "content": "Fixed missing publish content",
-          "emoji": "🐛",
-          "author": "Json_Lee",
-          "hash": "c7f36aa",
-          "source": "commit"
-        },
-        {
-          "type": "fix",
           "content": "修复发包内容丢失",
           "emoji": "🐛",
           "author": "Json_Lee",
           "hash": "c7f36aa",
-          "source": "commit"
-        },
-        {
-          "type": "docs",
-          "content": "Updated README, added English README",
-          "emoji": "📚",
-          "author": "何嘉悦",
-          "hash": "56f7caf",
-          "source": "commit"
-        },
-        {
-          "type": "docs",
-          "content": "Tag v1.0.4",
-          "emoji": "📚",
-          "author": "何嘉悦",
-          "hash": "0fd999c",
           "source": "commit"
         },
         {
@@ -558,14 +318,6 @@
         },
         {
           "type": "chore",
-          "content": "Add v1.0.5",
-          "emoji": "🔧",
-          "author": "何嘉悦",
-          "hash": "8faa19e",
-          "source": "commit"
-        },
-        {
-          "type": "chore",
           "content": "add v1.0.5",
           "emoji": "🔧",
           "author": "何嘉悦",
@@ -578,14 +330,6 @@
       "version": "1.0.2",
       "date": "2025-03-22",
       "changes": [
-        {
-          "type": "fix",
-          "content": "New version",
-          "emoji": "🐛",
-          "author": "Json_Lee",
-          "hash": "a1ae043",
-          "source": "commit"
-        },
         {
           "type": "fix",
           "content": "新版本",
@@ -609,16 +353,6 @@
           "type": "breaking",
           "content": "Typography 组件：弃用 typedjs 实现打字效果，流式输出失效，且每次流式输出会导致组件重新渲染",
           "emoji": "💥"
-        },
-        {
-          "type": "breaking",
-          "content": "Typography component: Deprecated speed property, changed to step property (aligned with ant-design-x)",
-          "emoji": "💥"
-        },
-        {
-          "type": "breaking",
-          "content": "Typography component: Deprecated typedjs implementation for typing effect, streaming output disabled, and streaming output causes component re-rendering each time",
-          "emoji": "💥"
         }
       ]
     },
@@ -630,11 +364,6 @@
           "type": "breaking",
           "content": "Typography 组件：弃用 step 属性，改用 speed 属性控制打字速度",
           "emoji": "💥"
-        },
-        {
-          "type": "breaking",
-          "content": "Typography component: Deprecated step property, changed to speed property to control typing speed",
-          "emoji": "💥"
         }
       ]
     },
@@ -642,38 +371,6 @@
       "version": "0.0.8",
       "date": "2025-03-08",
       "changes": [
-        {
-          "type": "fix",
-          "content": "Updated documentation online address and demo address",
-          "emoji": "🐛",
-          "author": "何嘉悦",
-          "hash": "71d6877",
-          "source": "commit"
-        },
-        {
-          "type": "fix",
-          "content": "Removed map files from npm",
-          "emoji": "🐛",
-          "author": "Json_Lee",
-          "hash": "225251a",
-          "source": "commit"
-        },
-        {
-          "type": "fix",
-          "content": "Updated CI",
-          "emoji": "🐛",
-          "author": "Json_Lee",
-          "hash": "327b868",
-          "source": "commit"
-        },
-        {
-          "type": "fix",
-          "content": "Fixed CI",
-          "emoji": "🐛",
-          "author": "Json_Lee",
-          "hash": "427c113",
-          "source": "commit"
-        },
         {
           "type": "fix",
           "content": "修改文档在线地址，修改演示地址",
@@ -718,11 +415,6 @@
           "type": "feature",
           "content": "Bubble 气泡组件，在不自定义内容插槽的时候，自动继承，支持雾化效果属性",
           "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Bubble component: When not customizing content slots, automatically inherits and supports fog effect properties",
-          "emoji": "🚀"
         }
       ]
     },
@@ -734,11 +426,6 @@
           "type": "fix",
           "content": "修复 BubbleList 气泡列表组件，在流式接口输出下，自动滚动失效问题。并将 BubbleList 组件，和打字器组件解耦",
           "emoji": "🐛"
-        },
-        {
-          "type": "fix",
-          "content": "Fixed BubbleList component auto-scroll failure issue under streaming interface output. And decoupled BubbleList component from typewriter component",
-          "emoji": "🐛"
         }
       ]
     },
@@ -746,14 +433,6 @@
       "version": "1.0.4",
       "date": "2025-03-23",
       "changes": [
-        {
-          "type": "fix",
-          "content": "Fixed BubbleList generic bug",
-          "emoji": "🐛",
-          "author": "Json_Lee",
-          "hash": "63338e6",
-          "source": "commit"
-        },
         {
           "type": "fix",
           "content": "修复bubbleList范型bug",
@@ -774,11 +453,6 @@
           "emoji": "💥"
         },
         {
-          "type": "breaking",
-          "content": "Bubble component: Deprecated typing.speed property, changed to typing.step (aligned with ant-design-x)",
-          "emoji": "💥"
-        },
-        {
           "type": "feature",
           "content": "Bubble 组件：新增中断输出（pause）、继续打字（resume）和销毁（destroy）实例方法",
           "emoji": "🚀"
@@ -786,16 +460,6 @@
         {
           "type": "feature",
           "content": "Bubble 组件：新增操作监听事件",
-          "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Bubble component: Added interrupt output (pause), continue typing (resume) and destroy instance methods",
-          "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Bubble component: Added operation monitoring events",
           "emoji": "🚀"
         }
       ]
@@ -810,18 +474,8 @@
           "emoji": "💥"
         },
         {
-          "type": "breaking",
-          "content": "Bubble component: Deprecated typing.step property, changed to typing.speed to control typing speed",
-          "emoji": "💥"
-        },
-        {
           "type": "feature",
           "content": "Bubble 组件：新增 avatar-size 和 avatar-gap 属性，控制无头像时的气泡样式",
-          "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Bubble component: Added avatar-size and avatar-gap properties to control bubble styles when no avatar is present",
           "emoji": "🚀"
         }
       ]
@@ -836,11 +490,6 @@
           "type": "fix",
           "content": "修复 BubbleList 气泡列表组件，清空数组后，再次新增气泡，失去自动滚动的问题",
           "emoji": "🐛"
-        },
-        {
-          "type": "fix",
-          "content": "Fixed BubbleList component losing auto-scroll issue after clearing array and adding new bubbles",
-          "emoji": "🐛"
         }
       ]
     },
@@ -851,11 +500,6 @@
         {
           "type": "feature",
           "content": "BubbleList 组件新增回到底部按钮，同时新增悬停内容区域出现滚动条。增强交互体验",
-          "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "BubbleList component: Added back to bottom button, and scrollbar appears on hover content area. Enhanced interaction experience",
           "emoji": "🚀"
         }
       ]
@@ -871,19 +515,6 @@
           "issues": [
             "46"
           ]
-        },
-        {
-          "type": "fix",
-          "content": "Fixed BubbleList component maxWidth failure issue",
-          "emoji": "🐛",
-          "issues": [
-            "46"
-          ]
-        },
-        {
-          "type": "fix",
-          "content": "Fixed BubbleList component auto-scroll failure issue under streaming interface output. And decoupled BubbleList component from typewriter component",
-          "emoji": "🐛"
         }
       ]
     },
@@ -894,11 +525,6 @@
         {
           "type": "feature",
           "content": "BubbleList 组件：新增 trigger-indices 属性，用于监听指定气泡的 @complete 完成回调",
-          "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "BubbleList component: Added trigger-indices property for monitoring specified bubble @complete callbacks",
           "emoji": "🚀"
         }
       ]
@@ -913,11 +539,6 @@
           "type": "fix",
           "content": "修复 Thinking 思考中组件展开收起动画卡顿 bug",
           "emoji": "🐛"
-        },
-        {
-          "type": "fix",
-          "content": "Fixed Thinking component expand/collapse animation stuttering bug",
-          "emoji": "🐛"
         }
       ]
     },
@@ -925,14 +546,6 @@
       "version": "1.1.3",
       "date": "2025-04-08",
       "changes": [
-        {
-          "type": "fix",
-          "content": "Fixed Thinking SCSS issue 1.1.3",
-          "emoji": "🐛",
-          "author": "何嘉悦",
-          "hash": "da1fb16",
-          "source": "commit"
-        },
         {
           "type": "fix",
           "content": "修复 Thinking scss 1.1.3",
@@ -947,14 +560,6 @@
       "version": "1.1.2",
       "date": "2025-04-07",
       "changes": [
-        {
-          "type": "fix",
-          "content": "Fixed Thinking SCSS issue",
-          "emoji": "🐛",
-          "author": "何嘉悦",
-          "hash": "871e4a6",
-          "source": "commit"
-        },
         {
           "type": "fix",
           "content": "修复 Thinking scss 问题",
@@ -977,15 +582,6 @@
             "32",
             "45"
           ]
-        },
-        {
-          "type": "feature",
-          "content": "Added Thinking component for displaying thinking process under streaming interface output",
-          "emoji": "🚀",
-          "issues": [
-            "32",
-            "45"
-          ]
         }
       ]
     }
@@ -998,15 +594,6 @@
         {
           "type": "feature",
           "content": "新增 ThoughtChain 思维链组件，用于在流式接口输出下，展示思考过程",
-          "emoji": "🚀",
-          "issues": [
-            "32",
-            "45"
-          ]
-        },
-        {
-          "type": "feature",
-          "content": "Added ThoughtChain component for displaying thinking process under streaming interface output",
           "emoji": "🚀",
           "issues": [
             "32",
@@ -1025,11 +612,6 @@
           "type": "feature",
           "content": "新增 Welcome 欢迎组件，方便用户快速集成好看的欢迎介绍卡片",
           "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Added Welcome component for users to quickly integrate beautiful welcome introduction cards",
-          "emoji": "🚀"
         }
       ]
     }
@@ -1042,11 +624,6 @@
         {
           "type": "feature",
           "content": "新增 Prompts 提示集组件，用于显示一组与当前上下文相关的预定义的问题或建议",
-          "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Added Prompts component for displaying a set of predefined questions or suggestions related to the current context",
           "emoji": "🚀"
         }
       ]
@@ -1061,11 +638,6 @@
           "type": "feature",
           "content": "新增 Conversations 会话管理组件。支持分组展示、菜单交互、滚动加载、自定义样式等功能。适用于消息列表、文件管理、任务分组等场景",
           "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Added Conversations conversation management component. Supports grouped display, menu interaction, scroll loading, custom styling and other features. Suitable for message lists, file management, task grouping and other scenarios",
-          "emoji": "🚀"
         }
       ]
     }
@@ -1078,11 +650,6 @@
         {
           "type": "feature",
           "content": "新增 FilesCard 文件卡片组件，支持多种文件类型（图片、文档、压缩包等）的可视化呈现",
-          "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Added FilesCard file card component, supporting visual presentation of multiple file types (images, documents, compressed packages, etc.)",
           "emoji": "🚀"
         }
       ]
@@ -1097,11 +664,6 @@
           "type": "feature",
           "content": "新增 Attachments 附件上传组件，支持文件列表展示、上传、拖拽交互、滚动浏览等功能",
           "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Added Attachments attachment upload component, supporting file list display, upload, drag interaction, scroll browsing and other features",
-          "emoji": "🚀"
         }
       ]
     }
@@ -1111,14 +673,6 @@
       "version": "1.0.7",
       "date": "2025-03-30",
       "changes": [
-        {
-          "type": "chore",
-          "content": "Added useRecord, useSend, useXStream hook functions and XRequest utility class",
-          "emoji": "🔧",
-          "author": "何嘉悦",
-          "hash": "2f793fe",
-          "source": "commit"
-        },
         {
           "type": "chore",
           "content": "新增 useRecord useSend useXStream 钩子函数和 XRequest 工具类",
@@ -1137,11 +691,6 @@
           "type": "feature",
           "content": "新增 useRecord 钩子函数，解决用户在自定义 Sender 输入框的 #action-list 插槽时候，又同时想保留组件内置的浏览器语音识别 API 方法",
           "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Added useRecord hook function, solving the issue when users want to customize Sender input component's #action-list slot while also retaining the component's built-in browser speech recognition API method",
-          "emoji": "🚀"
         }
       ]
     }
@@ -1154,11 +703,6 @@
         {
           "type": "feature",
           "content": "新增 useXStream 钩子函数，针对 SSE 协议的流式请求，可自动获取流式数据；支持开始流式请求、中断流式请求",
-          "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Added useXStream hook function for SSE protocol streaming requests, automatically gets streaming data; supports starting and interrupting streaming requests",
           "emoji": "🚀"
         }
       ]
@@ -1173,11 +717,6 @@
           "type": "feature",
           "content": "新增 useSend 钩子函数，可单独使用：传入开始和结束方法，返回方法 loading 状态。偏底层，灵活控制",
           "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Added useSend hook function, can be used alone: pass in start and end methods, returns loading state. More low-level, flexible control",
-          "emoji": "🚀"
         }
       ]
     }
@@ -1187,14 +726,6 @@
       "version": "1.0.7",
       "date": "2025-03-30",
       "changes": [
-        {
-          "type": "fix",
-          "content": "Updated XRequest send method",
-          "emoji": "🐛",
-          "author": "Json_Lee",
-          "hash": "ec01580",
-          "source": "commit"
-        },
         {
           "type": "fix",
           "content": "修改xrequest的send方法",
@@ -1213,11 +744,6 @@
           "type": "feature",
           "content": "新增 XRequest 工具类，针对 SSE 协议的流式请求，配置接口基础地址，使用 send 发送请求，实例上有很多这个请求的状态监听",
           "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Added XRequest utility class for SSE protocol streaming requests, configure interface base address, use send to send requests, instance has many state listeners for this request",
-          "emoji": "🚀"
         }
       ]
     }
@@ -1229,112 +755,11 @@
       "changes": [
         {
           "type": "chore",
-          "content": "[feat](XSender): Configuration property documentation",
-          "emoji": "🔧",
-          "author": "jianfv",
-          "hash": "588acb8",
-          "source": "commit"
-        },
-        {
-          "type": "chore",
           "content": "[feat](XSender)：配置属性说明文档",
           "emoji": "🔧",
           "author": "jianfv",
           "hash": "588acb8",
           "source": "commit"
-        }
-      ]
-    },
-    {
-      "version": "1.2.0",
-      "date": "2025-05-05",
-      "changes": [
-        {
-          "type": "fix",
-          "content": "Fixed Sender, MentionSender footer slot click auto-focus issue",
-          "emoji": "🐛"
-        }
-      ]
-    },
-    {
-      "version": "1.1.6",
-      "date": "2025-04-16",
-      "changes": [
-        {
-          "type": "feature",
-          "content": "Sender component: Added variants, footer, command trigger functionality",
-          "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "New MentionSender component, another command way of the Sender component",
-          "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Sender component: Added input-style property for developers to customize built-in input box styles",
-          "emoji": "🚀"
-        },
-        {
-          "type": "refactor",
-          "content": "Sender component: Optimized send button state to disabled when there's no value, @submit method will also be disabled. Added submit-btn-disabled property for developers to actively control",
-          "emoji": "♻️"
-        }
-      ]
-    },
-    {
-      "version": "1.1.1",
-      "date": "2025-04-06",
-      "changes": [
-        {
-          "type": "breaking",
-          "content": "Sender input component: Two-way binding syntax change. Changed from previous v-model:value to direct v-model binding",
-          "emoji": "💥"
-        },
-        {
-          "type": "fix",
-          "content": "Fixed Sender input component v-model two-way binding failure issue",
-          "emoji": "🐛"
-        }
-      ]
-    },
-    {
-      "version": "1.0.81",
-      "date": "2025-03-29",
-      "changes": [
-        {
-          "type": "fix",
-          "content": "Fixed Sender input component in loading state still able to trigger @submit method bug",
-          "emoji": "🐛",
-          "issues": [
-            "22"
-          ]
-        },
-        {
-          "type": "fix",
-          "content": "Fixed Sender input component in read-only state still able to trigger value modification bug",
-          "emoji": "🐛"
-        }
-      ]
-    },
-    {
-      "version": "0.9.20",
-      "date": "2025-03-20",
-      "changes": [
-        {
-          "type": "feature",
-          "content": "Sender component: Added @recording-change event to monitor built-in recording button click state",
-          "emoji": "🚀"
-        },
-        {
-          "type": "feature",
-          "content": "Sender component: Added start recording (startRecording) and stop recording (stopRecording) instance methods",
-          "emoji": "🚀"
-        },
-        {
-          "type": "fix",
-          "content": "Fixed Sender input component autosize property failure bug",
-          "emoji": "🐛"
         }
       ]
     }

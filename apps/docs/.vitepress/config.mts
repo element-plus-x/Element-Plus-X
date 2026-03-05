@@ -29,7 +29,9 @@ const cacheDir =
     : 'node_modules/.vitepress-cache';
 
 const docsUseSource =
-  process.env.DOCS_USE_SOURCE === 'true' || process.env.NODE_ENV === 'development';
+  process.env.DOCS_USE_SOURCE === 'true' ||
+  process.env.NODE_ENV === 'development' ||
+  !process.env.NODE_ENV;
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -145,7 +147,7 @@ export default defineConfig({
       Unocss() as unknown as Plugin,
     ],
     ssr: {
-      noExternal: ['element-plus', 'gsap', 'vue-element-plus-x'],
+      noExternal: ['element-plus', 'gsap', 'vue-element-plus-x', 'x-markdown-vue'],
     },
   },
 });

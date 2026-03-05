@@ -49,6 +49,8 @@ yarn-error.log*
 .claude
 .serena
 .trae
+.codex
+AGENTS.md
 new-vertion.md
 
 *storybook.log

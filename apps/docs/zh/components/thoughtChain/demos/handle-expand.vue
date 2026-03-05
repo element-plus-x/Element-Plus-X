@@ -20,47 +20,52 @@ interface DataType {
 const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   {
     codeId: '1',
+    id: '1',
     status: 'success',
     isCanExpand: true,
     isDefaultExpand: true,
     self_title: '成功-主标题',
     self_thinkTitle: '思考内容标题-默认展开',
-    self_thinkContent: '进行搜索文字'.repeat(10)
+    self_thinkContent: '进行搜索文字'.repeat(10),
+    thinkContent: 'Search text'.repeat(10)
   },
   {
     codeId: '2',
+    id: '2',
     self_title: '加载中-主标题',
     status: 'loading',
     isCanExpand: true,
     isDefaultExpand: false,
     self_thinkTitle: '思考内容标题',
-    self_thinkContent: '进行搜索文字'.repeat(10)
+    self_thinkContent: '进行搜索文字'.repeat(10),
+    thinkContent: 'Search text'.repeat(10)
   },
   {
     codeId: '3',
+    id: '3',
     self_title: '失败-主标题',
     status: 'error',
     isCanExpand: true,
     isDefaultExpand: false,
     self_thinkTitle: '思考内容标题',
-    self_thinkContent: '进行搜索文字'.repeat(10)
+    self_thinkContent: '进行搜索文字'.repeat(10),
+    thinkContent: 'Search text'.repeat(10)
   },
   {
     codeId: '4',
+    id: '4',
     self_title: '谢谢-主标题',
     status: 'success',
     isCanExpand: true,
     isDefaultExpand: true,
     self_thinkTitle: '思考内容标题',
-    self_thinkContent: '进行搜索文字'.repeat(10)
+    self_thinkContent: '进行搜索文字'.repeat(10),
+    thinkContent: 'Search text'.repeat(10)
   }
 ];
 
-function handleExpand(value: string[]) {
-  const expandedItems = thinkingItems.filter(item =>
-    value.includes(item.codeId)
-  );
-  console.log(expandedItems);
+function handleExpand(item: ThoughtChainItemProps<DataType>) {
+  console.log(item);
 }
 </script>
 
@@ -71,7 +76,7 @@ function handleExpand(value: string[]) {
     title-key="self_title"
     think-title-key="self_thinkTitle"
     think-content-key="self_thinkContent"
-    @handle-expand="(value: string[]) => handleExpand(value)"
+    @handle-expand="handleExpand"
   />
 </template>
 

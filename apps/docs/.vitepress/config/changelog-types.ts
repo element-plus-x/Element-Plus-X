@@ -1,22 +1,17 @@
+import type { ChangelogTypeConfig } from '../../../../configs/types';
+
 import {
   COMMIT_TYPES,
+  COMPONENT_NAMES,
   getBgColor,
   getBorderColor,
   getColor,
   getEmoji,
   getLabel,
   TYPE_ENUM
-} from '../../../../configs/commit-types';
+} from '../../../../configs/index';
 
-export interface ChangelogTypeConfig {
-  commitTypes: string[];
-  emoji: string;
-  zhLabel: string;
-  enLabel: string;
-  color: string;
-  bgColor: string;
-  borderColor: string;
-}
+export type { ChangelogTypeConfig };
 
 export const CHANGELOG_TYPE_CONFIG: Record<string, ChangelogTypeConfig> =
   Object.fromEntries(
@@ -29,7 +24,12 @@ export const CHANGELOG_TYPE_CONFIG: Record<string, ChangelogTypeConfig> =
         enLabel: config.enLabel,
         color: config.color,
         bgColor: config.bgColor,
-        borderColor: config.borderColor
+        borderColor: config.borderColor,
+        description: config.description,
+        descriptionZh: config.descriptionZh,
+        aliases: config.aliases,
+        issueLabel: config.issueLabel,
+        type: config.type
       }
     ])
   );
@@ -39,28 +39,7 @@ export const COMMIT_TO_CHANGELOG_MAP: Record<string, string> =
 
 export const VALID_COMMIT_TYPES = TYPE_ENUM;
 
-export const COMPONENT_SCOPES = [
-  'Bubble',
-  'BubbleList',
-  'XSender',
-  'Sender',
-  'MentionSender',
-  'Thinking',
-  'ThoughtChain',
-  'Welcome',
-  'Prompts',
-  'Conversations',
-  'FilesCard',
-  'Attachments',
-  'ConfigProvider',
-  'Typewriter',
-  'XMarkdown',
-  'Typography',
-  'useRecord',
-  'useXStream',
-  'useSend',
-  'XRequest'
-];
+export const COMPONENT_SCOPES = COMPONENT_NAMES;
 
 export function getTypeConfig(type: string): ChangelogTypeConfig {
   return (
@@ -71,7 +50,12 @@ export function getTypeConfig(type: string): ChangelogTypeConfig {
       enLabel: 'Chore',
       color: '#8c8c8c',
       bgColor: '#fafafa',
-      borderColor: '#d9d9d9'
+      borderColor: '#d9d9d9',
+      type: 'chore',
+      description: 'Other changes',
+      descriptionZh: '其他修改',
+      issueLabel: '🔧 chore: 其他修改',
+      aliases: []
     }
   );
 }

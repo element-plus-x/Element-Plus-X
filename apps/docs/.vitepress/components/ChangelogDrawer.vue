@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { Close } from '@element-plus/icons-vue';
 import { useData } from 'vitepress';
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { getTagLabel } from '../config/changelog-types';
-import changelogData from '../data/changelog.json';
 import ChangelogTag from './ChangelogTag.vue';
 
 const props = defineProps<{
@@ -21,9 +20,38 @@ const visible = computed({
 
 const isZh = computed(() => lang.value === 'zh-CN');
 
+interface ChangeItem {
+  type: string;
+  content: string;
+  emoji?: string;
+  issues?: string[];
+  pr?: string;
+  author?: string;
+  hash?: string;
+}
+
+interface VersionEntry {
+  version: string;
+  date: string;
+  changes: ChangeItem[];
+}
+
+type ComponentChangelog = Record<string, VersionEntry[]>;
+
+const changelogData = ref<ComponentChangelog>({});
+
+async function loadChangelogData() {
+  const data = isZh.value
+    ? await import('../data/changelog.json')
+    : await import('../data/legacy-changelog-en.json');
+  changelogData.value = (data as any).default || data;
+}
+
+watch(lang, loadChangelogData, { immediate: true });
+
 const componentChangelog = computed(() => {
   if (!props.componentName) return [];
-  return (changelogData as any)[props.componentName] || [];
+  return changelogData.value[props.componentName] || [];
 });
 
 function getTypeTagLabel(type: string) {

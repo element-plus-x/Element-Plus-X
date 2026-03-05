@@ -1,0 +1,411 @@
+{
+  "Core": [
+    {
+      "version": "1.3.0",
+      "date": "2025-07-15",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "开发文档更新，开发计划更新",
+          "emoji": "📚"
+        },
+        {
+          "type": "chore",
+          "content": "移出 playground 文件，新增 storybook 实时预览的模式做展示",
+          "emoji": "🔧"
+        }
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "types TS类型引入写法变更，升级后请修改原来的类型写法",
+          "emoji": "💥"
+        },
+        {
+          "type": "docs",
+          "content": "更新线上开发计划文档，展示陆续的开发计划",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "更新首页介绍，交流要求文档。antdx 全部组件已经复刻完毕",
+          "emoji": "📚"
+        }
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "更新线上开发计划文档，展示陆续的开发计划",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "更新指南文档中的开发文档，修复文档介绍错误问题",
+          "emoji": "📚"
+        }
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "更新线上开发计划文档，会给大家展示陆续的开发计划",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "更新指南文档中的开发文档，着重修改开发命令、贡献代码、本地调试全流程介绍。规范开发和 pr 提交",
+          "emoji": "📚"
+        }
+      ]
+    },
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "refactor",
+          "content": "优化兼容性，Sender 输入框组件由于使用 defineModel 语法，该语法仅在 Vue 3.4+ 版本中可用，现已将此写法改用低版本写法（无缝替换，不用更改原写法）",
+          "emoji": "♻️"
+        },
+        {
+          "type": "docs",
+          "content": "更新线上开发计划文档，会给大家展示陆续的开发计划",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "更新指南文档中的开发文档，着重修改开发命令、贡献代码、本地调试全流程介绍。规范开发和 pr 提交",
+          "emoji": "📚"
+        }
+      ]
+    },
+    {
+      "version": "1.0.6",
+      "date": "2025-03-23",
+      "changes": [
+        {
+          "type": "chore",
+          "content": "集成 ESLint 9.x 和 Oxlint，规范开发流程",
+          "emoji": "🔧"
+        },
+        {
+          "type": "chore",
+          "content": "新增打包配置：自动根据组件文件名导出全量/按需组件",
+          "emoji": "🔧"
+        },
+        {
+          "type": "docs",
+          "content": "完善中/英文文档内容",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "新增文档更新日志模块",
+          "emoji": "📚"
+        }
+      ]
+    },
+    {
+      "version": "0.9.20",
+      "date": "2025-03-20",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "Typography 组件：弃用 speed 属性，改用 step 属性（与 ant-design-x 对齐）",
+          "emoji": "💥"
+        },
+        {
+          "type": "breaking",
+          "content": "Typography 组件：弃用 typedjs 实现打字效果，流式输出失效，且每次流式输出会导致组件重新渲染",
+          "emoji": "💥"
+        }
+      ]
+    },
+    {
+      "version": "0.9.14",
+      "date": "2025-03-14",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "Typography 组件：弃用 step 属性，改用 speed 属性控制打字速度",
+          "emoji": "💥"
+        }
+      ]
+    }
+  ],
+  "Bubble": [
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Bubble 气泡组件，在不自定义内容插槽的时候，自动继承，支持雾化效果属性",
+          "emoji": "🚀"
+        }
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 BubbleList 气泡列表组件，在流式接口输出下，自动滚动失效问题。并将 BubbleList 组件，和打字器组件解耦",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "0.9.20",
+      "date": "2025-03-20",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "Bubble 组件：弃用 typing.speed 属性值，改用 typing.step（与 ant-design-x 对齐）",
+          "emoji": "💥"
+        },
+        {
+          "type": "feature",
+          "content": "Bubble 组件：新增中断输出（pause）、继续打字（resume）和销毁（destroy）实例方法",
+          "emoji": "🚀"
+        },
+        {
+          "type": "feature",
+          "content": "Bubble 组件：新增操作监听事件",
+          "emoji": "🚀"
+        }
+      ]
+    },
+    {
+      "version": "0.9.14",
+      "date": "2025-03-14",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "Bubble 组件：弃用 typing.step 属性值，改用 typing.speed 来控制打字速度",
+          "emoji": "💥"
+        },
+        {
+          "type": "feature",
+          "content": "Bubble 组件：新增 avatar-size 和 avatar-gap 属性，控制无头像时的气泡样式",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "BubbleList": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 BubbleList 气泡列表组件，清空数组后，再次新增气泡，失去自动滚动的问题",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "BubbleList 组件新增回到底部按钮，同时新增悬停内容区域出现滚动条。增强交互体验",
+          "emoji": "🚀"
+        }
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 BubbleList 气泡列表组件 maxWidth 失效问题",
+          "emoji": "🐛",
+          "issues": ["46"]
+        }
+      ]
+    },
+    {
+      "version": "0.9.20",
+      "date": "2025-03-20",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "BubbleList 组件：新增 trigger-indices 属性，用于监听指定气泡的 @complete 完成回调",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Thinking": [
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 Thinking 思考中组件展开收起动画卡顿 bug",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 Thinking 思考中组件，用于在流式接口输出下，展示思考过程",
+          "emoji": "🚀",
+          "issues": ["32", "45"]
+        }
+      ]
+    }
+  ],
+  "ThoughtChain": [
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 ThoughtChain 思维链组件，用于在流式接口输出下，展示思考过程",
+          "emoji": "🚀",
+          "issues": ["32", "45"]
+        }
+      ]
+    }
+  ],
+  "Welcome": [
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 Welcome 欢迎组件，方便用户快速集成好看的欢迎介绍卡片",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Prompts": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 Prompts 提示集组件，用于显示一组与当前上下文相关的预定义的问题或建议",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Conversations": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 Conversations 会话管理组件。支持分组展示、菜单交互、滚动加载、自定义样式等功能。适用于消息列表、文件管理、任务分组等场景",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "FilesCard": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 FilesCard 文件卡片组件，支持多种文件类型（图片、文档、压缩包等）的可视化呈现",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Attachments": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 Attachments 附件上传组件，支持文件列表展示、上传、拖拽交互、滚动浏览等功能",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "useRecord": [
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 useRecord 钩子函数，解决用户在自定义 Sender 输入框的 #action-list 插槽时候，又同时想保留组件内置的浏览器语音识别 API 方法",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "useXStream": [
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 useXStream 钩子函数，针对 SSE 协议的流式请求，可自动获取流式数据；支持开始流式请求、中断流式请求",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "useSend": [
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 useSend 钩子函数，可单独使用：传入开始和结束方法，返回方法 loading 状态。偏底层，灵活控制",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "XRequest": [
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "新增 XRequest 工具类，针对 SSE 协议的流式请求，配置接口基础地址，使用 send 发送请求，实例上有很多这个请求的状态监听",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ]
+}

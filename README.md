@@ -244,7 +244,7 @@ git clone https://github.com/HeJiaYue520/Element-Plus-X.git
 pnpm install
 
 # 启动文档开发服务器
-pnpm run dev:docs:src
+pnpm run dev:docs
 
 # 启动组件开发服务器 (Storybook)
 pnpm run dev:core

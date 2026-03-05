@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useData } from 'vitepress';
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { getTagLabel } from '../config/changelog-types';
-import changelogData from '../data/changelog.json';
 import ChangelogTag from './ChangelogTag.vue';
 
 const { lang } = useData();
@@ -37,6 +36,17 @@ interface AggregatedVersion {
   groupedChanges: GroupedChanges;
 }
 
+const changelogData = ref<ComponentChangelog>({});
+
+async function loadChangelogData() {
+  const data = isZh.value
+    ? await import('../data/changelog.json')
+    : await import('../data/legacy-changelog-en.json');
+  changelogData.value = (data as any).default || data;
+}
+
+watch(lang, loadChangelogData, { immediate: true });
+
 function getTypeTagLabel(type: string) {
   return getTagLabel(type, isZh.value ? 'zh' : 'en');
 }
@@ -57,7 +67,7 @@ function formatContent(content: string) {
 }
 
 const aggregatedVersions = computed(() => {
-  const data = changelogData as ComponentChangelog;
+  const data = changelogData.value as ComponentChangelog;
   const versionMap = new Map<string, AggregatedVersion>();
 
   for (const [component, versions] of Object.entries(data)) {

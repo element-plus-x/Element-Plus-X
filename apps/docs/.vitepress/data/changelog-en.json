@@ -1,0 +1,819 @@
+{
+  "Core": [
+    {
+      "version": "unreleased",
+      "date": "2026-02-28",
+      "changes": [
+        {
+          "type": "chore",
+          "content": "文档架构重构与组件样式修正",
+          "emoji": "🔧",
+          "author": "何嘉悦",
+          "hash": "0621d9a",
+          "source": "commit"
+        },
+        {
+          "type": "chore",
+          "content": "修改2.0.0版本号，新增版本域名下拉框和组件菜单左侧目录徽标",
+          "emoji": "🔧",
+          "author": "何嘉悦",
+          "hash": "5926809",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.3.8",
+      "date": "2025-12-14",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 GitHub Actions 中的 changeset action 参数错误",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "a478c96",
+          "source": "commit"
+        },
+        {
+          "type": "fix",
+          "content": "修复 changeset 配置中的包名错误",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "b22372e",
+          "source": "commit"
+        },
+        {
+          "type": "fix",
+          "content": "修复 changeset 配置中的包依赖问题",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "1ccd774",
+          "source": "commit"
+        },
+        {
+          "type": "fix",
+          "content": "修复 GitHub Actions 中 Vue 3 Composition API 类型识别问题",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "3e8aeff",
+          "source": "commit"
+        },
+        {
+          "type": "chore",
+          "content": "合并部分pr请求,尝试解决发包报错问题",
+          "emoji": "🔧",
+          "author": "何嘉悦",
+          "hash": "ac84d08",
+          "source": "commit"
+        },
+        {
+          "type": "chore",
+          "content": "合并部分pr请求",
+          "emoji": "🔧",
+          "author": "何嘉悦",
+          "hash": "4bbbaa6",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.3.6.beta.1",
+      "date": "2025-12-04",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修改ci",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "0e36c64",
+          "source": "commit"
+        },
+        {
+          "type": "docs",
+          "content": "更新文档，解决官网构建报错问题",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "77c57f5",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.3.0",
+      "date": "2025-07-15",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "Updated development documentation and development roadmap",
+          "emoji": "📚"
+        },
+        {
+          "type": "chore",
+          "content": "Removed playground files, added storybook real-time preview mode for demonstrations",
+          "emoji": "🔧"
+        }
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "types TypeScript type import syntax change. After upgrade, please modify the original type syntax",
+          "emoji": "💥"
+        },
+        {
+          "type": "docs",
+          "content": "Updated online development roadmap documentation, showcasing ongoing development plans",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "Updated homepage introduction and communication requirements documentation. All antdx components have been fully replicated",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "v1.2.0 上新",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "11026d9",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "文档更新，修复已知bug, v1.1.6 版本更新",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "89d6412",
+          "source": "commit"
+        },
+        {
+          "type": "docs",
+          "content": "Updated online development roadmap documentation, showcasing ongoing development plans",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "Updated Guide Documentation Development Documentation, fixed documentation introduction error issues",
+          "emoji": "📚"
+        }
+      ]
+    },
+    {
+      "version": "1.1.4",
+      "date": "2025-04-14",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "v1.1.4上新",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "55dbe0b",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "Updated online development roadmap documentation, will showcase ongoing development plans",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "Updated Guide Documentation Development Documentation, focusing on modifying development commands, contributing code, local debugging full process introduction. Standardize development and pr submission",
+          "emoji": "📚"
+        }
+      ]
+    },
+    {
+      "version": "1.1.0",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "上新 v1.1.0",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "4b6f387",
+          "source": "commit"
+        },
+        {
+          "type": "docs",
+          "content": "v1.1.1上线",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "3bdd21b",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.0.7",
+      "date": "2025-03-30",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "修改包版本，解决 npm 发包地址 交流群二维码不正确问题",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "472adcd",
+          "source": "commit"
+        },
+        {
+          "type": "docs",
+          "content": "重新打包覆盖 1.0.7 版本 交流群二维码不更新问题",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "afc221a",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "refactor",
+          "content": "Optimized compatibility, Sender input component, due to using defineModel syntax, this syntax is only available in Vue 3.4+ versions, now changed this syntax to low-version syntax (Seamless replacement, no need to change original syntax)",
+          "emoji": "♻️"
+        },
+        {
+          "type": "docs",
+          "content": "Updated online development roadmap documentation, will showcase ongoing development plans",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "Updated Guide Documentation Development Documentation, focusing on modifying development commands, contributing code, local debugging full process introduction. Standardize development and pr submission",
+          "emoji": "📚"
+        }
+      ]
+    },
+    {
+      "version": "1.0.6",
+      "date": "2025-03-23",
+      "changes": [
+        {
+          "type": "docs",
+          "content": "Improved Chinese/English documentation content",
+          "emoji": "📚"
+        },
+        {
+          "type": "docs",
+          "content": "Added documentation update log module",
+          "emoji": "📚"
+        },
+        {
+          "type": "chore",
+          "content": "Integrated ESLint 9.x and Oxlint to standardize development process",
+          "emoji": "🔧"
+        },
+        {
+          "type": "chore",
+          "content": "Added build configuration: automatically export full/on-demand components based on component file names",
+          "emoji": "🔧"
+        }
+      ]
+    },
+    {
+      "version": "1.0.4",
+      "date": "2025-03-23",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复发包内容丢失",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "c7f36aa",
+          "source": "commit"
+        },
+        {
+          "type": "docs",
+          "content": "更新readme 新增英文 readme",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "56f7caf",
+          "source": "commit"
+        },
+        {
+          "type": "docs",
+          "content": "tagv1.0.4",
+          "emoji": "📚",
+          "author": "何嘉悦",
+          "hash": "0fd999c",
+          "source": "commit"
+        },
+        {
+          "type": "chore",
+          "content": "add v1.0.5",
+          "emoji": "🔧",
+          "author": "何嘉悦",
+          "hash": "8faa19e",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.0.2",
+      "date": "2025-03-22",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "新版本",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "a1ae043",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "0.0.8",
+      "date": "2025-03-08",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修改文档在线地址，修改演示地址",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "71d6877",
+          "source": "commit"
+        },
+        {
+          "type": "fix",
+          "content": "移除npm中的map文件",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "225251a",
+          "source": "commit"
+        },
+        {
+          "type": "fix",
+          "content": "修改ci",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "327b868",
+          "source": "commit"
+        },
+        {
+          "type": "fix",
+          "content": "修复ci",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "427c113",
+          "source": "commit"
+        }
+      ]
+    }
+  ],
+  "Thinking": [
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "Fixed Thinking thinking component expand/collapse animation stuttering bug",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "1.1.3",
+      "date": "2025-04-08",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 Thinking scss 1.1.3",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "da1fb16",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.1.2",
+      "date": "2025-04-07",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 Thinking scss 问题",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "871e4a6",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Added Thinking thinking component for displaying thinking process under streaming interface output",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "ThoughtChain": [
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Added ThoughtChain thought chain component for displaying thinking process under streaming interface output",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Welcome": [
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Added Welcome welcome component for users to quickly integrate beautiful welcome introduction cards",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "BubbleList": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "Fixed BubbleList bubble list component, after clearing array and adding new bubbles, losing auto-scroll issue",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "BubbleList component added back to bottom button, and added hover content area scrollbar appearance. Enhanced interaction experience",
+          "emoji": "🚀"
+        }
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "Fixed BubbleList bubble list component auto-scroll failure issue under streaming interface output. And decoupled BubbleList component from typing component",
+          "emoji": "🐛"
+        },
+        {
+          "type": "fix",
+          "content": "Fixed BubbleList bubble list component maxWidth failure issue",
+          "emoji": "🐛",
+          "issues": [
+            "46"
+          ]
+        }
+      ]
+    },
+    {
+      "version": "0.9.20",
+      "date": "2025-03-20",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "BubbleList component: Added trigger-indices property for monitoring specified bubble @complete completion callbacks",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Bubble": [
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Bubble bubble component, when not customizing content slots, automatically inherit and support fog effect properties",
+          "emoji": "🚀"
+        }
+      ]
+    },
+    {
+      "version": "1.0.4",
+      "date": "2025-03-23",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复bubbleList范型bug",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "63338e6",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "0.9.20",
+      "date": "2025-03-20",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "Bubble component: Deprecated typing.speed property value, changed to typing.step (aligned with ant-design-x)",
+          "emoji": "💥"
+        },
+        {
+          "type": "feature",
+          "content": "Bubble component: Added interrupt output (pause), continue typing (resume) and destroy (destroy) instance methods",
+          "emoji": "🚀"
+        },
+        {
+          "type": "feature",
+          "content": "Bubble component: Added operation monitoring events",
+          "emoji": "🚀"
+        }
+      ]
+    },
+    {
+      "version": "0.9.14",
+      "date": "2025-03-14",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "Bubble component: Deprecated typing.step property value, changed to typing.speed to control typing speed",
+          "emoji": "💥"
+        },
+        {
+          "type": "feature",
+          "content": "Bubble component: Added avatar-size and avatar-gap properties to control bubble styles when no avatar is present",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "XSender": [
+    {
+      "version": "1.3.98-backup",
+      "date": "2026-01-24",
+      "changes": [
+        {
+          "type": "chore",
+          "content": "[feat](XSender)：配置属性说明文档",
+          "emoji": "🔧",
+          "author": "jianfv",
+          "hash": "588acb8",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "Fixed Sender, MentionSender footer slot click auto-focus issue",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "1.1.6",
+      "date": "2025-04-16",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Sender component added variants, footer, command trigger functionality",
+          "emoji": "🚀"
+        },
+        {
+          "type": "feature",
+          "content": "New MentionSender component, another command way of the Sender component",
+          "emoji": "🚀"
+        },
+        {
+          "type": "feature",
+          "content": "Sender component added input-style property for developers to customize built-in input box styles",
+          "emoji": "🚀"
+        },
+        {
+          "type": "refactor",
+          "content": "Sender component optimized the send button state to disabled when there's no value, @submit method will also be disabled. Added submit-btn-disabled property for developers to actively control",
+          "emoji": "♻️"
+        }
+      ]
+    },
+    {
+      "version": "1.1.1",
+      "date": "2025-04-06",
+      "changes": [
+        {
+          "type": "breaking",
+          "content": "Sender input component: two-way binding syntax change. Changed from previous v-model:value to direct v-model binding",
+          "emoji": "💥"
+        },
+        {
+          "type": "fix",
+          "content": "Fixed Sender input component v-model two-way binding failure issue",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "Fixed Sender input component in loading state, still able to trigger @submit method bug",
+          "emoji": "🐛",
+          "issues": [
+            "22"
+          ]
+        },
+        {
+          "type": "fix",
+          "content": "Fixed Sender input component in read-only state, still able to trigger value modification bug",
+          "emoji": "🐛"
+        }
+      ]
+    },
+    {
+      "version": "0.9.20",
+      "date": "2025-03-20",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Sender component: Added @recording-change event to monitor built-in recording button click state",
+          "emoji": "🚀"
+        },
+        {
+          "type": "feature",
+          "content": "Sender component: Added start recording (startRecording) and stop recording (stopRecording) instance methods",
+          "emoji": "🚀"
+        },
+        {
+          "type": "fix",
+          "content": "Fixed Sender input component autosize property failure bug",
+          "emoji": "🐛"
+        }
+      ]
+    }
+  ],
+  "Prompts": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Added Prompts prompt collection component, used to display a set of predefined questions or suggestions related to the current context",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Conversations": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Added Conversations conversation management component. Supports grouped display, menu interaction, scroll loading, custom styling and other features. Suitable for message lists, file management, task grouping and other scenarios",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "FilesCard": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Added FilesCard file card component, supporting visual presentation of multiple file types (images, documents, compressed packages, etc.)",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "Attachments": [
+    {
+      "version": "1.2.0",
+      "date": "2025-05-05",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Added Attachments attachment upload component, supporting file list display, upload, drag interaction, scroll browsing and other features",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "useRecord": [
+    {
+      "version": "1.0.7",
+      "date": "2025-03-30",
+      "changes": [
+        {
+          "type": "chore",
+          "content": "新增 useRecord useSend useXStream 钩子函数和 XRequest 工具类",
+          "emoji": "🔧",
+          "author": "何嘉悦",
+          "hash": "2f793fe",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Added useRecord hook function, solving the issue when users want to customize Sender input component's #action-list slot while also wanting to retain the component's built-in browser speech recognition API method",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "useXStream": [
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Added useXStream hook function, for SSE protocol streaming requests, can automatically get streaming data; supports starting streaming requests, interrupting streaming requests",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "useSend": [
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Added useSend hook function, can be used alone: pass in start and end methods, returns method loading state. More low-level, flexible control",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ],
+  "XRequest": [
+    {
+      "version": "1.0.7",
+      "date": "2025-03-30",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修改xrequest的send方法",
+          "emoji": "🐛",
+          "author": "Json_Lee",
+          "hash": "ec01580",
+          "source": "commit"
+        }
+      ]
+    },
+    {
+      "version": "1.0.81",
+      "date": "2025-03-29",
+      "changes": [
+        {
+          "type": "feature",
+          "content": "Added XRequest utility class, for SSE protocol streaming requests, configure interface base address, use send to send requests, instance has many state listeners for this request",
+          "emoji": "🚀"
+        }
+      ]
+    }
+  ]
+}

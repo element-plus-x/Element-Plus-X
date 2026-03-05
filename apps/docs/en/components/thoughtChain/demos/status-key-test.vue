@@ -22,6 +22,7 @@ interface DataType {
 const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   {
     codeId: '1',
+    id: '1',
     self_status: 'yes',
     isCanExpand: true,
     isDefaultExpand: true,
@@ -31,6 +32,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   },
   {
     codeId: '2',
+    id: '2',
     title: 'Loading - Main Title',
     self_status: 'load',
     isCanExpand: true,
@@ -40,6 +42,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   },
   {
     codeId: '3',
+    id: '3',
     title: 'Failed - Main Title',
     self_status: 'no',
     isCanExpand: true,
@@ -49,6 +52,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   },
   {
     codeId: '4',
+    id: '4',
     title: 'Thank You - Main Title',
     isCanExpand: true,
     isDefaultExpand: true,
