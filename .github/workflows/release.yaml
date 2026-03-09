@@ -67,7 +67,6 @@ jobs:
         run: |
           cd packages/core
           npm pack
-          mv vue-element-plus-x-*.tgz vue-element-plus-x-${{ steps.tag_type.outputs.VERSION }}.tgz
 
       - name: Publish to npm
         if: github.event_name == 'push' || github.event.inputs.tag
