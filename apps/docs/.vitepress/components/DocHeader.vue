@@ -1,12 +1,18 @@
 <script lang="ts" setup>
-import { Edit, ElementPlus, Timer } from '@element-plus/icons-vue';
+import {
+  ChatDotSquare,
+  Edit,
+  ElementPlus,
+  Timer
+} from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
-import { useData } from 'vitepress';
+import { useData, useRouter } from 'vitepress';
 import { computed, ref } from 'vue';
 import { componentImports, componentTitles } from '../config/component-config';
 import ChangelogDrawer from './ChangelogDrawer.vue';
 
 const { frontmatter, lang, page, isDark } = useData();
+const router = useRouter();
 const changelogVisible = ref(false);
 const name = computed(() => {
   return frontmatter.value.title;
@@ -110,6 +116,12 @@ async function copyWithFeedback(text: string) {
 
   return success;
 }
+
+// 跳转到 Issue 反馈页面
+function goToIssuePage() {
+  const path = lang.value === 'zh-CN' ? '/zh/guide/issue' : '/en/guide/issue';
+  router.go(`${path}?component=${name.value}`);
+}
 </script>
 
 <template>
@@ -172,6 +184,13 @@ async function copyWithFeedback(text: string) {
               <Timer />
             </el-icon>
             <span>{{ lang === 'zh-CN' ? '更新日志' : 'Changelog' }}</span>
+          </span>
+          <span class="divider" />
+          <span class="issue-link common" @click="goToIssuePage">
+            <el-icon>
+              <ChatDotSquare />
+            </el-icon>
+            <span>{{ lang === 'zh-CN' ? 'Issue 反馈' : 'Feedback' }}</span>
           </span>
         </div>
       </div>
@@ -251,14 +270,16 @@ async function copyWithFeedback(text: string) {
   }
 
   .edit-link,
-  .changelog-link {
+  .changelog-link,
+  .issue-link {
     display: flex;
     align-items: center;
     gap: 4px;
   }
 
   .edit-link:hover,
-  .changelog-link:hover {
+  .changelog-link:hover,
+  .issue-link:hover {
     text-decoration: underline;
   }
 

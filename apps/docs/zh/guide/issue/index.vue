@@ -266,6 +266,13 @@ onMounted(async () => {
   } finally {
     loading.value = false;
   }
+
+  // 从 URL 参数中读取 component 值并预填充表单
+  const urlParams = new URLSearchParams(window.location.search);
+  const componentParam = urlParams.get('component');
+  if (componentParam && components.includes(componentParam)) {
+    form.componentName = componentParam;
+  }
 });
 </script>
 
