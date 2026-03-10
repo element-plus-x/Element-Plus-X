@@ -1,0 +1,55 @@
+name: Docs CI
+
+on:
+  push:
+    branches:
+      - main
+      - updata-2602
+
+concurrency:
+  group: docs-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm i -g pnpm
+          pnpm install
+
+      - name: Resolve docs env
+        id: docs_env
+        run: |
+          if [[ "${GITHUB_REF_NAME}" == "updata-2602" ]]; then
+            echo "LINE=v2" >> $GITHUB_OUTPUT
+            echo "PUBLIC_ORIGIN=https://v2.element-plus-x.com" >> $GITHUB_OUTPUT
+            echo "VERSION_LABEL=v2.x (Beta)" >> $GITHUB_OUTPUT
+          else
+            echo "LINE=v1" >> $GITHUB_OUTPUT
+            echo "PUBLIC_ORIGIN=https://v1.element-plus-x.com" >> $GITHUB_OUTPUT
+            echo "VERSION_LABEL=v1.x" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build docs
+        env:
+          DOCS_LINE: ${{ steps.docs_env.outputs.LINE }}
+          DOCS_PUBLIC_ORIGIN: ${{ steps.docs_env.outputs.PUBLIC_ORIGIN }}
+          DOCS_VERSION_LABEL: ${{ steps.docs_env.outputs.VERSION_LABEL }}
+          DOCS_V1_ORIGIN: https://v1.element-plus-x.com
+          DOCS_V2_ORIGIN: https://v2.element-plus-x.com
+          DOCS_ROOT_ORIGIN: https://element-plus-x.com
+          DOCS_USE_SOURCE: 'true'
+        run: pnpm run build:docs

@@ -59,8 +59,15 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
           if [[ "$VERSION" == *"beta"* ]] || [[ "${{ github.event.inputs.tag }}" == "beta" ]]; then
             echo "TAG=beta" >> $GITHUB_OUTPUT
+            echo "IS_PRERELEASE=true" >> $GITHUB_OUTPUT
           else
             echo "TAG=latest" >> $GITHUB_OUTPUT
+            echo "IS_PRERELEASE=false" >> $GITHUB_OUTPUT
+          fi
+          if [[ "$VERSION" == 1.* ]]; then
+            echo "DOCS_LINE=v1" >> $GITHUB_OUTPUT
+          else
+            echo "DOCS_LINE=v2" >> $GITHUB_OUTPUT
           fi
 
       - name: Check npm version exists
@@ -103,3 +110,17 @@ jobs:
           prerelease: ${{ steps.tag_type.outputs.TAG == 'beta' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Trigger docs release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: peter-evans/workflow-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: deploy-docs.yaml
+          ref: ${{ github.ref_name }}
+          inputs: |
+            line: ${{ steps.tag_type.outputs.DOCS_LINE }}
+            version: ${{ github.ref_name }}
+            source_ref: ${{ github.ref }}
+            source_sha: ${{ github.sha }}
+            is_prerelease: ${{ steps.tag_type.outputs.IS_PRERELEASE }}

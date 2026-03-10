@@ -6,6 +6,25 @@ import type {
   SidebarItem
 } from './types';
 
+import process from 'node:process';
+
+const DOCS_LINE = process.env.DOCS_LINE === 'v2' ? 'v2' : 'v1';
+const DOCS_V1_ORIGIN =
+  process.env.DOCS_V1_ORIGIN ?? 'https://v1.element-plus-x.com';
+const DOCS_V2_ORIGIN =
+  process.env.DOCS_V2_ORIGIN ?? 'https://v2.element-plus-x.com';
+
+const V1_LABEL = DOCS_LINE === 'v1' ? 'v1.x (\u5F53\u524D)' : 'v1.x';
+const V2_LABEL =
+  DOCS_LINE === 'v2' ? 'v2.x (Beta, \u5F53\u524D)' : 'v2.x (Beta)';
+
+function mapNavText(text: string, lang: 'zh' | 'en'): string {
+  if (lang === 'zh') return text;
+  if (text.startsWith('v1.x')) return text.replace('\u5F53\u524D', 'Current');
+  if (text.startsWith('v2.x')) return text.replace('\u5F53\u524D', 'Current');
+  return text === '\u751F\u6001' ? 'Ecosystem' : text;
+}
+
 export const COMPONENT_CATEGORIES: Record<
   ComponentCategory,
   { zhLabel: string; enLabel: string }
@@ -278,27 +297,45 @@ export const NAV_ECOSYSTEM_ITEMS: NavItem[] = [
 ];
 
 export function getNavConfig(lang: 'zh' | 'en'): NavItem[] {
-  const ecosystemItems = NAV_ECOSYSTEM_ITEMS.map(item => ({
-    ...item,
-    text:
-      lang === 'zh'
-        ? item.text === '生态'
-          ? '生态'
-          : item.text
-        : item.text === '生态'
-          ? 'Ecosystem'
-          : item.text,
-    items: item.items?.map(sub => ({
-      ...sub,
-      text:
-        lang === 'zh'
-          ? sub.text
-          : sub.text
-              .replace('模板项目', 'Template')
-              .replace('优雅请求库', 'Request Lib')
-              .replace('轻量级聊天框', 'Chat Box')
-    }))
-  }));
+  const ecosystemItems = NAV_ECOSYSTEM_ITEMS.map(item => {
+    const isVersionGroup =
+      item.text.startsWith('v1.x') || item.text.startsWith('v2.x');
+    const versionLabel = DOCS_LINE === 'v2' ? V2_LABEL : V1_LABEL;
+
+    return {
+      ...item,
+      text: isVersionGroup
+        ? lang === 'zh'
+          ? versionLabel
+          : mapNavText(versionLabel, lang)
+        : mapNavText(item.text, lang),
+      items: item.items?.map(sub => {
+        const isV1 = sub.text.startsWith('v1.x');
+        const isV2 = sub.text.startsWith('v2.x');
+        const text =
+          lang === 'zh'
+            ? isV1
+              ? V1_LABEL
+              : isV2
+                ? V2_LABEL
+                : sub.text
+            : mapNavText(sub.text, lang)
+                .replace('模板项目', 'Template')
+                .replace('优雅请求库', 'Request Lib')
+                .replace('轻量级聊天框', 'Chat Box');
+
+        return {
+          ...sub,
+          text,
+          link: isV1
+            ? `${DOCS_V1_ORIGIN}/${lang}/`
+            : isV2
+              ? `${DOCS_V2_ORIGIN}/${lang}/`
+              : sub.link
+        };
+      })
+    };
+  });
 
   return [
     ecosystemItems[0],

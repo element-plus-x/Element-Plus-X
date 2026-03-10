@@ -33,6 +33,19 @@ const docsUseSource =
   process.env.NODE_ENV === 'development' ||
   !process.env.NODE_ENV;
 
+const docsLine = process.env.DOCS_LINE === 'v2' ? 'v2' : 'v1';
+const docsV1Origin =
+  process.env.DOCS_V1_ORIGIN ?? 'https://v1.element-plus-x.com';
+const docsV2Origin =
+  process.env.DOCS_V2_ORIGIN ?? 'https://v2.element-plus-x.com';
+const docsPublicOrigin =
+  process.env.DOCS_PUBLIC_ORIGIN ??
+  (docsLine === 'v2' ? docsV2Origin : docsV1Origin);
+const docsRootOrigin =
+  process.env.DOCS_ROOT_ORIGIN ?? 'https://element-plus-x.com';
+const docsVersionLabel =
+  process.env.DOCS_VERSION_LABEL ?? (docsLine === 'v2' ? 'v2.x (Beta)' : 'v1.x');
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'Element-Plus-X',
@@ -79,6 +92,12 @@ export default defineConfig({
     cacheDir,
     define: {
       __VITE_GITHUB_BRANCH__: JSON.stringify(gitBranch),
+      __DOCS_PUBLIC_ORIGIN__: JSON.stringify(docsPublicOrigin),
+      __DOCS_ROOT_ORIGIN__: JSON.stringify(docsRootOrigin),
+      __DOCS_VERSION_LABEL__: JSON.stringify(docsVersionLabel),
+      __DOCS_LINE__: JSON.stringify(docsLine),
+      __DOCS_V1_ORIGIN__: JSON.stringify(docsV1Origin),
+      __DOCS_V2_ORIGIN__: JSON.stringify(docsV2Origin),
     },
     resolve: {
       alias: docsUseSource
