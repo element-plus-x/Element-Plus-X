@@ -69,7 +69,13 @@ jobs:
           DOCS_USE_SOURCE: 'true'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: pnpm run build:docs
+        run: |
+          mkdir -p apps/internal/metadata/dist
+          if [[ ! -f apps/internal/metadata/dist/component-contributors.json ]]; then
+            echo '{}' > apps/internal/metadata/dist/component-contributors.json
+          fi
+          pnpm run gen:changelog
+          pnpm -C apps/docs build
 
       - name: Resolve verify path
         id: verify_path
