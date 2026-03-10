@@ -1,4 +1,5 @@
 import { getIssueCategoryOptions } from '@configs/commit-types';
+import { COMPONENTS } from '@configs/components';
 
 export { getIssueCategoryOptions };
 
@@ -64,18 +65,10 @@ export async function fetchGitHubTags(): Promise<string[]> {
   }
 }
 
-// 使用 Vite 提供的 import.meta.glob 功能，需要在 tsconfig 中配置 "types": ["vite/client"]
-const componentModules = (import.meta as any).glob('@components/*/index.vue', {
-  eager: true
-});
-
 function getLocalComponents(): string[] {
-  const components = Object.keys(componentModules)
-    .map(path => {
-      const match = path.match(/[/\\]([^/\\]+)[/\\]index\.vue$/);
-      return match ? match[1] : null;
-    })
-    .filter((name): name is string => name !== null);
+  const components = COMPONENTS.filter(
+    component => !component.isHook && !component.external
+  ).map(component => component.name);
 
   return [...new Set(components)].sort();
 }
