@@ -27,6 +27,16 @@ on:
         required: true
         default: 'true'
         type: string
+      switch_current:
+        description: 'Switch current symlink after upload'
+        required: true
+        default: 'false'
+        type: string
+      update_root_redirect:
+        description: 'Update root redirect when release should become default'
+        required: true
+        default: 'false'
+        type: string
 
 concurrency:
   group: docs-release-${{ inputs.version }}
@@ -102,7 +112,7 @@ jobs:
           PORT="${DOCS_DEPLOY_PORT:-22}"
           ssh-keyscan -p "$PORT" -H "$DOCS_DEPLOY_HOST" >> ~/.ssh/known_hosts
 
-      - name: Upload and switch
+      - name: Upload release
         env:
           DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
           DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
@@ -112,16 +122,50 @@ jobs:
           PORT="${DOCS_DEPLOY_PORT:-22}"
           DOCS_BASE="${DOCS_DEPLOY_BASE_DIR}/${{ inputs.line }}"
           RELEASE_DIR="${DOCS_BASE}/releases/${{ inputs.version }}"
-          ROOT_REDIRECT="${DOCS_DEPLOY_BASE_DIR}/root/redirect.conf"
 
           ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "mkdir -p '$RELEASE_DIR'"
           rsync -az --delete -e "ssh -p $PORT" apps/docs/.vitepress/dist/ "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST:$RELEASE_DIR/"
+          echo "Uploaded release to $RELEASE_DIR"
+
+      - name: Switch current symlink
+        if: inputs.switch_current == 'true'
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+          DOCS_DEPLOY_BASE_DIR: ${{ secrets.DOCS_DEPLOY_BASE_DIR }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          DOCS_BASE="${DOCS_DEPLOY_BASE_DIR}/${{ inputs.line }}"
+          RELEASE_DIR="${DOCS_BASE}/releases/${{ inputs.version }}"
+
           ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "ln -sfn '$RELEASE_DIR' '$DOCS_BASE/current'"
+
+      - name: Update root redirect
+        if: inputs.update_root_redirect == 'true'
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+          DOCS_DEPLOY_BASE_DIR: ${{ secrets.DOCS_DEPLOY_BASE_DIR }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          ROOT_REDIRECT="${DOCS_DEPLOY_BASE_DIR}/root/redirect.conf"
 
           if [[ "${{ inputs.line }}" == "v1" ]]; then
             ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "mkdir -p '${DOCS_DEPLOY_BASE_DIR}/root' && echo 'set \\$root_target https://v1.element-plus-x.com;' > '$ROOT_REDIRECT'"
           elif [[ "${{ inputs.line }}" == "v2" && "${{ inputs.is_prerelease }}" != "true" ]]; then
             ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "mkdir -p '${DOCS_DEPLOY_BASE_DIR}/root' && echo 'set \\$root_target https://v2.element-plus-x.com;' > '$ROOT_REDIRECT'"
+          else
+            echo "Skipping root redirect update for prerelease line=${{ inputs.line }}"
           fi
 
+      - name: Reload nginx
+        if: inputs.switch_current == 'true' || inputs.update_root_redirect == 'true'
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
           ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "nginx -t && systemctl reload nginx"

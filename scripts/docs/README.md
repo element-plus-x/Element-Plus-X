@@ -51,3 +51,22 @@ Configure these secrets in the repo settings:
 3. `DOCS_DEPLOY_USER`
 4. `DOCS_DEPLOY_SSH_KEY`
 5. `DOCS_DEPLOY_BASE_DIR` (suggested: `/var/www/element-plus-x`)
+
+## Workflows
+
+### Docs Deploy Verify
+
+Use the `Docs Deploy Verify` workflow for the first end-to-end server test.
+
+- Trigger it manually from the default branch.
+- Point `source_ref` to the branch or tag you want to build.
+- It uploads to `${DOCS_DEPLOY_BASE_DIR}/verify/<line>/<verify_id>`.
+- It does not switch `current`, does not change `root/redirect.conf`, and does not reload nginx.
+
+### Docs Release
+
+Use the `Docs Release` workflow for release uploads and cutover.
+
+- `switch_current=false` uploads the release without switching live traffic.
+- `switch_current=true` updates the `<line>/current` symlink.
+- `update_root_redirect=true` updates the root domain redirect when the release should become the default docs line.

@@ -124,3 +124,5 @@ jobs:
             source_ref: ${{ github.ref }}
             source_sha: ${{ github.sha }}
             is_prerelease: ${{ steps.tag_type.outputs.IS_PRERELEASE }}
+            switch_current: true
+            update_root_redirect: true
