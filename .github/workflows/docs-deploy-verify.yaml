@@ -67,6 +67,8 @@ jobs:
           DOCS_V2_ORIGIN: https://v2.element-plus-x.com
           DOCS_ROOT_ORIGIN: https://element-plus-x.com
           DOCS_USE_SOURCE: 'true'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm run build:docs
 
       - name: Resolve verify path
