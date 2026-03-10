@@ -1,0 +1,128 @@
+name: Docs Deploy Verify
+
+on:
+  workflow_dispatch:
+    inputs:
+      line:
+        description: 'Docs line (v1 or v2)'
+        required: true
+        default: 'v2'
+        type: choice
+        options:
+          - v1
+          - v2
+      source_ref:
+        description: 'Git ref to build (branch or tag)'
+        required: true
+        default: 'refs/heads/updata-2602'
+        type: string
+      verify_id:
+        description: 'Verify directory suffix (defaults to run id)'
+        required: false
+        type: string
+
+concurrency:
+  group: docs-deploy-verify-${{ github.ref }}-${{ inputs.line }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-upload-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_ref }}
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm i -g pnpm
+          pnpm install
+
+      - name: Resolve docs env
+        id: docs_env
+        run: |
+          if [[ "${{ inputs.line }}" == "v2" ]]; then
+            echo "PUBLIC_ORIGIN=https://v2.element-plus-x.com" >> $GITHUB_OUTPUT
+            echo "VERSION_LABEL=v2.x (Verify)" >> $GITHUB_OUTPUT
+          else
+            echo "PUBLIC_ORIGIN=https://v1.element-plus-x.com" >> $GITHUB_OUTPUT
+            echo "VERSION_LABEL=v1.x (Verify)" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build docs
+        env:
+          DOCS_LINE: ${{ inputs.line }}
+          DOCS_PUBLIC_ORIGIN: ${{ steps.docs_env.outputs.PUBLIC_ORIGIN }}
+          DOCS_VERSION_LABEL: ${{ steps.docs_env.outputs.VERSION_LABEL }}
+          DOCS_V1_ORIGIN: https://v1.element-plus-x.com
+          DOCS_V2_ORIGIN: https://v2.element-plus-x.com
+          DOCS_ROOT_ORIGIN: https://element-plus-x.com
+          DOCS_USE_SOURCE: 'true'
+        run: pnpm run build:docs
+
+      - name: Resolve verify path
+        id: verify_path
+        env:
+          DOCS_DEPLOY_BASE_DIR: ${{ secrets.DOCS_DEPLOY_BASE_DIR }}
+        run: |
+          VERIFY_ID="${{ inputs.verify_id }}"
+          if [[ -z "$VERIFY_ID" ]]; then
+            VERIFY_ID="${{ github.run_id }}"
+          fi
+          REMOTE_DIR="${DOCS_DEPLOY_BASE_DIR}/verify/${{ inputs.line }}/$VERIFY_ID"
+          echo "VERIFY_ID=$VERIFY_ID" >> $GITHUB_OUTPUT
+          echo "REMOTE_DIR=$REMOTE_DIR" >> $GITHUB_OUTPUT
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DOCS_DEPLOY_SSH_KEY }}
+
+      - name: Add deploy host to known_hosts
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+        run: |
+          mkdir -p ~/.ssh
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          ssh-keyscan -p "$PORT" -H "$DOCS_DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+      - name: Upload verify build
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          REMOTE_DIR="${{ steps.verify_path.outputs.REMOTE_DIR }}"
+
+          ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "mkdir -p '$REMOTE_DIR'"
+          rsync -az --delete -e "ssh -p $PORT" apps/docs/.vitepress/dist/ "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST:$REMOTE_DIR/"
+
+      - name: Verify remote artifacts
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          REMOTE_DIR="${{ steps.verify_path.outputs.REMOTE_DIR }}"
+
+          ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "\
+            test -d '$REMOTE_DIR' && \
+            test -f '$REMOTE_DIR/index.html' && \
+            (test -d '$REMOTE_DIR/assets' || test -d '$REMOTE_DIR/.vitepress')"
+
+      - name: Print verify target
+        run: |
+          echo "Docs verify upload completed."
+          echo "Remote path: ${{ steps.verify_path.outputs.REMOTE_DIR }}"

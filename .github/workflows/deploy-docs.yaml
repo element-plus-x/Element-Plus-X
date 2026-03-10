@@ -1,0 +1,171 @@
+name: Docs Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      line:
+        description: 'Docs line (v1 or v2)'
+        required: true
+        type: choice
+        options:
+          - v1
+          - v2
+      version:
+        description: 'Release tag (e.g. v2.0.0-beta.5)'
+        required: true
+        type: string
+      source_ref:
+        description: 'Git ref to build (e.g. refs/tags/v2.0.0-beta.5)'
+        required: true
+        type: string
+      source_sha:
+        description: 'Release commit SHA (optional)'
+        required: false
+        type: string
+      is_prerelease:
+        description: 'true for prerelease/beta'
+        required: true
+        default: 'true'
+        type: string
+      switch_current:
+        description: 'Switch current symlink after upload'
+        required: true
+        default: 'false'
+        type: string
+      update_root_redirect:
+        description: 'Update root redirect when release should become default'
+        required: true
+        default: 'false'
+        type: string
+
+concurrency:
+  group: docs-release-${{ inputs.version }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate line/version
+        run: |
+          if [[ "${{ inputs.line }}" == "v1" ]]; then
+            [[ "${{ inputs.version }}" =~ ^v1\. ]] || { echo "v1 must use v1.* tag"; exit 1; }
+          else
+            [[ "${{ inputs.version }}" =~ ^v2\. ]] || { echo "v2 must use v2.* tag"; exit 1; }
+          fi
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_ref }}
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm i -g pnpm
+          pnpm install
+
+      - name: Resolve docs env
+        id: docs_env
+        run: |
+          if [[ "${{ inputs.line }}" == "v2" ]]; then
+            echo "PUBLIC_ORIGIN=https://v2.element-plus-x.com" >> $GITHUB_OUTPUT
+            if [[ "${{ inputs.is_prerelease }}" == "true" ]]; then
+              echo "VERSION_LABEL=v2.x (Beta)" >> $GITHUB_OUTPUT
+            else
+              echo "VERSION_LABEL=v2.x" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "PUBLIC_ORIGIN=https://v1.element-plus-x.com" >> $GITHUB_OUTPUT
+            echo "VERSION_LABEL=v1.x" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build docs
+        env:
+          DOCS_LINE: ${{ inputs.line }}
+          DOCS_PUBLIC_ORIGIN: ${{ steps.docs_env.outputs.PUBLIC_ORIGIN }}
+          DOCS_VERSION_LABEL: ${{ steps.docs_env.outputs.VERSION_LABEL }}
+          DOCS_V1_ORIGIN: https://v1.element-plus-x.com
+          DOCS_V2_ORIGIN: https://v2.element-plus-x.com
+          DOCS_ROOT_ORIGIN: https://element-plus-x.com
+          DOCS_USE_SOURCE: 'true'
+        run: pnpm run build:docs
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DOCS_DEPLOY_SSH_KEY }}
+
+      - name: Add deploy host to known_hosts
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+        run: |
+          mkdir -p ~/.ssh
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          ssh-keyscan -p "$PORT" -H "$DOCS_DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+      - name: Upload release
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+          DOCS_DEPLOY_BASE_DIR: ${{ secrets.DOCS_DEPLOY_BASE_DIR }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          DOCS_BASE="${DOCS_DEPLOY_BASE_DIR}/${{ inputs.line }}"
+          RELEASE_DIR="${DOCS_BASE}/releases/${{ inputs.version }}"
+
+          ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "mkdir -p '$RELEASE_DIR'"
+          rsync -az --delete -e "ssh -p $PORT" apps/docs/.vitepress/dist/ "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST:$RELEASE_DIR/"
+          echo "Uploaded release to $RELEASE_DIR"
+
+      - name: Switch current symlink
+        if: inputs.switch_current == 'true'
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+          DOCS_DEPLOY_BASE_DIR: ${{ secrets.DOCS_DEPLOY_BASE_DIR }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          DOCS_BASE="${DOCS_DEPLOY_BASE_DIR}/${{ inputs.line }}"
+          RELEASE_DIR="${DOCS_BASE}/releases/${{ inputs.version }}"
+
+          ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "ln -sfn '$RELEASE_DIR' '$DOCS_BASE/current'"
+
+      - name: Update root redirect
+        if: inputs.update_root_redirect == 'true'
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+          DOCS_DEPLOY_BASE_DIR: ${{ secrets.DOCS_DEPLOY_BASE_DIR }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          ROOT_REDIRECT="${DOCS_DEPLOY_BASE_DIR}/root/redirect.conf"
+
+          if [[ "${{ inputs.line }}" == "v1" ]]; then
+            ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "mkdir -p '${DOCS_DEPLOY_BASE_DIR}/root' && echo 'set \\$root_target https://v1.element-plus-x.com;' > '$ROOT_REDIRECT'"
+          elif [[ "${{ inputs.line }}" == "v2" && "${{ inputs.is_prerelease }}" != "true" ]]; then
+            ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "mkdir -p '${DOCS_DEPLOY_BASE_DIR}/root' && echo 'set \\$root_target https://v2.element-plus-x.com;' > '$ROOT_REDIRECT'"
+          else
+            echo "Skipping root redirect update for prerelease line=${{ inputs.line }}"
+          fi
+
+      - name: Reload nginx
+        if: inputs.switch_current == 'true' || inputs.update_root_redirect == 'true'
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "nginx -t && systemctl reload nginx"
