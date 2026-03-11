@@ -51,3 +51,4 @@ yarn-error.log*
 .oxlintrc.json.bak
 */**/auto-imports.d.ts
 */**/components.d.ts
+.cunzhi*
