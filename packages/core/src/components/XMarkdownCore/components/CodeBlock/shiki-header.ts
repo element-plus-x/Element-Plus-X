@@ -219,7 +219,12 @@ export function languageEle(language: string) {
  * @export
  * @param {() => void} copy
  */
-export function controlEle(copy: () => void) {
+export function controlEle(copy: () => void, view?: () => void) {
+  const context = useMarkdownContext();
+  const { codeXProps, needViewCodeBtn } = toValue(context) || {};
+  const shouldShowPreview =
+    view && (needViewCodeBtn || codeXProps?.enableCodePreview);
+
   return h(
     ElSpace,
     {
@@ -228,8 +233,9 @@ export function controlEle(copy: () => void) {
     },
     {
       default: () => [
+        shouldShowPreview ? h(RunCodeButton, { onView: view }) : null,
         toggleThemeEle(),
-        h(CopyCodeButton, { onCopy: copy }) // ✅ 改为组件形式
+        h(CopyCodeButton, { onCopy: copy })
       ]
     }
   );
@@ -239,28 +245,12 @@ export function controlEle(copy: () => void) {
  * @description 描述 语言头部操作按钮(带预览代码按钮)
  * @date 2025-07-09 11:15:27
  * @author tingfeng
+ * @deprecated 已废弃，请使用 controlEle 代替
  * @param copy
  * @param view
  */
 export function controlHasRunCodeEle(copy: () => void, view: () => void) {
-  const context = useMarkdownContext();
-  const { codeXProps } = toValue(context) || {};
-  return h(
-    ElSpace,
-    {
-      class: `markdown-elxLanguage-header-space`,
-      direction: 'horizontal'
-    },
-    {
-      default: () => [
-        codeXProps?.enableCodePreview
-          ? h(RunCodeButton, { onView: view })
-          : null,
-        codeXProps?.enableThemeToggle ? toggleThemeEle() : null,
-        codeXProps?.enableCodeCopy ? h(CopyCodeButton, { onCopy: copy }) : null // ✅ 改为组件形式
-      ]
-    }
-  );
+  return controlEle(copy, view);
 }
 
 /**
