@@ -52,4 +52,12 @@ jobs:
           DOCS_V2_ORIGIN: https://v2.element-plus-x.com
           DOCS_ROOT_ORIGIN: https://element-plus-x.com
           DOCS_USE_SOURCE: 'true'
-        run: pnpm run build:docs
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p apps/internal/metadata/dist
+          if [[ ! -f apps/internal/metadata/dist/component-contributors.json ]]; then
+            echo '{}' > apps/internal/metadata/dist/component-contributors.json
+          fi
+          pnpm run gen:changelog
+          pnpm -C apps/docs build
