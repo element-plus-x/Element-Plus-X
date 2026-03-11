@@ -65,7 +65,7 @@ const showBackToBottom = ref(false); // 控制按钮显示
 watch(
   () => props.list.length,
   () => {
-    if (props.list && props.list.length > 0) {
+    if (props.list && props.list.length > 1) {
       nextTick(() => {
         if (props.autoScroll) {
         // 每次添加新的气泡，等页面渲染后，在执行自动滚动
