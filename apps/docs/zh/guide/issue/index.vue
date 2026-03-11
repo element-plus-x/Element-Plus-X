@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Component } from 'vue';
 import type { IssueForm } from './types';
 import {
   getBgColor,
@@ -8,8 +9,7 @@ import {
 } from '@configs/commit-types';
 import { ElFormItem, ElMessage } from 'element-plus';
 import { useData } from 'vitepress';
-import { computed, onMounted, reactive, ref } from 'vue';
-import { MarkdownRenderer } from 'x-markdown-vue';
+import { computed, onMounted, reactive, ref, shallowRef } from 'vue';
 import { fetchGitHubTags, getComponents } from './utils/data-fetcher';
 import {
   generateGitHubIssueUrl,
@@ -148,6 +148,7 @@ const texts = computed(() => i18nTexts[locale.value]);
 
 const loading = ref(false);
 const IsPreview = ref(false);
+const MarkdownRenderer = shallowRef<Component | null>(null);
 const formRef = ref();
 const components = reactive<string[]>(getComponents());
 const versions = reactive<string[]>([]);
@@ -256,6 +257,11 @@ async function submitForm() {
 }
 
 onMounted(async () => {
+  const { MarkdownRenderer: MarkdownRendererComponent } = await import(
+    'x-markdown-vue'
+  );
+  MarkdownRenderer.value = MarkdownRendererComponent;
+
   loading.value = true;
   try {
     const tags = await fetchGitHubTags();
@@ -502,7 +508,9 @@ onMounted(async () => {
               {{ texts.preview.description }}
             </h3>
             <div class="gh-content">
-              <MarkdownRenderer
+              <component
+                :is="MarkdownRenderer"
+                v-if="MarkdownRenderer"
                 :markdown="form.description || texts.preview.noDescription"
               />
             </div>
@@ -513,7 +521,11 @@ onMounted(async () => {
               {{ texts.preview.reproductionSteps }}
             </h3>
             <div class="gh-content">
-              <MarkdownRenderer :markdown="form.reproductionSteps" />
+              <component
+                :is="MarkdownRenderer"
+                v-if="MarkdownRenderer"
+                :markdown="form.reproductionSteps"
+              />
             </div>
           </div>
 
@@ -523,7 +535,11 @@ onMounted(async () => {
                 {{ texts.preview.expectedBehavior }}
               </h3>
               <div class="gh-content">
-                <MarkdownRenderer :markdown="form.expectedBehavior" />
+                <component
+                  :is="MarkdownRenderer"
+                  v-if="MarkdownRenderer"
+                  :markdown="form.expectedBehavior"
+                />
               </div>
             </div>
 
@@ -532,7 +548,11 @@ onMounted(async () => {
                 {{ texts.preview.actualBehavior }}
               </h3>
               <div class="gh-content">
-                <MarkdownRenderer :markdown="form.actualBehavior" />
+                <component
+                  :is="MarkdownRenderer"
+                  v-if="MarkdownRenderer"
+                  :markdown="form.actualBehavior"
+                />
               </div>
             </div>
           </div>
