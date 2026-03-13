@@ -67,11 +67,9 @@ const DEFAULT_TYPING: TypingConfig = {
 const _typing = computed(() => {
   if (typeof props.typing === 'undefined') {
     return false;
-  }
-  else if (typeof props.typing === 'boolean') {
+  } else if (typeof props.typing === 'boolean') {
     return props.typing;
-  }
-  else {
+  } else {
     return Object.assign({}, DEFAULT_TYPING, props.typing);
   }
 }) as boolean | TypingConfig;
@@ -178,7 +176,8 @@ defineExpose(instance);
           'el-bubble-content-filled': variant === 'filled' && !noStyle,
           'el-bubble-content-borderless': variant === 'borderless' && !noStyle,
           'el-bubble-content-outlined': variant === 'outlined' && !noStyle,
-          'el-bubble-content-shadow': variant === 'shadow' && !noStyle
+          'el-bubble-content-shadow': variant === 'shadow' && !noStyle,
+          'no-content': !content
         }"
       >
         <div
