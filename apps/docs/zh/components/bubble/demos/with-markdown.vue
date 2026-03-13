@@ -7,12 +7,18 @@ title: 与 x-markdown-vue 结合使用
 </docs>
 
 <script setup lang="ts">
-import { MarkdownRenderer } from 'x-markdown-vue';
-import 'x-markdown-vue/style';
 import 'katex/dist/katex.min.css';
 
 import 'shiki';
 import 'shiki-stream';
+
+const MarkdownRenderer = shallowRef();
+onMounted(async () => {
+  if (typeof window === 'undefined') return;
+  await import('x-markdown-vue/style');
+  const mod = await import('x-markdown-vue');
+  MarkdownRenderer.value = mod.MarkdownRenderer ?? mod.default ?? mod;
+});
 
 const avatar = 'https://avatars.githubusercontent.com/u/76239030?s=40&v=4';
 
@@ -115,7 +121,11 @@ onUnmounted(() => {
       <Bubble :avatar="avatar" placement="start">
         <template #content>
           <div class="markdown-content-wrapper">
-            <MarkdownRenderer :markdown="staticContent" />
+            <component
+              :is="MarkdownRenderer"
+              v-if="MarkdownRenderer"
+              :markdown="staticContent"
+            />
           </div>
         </template>
       </Bubble>
@@ -137,7 +147,9 @@ onUnmounted(() => {
       <Bubble :avatar="avatar" placement="start">
         <template #content>
           <div class="markdown-content-wrapper">
-            <MarkdownRenderer
+            <component
+              :is="MarkdownRenderer"
+              v-if="MarkdownRenderer"
               :markdown="streamingContent"
               :enable-animate="true"
             />

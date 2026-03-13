@@ -14,9 +14,8 @@ const repo = 'Element-Plus-X';
 
 const targetElement = ref();
 
-const contributors: RepoContributor[] = _repo_contributors[
-  repo as keyof typeof _repo_contributors
-] as RepoContributor[];
+const contributors: RepoContributor[] =
+  (_repo_contributors as Record<string, RepoContributor[]>)[repo] ?? [];
 // const loading = ref(false);
 // const error = ref('');
 

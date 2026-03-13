@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, onUnmounted, reactive, ref } from 'vue';
 
 const columnCount = 4;
 const columnVerticalOffset = 60;
@@ -7,21 +7,20 @@ const columnVerticalOffset = 60;
 const responsive = reactive({ isMobile: false });
 
 function checkScreenSize() {
+  if (typeof window === 'undefined') return;
   responsive.isMobile = window.innerWidth < 1000;
 }
 
 onMounted(() => {
   checkScreenSize();
+  if (typeof window === 'undefined') return;
   window.addEventListener('resize', checkScreenSize);
-
-  return () => {
-    window.removeEventListener('resize', checkScreenSize);
-  };
 });
 
-// onUnmounted(() => {
-//   window.removeEventListener('resize', checkScreenSize);
-// });
+onUnmounted(() => {
+  if (typeof window === 'undefined') return;
+  window.removeEventListener('resize', checkScreenSize);
+});
 
 // 为每张张张图片设置独特的阴影参数
 const chatImgs = ref([

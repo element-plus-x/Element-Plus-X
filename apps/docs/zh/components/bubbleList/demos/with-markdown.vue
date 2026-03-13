@@ -7,12 +7,18 @@ title: 与 x-markdown-vue 结合使用
 </docs>
 
 <script setup lang="ts">
-import { MarkdownRenderer } from 'x-markdown-vue';
-import 'x-markdown-vue/style';
 import 'katex/dist/katex.min.css';
 
 import 'shiki';
 import 'shiki-stream';
+
+const MarkdownRenderer = shallowRef();
+onMounted(async () => {
+  if (typeof window === 'undefined') return;
+  await import('x-markdown-vue/style');
+  const mod = await import('x-markdown-vue');
+  MarkdownRenderer.value = mod.MarkdownRenderer ?? mod.default ?? mod;
+});
 
 const list = ref([
   {
@@ -82,7 +88,11 @@ console.log(greeting);
   <BubbleList :list="list" max-height="500px">
     <template #content="{ item }">
       <div class="markdown-content-wrapper">
-        <MarkdownRenderer :markdown="item.content" />
+        <component
+          :is="MarkdownRenderer"
+          v-if="MarkdownRenderer"
+          :markdown="item.content"
+        />
       </div>
     </template>
   </BubbleList>

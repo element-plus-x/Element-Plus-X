@@ -142,7 +142,9 @@ jobs:
         run: |
           PORT="${DOCS_DEPLOY_PORT:-22}"
           TARGET_DIR="${{ steps.target_path.outputs.TARGET_DIR }}"
-          ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "rm -rf '$TARGET_DIR' && mkdir -p '$TARGET_DIR'"
+          ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "\
+            mkdir -p '$TARGET_DIR' && \
+            find '$TARGET_DIR' -mindepth 1 -maxdepth 1 ! -name '.user.ini' -exec rm -rf {} +"
 
       - name: Upload dist
         env:
@@ -152,7 +154,7 @@ jobs:
         run: |
           PORT="${DOCS_DEPLOY_PORT:-22}"
           TARGET_DIR="${{ steps.target_path.outputs.TARGET_DIR }}"
-          rsync -az --delete --timeout=120 --info=progress2 -e "ssh -p $PORT" apps/docs/.vitepress/dist/ "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST:$TARGET_DIR/"
+          rsync -az --delete --exclude='.user.ini' --timeout=120 --info=progress2 -e "ssh -p $PORT" apps/docs/.vitepress/dist/ "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST:$TARGET_DIR/"
 
       - name: Print remote dist summary
         env:
