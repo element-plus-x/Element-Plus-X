@@ -89,7 +89,7 @@ jobs:
           fi
           set -euo pipefail
           {
-            pnpm run gen:changelog
+            pnpm run gen:changelog --if-present
             pnpm -C apps/docs build
           } 2>&1 | tee docs-build.log
 
@@ -147,7 +147,17 @@ jobs:
         run: |
           PORT="${DOCS_DEPLOY_PORT:-22}"
           TARGET_DIR="${{ steps.target_path.outputs.TARGET_DIR }}"
-          rsync -az --delete -e "ssh -p $PORT" apps/docs/.vitepress/dist/ "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST:$TARGET_DIR/"
+          rsync -az --delete --timeout=120 --info=progress2 -e "ssh -p $PORT" apps/docs/.vitepress/dist/ "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST:$TARGET_DIR/"
+
+      - name: Print remote dist summary
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          TARGET_DIR="${{ steps.target_path.outputs.TARGET_DIR }}"
+          ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "hostname; ls -la '$TARGET_DIR' | head -n 30; du -sh '$TARGET_DIR' || true"
 
       - name: Verify remote artifacts
         env:
