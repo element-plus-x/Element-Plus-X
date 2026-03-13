@@ -89,7 +89,7 @@ jobs:
           fi
           set -euo pipefail
           {
-            pnpm run gen:changelog --if-present
+            pnpm run --if-present gen:changelog
             pnpm -C apps/docs build
           } 2>&1 | tee docs-build.log
 
