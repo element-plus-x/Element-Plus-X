@@ -70,6 +70,15 @@ jobs:
             echo "DOCS_LINE=v2" >> $GITHUB_OUTPUT
           fi
 
+      - name: Detect test tag
+        id: test_tag
+        run: |
+          if [[ "${{ github.ref_name }}" == *".test" ]]; then
+            echo "IS_TEST_TAG=true" >> $GITHUB_OUTPUT
+          else
+            echo "IS_TEST_TAG=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Check npm version exists
         id: npm_version
         run: |
@@ -85,7 +94,7 @@ jobs:
           npm pack
 
       - name: Publish to npm
-        if: (github.event_name == 'push' || github.event.inputs.tag) && steps.npm_version.outputs.EXISTS != 'true'
+        if: (github.event_name == 'push' || github.event.inputs.tag) && steps.npm_version.outputs.EXISTS != 'true' && steps.test_tag.outputs.IS_TEST_TAG != 'true'
         run: |
           cd packages/core
           npm publish --tag ${{ steps.tag_type.outputs.TAG }} --access public
@@ -102,7 +111,7 @@ jobs:
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') && steps.test_tag.outputs.IS_TEST_TAG != 'true'
         with:
           files: packages/core/vue-element-plus-x-${{ steps.tag_type.outputs.VERSION }}.tgz
           generate_release_notes: true
@@ -111,18 +120,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Trigger docs release
+      - name: Trigger docs deploy (v1)
         if: startsWith(github.ref, 'refs/tags/')
         uses: peter-evans/workflow-dispatch@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: deploy-docs.yaml
-          ref: ${{ github.ref_name }}
+          workflow: docs-deploy-bt.yaml
+          ref: updata-2602
           inputs: |
-            line: ${{ steps.tag_type.outputs.DOCS_LINE }}
-            version: ${{ github.ref_name }}
-            source_ref: ${{ github.ref }}
-            source_sha: ${{ github.sha }}
-            is_prerelease: ${{ steps.tag_type.outputs.IS_PRERELEASE }}
-            switch_current: true
-            update_root_redirect: true
+            line: v1
+            source_ref: refs/heads/main
+
+      - name: Trigger docs deploy (v2)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: peter-evans/workflow-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: docs-deploy-bt.yaml
+          ref: updata-2602
+          inputs: |
+            line: v2
+            source_ref: refs/heads/updata-2602

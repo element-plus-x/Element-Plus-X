@@ -32,6 +32,28 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
+## Baota Dist Overwrite Mode (Optional)
+
+If you prefer a clean single-version deployment (no `releases/current`), you can deploy directly to
+`/www/wwwroot/<domain>/dist` and overwrite on every release.
+
+**Requirements**
+
+- Set `DOCS_DEPLOY_BASE_DIR=/www/wwwroot` in GitHub Secrets.
+- Configure Baota/Nginx root to point at the `dist` folder:
+  - v1 root: `/www/wwwroot/v1.element-plus-x.com/dist`
+  - v2 root: `/www/wwwroot/v2.element-plus-x.com/dist`
+
+**Workflow**
+
+- Use `.github/workflows/docs-deploy-bt.yaml` (`Docs Deploy (Baota Dist)`).
+- It removes the target `dist` directory, recreates it, and uploads the new build.
+
+**Trade-offs**
+
+- Pros: minimal disk usage, simple directory structure.
+- Cons: no instant rollback (previous build is deleted).
+
 ## HTTPS (Recommended)
 
 Use Certbot to issue TLS certificates for the three domains. Example:
@@ -70,3 +92,11 @@ Use the `Docs Release` workflow for release uploads and cutover.
 - `switch_current=false` uploads the release without switching live traffic.
 - `switch_current=true` updates the `<line>/current` symlink.
 - `update_root_redirect=true` updates the root domain redirect when the release should become the default docs line.
+
+### Docs Deploy (Baota Dist)
+
+Use the `Docs Deploy (Baota Dist)` workflow when running the overwrite-style deployment on Baota.
+
+- Inputs: `line` and `source_ref`
+- Target: `${DOCS_DEPLOY_BASE_DIR}/<domain>/dist`
+- It deletes the existing `dist` directory before uploading.
