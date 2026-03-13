@@ -120,24 +120,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Trigger docs deploy (v1)
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: peter-evans/workflow-dispatch@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: docs-deploy-bt.yaml
-          ref: updata-2602
-          inputs: |
-            line: v1
-            source_ref: refs/heads/main
+  docs_deploy_v1:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: release
+    uses: ./.github/workflows/docs-deploy-bt.yaml
+    with:
+      line: v1
+      source_ref: refs/heads/main
+    secrets: inherit
 
-      - name: Trigger docs deploy (v2)
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: peter-evans/workflow-dispatch@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: docs-deploy-bt.yaml
-          ref: updata-2602
-          inputs: |
-            line: v2
-            source_ref: refs/heads/updata-2602
+  docs_deploy_v2:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: release
+    uses: ./.github/workflows/docs-deploy-bt.yaml
+    with:
+      line: v2
+      source_ref: refs/heads/updata-2602
+    secrets: inherit
