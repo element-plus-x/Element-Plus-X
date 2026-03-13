@@ -1,21 +1,35 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref } from 'vue';
 import { reviews, shuffleReviews } from './reviews';
 
 const WaterfallItem = ref();
 
 async function calcSpan() {
-  for (const el of WaterfallItem.value) {
+  const items = WaterfallItem.value;
+  if (!items) return;
+  const list = Array.isArray(items) ? items : [items];
+
+  for (const el of list) {
     await nextTick();
     const rows = Math.floor(el.clientHeight / 2) + 18;
     el.style.gridRowEnd = `span ${rows}`;
   }
 }
+
+function handleResize() {
+  void calcSpan();
+}
+
 onMounted(async () => {
   await calcSpan();
+  if (typeof window === 'undefined') return;
+  window.addEventListener('resize', handleResize);
 });
 
-window.addEventListener('resize', calcSpan);
+onUnmounted(() => {
+  if (typeof window === 'undefined') return;
+  window.removeEventListener('resize', handleResize);
+});
 </script>
 
 <template>

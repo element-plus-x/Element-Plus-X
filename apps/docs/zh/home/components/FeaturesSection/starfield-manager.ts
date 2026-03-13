@@ -64,7 +64,8 @@ export class StarfieldManager {
 
     const resizeCanvas = () => {
       const { width, height } = innerWrap.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
+      const dpr =
+        typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1;
       this.canvas.width = width * dpr;
       this.canvas.height = height * dpr;
       this.canvas.style.width = `${width}px`;

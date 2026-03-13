@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { Plus } from '@element-plus/icons-vue';
 import { gsap } from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
 import { onMounted, ref } from 'vue';
 import { sponsors } from './reviews';
 
-gsap.registerPlugin(ScrollTrigger);
-
+let ScrollTrigger: any;
 const toBeSponsorUrl = ref<string>('https://chat.element-plus-x.com/chat');
 
 function toBeSponsor() {
@@ -15,7 +13,13 @@ function toBeSponsor() {
   window.open(toBeSponsorUrl.value, '_blank');
 }
 
-onMounted(() => {
+onMounted(async () => {
+  if (typeof window === 'undefined') return;
+  if (!ScrollTrigger) {
+    const mod = await import('gsap/ScrollTrigger');
+    ScrollTrigger = mod.default ?? mod.ScrollTrigger;
+  }
+  if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
   scrollTriggerAnimation();
 });
 

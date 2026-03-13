@@ -1,6 +1,5 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { defineClientComponent } from 'vitepress';
 import { markRaw, nextTick, onMounted, onUnmounted, ref } from 'vue';
 import {
@@ -16,10 +15,9 @@ import {
 } from './starfield-manager';
 import { TechCircleManager } from './tech-circle-manager';
 
-// 注册GSAP插件
-gsap.registerPlugin(ScrollTrigger);
-
 // DOM引用
+let ScrollTrigger: any;
+
 const cardWrapRef = ref<HTMLElement | null>(null);
 const canvases = ref<(HTMLCanvasElement | null)[]>([]);
 const backgroundContainerRef = ref<HTMLElement | null>(null);
@@ -251,7 +249,13 @@ function initBackgroundCircles() {
 }
 
 // 生命周期
-onMounted(() => {
+onMounted(async () => {
+  if (typeof window === 'undefined') return;
+  if (!ScrollTrigger) {
+    const mod = await import('gsap/ScrollTrigger');
+    ScrollTrigger = mod.default ?? mod.ScrollTrigger;
+  }
+  if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
   initBackgroundCircles();
   setTimeout(() => {
     initCardAnimations();

@@ -1,11 +1,9 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { gsap } from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-import { SplitText } from 'gsap/SplitText';
 import { ref } from 'vue';
 
-gsap.registerPlugin(SplitText);
-gsap.registerPlugin(ScrollTrigger);
+let SplitText: any;
+let ScrollTrigger: any;
 
 // 复制状态和安装命令
 const copied = ref(false);
@@ -20,7 +18,19 @@ const getStartedText = '快速开始';
 const previewText = '组件预览';
 const githubText = 'GitHub';
 
-onMounted(() => {
+onMounted(async () => {
+  if (typeof window === 'undefined') return;
+  if (!SplitText) {
+    const mod = await import('gsap/SplitText');
+    SplitText = mod.SplitText;
+  }
+  if (!ScrollTrigger) {
+    const mod = await import('gsap/ScrollTrigger');
+    ScrollTrigger = mod.default ?? mod.ScrollTrigger;
+  }
+  if (SplitText) gsap.registerPlugin(SplitText);
+  if (ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+  await document.fonts?.ready;
   textAnimation();
   scrollTriggerAnimation();
 });
