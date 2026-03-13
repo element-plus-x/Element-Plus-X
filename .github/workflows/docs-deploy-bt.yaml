@@ -1,0 +1,180 @@
+﻿name: Docs Deploy (Baota Dist)
+
+on:
+  workflow_dispatch:
+    inputs:
+      line:
+        description: 'Docs line (v1 or v2)'
+        required: true
+        type: choice
+        options:
+          - v1
+          - v2
+      source_ref:
+        description: 'Git ref to build (branch or tag)'
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      line:
+        required: true
+        type: string
+      source_ref:
+        required: true
+        type: string
+    secrets:
+      DOCS_DEPLOY_HOST:
+        required: true
+      DOCS_DEPLOY_PORT:
+        required: true
+      DOCS_DEPLOY_USER:
+        required: true
+      DOCS_DEPLOY_SSH_KEY:
+        required: true
+      DOCS_DEPLOY_BASE_DIR:
+        required: true
+
+concurrency:
+  group: docs-deploy-bt-${{ inputs.line }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_ref }}
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm i -g pnpm
+          pnpm install
+
+      - name: Build core package (ensure dist for docs)
+        run: |
+          pnpm -C packages/core aeac
+          pnpm -C packages/core build:es
+
+      - name: Resolve docs env
+        id: docs_env
+        run: |
+          if [[ "${{ inputs.line }}" == "v2" ]]; then
+            echo "PUBLIC_ORIGIN=https://v2.element-plus-x.com" >> $GITHUB_OUTPUT
+            echo "VERSION_LABEL=v2.x (Beta)" >> $GITHUB_OUTPUT
+          else
+            echo "PUBLIC_ORIGIN=https://v1.element-plus-x.com" >> $GITHUB_OUTPUT
+            echo "VERSION_LABEL=v1.x" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build docs
+        env:
+          DOCS_LINE: ${{ inputs.line }}
+          DOCS_PUBLIC_ORIGIN: ${{ steps.docs_env.outputs.PUBLIC_ORIGIN }}
+          DOCS_VERSION_LABEL: ${{ steps.docs_env.outputs.VERSION_LABEL }}
+          DOCS_V1_ORIGIN: https://v1.element-plus-x.com
+          DOCS_V2_ORIGIN: https://v2.element-plus-x.com
+          DOCS_ROOT_ORIGIN: https://element-plus-x.com
+          DOCS_USE_SOURCE: 'true'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p apps/internal/metadata/dist
+          if [[ ! -f apps/internal/metadata/dist/component-contributors.json ]]; then
+            echo '{}' > apps/internal/metadata/dist/component-contributors.json
+          fi
+          set -euo pipefail
+          {
+            pnpm run --if-present gen:changelog
+            pnpm -C apps/docs build
+          } 2>&1 | tee docs-build.log
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-build-log-${{ inputs.line }}-${{ github.run_id }}
+          path: docs-build.log
+          retention-days: 7
+
+      - name: Resolve target path
+        id: target_path
+        env:
+          DOCS_DEPLOY_BASE_DIR: ${{ secrets.DOCS_DEPLOY_BASE_DIR }}
+        run: |
+          if [[ "${{ inputs.line }}" == "v2" ]]; then
+            DOMAIN="v2.element-plus-x.com"
+          else
+            DOMAIN="v1.element-plus-x.com"
+          fi
+          TARGET_DIR="${DOCS_DEPLOY_BASE_DIR}/${DOMAIN}/dist"
+          echo "DOMAIN=$DOMAIN" >> $GITHUB_OUTPUT
+          echo "TARGET_DIR=$TARGET_DIR" >> $GITHUB_OUTPUT
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DOCS_DEPLOY_SSH_KEY }}
+
+      - name: Add deploy host to known_hosts
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+        run: |
+          mkdir -p ~/.ssh
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          ssh-keyscan -p "$PORT" -H "$DOCS_DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+      - name: Clean target directory
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          TARGET_DIR="${{ steps.target_path.outputs.TARGET_DIR }}"
+          ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "\
+            mkdir -p '$TARGET_DIR' && \
+            find '$TARGET_DIR' -mindepth 1 -maxdepth 1 ! -name '.user.ini' -exec rm -rf {} +"
+
+      - name: Upload dist
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          TARGET_DIR="${{ steps.target_path.outputs.TARGET_DIR }}"
+          rsync -az --delete --exclude='.user.ini' --timeout=120 --info=progress2 -e "ssh -p $PORT" apps/docs/.vitepress/dist/ "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST:$TARGET_DIR/"
+
+      - name: Print remote dist summary
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          TARGET_DIR="${{ steps.target_path.outputs.TARGET_DIR }}"
+          ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "hostname; ls -la '$TARGET_DIR' | head -n 30; du -sh '$TARGET_DIR' || true"
+
+      - name: Verify remote artifacts
+        env:
+          DOCS_DEPLOY_HOST: ${{ secrets.DOCS_DEPLOY_HOST }}
+          DOCS_DEPLOY_PORT: ${{ secrets.DOCS_DEPLOY_PORT }}
+          DOCS_DEPLOY_USER: ${{ secrets.DOCS_DEPLOY_USER }}
+        run: |
+          PORT="${DOCS_DEPLOY_PORT:-22}"
+          TARGET_DIR="${{ steps.target_path.outputs.TARGET_DIR }}"
+          ssh -p "$PORT" "$DOCS_DEPLOY_USER@$DOCS_DEPLOY_HOST" "\
+            test -d '$TARGET_DIR' && \
+            test -f '$TARGET_DIR/index.html' && \
+            (test -d '$TARGET_DIR/assets' || test -d '$TARGET_DIR/.vitepress')"
