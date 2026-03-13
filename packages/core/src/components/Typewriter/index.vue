@@ -101,7 +101,11 @@ const renderedContent = computed(() => {
     return processedContent.value;
   }
   // Markdown模式添加安全过滤和样式类
-  return DOMPurify.sanitize(md?.render(processedContent.value ?? '') ?? '');
+  const rawHtml = md?.render(processedContent.value ?? '') ?? '';
+  if (typeof window === 'undefined') {
+    return rawHtml;
+  }
+  return DOMPurify.sanitize(rawHtml);
 });
 
 const instance: TypewriterInstance = {

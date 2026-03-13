@@ -9,7 +9,9 @@ interface UseMermaidOptions {
 }
 
 async function loadMermaid() {
+  if (import.meta.env.SSR) return null;
   if (typeof window === 'undefined') return null;
+  if (typeof document === 'undefined') return null;
   const mermaidModule = await import('mermaid');
   return mermaidModule.default;
 }

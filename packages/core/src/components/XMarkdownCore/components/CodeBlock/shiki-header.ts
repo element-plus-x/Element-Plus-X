@@ -161,7 +161,9 @@ export interface CodeBlockHeaderFunctionExpose {
 let copyCodeTimer: ReturnType<typeof setTimeout> | null = null;
 
 // 记录当前是否暗色模式
-export const isDark = ref(document.body.classList.contains('dark'));
+export const isDark = ref(
+  typeof document !== 'undefined' && document.body.classList.contains('dark')
+);
 
 /* ----------------------------------- 按钮组 ---------------------------------- */
 

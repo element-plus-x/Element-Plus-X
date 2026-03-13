@@ -107,6 +107,7 @@ const renderIframe = _.debounce(() => {
 }, 300);
 
 function startRender() {
+  if (typeof window === 'undefined') return;
   if (props.nowView === SELECT_OPTIONS_ENUM.VIEW) {
     isLoading.value = true;
     renderIframe();

@@ -1,7 +1,9 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 
 export function useDarkModeWatcher() {
-  const isDark = ref(document.body.classList.contains('dark'));
+  const isDark = ref(
+    typeof document !== 'undefined' && document.body.classList.contains('dark')
+  );
 
   let observer: MutationObserver;
 

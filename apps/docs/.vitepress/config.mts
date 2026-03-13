@@ -1,4 +1,6 @@
 import type { Plugin } from 'vitepress';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import Unocss from 'unocss/vite';
 import { defineConfig } from 'vitepress';
 
@@ -6,6 +8,44 @@ import { defineConfig } from 'vitepress';
 // import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 import locales from './locales.mts';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const decodeNamedCharacterReferenceShimPath = path.resolve(__dirname, 'shims/decode-named-character-reference.js');
+
+function decodeNamedCharacterReferenceShim(): Plugin {
+  const domIdRe = /decode-named-character-reference[\\/]+index\.dom\.js(?:\\?.*)?$/;
+  const shimCode = `import { characterEntities } from 'character-entities';
+
+const own = {}.hasOwnProperty;
+
+export function decodeNamedCharacterReference(value) {
+  return own.call(characterEntities, value) ? characterEntities[value] : false;
+}`;
+
+  return {
+    name: 'decode-named-character-reference-shim',
+    enforce: 'pre',
+    load(id) {
+      if (domIdRe.test(id)) {
+        return shimCode;
+      }
+      return null;
+    },
+    transform(code, id) {
+      if (domIdRe.test(id)) {
+        return { code: shimCode, map: null };
+      }
+      return null;
+    },
+    async resolveId(id, importer) {
+      if (id === 'decode-named-character-reference' || domIdRe.test(id)) {
+        return decodeNamedCharacterReferenceShimPath;
+      }
+      return null;
+    }
+  };
+}
+
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -50,7 +90,25 @@ export default defineConfig({
     },
   },
   vite: {
+    resolve: {
+      conditions: ['node', 'default'],
+      alias: [
+        {
+          find: /^decode-named-character-reference$/,
+          replacement: decodeNamedCharacterReferenceShimPath,
+        },
+        {
+          find: /decode-named-character-reference[\\/]+index\.dom\.js(?:\\?.*)?$/,
+          replacement: decodeNamedCharacterReferenceShimPath,
+        },
+        {
+          find: '@jsonlee_12138/markdown-it-mermaid',
+          replacement: '@jsonlee_12138/markdown-it-mermaid/dist/es/index.js',
+        },
+      ],
+    },
     plugins: [
+      decodeNamedCharacterReferenceShim() as Plugin,
       // 配置vitepress的插件
       // https://github.com/antfu/vite-plugin-inspect
       // 插件调试
@@ -64,8 +122,16 @@ export default defineConfig({
       groupIconVitePlugin() as Plugin,
       Unocss() as unknown as Plugin,
     ],
+    optimizeDeps: {
+      esbuildOptions: {
+        conditions: ['node', 'default'],
+      },
+    },
     ssr: {
-      noExternal: ['element-plus', 'gsap'],
+      noExternal: ['element-plus', 'gsap', 'decode-named-character-reference'],
+      resolve: {
+        conditions: ['node', 'default'],
+      },
     },
   },
 });

@@ -123,9 +123,19 @@ const isTextOverflow = computed(() => {
     // 如果没有设置labelMaxWidth，直接返回false
     if (!labelMaxWidth.value)
       return false;
+    if (typeof window === 'undefined')
+      return false;
+    if (typeof document === 'undefined')
+      return false;
+    if (!document?.createElement || !document?.body?.appendChild) {
+      return false;
+    }
 
     // 创建一个临时的span元素来测量文本宽度
     const span = document.createElement('span');
+    if (!span || !('style' in span)) {
+      return false;
+    }
     span.style.visibility = 'hidden';
     span.style.position = 'absolute';
     span.style.whiteSpace = 'nowrap';

@@ -31,6 +31,7 @@ const TOLERANCE = 30;
 //   };
 // });
 function initStyle() {
+  if (typeof document === 'undefined') return;
   document.documentElement.style.setProperty(
     '--el-bubble-list-max-height',
     props.maxHeight || '100%'

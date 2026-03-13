@@ -62,19 +62,61 @@ const shikiTransformers = [
 ];
 
 const { codeToHtml } = globalShiki as GlobalShiki;
-// 生成高亮HTML
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function applyFallbackLines(content: string) {
+  if (!content) {
+    renderLines.value = [];
+    return;
+  }
+  renderLines.value = content.split('\\n').map(line => escapeHtml(line));
+}
+
+function parseHtmlWithRegex(html: string, fallback: string) {
+  const preTag = html.match(/<pre\b[^>]*>/i)?.[0];
+  const styleMatch = preTag?.match(/style="([^"]*)"/i);
+  const classMatch = preTag?.match(/class="([^"]*)"/i);
+  preStyle.value = styleMatch ? styleMatch[1] : null;
+  preClass.value = classMatch ? classMatch[1] : '';
+
+  const lines = html.match(/<span class="line">[\s\S]*?<\/span>/g);
+  if (lines && lines.length) {
+    renderLines.value = lines;
+    return;
+  }
+
+  applyFallbackLines(fallback);
+}
+
+// ??????HTML
 async function generateHtml() {
   let { language = 'text', content = '' } = props.raw || {};
   if (!(SHIKI_SUPPORT_LANGS as readonly string[]).includes(language)) {
     language = 'text';
   }
   nowCodeLanguage.value = language as BundledLanguage;
-  const html = await codeToHtml(content.trim(), {
+  const normalizedContent = content.trim();
+  const html = await codeToHtml(normalizedContent, {
     lang: language as BundledLanguage,
     themes: themes.value,
     colorReplacements: colorReplacements.value,
     transformers: shikiTransformers
   });
+
+  const isSsrShim =
+    typeof globalThis !== 'undefined' &&
+    (globalThis as any).__ELX_SSR_SHIM__ === true;
+  if (typeof DOMParser === 'undefined' || isSsrShim) {
+    parseHtmlWithRegex(html, normalizedContent);
+    return;
+  }
+
   const parse = new DOMParser();
   const doc = parse.parseFromString(html, 'text/html');
   const preElement = doc.querySelector('pre');
@@ -83,9 +125,12 @@ async function generateHtml() {
   preClass.value = preClassNames ?? '';
   const codeElement = doc.querySelector('pre code');
   if (codeElement) {
-    const lines = codeElement.querySelectorAll('.line'); // 获取所有代码行
-    renderLines.value = Array.from(lines).map(line => line.outerHTML); // 存储每行HTML
+    const lines = codeElement.querySelectorAll('.line'); // ???????????
+    renderLines.value = Array.from(lines).map(line => line.outerHTML); // ??????HTML
+    return;
   }
+
+  applyFallbackLines(normalizedContent);
 }
 
 watch(

@@ -16,17 +16,17 @@ const contributorTitle = computed(() => {
 });
 
 const isComponentPage = computed(() => {
-  return page.value.filePath.includes('components');
+  return page.value.filePath?.includes('components') ?? false;
 });
 
 const contributors = computed<Contributor[]>(() => {
-  const filePath = page.value.filePath;
+  const filePath = page.value.filePath ?? '';
   const paths = filePath.split('/');
-  const componentName = paths[paths.length - 2].toLowerCase();
+  const componentName = paths[paths.length - 2]?.toLowerCase();
   const contributors = _contributors[
     componentName as keyof typeof _contributors
-  ] as Contributor[];
-  return contributors;
+  ] as Contributor[] | undefined;
+  return contributors ?? [];
 });
 
 // 处理图片加载错误
