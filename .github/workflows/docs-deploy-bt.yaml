@@ -60,6 +60,11 @@ jobs:
           npm i -g pnpm
           pnpm install
 
+      - name: Build core package (ensure dist for docs)
+        run: |
+          pnpm -C packages/core aeac
+          pnpm -C packages/core build:es
+
       - name: Resolve docs env
         id: docs_env
         run: |
