@@ -87,8 +87,19 @@ jobs:
           if [[ ! -f apps/internal/metadata/dist/component-contributors.json ]]; then
             echo '{}' > apps/internal/metadata/dist/component-contributors.json
           fi
-          pnpm run gen:changelog
-          pnpm -C apps/docs build
+          set -euo pipefail
+          {
+            pnpm run gen:changelog
+            pnpm -C apps/docs build
+          } 2>&1 | tee docs-build.log
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-build-log-${{ inputs.line }}-${{ github.run_id }}
+          path: docs-build.log
+          retention-days: 7
 
       - name: Resolve target path
         id: target_path
