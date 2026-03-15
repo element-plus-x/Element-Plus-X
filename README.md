@@ -176,3 +176,5 @@ app.mount('#app');
 <p>交流群如果过期或者失效，可以添加作者 vx</p>
 <img src="https://cdn.element-plus-x.com/element-plus-x-author-vx.png" alt="作者vx" width="180" style="margin: 20px;" />
 </div>
+
+[![Star History Chart](https://api.star-history.com/svg?repos=element-plus-x/Element-Plus-X&type=Date)](https://star-history.com/#element-plus-x/Element-Plus-X&Date)
