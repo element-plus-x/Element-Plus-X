@@ -46,6 +46,34 @@ const docsRootOrigin =
 const docsVersionLabel =
   process.env.DOCS_VERSION_LABEL ?? (docsLine === 'v2' ? 'v2.x (Beta)' : 'v1.x');
 
+// Fix: Windows 中文路径导致 decodeURI 失败 (URI malformed)
+// https://github.com/vuejs/vitepress/issues/3675
+function fixChinesePathPlugin(): Plugin {
+  return {
+    name: 'fix-chinese-path',
+    configureServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        try {
+          if (req.url) {
+            decodeURI(req.url);
+          }
+        } catch {
+          // decodeURI 失败时，将已编码的中文路径转换为合法 URI
+          // double-encoded path -> single-encoded
+          req.url = req.url
+            ?.replace(/%([0-9A-Fa-f]{2})/g, (_, hex) =>
+              String.fromCharCode(parseInt(hex, 16))
+            )
+            .split('')
+            .map(c => (c.charCodeAt(0) > 127 ? encodeURIComponent(c) : c))
+            .join('');
+        }
+        next();
+      });
+    }
+  };
+}
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'Element-Plus-X',
@@ -137,6 +165,7 @@ export default defineConfig({
           ],
     },
     plugins: [
+      fixChinesePathPlugin(),
       // 配置vitepress的插件
       // https://github.com/antfu/vite-plugin-inspect
       // 插件调试

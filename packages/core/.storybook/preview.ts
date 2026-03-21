@@ -9,6 +9,7 @@ import ConfigProvider from '../src/components/ConfigProvider/index.vue';
 import 'element-plus/dist/index.css';
 
 import '../src/styles/index.scss';
+import 'x-markdown-vue/style';
 import './preview.scss';
 
 setup(app => app.use(ElementPlus));

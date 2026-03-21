@@ -6,13 +6,19 @@ import type {
   SidebarItem
 } from './types';
 
-import process from 'node:process';
+declare const __DOCS_LINE__: string;
+declare const __DOCS_V1_ORIGIN__: string;
+declare const __DOCS_V2_ORIGIN__: string;
 
-const DOCS_LINE = process.env.DOCS_LINE === 'v2' ? 'v2' : 'v1';
+const DOCS_LINE = typeof __DOCS_LINE__ !== 'undefined' ? __DOCS_LINE__ : 'v1';
 const DOCS_V1_ORIGIN =
-  process.env.DOCS_V1_ORIGIN ?? 'https://v1.element-plus-x.com';
+  typeof __DOCS_V1_ORIGIN__ !== 'undefined'
+    ? __DOCS_V1_ORIGIN__
+    : 'https://v1.element-plus-x.com';
 const DOCS_V2_ORIGIN =
-  process.env.DOCS_V2_ORIGIN ?? 'https://v2.element-plus-x.com';
+  typeof __DOCS_V2_ORIGIN__ !== 'undefined'
+    ? __DOCS_V2_ORIGIN__
+    : 'https://v2.element-plus-x.com';
 
 const V1_LABEL = DOCS_LINE === 'v1' ? 'v1.x (\u5F53\u524D)' : 'v1.x';
 const V2_LABEL =
