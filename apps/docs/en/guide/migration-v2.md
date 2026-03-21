@@ -678,7 +678,7 @@ A: `XSender` has minor API changes — mainly the rename, plus new props like `v
 
 ### Q: How do I set up dark mode in VitePress?
 
-A: See [Theme Configuration - VitePress Integration](/en/guide/theme/#vitepress-integration).
+A: See [Theme Configuration - VitePress Integration](/en/guide/theme#vitepress-integration).
 
 ### Q: Is XRequest still usable?
 
