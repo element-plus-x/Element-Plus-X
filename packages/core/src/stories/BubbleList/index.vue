@@ -34,10 +34,6 @@ function addMessage() {
   ElMessage.success(`条数：${bubbleItems.value.length}`);
 }
 
-function handleOnComplete(_self: unknown) {
-  ElMessage.success('列表打字结束');
-}
-
 function scrollToTop() {
   bubbleListRef.value.scrollToTop();
 }
@@ -88,7 +84,6 @@ onMounted(() => {
         v-bind="{ ...$attrs, ...props }"
         ref="bubbleListRef"
         :list="bubbleItems"
-        @complete="handleOnComplete"
       />
     </div>
   </div>

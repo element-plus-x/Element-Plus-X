@@ -36,14 +36,6 @@ The logic is the same as before, so you can upgrade without any worries.
 
 <demo src="./demos/back-button.vue"></demo>
 
-### Scroll Complete Event
-
-::: warning
-This is only needed in very special cases. It is not suitable for streaming output, as it will quickly trigger the typing end event.
-:::
-
-<demo src="./demos/on-complete.vue"></demo>
-
 ### Theme Overrides (themeOverrides)
 
 Override `BubbleList` theme tokens via `ConfigProvider.themeOverrides`. See the full token list and template:
@@ -112,13 +104,8 @@ const list = ref([
 | `btnLoading`          | Boolean                                        | No                                      | true                                           | Whether to enable loading state for the back to bottom button. Default is `true`.                                                                                                                                                                         |
 | `btnColor`            | String                                         | No                                      | '#409EFF'                                      | Color of the back to bottom button. Default is `'#409EFF'`.                                                                                                                                                                                               |
 | `btnIconSize`         | Number                                         | No                                      | 24                                             | Icon size of the back to bottom button. Default is 24px.                                                                                                                                                                                                  |
-| `triggerIndices`      | 'only-last' \| 'all' \| number[]               | No                                      | 'only-last'                                    | Index array of bubbles that trigger the `complete` event. Default is `'only-last'`.                                                                                                                                                                       |
 
 ## Events
-
-| Event Name  | Parameter         | Type     | Description                                                |
-| ----------- | ----------------- | -------- | ---------------------------------------------------------- |
-| `@complete` | (instance, index) | Function | Triggered when the typing effect of a bubble is completed. |
 
 ## Ref Instance Methods
 

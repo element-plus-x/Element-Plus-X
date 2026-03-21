@@ -372,7 +372,10 @@ export const GUIDE_SIDEBAR_ZH: SidebarItem[] = [
   },
   {
     text: '变更',
-    items: [{ text: '更新日志', link: '/zh/guide/update-log' }]
+    items: [
+      { text: '从 v1 迁移到 v2', link: '/zh/guide/migration-v2' },
+      { text: '更新日志', link: '/zh/guide/update-log' }
+    ]
   },
   {
     text: '反馈',
@@ -398,7 +401,10 @@ export const GUIDE_SIDEBAR_EN: SidebarItem[] = [
   },
   {
     text: 'Changelog',
-    items: [{ text: 'Changelog', link: '/en/guide/update-log' }]
+    items: [
+      { text: 'Migrate from v1 to v2', link: '/en/guide/migration-v2' },
+      { text: 'Changelog', link: '/en/guide/update-log' }
+    ]
   },
   {
     text: 'Feedback',

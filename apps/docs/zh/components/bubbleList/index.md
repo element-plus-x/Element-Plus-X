@@ -37,14 +37,6 @@ title: 'BubbleList'
 
 <demo src="./demos/back-button.vue"></demo>
 
-### 滚动完成事件
-
-::: warning
-极特殊情况才用的到，在流式输出中不适用，会快速触发打字结束事件。
-:::
-
-<demo src="./demos/on-complete.vue"></demo>
-
 ### 自定义主题
 
 通过 `ConfigProvider.themeOverrides` 覆盖 `BubbleList` 的主题变量。完整变量表与可复制模板见：
@@ -113,13 +105,8 @@ const list = ref([
 | `btnLoading`          | Boolean                                        | 否                                      | true                                           | 是否开启返回底部按钮 loading 状态，默认为 `true`。                                                                                                                                               |
 | `btnColor`            | String                                         | 否                                      | '#409EFF'                                      | 返回底部按钮的颜色，默认为 `'#409EFF'`。                                                                                                                                                         |
 | `btnIconSize`         | Number                                         | 否                                      | 24                                             | 返回底部按钮的图标大小，默认为 24px。                                                                                                                                                            |
-| `triggerIndices`      | 'only-last' \| 'all' \| number[]               | 否                                      | 'only-last'                                    | 触发`complete`事件的气泡 `索引数组`，默认为 `'only-last'`。                                                                                                                                      |
 
 ## 事件
-
-| 事件名      | 参数              | 类型     | 描述                                   |
-| ----------- | ----------------- | -------- | -------------------------------------- |
-| `@complete` | (instance, index) | Function | 当某个气泡的打字效果完成时触发的事件。 |
 
 ## Ref 实例方法
 
@@ -144,5 +131,4 @@ const list = ref([
 1. **智能滚动** - 自动跟踪最新消息位置
 2. **深度定制** - 完整的气泡组件插槽透传
 3. **多种滚动方式** - 滚动到顶部、底部、指定位置
-4. **打字效果** - 支持打字效果
-5. **多种样式** - 支持多种样式，如圆形、方形等
+4. **多种样式** - 支持多种样式，如圆形、方形等
