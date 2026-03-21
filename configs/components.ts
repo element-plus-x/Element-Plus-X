@@ -26,8 +26,7 @@ const DOCS_V2_ORIGIN =
     : process.env.DOCS_V2_ORIGIN || 'https://v2.element-plus-x.com';
 
 const V1_LABEL = DOCS_LINE === 'v1' ? 'v1.x (\u5F53\u524D)' : 'v1.x';
-const V2_LABEL =
-  DOCS_LINE === 'v2' ? 'v2.x (Beta, \u5F53\u524D)' : 'v2.x (Beta)';
+const V2_LABEL = 'v2.x';
 
 function mapNavText(text: string, lang: 'zh' | 'en'): string {
   if (lang === 'zh') return text;
