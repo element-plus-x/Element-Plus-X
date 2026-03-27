@@ -152,3 +152,8 @@
   margin: 0;
   line-height: inherit;
 }
+
+.vp-doc ul.el-timeline {
+  list-style: none;
+  margin: 0;
+}
