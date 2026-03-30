@@ -88,8 +88,7 @@ const {
 } = toRefs(props);
 
 function renderIcon(icon: Component | null | undefined) {
-  if (!icon)
-    return null;
+  if (!icon) return null;
   return h(icon);
 }
 
@@ -118,40 +117,58 @@ function handleClick(key: string) {
   emit('click', key);
 }
 
-const isTextOverflow = computed(() => {
-  return (label: string = '') => {
-    // 如果没有设置labelMaxWidth，直接返回false
-    if (!labelMaxWidth.value)
-      return false;
-    if (typeof window === 'undefined')
-      return false;
-    if (typeof document === 'undefined')
-      return false;
-    if (!document?.createElement || !document?.body?.appendChild) {
-      return false;
+const labelRef = ref<HTMLElement | null>(null);
+
+const isTextOverflow = ref(false);
+
+let isMeasuring = false;
+
+let observer: MutationObserver | null = null;
+
+// 利用Range API计算是否超过宽度
+function measure() {
+  if (isMeasuring) return;
+  if (!labelMaxWidth.value || !labelRef.value) {
+    isTextOverflow.value = false;
+    return;
+  }
+  isMeasuring = true;
+  try {
+    if (!labelRef.value.offsetParent) return;
+    const range = document.createRange();
+    range.selectNodeContents(labelRef.value);
+    isTextOverflow.value =
+      range.getBoundingClientRect().width > labelMaxWidth.value;
+  } catch {
+    isTextOverflow.value = false;
+  } finally {
+    isMeasuring = false;
+  }
+}
+
+watch([labelMaxWidth, () => item.value?.label], measure, { flush: 'post' });
+
+watch(
+  labelRef,
+  (newVal, _) => {
+    if (observer) {
+      observer.disconnect();
+      observer = null;
     }
-
-    // 创建一个临时的span元素来测量文本宽度
-    const span = document.createElement('span');
-    if (!span || !('style' in span)) {
-      return false;
+    if (newVal) {
+      observer = new MutationObserver(measure);
+      observer.observe(newVal, {
+        attributes: true,
+        attributeFilter: ['style', 'class']
+      });
+      measure();
     }
-    span.style.visibility = 'hidden';
-    span.style.position = 'absolute';
-    span.style.whiteSpace = 'nowrap';
-    span.style.fontSize = '14px'; // 与CSS中定义的字体大小一致
-    span.textContent = label;
-
-    document.body.appendChild(span);
-    const textWidth = span.offsetWidth;
-    document.body.removeChild(span);
-
-    // 如果文本宽度大于最大宽度，则返回true表示溢出
-    return textWidth > labelMaxWidth.value;
-  };
-});
+  },
+  { flush: 'post', immediate: true }
+);
 
 // 计算标签样式
+
 const labelStyle = computed(() => {
   // 如果有labelMaxWidth，设置最大宽度并使用截断样式
   if (labelMaxWidth.value) {
@@ -279,9 +296,12 @@ function closeDropdown() {
     elDropdownRef.value.handleClose?.();
   }
 }
-
 onMounted(() => {
   console.log(elDropdownRef.value, '------');
+});
+onUnmounted(() => {
+  observer?.disconnect?.();
+  observer = null;
 });
 /* 内置菜单 结束 */
 </script>
@@ -321,24 +341,20 @@ onMounted(() => {
           <!-- 标签和时间戳 -->
           <div class="conversation-label-container">
             <ElTooltip
-              v-if="showTooltip && isTextOverflow(item.label)"
+              :disabled="!showTooltip || !isTextOverflow"
               :content="item.label"
               :placement="tooltipPlacement"
               :offset="tooltipOffset"
               effect="dark"
             >
               <span
+                ref="labelRef"
                 class="conversation-label"
-                :class="{ 'text-gradient': isTextOverflow(item.label) }"
+                :class="{ 'text-gradient': isTextOverflow }"
                 :style="labelStyle"
-              >{{ item.label }}</span>
+                >{{ item.label }}</span
+              >
             </ElTooltip>
-            <span
-              v-else
-              class="conversation-label"
-              :class="{ 'text-gradient': isTextOverflow(item.label) }"
-              :style="labelStyle"
-            >{{ item.label }}</span>
           </div>
         </slot>
       </div>
@@ -381,7 +397,6 @@ onMounted(() => {
           >
             <template #default>
               <slot
-
                 name="more-filled"
                 v-bind="{
                   item,
@@ -397,7 +412,13 @@ onMounted(() => {
               </slot>
             </template>
             <template #dropdown>
-              <slot name="menu" v-bind="{ handleOpen: openDropdown, handleClose: closeDropdown }">
+              <slot
+                name="menu"
+                v-bind="{
+                  handleOpen: openDropdown,
+                  handleClose: closeDropdown
+                }"
+              >
                 <el-dropdown-menu :style="mergedMenuStyle">
                   <el-dropdown-item
                     v-for="menuItem in menu"
