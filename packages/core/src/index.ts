@@ -121,18 +121,10 @@ export type {
 } from './components/XSender/types.d.ts';
 
 export * from './hooks';
-export { default as en } from './locale/lang/en';
-export { default as zhCn } from './locale/lang/zh-cn';
-export type {
-  Language,
-  LanguageConfig,
-  ThinkingLocale,
-  TranslateOption
-} from './locale/types';
+export * from './locale';
 export interface ElementPlusXInstallOptions {
   locale?: import('./locale/types').Language;
 }
-export { buildTranslator, translate, useLocale } from './locale/use-locale';
 
 const ElementPlusX: Plugin = {
   install(app: App, options: ElementPlusXInstallOptions = {}) {

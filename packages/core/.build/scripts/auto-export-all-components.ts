@@ -106,10 +106,7 @@ async function generateAutoEntry() {
       ];
     }),
     '',
-    `export { default as en } from './locale/lang/en';`,
-    `export { default as zhCn } from './locale/lang/zh-cn';`,
-    `export { useLocale, translate, buildTranslator } from './locale/use-locale';`,
-    `export type { Language, LanguageConfig, ThinkingLocale, TranslateOption } from './locale/types';`,
+    `export * from './locale';`,
     `export interface ElementPlusXInstallOptions {`,
     `  locale?: import('./locale/types').Language;`,
     `}`,
