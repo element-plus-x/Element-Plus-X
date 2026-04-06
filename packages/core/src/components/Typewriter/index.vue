@@ -18,20 +18,20 @@ const props = withDefaults(defineProps<TypewriterProps>(), {
 const emits = defineEmits<TypewriterEmits>();
 
 const configProvider = useConfigProvider();
-const { md } = configProvider;
+const md = computed(() => configProvider.value.md);
 
 const markdownContentRef = ref<HTMLElement | null>(null);
 const typeWriterRef = ref<HTMLElement | null>(null);
 
 function initMarkdownPlugins() {
-  if (configProvider.mdPlugins?.length) {
-    configProvider.mdPlugins.forEach(plugin => {
-      md?.use(plugin);
+  if (configProvider.value.mdPlugins?.length) {
+    configProvider.value.mdPlugins.forEach(plugin => {
+      md.value?.use(plugin);
     });
   }
   if (props.mdPlugins?.length) {
     props.mdPlugins.forEach(plugin => {
-      md?.use(plugin);
+      md.value?.use(plugin);
     });
   }
 }
@@ -76,8 +76,7 @@ const mergedConfig: ComputedRef<TypingConfig> = computed(() => {
 });
 // 修改内容处理逻辑
 const processedContent = computed(() => {
-  if (!props.content)
-    return '';
+  if (!props.content) return '';
 
   // 非打字模式直接渲染完整内容
   if (!props.typing) {
@@ -101,7 +100,7 @@ const renderedContent = computed(() => {
     return processedContent.value;
   }
   // Markdown模式添加安全过滤和样式类
-  const rawHtml = md?.render(processedContent.value ?? '') ?? '';
+  const rawHtml = md.value?.render(processedContent.value ?? '') ?? '';
   if (typeof window === 'undefined') {
     return rawHtml;
   }
@@ -134,8 +133,7 @@ watch(
     if (shouldReset) {
       typingIndex.value = 0;
       contentCache.value = newVal || '';
-    }
-    else {
+    } else {
       contentCache.value = newVal || '';
     }
 
@@ -148,8 +146,7 @@ watch(
 
 function startTyping() {
   clearTimeout(timer!);
-  if (!props.typing || !contentCache.value)
-    return;
+  if (!props.typing || !contentCache.value) return;
 
   isTyping.value = true;
   emits('start', instance);

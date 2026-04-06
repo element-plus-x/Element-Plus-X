@@ -5,11 +5,36 @@ import fg from 'fast-glob';
 const root = resolve(__dirname, '../');
 
 const entries = fg.globSync('src/components/*/*.(tsx|ts|vue)', {
-  ignore: ['src/components/**/*.d.ts', 'src/components/**/*.types.ts']
+  ignore: [
+    'src/components/**/*.d.ts',
+    'src/components/**/*.types.ts',
+    'src/components/**/*.test.ts',
+    'src/components/**/*.test.tsx',
+    'src/components/**/*.spec.ts',
+    'src/components/**/*.spec.tsx'
+  ]
 });
 
 const hooksEntries = fg.globSync('src/hooks/*.(ts|tsx)', {
-  ignore: ['src/hooks/**/*.d.ts', 'src/hooks/**/*.types.ts']
+  ignore: [
+    'src/hooks/**/*.d.ts',
+    'src/hooks/**/*.types.ts',
+    'src/hooks/**/*.test.ts',
+    'src/hooks/**/*.test.tsx',
+    'src/hooks/**/*.spec.ts',
+    'src/hooks/**/*.spec.tsx'
+  ]
+});
+
+const localeEntries = fg.globSync('src/locale/**/*.(ts|tsx)', {
+  ignore: [
+    'src/locale/**/*.d.ts',
+    'src/locale/**/*.types.ts',
+    'src/locale/**/*.test.ts',
+    'src/locale/**/*.test.tsx',
+    'src/locale/**/*.spec.ts',
+    'src/locale/**/*.spec.tsx'
+  ]
 });
 
 const entriesObj = Object.fromEntries(
@@ -30,14 +55,23 @@ const hooksEntriesObj = Object.fromEntries(
   })
 );
 
+const localeEntriesObj = Object.fromEntries(
+  localeEntries.map(f => {
+    return [
+      `locale/${relative('src/locale', f.slice(0, f.length - extname(f).length))}`,
+      join(root, f)
+    ];
+  })
+);
+
 const buildConfig: BuildEnvironmentOptions = {
   lib: {
     name: 'ElementPlusX',
     entry: {
       index: resolve(__dirname, '../src/index.ts'),
-      components: resolve(__dirname, '../src/components.ts'),
       ...entriesObj,
-      ...hooksEntriesObj
+      ...hooksEntriesObj,
+      ...localeEntriesObj
     },
     fileName: (format, entryName) => {
       return `${format}/${entryName}.js`;
