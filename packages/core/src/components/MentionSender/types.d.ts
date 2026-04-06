@@ -29,6 +29,9 @@ export interface MentionSenderProps {
   // 新增 el-input 样式透传
   inputStyle?: string | CSSProperties | CSSProperties[] | string[];
 
+  // 头部显示控制
+  openHeader?: boolean; // 头部是否打开
+
   // 提及选项列表
   options?: MentionOption[];
   // 定制筛选器选项逻辑
@@ -52,6 +55,7 @@ export interface MentionSenderProps {
 export interface MentionSenderEmits {
   // 双向绑定相关事件
   (event: 'update:modelValue', value: string): void;
+  (event: 'update:openHeader', open: boolean): void;
   // 操作事件
   (event: 'submit', internalValue: string): void;
   (event: 'cancel', internalValue: string): void;
