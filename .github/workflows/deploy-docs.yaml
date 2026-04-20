@@ -67,10 +67,13 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
+      - name: Install pnpm
         run: |
-          npm i -g pnpm
-          pnpm install
+          corepack enable
+          corepack prepare pnpm@10.6.5 --activate
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Resolve docs env
         id: docs_env

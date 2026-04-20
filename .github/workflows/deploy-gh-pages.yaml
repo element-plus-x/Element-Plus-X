@@ -28,7 +28,9 @@ jobs:
           node-version: 20
 
       - name: Install pnpm
-        run: npm i -g pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.6.5 --activate
 
       - name: Install dependencies
         run: pnpm install
