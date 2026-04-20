@@ -68,14 +68,6 @@ pnpm add shiki shiki-stream
 #### 基础用法
 
 ```vue
-<template>
-  <Bubble :avatar="avatar" placement="start">
-    <template #content>
-      <MarkdownRenderer :markdown="content" />
-    </template>
-  </Bubble>
-</template>
-
 <script setup>
 import { ref } from 'vue';
 import { MarkdownRenderer } from 'x-markdown-vue';
@@ -84,19 +76,19 @@ import 'x-markdown-vue/style';
 const avatar = ref('https://example.com/avatar.png');
 const content = ref('**Hello** World!\n\n这是 **Markdown** 内容');
 </script>
-```
 
-#### 流式渲染（替代打字效果）
-
-```vue
 <template>
   <Bubble :avatar="avatar" placement="start">
     <template #content>
-      <MarkdownRenderer :markdown="content" :enable-animate="true" />
+      <MarkdownRenderer :markdown="content" />
     </template>
   </Bubble>
 </template>
+```
 
+#### 雾化效果（替代打字效果）
+
+```vue
 <script setup>
 import { ref } from 'vue';
 import { MarkdownRenderer } from 'x-markdown-vue';
@@ -104,6 +96,14 @@ import 'x-markdown-vue/style';
 
 const content = ref('');
 </script>
+
+<template>
+  <Bubble :avatar="avatar" placement="start">
+    <template #content>
+      <MarkdownRenderer :markdown="content" :enable-animate="true" />
+    </template>
+  </Bubble>
+</template>
 ```
 
 ## 属性

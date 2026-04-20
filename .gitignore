@@ -52,6 +52,7 @@ yarn-error.log*
 .codex
 AGENTS.md
 new-vertion.md
+.playwright-mcp
 
 *storybook.log
 .oxlintrc.json.bak

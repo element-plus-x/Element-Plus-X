@@ -1,130 +1,302 @@
 <script setup lang="ts">
 import type { MessageItem } from '@assets/mock';
-import type { BubbleListProps } from '@components/BubbleList/types';
-import { avatar1, avatar2 } from '@assets/mock';
+import type {
+  BubbleListInstance,
+  BubbleListProps,
+  BubbleListScrollState
+} from '@components/BubbleList/types';
 import BubbleList from '@components/BubbleList/index.vue';
-import { ElMessage } from 'element-plus';
+import {
+  createStoryMessage,
+  createStorySeed,
+  getLastMessageKey
+} from './story-utils';
 
-const props = defineProps<Pick<BubbleListProps, 'list'>>();
-
-const bubbleItems = ref<BubbleListProps<MessageItem>['list']>(
-  props.list as BubbleListProps<MessageItem>['list']
+const props = withDefaults(
+  defineProps<Partial<BubbleListProps<MessageItem>>>(),
+  {
+    list: () => []
+  }
 );
 
-const bubbleListRef = ref();
-const num = ref(0);
+const bubbleListRef = ref<BubbleListInstance | null>(null);
+const bubbleItems = ref<MessageItem[]>([]);
+const targetIndex = ref(0);
+const scrollState = ref<BubbleListScrollState>('AT_BOTTOM');
+const unreadCount = ref(0);
+const userMessageCount = ref(1);
+const aiMessageCount = ref(1);
+let nextKey = 0;
 
-function addMessage() {
-  const i = bubbleItems.value.length;
-  const isUser = !!(i % 2);
-  const content = isUser
-    ? '这是用户的消息'
-    : '欢迎使用 Element Plus X .'.repeat(5);
-  const placement = isUser ? 'end' : 'start';
-  const obj = {
-    key: i,
-    role: isUser ? 'user' : 'ai',
-    content,
-    placement,
-    avatar: isUser ? avatar1 : avatar2,
-    avatarSize: '32px'
-  };
-  bubbleItems.value.push(obj as MessageItem);
-  // bubbleListRef.value.scrollToBottom();
-  ElMessage.success(`条数：${bubbleItems.value.length}`);
+function buildInitialList(source?: MessageItem[]) {
+  const list = createStorySeed(
+    source && source.length > 0 ? source : undefined,
+    10,
+    '基础自测'
+  );
+
+  nextKey = getLastMessageKey(list);
+  userMessageCount.value = 1;
+  aiMessageCount.value = 1;
+  targetIndex.value = Math.max(list.length - 1, 0);
+  scrollState.value = 'AT_BOTTOM';
+  unreadCount.value = 0;
+
+  return list;
+}
+
+function resetConversation(source?: MessageItem[]) {
+  bubbleItems.value = buildInitialList(source);
+  nextTick(() => {
+    bubbleListRef.value?.scrollToBottom(false);
+  });
+}
+
+function handleReset() {
+  resetConversation(props.list as MessageItem[] | undefined);
+}
+
+function appendConversationRound() {
+  appendMessage('user');
+  appendMessage('ai');
+}
+
+function appendMessage(role: 'ai' | 'user') {
+  const count =
+    role === 'user' ? userMessageCount.value++ : aiMessageCount.value++;
+  const content =
+    role === 'user'
+      ? `用户补充问题 ${count}：请继续展开第 ${count} 个交互场景。`
+      : `AI 最新回复 ${count}：验证 autoScroll 开启时，用户消息与 AI 消息均自动滚动到底部。关闭 autoScroll 后，新消息不再触发自动滚动，改为累计未读计数并显示回底按钮。`.repeat(
+          count % 2 === 0 ? 2 : 1
+        );
+
+  nextKey += 1;
+  bubbleItems.value.push(createStoryMessage(nextKey, role, content));
+  targetIndex.value = bubbleItems.value.length - 1;
+}
+
+function appendBurstMessages() {
+  const nextMessages = [
+    createStoryMessage(
+      nextKey + 1,
+      'user',
+      '用户连续补充：先插入一条短消息，观察列表锚点是否稳定。'
+    ),
+    createStoryMessage(
+      nextKey + 2,
+      'ai',
+      'AI 连续返回：第二条刻意拉长内容，用来验证多条消息一起追加时的滚动状态与动态高度表现。'.repeat(
+        2
+      )
+    ),
+    createStoryMessage(
+      nextKey + 3,
+      'ai',
+      'AI 连续返回：第三条消息保持较短，便于手动观察滚动位置是否仍然贴底。'
+    )
+  ];
+
+  nextKey += nextMessages.length;
+  bubbleItems.value.push(...nextMessages);
+  targetIndex.value = bubbleItems.value.length - 1;
 }
 
 function scrollToTop() {
-  bubbleListRef.value.scrollToTop();
+  bubbleListRef.value?.scrollToTop();
+}
+
+function scrollToBottom() {
+  bubbleListRef.value?.scrollToBottom();
 }
 
 function scrollToBubble() {
-  bubbleListRef.value.scrollToBubble(num.value);
+  const index = Math.min(
+    targetIndex.value,
+    Math.max(bubbleItems.value.length - 1, 0)
+  );
+  bubbleListRef.value?.scrollToBubble(index);
 }
 
-onMounted(() => {
-  setTimeout(() => {
-    bubbleItems.value.map((item: MessageItem) => {
-      item.loading = false;
-      return item;
-    });
-  }, 3000);
-});
+function handleScrollStateChange(state: BubbleListScrollState) {
+  scrollState.value = state;
+}
+
+function handleUnreadCountChange(count: number) {
+  unreadCount.value = count;
+}
+
+watch(
+  () => props.list,
+  source => {
+    resetConversation(source as MessageItem[] | undefined);
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
-  <div class="component-container">
-    <div class="component-title" style="color: red">
-      气泡列表的 list 数组中的 item 属性，会直接透传到内置的 bubble
-      组件中，也就是每一个消息气泡的属性，都是用这个数组控制。因此 bubble
-      组件的属性都可以放在列表项中，同时也可以自己拓展每一项的属性做自定义的拓展处理。
-    </div>
-    <div class="top-wrap">
-      <div class="btn-list">
-        <el-button type="primary" plain @click="addMessage">
-          添加对话
-        </el-button>
-        <el-button type="primary" plain @click="scrollToTop">
-          滚动到顶部
-        </el-button>
-        <el-input-number
-          v-model="num"
-          :min="0"
-          :max="10"
-          controls-position="right"
-        />
-        <el-button type="primary" plain @click="scrollToBubble">
-          滚动第{{ num }}个气泡框
-        </el-button>
+  <div class="demo-shell">
+    <div class="demo-head">
+      <div>
+        <div class="demo-title">基础消息流 / 滚动方法</div>
+        <p class="demo-caption">
+          这个 story 只看最基础的列表行为：追加消息、观察未读状态、验证
+          scrollToTop / scrollToBottom / scrollToBubble。
+        </p>
       </div>
     </div>
 
-    <div class="component-1" style="height: 500px">
+    <div class="toolbar-group">
+      <div class="btn-list">
+        <el-button type="primary" plain @click="appendConversationRound">
+          添加对话
+        </el-button>
+        <el-button type="primary" plain @click="appendMessage('user')">
+          追加用户消息
+        </el-button>
+        <el-button type="primary" plain @click="appendMessage('ai')">
+          追加 AI 消息
+        </el-button>
+        <el-button type="primary" plain @click="appendBurstMessages">
+          连续追加 3 条
+        </el-button>
+      </div>
+
+      <div class="btn-list">
+        <el-button type="primary" plain @click="scrollToTop">
+          滚动到顶部
+        </el-button>
+        <el-button type="primary" plain @click="scrollToBottom">
+          滚动到底部
+        </el-button>
+        <el-input-number
+          v-model="targetIndex"
+          :min="0"
+          :max="Math.max(bubbleItems.length - 1, 0)"
+          controls-position="right"
+        />
+        <el-button type="primary" plain @click="scrollToBubble">
+          滚动到指定气泡
+        </el-button>
+        <el-button type="info" plain @click="handleReset"> 重置会话 </el-button>
+      </div>
+    </div>
+
+    <div class="status-row">
+      <div class="status-chip">
+        <span>滚动状态</span>
+        <strong>{{ scrollState }}</strong>
+      </div>
+      <div class="status-chip">
+        <span>未读计数</span>
+        <strong>{{ unreadCount }}</strong>
+      </div>
+      <div class="status-chip">
+        <span>消息总数</span>
+        <strong>{{ bubbleItems.length }}</strong>
+      </div>
+      <div class="status-chip">
+        <span>目标索引</span>
+        <strong>{{ targetIndex }}</strong>
+      </div>
+    </div>
+
+    <div class="story-stage">
       <BubbleList
-        v-bind="{ ...$attrs, ...props }"
+        v-bind="props"
         ref="bubbleListRef"
         :list="bubbleItems"
+        @scroll-state-change="handleScrollStateChange"
+        @unread-count-change="handleUnreadCountChange"
       />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.component-container {
-  padding: 12px;
-  border-radius: 15px;
-  overflow: auto;
+.demo-shell {
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  gap: 12px;
+  height: min(720px, calc(100vh - 24px));
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
 
-  .component-title {
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding-left: 12px;
-    font-weight: 700;
-    line-height: 1.5;
-    margin-bottom: 12px;
-    margin-top: 24px;
+.demo-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 0;
+}
 
-    &::after {
-      position: absolute;
-      content: '';
-      display: block;
-      width: 5px;
-      height: 75%;
-      border-radius: 15px;
-      left: 0;
-      background-color: #409eff;
-    }
+.demo-caption {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.demo-title {
+  font-weight: 700;
+  color: #1e3a8a;
+  font-size: 16px;
+}
+
+.toolbar-group {
+  display: grid;
+  gap: 8px;
+}
+
+.btn-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #dbeafe;
+
+  span {
+    font-size: 12px;
+    color: #64748b;
   }
 
-  .btn-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+  strong {
+    font-size: 15px;
+    color: #0f172a;
   }
+}
 
-  .top-wrap {
-    margin: 12px 0;
-  }
+.story-stage {
+  min-height: 0;
+  padding: 10px;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  display: flex;
+}
+
+.story-stage :deep(.elx-bubble-list) {
+  width: 100%;
+  height: 100%;
 }
 </style>

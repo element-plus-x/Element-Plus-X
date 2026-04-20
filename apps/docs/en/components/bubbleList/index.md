@@ -1,6 +1,162 @@
 ---
-title: BubbleList
+title: 'BubbleList'
 ---
+
+## Introduction
+
+`BubbleList` is built on the `Bubble` component and is used to display a list of chat bubbles. It has built-in virtual scrolling (`virtua/vue`), auto-follow-to-bottom, scroll state machine, unread count, bidirectional pagination loading, back-to-bottom button, and mixed node rendering — all out of the box, configure as needed.
+
+## Code Examples
+
+### Basic Usage
+
+<demo src="./demos/list.vue"></demo>
+
+### Scroll Control Methods
+
+<demo src="./demos/scroll-to.vue"></demo>
+
+### Auto Scroll Control
+
+<demo src="./demos/auto-scroll.vue"></demo>
+
+### Back to Bottom Button
+
+<demo src="./demos/back-button.vue"></demo>
+
+### Streaming Follow
+
+<demo src="./demos/streaming-follow.vue"></demo>
+
+### Bidirectional Pagination Loading
+
+<demo src="./demos/bidirectional-loading.vue"></demo>
+
+### Mixed Nodes
+
+<demo src="./demos/mixed-nodes.vue"></demo>
+
+### Slot Customization
+
+<demo src="./demos/customized.vue"></demo>
+
+### Theme Overrides
+
+Override `BubbleList` theme variables via `ConfigProvider.themeOverrides`. See the full variable list and copyable template:
+
+- [Theme Tokens](/en/guide/theme-tokens#bubblelist)
+- [/theme-overrides.template.ts](/theme-overrides.template.ts)
+
+<demo src="./demos/theme-overrides.vue"></demo>
+
+### Using with x-markdown-vue
+
+Starting from `v2.0.0`, the component library no longer bundles `XMarkdown` / `XMarkdownAsync`. For Markdown rendering, use the standalone package [x-markdown-vue](https://www.npmjs.com/package/x-markdown-vue), or see the dedicated docs: [XMarkdown](/en/components/xMarkdown/).
+
+#### Installation
+
+```bash
+pnpm add x-markdown-vue
+pnpm add katex
+pnpm add shiki shiki-stream
+```
+
+::: tip
+If you need code block syntax highlighting, please install `shiki` and `shiki-stream`. Otherwise, you may see this error in the console: `Streaming highlighter initialization failed: Error: Failed to load shiki-stream module`
+:::
+
+#### Basic Usage
+
+<demo src="./demos/with-markdown.vue"></demo>
+
+#### Fog Effect
+
+By setting the `enable-animate` property, you can achieve a typewriter fog effect:
+
+```vue
+<script setup>
+import { ref } from 'vue';
+import { BubbleList } from 'vue-element-plus-x';
+import { MarkdownRenderer } from 'x-markdown-vue';
+import 'x-markdown-vue/style';
+
+const list = ref([
+  { content: '', placement: 'start' } // Streaming content will be updated dynamically
+]);
+</script>
+
+<template>
+  <BubbleList :list="list">
+    <template #content="{ item }">
+      <MarkdownRenderer :markdown="item.content" :enable-animate="true" />
+    </template>
+  </BubbleList>
+</template>
+```
+
+## Props
+
+| Name                      | Type                 | Required | Default                                        | Description                                                                                                                                                                                |
+| ------------------------- | -------------------- | -------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `list`                    | `Array`              | Yes      | -                                              | Message array. Each object is passed through to the built-in `Bubble` component and supports all `Bubble` props.                                                                           |
+| `autoScroll`              | `Boolean`            | No       | `true`                                         | Whether to auto-scroll to the bottom when new messages are added. When disabled, new messages accumulate as unread count.                                                                  |
+| `maxHeight`               | `String`             | No       | -                                              | Maximum list height. Defaults to filling the parent container.                                                                                                                             |
+| `virtual`                 | `Boolean`            | No       | `true`                                         | Whether to enable virtual scrolling (based on `virtua/vue`). Recommended to keep on for large datasets.                                                                                    |
+| `smoothScroll`            | `Boolean`            | No       | `false`                                        | Whether programmatic scrolling uses smooth animation by default.                                                                                                                           |
+| `itemKey`                 | `string \| Function` | No       | `'key'`                                        | Unique node identifier. Can be a field name or `(item, index) => key` function.                                                                                                            |
+| `itemType`                | `string \| Function` | No       | -                                              | Non-bubble node type identifier. When matched, renders via the `#item` slot. Can be a field name or function.                                                                              |
+| `showBackButton`          | `Boolean`            | No       | `true`                                         | Whether to show the back-to-bottom button.                                                                                                                                                 |
+| `backButtonThreshold`     | `Number`             | No       | `80`                                           | Threshold (px from bottom) to trigger showing the back-to-bottom button.                                                                                                                   |
+| `backButtonPosition`      | `Object`             | No       | `{ bottom: '20px', left: 'calc(50% - 19px)' }` | CSS positioning of the back-to-bottom button. Supports `top / right / bottom / left / transform`.                                                                                          |
+| `backButtonSmoothScroll`  | `Boolean`            | No       | `true`                                         | Whether clicking the back-to-bottom button uses smooth scrolling.                                                                                                                          |
+| `alwaysShowScrollbar`     | `Boolean`            | No       | `false`                                        | Whether to always show the scrollbar.                                                                                                                                                      |
+| `btnLoading`              | `Boolean`            | No       | `true`                                         | Whether to show loading state on the built-in back-to-bottom button.                                                                                                                       |
+| `btnColor`                | `String`             | No       | `'#409EFF'`                                    | Color of the built-in back-to-bottom button.                                                                                                                                               |
+| `btnIconSize`             | `Number`             | No       | `24`                                           | Icon size (px) of the built-in back-to-bottom button.                                                                                                                                      |
+| `topStatus`               | `{ type, text? }`    | No       | -                                              | Top boundary status. `type` can be `idle / loading / no-more / error`.                                                                                                                     |
+| `bottomStatus`            | `{ type, text? }`    | No       | -                                              | Bottom boundary status, same as `topStatus`.                                                                                                                                               |
+| `loadMoreTopThreshold`    | `Number`             | No       | `100`                                          | Distance from top (px) to trigger `@load-more-top`.                                                                                                                                        |
+| `loadMoreBottomThreshold` | `Number`             | No       | `100`                                          | Distance from bottom (px) to trigger `@load-more-bottom`.                                                                                                                                  |
+| `shouldFollowContent`     | `Function`           | No       | -                                              | Custom content follow strategy. Return `true` to scroll to bottom, `false` to accumulate unread. Callback params include `reason / item / index / scrollState / unreadCount / autoScroll`. |
+
+## Events
+
+| Event Name             | Parameters                                                    | Description                                                           |
+| ---------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `@load-more-top`       | -                                                             | Triggered when scrolling up reaches the threshold. Load history here. |
+| `@load-more-bottom`    | -                                                             | Triggered when scrolling down reaches the threshold. Load more here.  |
+| `@scroll-state-change` | `(state: 'AT_BOTTOM' \| 'SCROLLED_UP' \| 'HAS_NEW_MESSAGES')` | Triggered when scroll state changes.                                  |
+| `@unread-count-change` | `(count: number)`                                             | Triggered when unread count changes.                                  |
+
+## Ref Instance Methods
+
+| Method / Property        | Signature                                   | Description                                                                           |
+| ------------------------ | ------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `scrollToTop`            | `(smooth?: boolean) => void`                | Scroll to the top. `smooth` controls animation (defaults to the `smoothScroll` prop). |
+| `scrollToBottom`         | `(smooth?: boolean) => void`                | Scroll to the bottom, resets unread count and state machine.                          |
+| `scrollToBubble`         | `(index: number, smooth?: boolean) => void` | Scroll to the message at the specified index.                                         |
+| `loadMoreTopComplete`    | `() => void`                                | Call after top data finishes loading. The component auto-fixes scroll position.       |
+| `loadMoreBottomComplete` | `() => void`                                | Call after bottom data finishes loading.                                              |
+| `currentScrollState`     | `BubbleListScrollState`                     | Current scroll state: `AT_BOTTOM / SCROLLED_UP / HAS_NEW_MESSAGES`.                   |
+| `currentUnreadCount`     | `number`                                    | Current unread message count.                                                         |
+
+## Slots
+
+| Slot Name       | Context Type                  | Description                                                                                                                                 |
+| --------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `#avatar`       | `BubbleListItemContext`       | Custom bubble avatar.                                                                                                                       |
+| `#header`       | `BubbleListItemContext`       | Custom bubble header area.                                                                                                                  |
+| `#content`      | `BubbleListItemContext`       | Custom bubble content area.                                                                                                                 |
+| `#footer`       | `BubbleListItemContext`       | Custom bubble footer area.                                                                                                                  |
+| `#loading`      | `BubbleListItemContext`       | Custom bubble loading state.                                                                                                                |
+| `#backToBottom` | `BubbleListBackButtonContext` | Custom back-to-bottom button. Context includes `unreadCount / scrollState / label / autoScroll / virtualEnabled / scrollToBottom(smooth?)`. |
+| `#topStatus`    | `BubbleListBoundaryContext`   | Custom top boundary status area. Context includes `status / position / scrollState / unreadCount / autoScroll`.                             |
+| `#bottomStatus` | `BubbleListBoundaryContext`   | Custom bottom boundary status area, same as `#topStatus`.                                                                                   |
+| `#item`         | `BubbleListItemContext`       | Custom rendering for non-bubble type nodes, triggered when matched by `itemType`.                                                           |
+
+---
+
+## title: BubbleList
 
 ::: warning
 `Added in version 1.1.6` Added **scroll to bottom button, similar to Doubao🔥**. Added **scrollbar on mouse hover** to enhance interaction experience. Please update and try it out.
@@ -65,30 +221,9 @@ If you need code block syntax highlighting, please install `shiki` and `shiki-st
 
 <demo src="./demos/with-markdown.vue"></demo>
 
-#### Streaming Rendering
+#### Fog Effect
 
-By setting the `enable-animate` property, you can achieve a typewriter effect:
-
-```vue
-<template>
-  <BubbleList :list="list">
-    <template #content="{ item }">
-      <MarkdownRenderer :markdown="item.content" :enable-animate="true" />
-    </template>
-  </BubbleList>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-import { BubbleList } from 'vue-element-plus-x';
-import { MarkdownRenderer } from 'x-markdown-vue';
-import 'x-markdown-vue/style';
-
-const list = ref([
-  { content: '', placement: 'start' } // Streaming content will be updated dynamically
-]);
-</script>
-```
+<demo src="./demos/fog-effect.vue"></demo>
 
 ## Props
 

@@ -17,6 +17,7 @@ const plugins: PluginOption[] = [
   }) as PluginOption,
   Components({
     resolvers: [ElementPlusResolver({ importStyle: false })],
+    globs: ['src/components/**/index.vue'],
     dts: 'src/components.d.ts'
   }) as PluginOption
 ];

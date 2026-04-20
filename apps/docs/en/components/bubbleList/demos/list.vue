@@ -3,21 +3,11 @@
 title: Basic Usage
 ---
 
-Pre-styled bubble list, quickly create a chat record through a simple `Array` of messages.
+Quickly render a group of chat bubbles via the `list` array. Each object in the array is passed through to the built-in `Bubble` component — all Bubble properties (`content`, `placement`, `loading`, `shape`, `variant`, etc.) can be configured directly. Adding, removing, or modifying messages only requires maintaining this array.
 
-:::warning
-You can pass properties to the built-in **`Bubble`** component through the **`item`** property. Set properties for each bubble. More flexible usage. For specific properties, please refer to the [Bubble](https://element-plus-x.com/components/bubble) component documentation.
-
-All our message operations only need to maintain this array.
-
-Including **`streaming message`** settings. Here we don't use interface streaming operations. In our template project, we go through real combat. You can use it as a reference.
-
-👉 [Template Project Preview](https://chat.element-plus-x.com/chat)
-
-👉 [Template Project Source Code](https://github.com/element-plus-x/ruoyi-element-ai) Welcome to star🥰
+::: tip
+Control the list height via the `max-height` property or the parent container's height — a scrollbar appears automatically when content overflows. See [Bubble docs](/en/components/bubble) for detailed item properties.
 :::
-
-You can also control the maximum height of the list through the `max-height` property.
 </docs>
 
 <script setup lang="ts">
@@ -29,6 +19,9 @@ import type {
 type listType = BubbleListItemProps & {
   key: number;
   role: 'user' | 'ai';
+  isMarkdown?: boolean;
+  typing?: boolean;
+  isFog?: boolean;
 };
 
 const list: BubbleListProps<listType>['list'] = generateFakeItems(5);
@@ -48,6 +41,8 @@ function generateFakeItems(count: number): listType[] {
     const loading = false;
     const shape = 'corner';
     const variant = role === 'ai' ? 'filled' : 'outlined';
+    const isMarkdown = false;
+    const typing = role === 'ai' ? i === count - 1 : false;
     const avatar =
       role === 'ai'
         ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
@@ -61,6 +56,9 @@ function generateFakeItems(count: number): listType[] {
       loading,
       shape,
       variant,
+      isMarkdown,
+      typing,
+      isFog: role === 'ai',
       avatar,
       avatarSize: '24px',
       avatarGap: '12px'
@@ -71,5 +69,18 @@ function generateFakeItems(count: number): listType[] {
 </script>
 
 <template>
-  <BubbleList :list="list" max-height="350px" />
+  <div class="story-stage">
+    <BubbleList :list="list" />
+  </div>
 </template>
+
+<style scoped lang="scss">
+.story-stage {
+  height: 450px;
+  padding: 8px 10px;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+</style>

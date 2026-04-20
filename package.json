@@ -24,7 +24,7 @@
     "changelog:github": "tsx apps/docs/scripts/github-api-client.ts",
     "changelog:auto": "tsx apps/docs/scripts/gen-auto-changelog.ts",
     "changelog:full": "pnpm changelog:auto && pnpm gen:changelog",
-    "dev": "npm run dev:playground",
+    "dev": "pnpm dev:core && pnpm dev:docs",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "lint": "turbo run lint",

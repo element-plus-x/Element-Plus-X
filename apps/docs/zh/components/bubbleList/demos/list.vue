@@ -3,21 +3,11 @@
 title: 基础使用
 ---
 
-预设样式的气泡列表，通过一个消息简单的 `Array` ，可以快速创建一个聊天记录。
+通过 `list` 数组快速渲染一组对话气泡。数组中每个对象会透传给内置的 `Bubble` 组件，`Bubble` 的所有属性（`content`、`placement`、`loading`、`shape`、`variant` 等）都可以直接配置，消息的增删改只需维护这个数组即可。
 
-:::warning
-可以通过 **`item`** 属性来透传给组件内置的 **`Bubble`** 组件。设置每一个气泡的属性。更灵活的使用方式。具体属性可以访问 [Bubble](https://element-plus-x.com/components/bubble) 组件的文档。
-
-我们所有的消息操作，只需要维护这个数组就行了。
-
-包括 **`流式消息`** 的设置。这里没有使用接口流式操作。在我们的模版项目中，走了实战。可以当做一个参考。
-
-👉 [模版项目预览地址](https://chat.element-plus-x.com/chat)
-
-👉 [模版项目源码地址](https://github.com/element-plus-x/ruoyi-element-ai) 欢迎star🥰
+::: tip
+通过 `max-height` 属性或父容器高度控制列表高度，内容溢出时自动出现滚动条。每个 item 的详细属性可参考 [Bubble 文档](/zh/components/bubble)。
 :::
-
-你还可以通过属性 `max-height` 来控制列表的最大高度。
 </docs>
 
 <script setup lang="ts">
@@ -80,5 +70,18 @@ function generateFakeItems(count: number): listType[] {
 </script>
 
 <template>
-  <BubbleList :list="list" max-height="350px" />
+  <div class="story-stage">
+    <BubbleList :list="list" />
+  </div>
 </template>
+
+<style scoped lang="scss">
+.story-stage {
+  height: 450px;
+  padding: 8px 10px;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+</style>

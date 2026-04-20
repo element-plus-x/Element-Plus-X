@@ -4,7 +4,7 @@ import fg from 'fast-glob';
 
 const root = resolve(__dirname, '../');
 
-const entries = fg.globSync('src/components/*/*.(tsx|ts|vue)', {
+const entries = fg.globSync('src/components/*/index.(tsx|ts|vue)', {
   ignore: ['src/components/**/*.d.ts', 'src/components/**/*.types.ts']
 });
 

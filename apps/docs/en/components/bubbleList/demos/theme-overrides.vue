@@ -54,7 +54,9 @@ const themeOverrides = computed(() => {
     <div
       style="display: flex; align-items: center; justify-content: space-between"
     >
-      <div>Scroll the list to see size changes.</div>
+      <div>
+        Scroll the list and observe max-height and back-button size changes.
+      </div>
       <button
         type="button"
         style="
@@ -73,6 +75,7 @@ const themeOverrides = computed(() => {
     <ConfigProvider apply-to="self" :theme-overrides="themeOverrides">
       <div
         style="
+          height: 360px;
           padding: 14px;
           border-radius: 16px;
           border: 1px solid var(--elx-border-color);
@@ -91,7 +94,7 @@ const themeOverrides = computed(() => {
           box-shadow: var(--elx-box-shadow);
         "
       >
-        <BubbleList :list="list" />
+        <BubbleList :list="list" always-show-scrollbar />
       </div>
     </ConfigProvider>
   </div>

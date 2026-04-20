@@ -2,14 +2,39 @@
   position: relative;
   height: 100%;
 }
+
 .elx-bubble-list__list {
   display: flex;
   flex-direction: column;
   gap: 16px;
   overflow: auto;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   max-height: var(--elx-bubble-list-max-height);
   position: relative;
+  overscroll-behavior: contain;
+
+  &.elx-bubble-list__list--virtual {
+    display: block;
+    gap: 0;
+    overflow-anchor: none;
+    padding-inline: 2px;
+  }
+
+  .elx-bubble-list__spacer {
+    height: 1px;
+    pointer-events: none;
+  }
+
+  .elx-bubble-list__virtual-item {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .elx-bubble-list__item--custom {
+    display: flex;
+    justify-content: center;
+  }
+
   /* 默认滚动条样式（透明） */
   &::-webkit-scrollbar {
     width: 6px;
@@ -67,56 +92,126 @@
   }
 }
 
+.elx-bubble-list__boundary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  &[data-state='loading'] {
+    color: #334155;
+  }
+
+  &[data-state='no-more'] {
+    color: #64748b;
+  }
+
+  &[data-state='error'] {
+    color: #b91c1c;
+  }
+}
+
+.elx-bubble-list__boundary--top {
+  padding-bottom: 4px;
+}
+
+.elx-bubble-list__boundary--bottom {
+  padding-top: 4px;
+}
+
+.elx-bubble-list__boundary-content,
+.elx-bubble-list__embedded-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: min(100%, 420px);
+  min-height: 36px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.elx-bubble-list__embedded-item {
+  word-break: break-word;
+}
+
+.elx-bubble-list__boundary-loading {
+  font-size: 18px;
+  color: var(--elx-bubble-list-btn-color, #409eff);
+  animation: elx-bubble-list-rotate 1s linear infinite;
+}
+
 .elx-bubble-list__back-button {
   position: absolute;
   user-select: none;
-  cursor: pointer;
   width: fit-content;
   height: fit-content;
-  padding: 10px;
+  padding: 0;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
-  // background-color: aquamarine;
+  z-index: 100;
+}
+
+.elx-bubble-list__back-to-bottom-default {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
   border-radius: 50%;
   box-shadow:
     0 0 4px 0 rgba(0, 0, 0, 0.02),
     0 6px 10px 0 rgba(47, 53, 64, 0.1);
   transition: all 0.3s ease;
-  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 
   &:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
-  .elx-bubble-list__back-to-bottom-icon {
-    font-size: var(--elx-bubble-list-btn-size);
-    position: relative;
-
-    .elx-bubble-list__back-to-bottom-loading {
-      position: absolute;
-      font-size: calc(var(--elx-bubble-list-btn-size) + 26px);
-      animation: is-loading 1s infinite linear;
-    }
-
-    @keyframes is-loading {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
+  &:focus-visible {
+    outline: 2px solid rgba(64, 158, 255, 0.45);
+    outline-offset: 2px;
   }
+}
+
+.elx-bubble-list__back-to-bottom-icon {
+  font-size: var(--elx-bubble-list-btn-size);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  .elx-bubble-list__back-to-bottom-loading {
+    position: absolute;
+    font-size: calc(var(--elx-bubble-list-btn-size) + 12px);
+    animation: elx-bubble-list-rotate 1s infinite linear;
+  }
+}
+
+.elx-bubble-list__back-to-bottom-label {
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
 }
 
 // 如果是有自定义插槽，则初始化默认样式
 .elx-bubble-list__back-button--slot {
-  position: sticky;
   user-select: none;
   cursor: initial;
   width: fit-content;
@@ -126,10 +221,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
+  border: 0;
   box-shadow: initial;
 
   &:hover {
     transform: translateY(0px);
     box-shadow: initial;
   }
+}
+
+@keyframes elx-bubble-list-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.elx-bubble-list-fade-enter-active,
+.elx-bubble-list-fade-leave-active {
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.elx-bubble-list-fade-enter-from,
+.elx-bubble-list-fade-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
 }

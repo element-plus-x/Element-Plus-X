@@ -23,7 +23,6 @@ const config: StorybookConfig = {
     'storybook-dark-mode'
     // getAbsolutePath('@storybook/addon-onboarding'), // 遥测插件
     // getAbsolutePath('@chromatic-com/storybook'), // 视觉测试插件
-    // getAbsolutePath('@storybook/experimental-addon-test') // 测试插件
   ],
   staticDirs: ['../storybook-public'],
   framework: {
@@ -45,6 +44,7 @@ const config: StorybookConfig = {
     viteConfig.optimizeDeps = viteConfig.optimizeDeps ?? {};
     viteConfig.optimizeDeps.include = viteConfig.optimizeDeps.include ?? [];
     (viteConfig.optimizeDeps.include as string[]).push(
+      'element-plus/es',
       'shiki',
       'shiki-stream',
       'x-markdown-vue'
