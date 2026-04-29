@@ -61,7 +61,8 @@
     "types/components.d.ts",
     "types/dom-speech-recognition-env.d.ts",
     "types/hooks",
-    "types/index.d.ts"
+    "types/index.d.ts",
+    "types/locale"
   ],
   "scripts": {
     "build:es": "set NODE_OPTIONS=\"--max-old-space-size=4096\" && pnpm run generate-types && vue-tsc -b --noEmit && vite build",

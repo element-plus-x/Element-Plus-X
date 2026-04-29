@@ -1,4 +1,3 @@
-// build/scripts/generate-auto-entry.ts
 import childProcess from 'node:child_process';
 import path from 'node:path';
 import { cwd, exit } from 'node:process';
@@ -10,11 +9,68 @@ interface ComponentInfo {
   path: string;
 }
 
+const componentTypeExports: Record<string, string[]> = {
+  Attachments: ['FileListProps', 'AttachmentsProps', 'AttachmentsEmits'],
+  Bubble: ['BubbleProps', 'BubbleEmits'],
+  BubbleList: [
+    'BubbleListItemProps',
+    'BubbleListProps',
+    'BubbleListEmits',
+    'BubbleListInstance'
+  ],
+  ConfigProvider: ['MarkdownItPlugin', 'ConfigProviderProps'],
+  Conversations: [
+    'ConversationItem',
+    'ConversationItemUseOptions',
+    'ConversationMenuCommand',
+    'ConversationMenu',
+    'GroupableOptions',
+    'Conversation',
+    'GroupItem',
+    'ConversationsEmits'
+  ],
+  FilesCard: [
+    'FilesType',
+    'FilesCardProps',
+    'FilesCardEmits',
+    'FilesCardInstance'
+  ],
+  MentionSender: ['MentionOption', 'MentionSenderProps', 'MentionSenderEmits'],
+  Prompts: ['PromptsItemsProps', 'PromptsProps', 'PromptsEmits'],
+  Sender: ['SenderProps', 'TriggerEvent', 'SenderEmits'],
+  Thinking: ['ThinkingStatus', 'ThinkingProps', 'ThinkingEmits'],
+  ThoughtChain: [
+    'HexColor',
+    'DefaultColor',
+    'DefaultThoughtChainItemProps',
+    'ThoughtChainItemProps',
+    'ThoughtChainProps'
+  ],
+  Typewriter: [
+    'TypingConfig',
+    'TypingFogfig',
+    'TypewriterProps',
+    'TypewriterEmits',
+    'TypewriterInstance'
+  ],
+  Welcome: ['SemanticType', 'WelcomeProps'],
+  XMarkdown: ['CodeXProps', 'XMarkdownProps'],
+  XMarkdownAsync: ['XMarkdownAsyncProps'],
+  XSender: [
+    'FocusType',
+    'Write',
+    'ChatNode',
+    'XSenderProps',
+    'SenderState',
+    'ModelValue',
+    'XSenderEmits'
+  ]
+};
+
 async function generateAutoEntry() {
   const componentsDir = path.resolve(cwd(), 'src/components');
   const components: ComponentInfo[] = [];
 
-  // 扫描组件目录
   if (await fs.exists(componentsDir)) {
     const dirs = await fs.readdir(componentsDir);
 
@@ -22,8 +78,8 @@ async function generateAutoEntry() {
       const compPath = path.join(componentsDir, dir, 'index.vue');
       if (await fs.exists(compPath)) {
         const compName = dir.replace(/(^\w|-\w)/g, (m: string) =>
-          m.replace('-', '').toUpperCase());
-
+          m.replace('-', '').toUpperCase()
+        );
         components.push({
           name: compName,
           path: `./components/${dir}/index.vue`
@@ -32,59 +88,66 @@ async function generateAutoEntry() {
     }
   }
 
-  // 生成入口文件内容
-  const entryContent = [
-    '// Auto-Element-Plus-X by auto-export-all-components script',
-    ...components.map(c => `export { default as ${c.name} } from '${c.path}'`),
-    ''
-  ].join('\n');
-
-  // 生成安装文件内容
   const installContent = [
-    `import type { App, Plugin } from 'vue'`,
-    ...components.map(c => `import ${c.name} from '${c.path}'`),
+    `import type { App, Plugin } from 'vue';`,
+    `import { provideGlobalConfig as provideElementPlusGlobalConfig } from 'element-plus';`,
+    `import { provideGlobalConfig } from './components/ConfigProvider/hooks';`,
+    `import { resolveElementPlusLocale } from './locale/element-plus';`,
+    ...components.map(c => `import ${c.name} from '${c.path}';`),
     '',
-    `export * from './components'`,
-    `export * from './hooks'`,
+    ...components.map(c => `export { ${c.name} };`),
+    ...components.flatMap(c => {
+      const typeNames = componentTypeExports[c.name] ?? [];
+      if (!typeNames.length) return [];
+
+      const dirName = c.path.split('/')[2];
+      return [
+        `export type { ${typeNames.join(', ')} } from './components/${dirName}/types.d.ts';`
+      ];
+    }),
+    '',
+    `export * from './locale';`,
+    `export interface ElementPlusXInstallOptions {`,
+    `  locale?: import('./locale/types').Language;`,
+    `}`,
+    `export * from './hooks';`,
     '',
     'const ElementPlusX: Plugin = {',
-    'install(app: App) {',
-    ...components.map(c => `app.component('${c.name}', ${c.name})`),
-    '}',
-    '}',
+    '  install(app: App, options: ElementPlusXInstallOptions = {}) {',
+    '    provideGlobalConfig({',
+    '      locale: options.locale',
+    '    }, app);',
+    '    provideElementPlusGlobalConfig({',
+    '      locale: resolveElementPlusLocale(options.locale)',
+    '    }, app, true);',
+    ...components.map(c => `    app.component('${c.name}', ${c.name});`),
+    '  }',
+    '};',
     '',
-    'export default ElementPlusX'
+    'export default ElementPlusX;'
   ].join('\n');
 
-  // 写入文件
   const outputDir = path.resolve(cwd(), 'src');
 
   try {
     await fs.ensureDir(outputDir);
-    const componentsFilePath = path.join(outputDir, 'components.ts');
-    await fs.writeFile(componentsFilePath, entryContent);
     const indexFilePath = path.join(outputDir, 'index.ts');
     await fs.writeFile(indexFilePath, installContent);
 
-    console.log('✅ Auto entry files generated successfully!');
+    console.log('✅ Auto entry file generated successfully!');
 
     const execAsync = promisify(childProcess.exec);
 
     try {
-      await execAsync(
-        `npx eslint --fix "${componentsFilePath}" "${indexFilePath}"`
-      );
+      await execAsync(`npx eslint --fix "${indexFilePath}"`);
       console.log('✅ Files formatted with eslint');
-    }
-    catch (error) {
+    } catch (error) {
       console.warn('⚠️ Eslint formatting failed:', error);
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error('❌ Error generating auto-entry files:', error);
     exit(1);
   }
 }
 
-// 执行生成
 void generateAutoEntry();

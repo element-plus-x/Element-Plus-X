@@ -1,17 +1,28 @@
 <script setup lang="ts">
 import type { ConfigProviderProps } from './types';
-import { APP_CONFIG_PROVIDE_KEY, DEFAULT_APP_CONFIG } from './constants';
+import { ElConfigProvider } from 'element-plus';
+import { resolveElementPlusLocale } from '../../locale/element-plus';
+import { provideGlobalConfig } from './hooks';
 
 const props = withDefaults(defineProps<ConfigProviderProps>(), {});
 
-provide<ConfigProviderProps>(APP_CONFIG_PROVIDE_KEY, {
-  md: props.md ?? DEFAULT_APP_CONFIG.md,
-  mdPlugins: props.mdPlugins ?? DEFAULT_APP_CONFIG.mdPlugins
-});
+const config = provideGlobalConfig(
+  computed(() => ({
+    md: props.md,
+    mdPlugins: props.mdPlugins,
+    locale: props.locale
+  }))
+);
+
+const elementPlusLocale = computed(() =>
+  resolveElementPlusLocale(config.value.locale)
+);
 </script>
 
 <template>
-  <slot />
+  <ElConfigProvider :locale="elementPlusLocale">
+    <slot />
+  </ElConfigProvider>
 </template>
 
 <style scoped lang="scss" src="./style.scss"></style>

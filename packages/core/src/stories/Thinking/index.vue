@@ -2,9 +2,11 @@
 import type { MessageItem } from '@assets/mock';
 import type { BubbleListInstance } from '@components/BubbleList/types';
 import type { ThinkingStatus } from '@components/Thinking/types';
+import ConfigProvider from '@components/ConfigProvider/index.vue';
 import Thinking from '@components/Thinking/index.vue';
 import { Loading, Position } from '@element-plus/icons-vue';
 import { useXStream } from '../../hooks/useXStream';
+import { en } from '../../locale';
 
 const { startStream, cancel, data, error, isLoading } = useXStream();
 
@@ -59,8 +61,7 @@ function handleDataChunk(chunk: string) {
         bubbleItems.value[bubbleItems.value.length - 1].content += parsedChunk;
       }
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.error('解析数据时出错:', err);
   }
 }
@@ -114,8 +115,7 @@ async function startSSE() {
     // 重置状态
     processedIndex.value = 0;
     await startStream({ readableStream });
-  }
-  catch (err) {
+  } catch (err) {
     handleError(err);
   }
 }
@@ -156,6 +156,16 @@ function handleChange(payload: { value: boolean; status: ThinkingStatus }) {
     <div class="header-wrap">
       此处是拿硅基流动中的免费模型进行测试，仅供预览使用
       <p>和 BubbleList 组合使用，支持放在 气泡头部，或者 气泡自定义内容中</p>
+    </div>
+
+    <div class="locale-preview">
+      <Thinking content="默认情况下使用中文文案" status="thinking" />
+      <ConfigProvider :locale="en">
+        <Thinking
+          content="Switch labels through ConfigProvider locale"
+          status="thinking"
+        />
+      </ConfigProvider>
     </div>
 
     <div class="chat-warp">
@@ -200,9 +210,7 @@ function handleChange(payload: { value: boolean; status: ThinkingStatus }) {
               <span v-if="status === 'error'">想不出来 🥵</span>
             </template>
 
-            <template #arrow>
-              👇
-            </template>
+            <template #arrow> 👇 </template>
 
             <template #error>
               <span class="error-color">思考报错</span>
@@ -250,6 +258,12 @@ function handleChange(payload: { value: boolean; status: ThinkingStatus }) {
   background-color: white;
   padding: 12px;
   border-radius: 15px;
+
+  .locale-preview {
+    display: grid;
+    gap: 12px;
+    padding: 12px;
+  }
 
   .header-wrap {
     padding: 12px;

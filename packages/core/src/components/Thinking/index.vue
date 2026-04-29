@@ -11,6 +11,7 @@ import {
   Opportunity,
   SuccessFilled
 } from '@element-plus/icons-vue';
+import { useLocale } from '../../locale';
 
 const props = withDefaults(defineProps<ThinkingProps>(), {
   content: '',
@@ -27,6 +28,7 @@ const props = withDefaults(defineProps<ThinkingProps>(), {
 
 // 定义组件 Emits
 const emit = defineEmits<ThinkingEmits>();
+const { t } = useLocale();
 
 const isExpanded = ref(props.modelValue);
 
@@ -48,7 +50,9 @@ function changeExpand() {
 
 // 显示内容（带错误状态处理）
 const displayedContent = computed(() => {
-  return props.status === 'error' ? '思考过程中出现错误' : props.content;
+  return props.status === 'error'
+    ? t('elpx.thinking.errorContent')
+    : props.content;
 });
 
 // 自动收起逻辑
@@ -115,14 +119,14 @@ watch(
         <slot name="label" :status="props.status">
           {{
             status === 'thinking'
-              ? '思考中...'
+              ? t('elpx.thinking.thinking')
               : status === 'error'
-                ? '思考遇到问题'
+                ? t('elpx.thinking.error')
                 : status === 'end'
-                  ? '思考完成'
+                  ? t('elpx.thinking.end')
                   : status === 'cancel'
-                    ? '中断思考'
-                    : '开始思考'
+                    ? t('elpx.thinking.cancel')
+                    : t('elpx.thinking.start')
           }}
         </slot>
       </span>

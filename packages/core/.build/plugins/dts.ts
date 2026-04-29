@@ -5,5 +5,12 @@ export default dts({
   outDir: 'types',
   tsconfigPath: resolve(__dirname, '../../tsconfig.app.json'),
   copyDtsFiles: true,
-  exclude: ['dom-speech-recognition-env.d.ts', 'vite-env.d.ts'],
+  exclude: [
+    'dom-speech-recognition-env.d.ts',
+    'vite-env.d.ts',
+    '**/*.test.ts',
+    '**/*.test.tsx',
+    '**/*.spec.ts',
+    '**/*.spec.tsx'
+  ]
 });
