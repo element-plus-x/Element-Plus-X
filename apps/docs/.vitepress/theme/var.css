@@ -238,3 +238,13 @@ html.dark .sidebar-badge--deprecated {
 html.dark .sidebar-badge--experimental {
   background-color: rgba(251, 191, 36, 0.2);
 }
+
+/* Fix sticky code block header in x-markdown-vue demos
+   Ensure parent overflow does not break position: sticky */
+.x-md-renderer pre:has(.x-md-code-header-wrapper--sticky) {
+  overflow: unset !important;
+}
+
+.x-md-code-block:has(.x-md-code-header-wrapper--sticky) {
+  overflow: visible !important;
+}

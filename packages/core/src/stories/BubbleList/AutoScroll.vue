@@ -84,7 +84,7 @@ onMounted(() => {
       flex-direction: column;
       gap: 12px;
       padding: 16px;
-      height: 100%;
+      height: min(720px, calc(100vh - 32px));
       box-sizing: border-box;
     "
   >

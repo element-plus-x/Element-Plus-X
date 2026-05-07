@@ -63,7 +63,7 @@ export const COMPONENTS: ComponentConfig[] = [
     zhTitle: 'XMarkdown（独立包）',
     enTitle: 'XMarkdown (External)',
     category: 'new',
-    badge: { type: 'beta', text: 'Beta' },
+    badge: { type: 'beta', text: '2.0.1' },
     external: {
       package: 'x-markdown-vue',
       npmLink: 'https://www.npmjs.com/package/x-markdown-vue',
@@ -78,7 +78,7 @@ export const COMPONENTS: ComponentConfig[] = [
     zhTitle: 'ConfigProvider 全局配置',
     enTitle: 'ConfigProvider',
     category: 'config',
-    badge: { type: 'beta', text: 'Beta' }
+    badge: { type: 'beta', text: '2.0.0' }
   },
   {
     name: 'Bubble',

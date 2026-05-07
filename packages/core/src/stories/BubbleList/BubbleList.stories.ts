@@ -10,6 +10,7 @@ import MixedNodes from './MixedNodes.vue';
 import OverviewDemo from './OverviewDemo.vue';
 import StreamingFollow from './StreamingFollow.vue';
 import StreamingMarkdown from './StreamingMarkdown.vue';
+import VirtualSmallList from './VirtualSmallList.vue';
 import WithMarkdown from './WithMarkdown.vue';
 
 const meta = {
@@ -174,6 +175,20 @@ export const StreamingMarkdownDemo: Story = {
     }
   },
   render: renderDemo(StreamingMarkdown)
+};
+
+export const VirtualSmallListDemo: Story = {
+  name: '虚拟列表 / 小数据首屏对齐 (回归)',
+  args: {},
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '复现 2.0 升级后用户反馈：当 `virtual=true` 且消息条数较少（容器高度足以容纳全部消息）时，首屏挂载后视口可能停在错误位置（内容下方的空白处），需要先往上滑一下再往下滑动，才能看见最初渲染的消息。\n\n**根因**：首屏 watch(latestItemSignal) 只在 `nextTick` 调用了一次 `scrollToBottom`，但 virtua 在第一帧用估算高度定位，真实高度测出来后并未做二次校正；watch(virtualEnabled) 里的 double rAF 修正没有 `immediate`，初始挂载根本不触发。'
+      }
+    }
+  },
+  render: renderDemo(VirtualSmallList)
 };
 
 export const SoltDemo: Story = {

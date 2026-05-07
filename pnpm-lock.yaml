@@ -84,8 +84,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/core
       x-markdown-vue:
-        specifier: ^0.0.1-beta.108
-        version: 0.0.1-beta.108(@shikijs/core@3.9.2)(mermaid@11.12.0)(shiki-stream@0.1.4(react@19.1.1)(vue@3.5.18(typescript@5.8.3)))(shiki@3.9.2)(vue@3.5.18(typescript@5.8.3))
+        specifier: ^0.0.200
+        version: 0.0.200(@shikijs/core@3.9.2)(mermaid@11.12.0)(shiki-stream@0.1.4(react@19.1.1)(vue@3.5.18(typescript@5.8.3)))(shiki@3.9.2)(vue@3.5.18(typescript@5.8.3))
     devDependencies:
       '@ant-design/colors':
         specifier: ^8.0.0
@@ -2115,6 +2115,7 @@ packages:
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@unocss/astro@66.1.0-beta.12':
     resolution: {integrity: sha512-zYvevDDmhNlMAxP4isyAK+byGoVfVqnbZPHJnbb7Hoj7+8uaz+D/byUKyRynynVZl3T13S+UesjNAcRyAQoXEg==}
@@ -5810,6 +5811,7 @@ packages:
 
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   vfile-location@5.0.3:
@@ -6039,8 +6041,8 @@ packages:
   vue-component-type-helpers@2.2.12:
     resolution: {integrity: sha512-YbGqHZ5/eW4SnkPNR44mKVc6ZKQoRs/Rux1sxC6rdwXb4qpbOSYfDr9DsTHolOTGmIKgM9j141mZbBeg05R1pw==}
 
-  vue-component-type-helpers@3.2.7:
-    resolution: {integrity: sha512-+gPp5YGmhfsj1IN+xUo7y0fb4clfnOiiUA39y07yW1VzCRjzVgwLbtmdWlghh7mXrPsEaYc7rrIir/HT6C8vYQ==}
+  vue-component-type-helpers@3.2.8:
+    resolution: {integrity: sha512-9689efAXhN/EV86plgkL/XFiJSXhGtWPG6JDboZ+QnjlUWUUQrQ0ILKQtw4iQsuwIwu5k6Aw+JnehDe7161e7A==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -6162,6 +6164,24 @@ packages:
 
   x-markdown-vue@0.0.1-beta.108:
     resolution: {integrity: sha512-sKCpW06/iKkqcEf4XvKNeetzO51mSvMawAjdolvicHMCFzzB9NpoYGsbcblQhousIU3dvO9Nd20j0Lgp3d1BYA==}
+    peerDependencies:
+      '@shikijs/core': ^3.0.0
+      mermaid: ^11.0.0
+      shiki: ^3.0.0
+      shiki-stream: ^0.1.3
+      vue: ^3.3.0
+    peerDependenciesMeta:
+      '@shikijs/core':
+        optional: true
+      mermaid:
+        optional: true
+      shiki:
+        optional: true
+      shiki-stream:
+        optional: true
+
+  x-markdown-vue@0.0.200:
+    resolution: {integrity: sha512-CiWu9nqul24gCkbzJ1P14S0CRlx+mBObeF7jr8BEwAmtAosW1hDVMi+e2ORTWu6U3c3asXnZiv4ZylOfUgn1PA==}
     peerDependencies:
       '@shikijs/core': ^3.0.0
       mermaid: ^11.0.0
@@ -6407,7 +6427,7 @@ snapshots:
       '@eslint-community/eslint-plugin-eslint-comments': 4.5.0(eslint@9.33.0(jiti@2.5.1))
       '@eslint/markdown': 7.1.0
       '@stylistic/eslint-plugin': 5.2.3(eslint@9.33.0(jiti@2.5.1))
-      '@typescript-eslint/eslint-plugin': 8.39.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3))(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3)
+      '@typescript-eslint/eslint-plugin': 8.39.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.2))(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3)
       '@typescript-eslint/parser': 8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3)
       '@vitest/eslint-plugin': 1.3.4(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3)(vitest@3.2.4)
       ansis: 4.1.0
@@ -6428,8 +6448,8 @@ snapshots:
       eslint-plugin-regexp: 2.10.0(eslint@9.33.0(jiti@2.5.1))
       eslint-plugin-toml: 0.12.0(eslint@9.33.0(jiti@2.5.1))
       eslint-plugin-unicorn: 60.0.0(eslint@9.33.0(jiti@2.5.1))
-      eslint-plugin-unused-imports: 4.1.4(@typescript-eslint/eslint-plugin@8.39.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3))(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3))(eslint@9.33.0(jiti@2.5.1))
-      eslint-plugin-vue: 10.4.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3))(eslint@9.33.0(jiti@2.5.1))(vue-eslint-parser@10.2.0(eslint@9.33.0(jiti@2.5.1)))
+      eslint-plugin-unused-imports: 4.1.4(@typescript-eslint/eslint-plugin@8.39.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.2))(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.2))(eslint@9.33.0(jiti@2.5.1))
+      eslint-plugin-vue: 10.4.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.2))(eslint@9.33.0(jiti@2.5.1))(vue-eslint-parser@10.2.0(eslint@9.33.0(jiti@2.5.1)))
       eslint-plugin-yml: 1.18.0(eslint@9.33.0(jiti@2.5.1))
       eslint-processor-vue-blocks: 2.0.0(@vue/compiler-sfc@3.5.18)(eslint@9.33.0(jiti@2.5.1))
       globals: 16.3.0
@@ -7998,7 +8018,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.18(typescript@5.8.3)
-      vue-component-type-helpers: 3.2.7
+      vue-component-type-helpers: 3.2.8
 
   '@stylistic/eslint-plugin@5.2.3(eslint@9.33.0(jiti@2.5.1))':
     dependencies:
@@ -8319,10 +8339,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/eslint-plugin@8.39.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3))(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3)':
+  '@typescript-eslint/eslint-plugin@8.39.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.2))(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3)
+      '@typescript-eslint/parser': 8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.2)
       '@typescript-eslint/scope-manager': 8.39.0
       '@typescript-eslint/type-utils': 8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3)
       '@typescript-eslint/utils': 8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3)
@@ -10117,12 +10137,6 @@ snapshots:
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 8.39.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.2))(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.2)
 
-  eslint-plugin-unused-imports@4.1.4(@typescript-eslint/eslint-plugin@8.39.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3))(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3))(eslint@9.33.0(jiti@2.5.1)):
-    dependencies:
-      eslint: 9.33.0(jiti@2.5.1)
-    optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 8.39.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3))(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3)
-
   eslint-plugin-vue@10.4.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.2))(eslint@9.33.0(jiti@2.5.1))(vue-eslint-parser@10.2.0(eslint@9.33.0(jiti@2.5.1))):
     dependencies:
       '@eslint-community/eslint-utils': 4.7.0(eslint@9.33.0(jiti@2.5.1))
@@ -10135,19 +10149,6 @@ snapshots:
       xml-name-validator: 4.0.0
     optionalDependencies:
       '@typescript-eslint/parser': 8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.2)
-
-  eslint-plugin-vue@10.4.0(@typescript-eslint/parser@8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3))(eslint@9.33.0(jiti@2.5.1))(vue-eslint-parser@10.2.0(eslint@9.33.0(jiti@2.5.1))):
-    dependencies:
-      '@eslint-community/eslint-utils': 4.7.0(eslint@9.33.0(jiti@2.5.1))
-      eslint: 9.33.0(jiti@2.5.1)
-      natural-compare: 1.4.0
-      nth-check: 2.1.1
-      postcss-selector-parser: 6.1.2
-      semver: 7.7.2
-      vue-eslint-parser: 10.2.0(eslint@9.33.0(jiti@2.5.1))
-      xml-name-validator: 4.0.0
-    optionalDependencies:
-      '@typescript-eslint/parser': 8.39.0(eslint@9.33.0(jiti@2.5.1))(typescript@5.8.3)
 
   eslint-plugin-yml@1.18.0(eslint@9.33.0(jiti@2.5.1)):
     dependencies:
@@ -13202,7 +13203,7 @@ snapshots:
 
   vue-component-type-helpers@2.2.12: {}
 
-  vue-component-type-helpers@3.2.7: {}
+  vue-component-type-helpers@3.2.8: {}
 
   vue-demi@0.14.10(vue@3.5.18(typescript@5.8.3)):
     dependencies:
@@ -13336,6 +13337,38 @@ snapshots:
   ws@8.18.3: {}
 
   x-markdown-vue@0.0.1-beta.108(@shikijs/core@3.9.2)(mermaid@11.12.0)(shiki-stream@0.1.4(react@19.1.1)(vue@3.5.18(typescript@5.8.3)))(shiki@3.9.2)(vue@3.5.18(typescript@5.8.3)):
+    dependencies:
+      deepmerge: 4.3.1
+      dompurify: 3.2.6
+      element-plus: 2.10.6(vue@3.5.18(typescript@5.8.3))
+      hast: 1.0.0
+      lodash-es: 4.17.21
+      mdast: 3.0.0
+      mdast-util-to-hast: 13.2.1
+      property-information: 7.1.0
+      rehype: 13.0.2
+      rehype-katex: 7.0.1
+      rehype-raw: 7.0.0
+      rehype-sanitize: 6.0.0
+      remark: 15.0.1
+      remark-breaks: 4.0.0
+      remark-gfm: 4.0.1
+      remark-math: 6.0.0
+      remark-parse: 11.0.0
+      remark-rehype: 11.1.2
+      unified: 11.0.5
+      unist-util-visit: 5.0.0
+      vue: 3.5.18(typescript@5.8.3)
+    optionalDependencies:
+      '@shikijs/core': 3.9.2
+      mermaid: 11.12.0
+      shiki: 3.9.2
+      shiki-stream: 0.1.4(react@19.1.1)(vue@3.5.18(typescript@5.8.3))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - supports-color
+
+  x-markdown-vue@0.0.200(@shikijs/core@3.9.2)(mermaid@11.12.0)(shiki-stream@0.1.4(react@19.1.1)(vue@3.5.18(typescript@5.8.3)))(shiki@3.9.2)(vue@3.5.18(typescript@5.8.3)):
     dependencies:
       deepmerge: 4.3.1
       dompurify: 3.2.6

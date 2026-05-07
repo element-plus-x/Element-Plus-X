@@ -17,6 +17,7 @@ import {
   computed,
   getCurrentInstance,
   nextTick,
+  onMounted,
   onUnmounted,
   ref,
   watch
@@ -180,15 +181,7 @@ watch(boundarySignal, (current, previous) => {
 watch(virtualEnabled, enabled => {
   cleanupLegacyResizeObserver();
   if (enabled) {
-    nextTick(() => {
-      scrollToBottom(false);
-      // Double rAF: wait for virtua to complete first-frame measurement then correct
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          scrollToBottom(false);
-        });
-      });
-    });
+    scheduleVirtualBottomAlign();
     return;
   }
 
@@ -198,6 +191,25 @@ watch(virtualEnabled, enabled => {
     }
   });
 });
+
+/**
+ * 虚拟列表首屏/切换到 virtual 时的稳定贴底策略：
+ *  - 第一次 nextTick 后 scrollToBottom：让 virtua 完成首次估算定位
+ *  - 双层 rAF 后再次 scrollToBottom：等 virtua 用真实高度测量完成后做二次校正
+ * 解决「小数据 + virtual=true 时首屏视口停在内容下方空白处」的回归。
+ */
+function scheduleVirtualBottomAlign() {
+  nextTick(() => {
+    if (!virtualEnabled.value) return;
+    scrollToBottom(false);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (!virtualEnabled.value) return;
+        scrollToBottom(false);
+      });
+    });
+  });
+}
 
 watch(
   () => [props.virtual, hasStableVirtualKeys.value] as const,
@@ -240,7 +252,7 @@ watch(
 watch(latestItemSignal, (current, previous) => {
   if (!previous) {
     if (virtualEnabled.value && current.length > 0) {
-      nextTick(() => scrollToBottom(false));
+      scheduleVirtualBottomAlign();
     }
     return;
   }
@@ -962,6 +974,19 @@ function loadMoreBottomComplete() {
     }
   });
 }
+
+onMounted(() => {
+  // 关键修复：首屏挂载时若已是 virtual 模式且列表非空，
+  // 必须主动触发一次贴底对齐 + double rAF 校正。
+  // 之前完全依赖 watch(virtualEnabled) / watch(latestItemSignal) 做对齐，
+  // 但这两个 watch 都没有 immediate；对于「初始就 virtual=true、列表已带数据」
+  // 的常见场景根本不会触发，导致 virtua 估算高度与真实高度的差值
+  // 残留在 scrollTop 上，表现为：小数据时首屏视口停在错误位置。
+  // legacy 模式由 watch(() => props.list.length, ..., { immediate: true }) 兜底，无需重复处理。
+  if (virtualEnabled.value && props.list.length > 0) {
+    scheduleVirtualBottomAlign();
+  }
+});
 
 onUnmounted(() => {
   cleanupLegacyResizeObserver();

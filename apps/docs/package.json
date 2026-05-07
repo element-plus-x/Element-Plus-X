@@ -11,27 +11,27 @@
     "check-types": "tsc --noEmit -p tsconfig.node.json"
   },
   "dependencies": {
-    "x-markdown-vue": "^0.0.1-beta.108",
     "echarts": "^5.6.0",
     "element-plus-x-metadata": "workspace:^",
     "gsap": "^3.13.0",
     "vitepress-plugin-group-icons": "^1.6.1",
     "vue": "^3.5.17",
-    "vue-element-plus-x": "workspace:^"
+    "vue-element-plus-x": "workspace:^",
+    "x-markdown-vue": "^0.0.200"
   },
   "devDependencies": {
     "@ant-design/colors": "^8.0.0",
     "@vitejs/plugin-vue-jsx": "^4.2.0",
     "less": "^4.3.0",
     "unocss": "66.1.0-beta.12",
+    "unplugin-auto-import": "^19.3.0",
     "unplugin-element-plus": "^0.10.0",
+    "unplugin-vue-components": "^28.8.0",
     "vite": "^6.3.5",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-tsx-auto-props": "^0.0.8",
     "vite-plugin-vitepress-demo": "^2.2.1",
     "vitepress": "^1.6.3",
-    "vitepress-demo-plugin": "^1.4.5",
-    "unplugin-auto-import": "^19.3.0",
-    "unplugin-vue-components": "^28.8.0"
+    "vitepress-demo-plugin": "^1.4.5"
   }
 }
