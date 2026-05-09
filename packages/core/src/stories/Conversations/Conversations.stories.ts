@@ -66,6 +66,11 @@ const meta: Meta<typeof ConversationsSource> = {
       control: 'object',
       defaultValue: {}
     }
+  },
+  args: {
+    style: {
+      width: '100%'
+    }
   }
 } satisfies Meta<typeof ConversationsSource>;
 
