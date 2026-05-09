@@ -24,6 +24,16 @@ const meta: Meta<typeof SenderSource> = {
       control: 'object',
       description: '设置输入框的最小展示行数和最大展示行数。'
     },
+    minlength: {
+      defaultValue: 0,
+      control: 'number',
+      description: '设置输入框的最小输入长度。'
+    },
+    maxlength: {
+      defaultValue: 10,
+      control: 'number',
+      description: '设置输入框的最大输入长度。'
+    },
     readOnly: {
       defaultValue: false,
       control: 'boolean',
@@ -139,6 +149,8 @@ const meta: Meta<typeof SenderSource> = {
       minRows: 1,
       maxRows: 5
     },
+    minlength: 0,
+    maxlength: 10,
     readOnly: false,
     disabled: false,
     submitBtnDisabled: false,
