@@ -42,14 +42,13 @@ function initStyle() {
   );
 }
 
-onMounted(() => {
-  initStyle();
-});
-
 watch(
   () => [props.maxHeight, props.btnIconSize],
   () => {
     initStyle();
+  },
+  {
+    immediate: true
   }
 );
 
