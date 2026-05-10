@@ -10,6 +10,7 @@ import MixedNodes from './MixedNodes.vue';
 import OverviewDemo from './OverviewDemo.vue';
 import StreamingFollow from './StreamingFollow.vue';
 import StreamingMarkdown from './StreamingMarkdown.vue';
+import StreamingReplaceSSE from './StreamingReplaceSSE.vue';
 import VirtualSmallList from './VirtualSmallList.vue';
 import WithMarkdown from './WithMarkdown.vue';
 
@@ -175,6 +176,20 @@ export const StreamingMarkdownDemo: Story = {
     }
   },
   render: renderDemo(StreamingMarkdown)
+};
+
+export const StreamingReplaceSSEDemo: Story = {
+  name: 'SSE 全量替换 / 自动触底失效复现',
+  args: {},
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '复现真实场景：后端 SSE 每次推送的是「已拼接好的累计 content」，前端只取最后一次 content 并整体赋值（`item.content = e.content`）到 AI 气泡，而不是按 delta 追加。此模式下 BubbleList 的流式自动触底可能失效。Story 内提供「全量替换 / 增量追加」切换以便对照。'
+      }
+    }
+  },
+  render: renderDemo(StreamingReplaceSSE)
 };
 
 export const VirtualSmallListDemo: Story = {

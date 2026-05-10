@@ -1,6 +1,28 @@
 {
   "Core": [
     {
+      "version": "2.0.2",
+      "date": "2026-05-11",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "Fixed BubbleList auto-scroll-to-bottom failing under SSE full-replace mode (skip the nextTick re-validation for streaming so DOM height growth is no longer misread as user-scrolled-up)",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "1ca90ca",
+          "source": "commit"
+        },
+        {
+          "type": "feat",
+          "content": "Added BubbleList SSE replace-mode demo (streaming-replace-sse) for both docs and Storybook with Thinking + Markdown integration and a 1-10 speed slider",
+          "emoji": "✨",
+          "author": "何嘉悦",
+          "hash": "1ca90ca",
+          "source": "commit"
+        }
+      ]
+    },
+    {
       "version": "unreleased",
       "date": "2026-02-28",
       "changes": [

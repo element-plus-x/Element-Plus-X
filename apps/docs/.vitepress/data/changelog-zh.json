@@ -1,6 +1,28 @@
 {
   "Core": [
     {
+      "version": "2.0.2",
+      "date": "2026-05-11",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "修复 BubbleList 在 SSE 全量替换模式下流式自动触底失效的问题（streaming 跳过 nextTick 二次校验，避免 DOM 高度增量误判为用户滚走）",
+          "emoji": "🐛",
+          "author": "何嘉悦",
+          "hash": "1ca90ca",
+          "source": "commit"
+        },
+        {
+          "type": "feat",
+          "content": "BubbleList 文档与 Storybook 新增 SSE 全量替换 + Thinking + Markdown 综合演示（streaming-replace-sse），支持 1-10 档输出速度滑块以观察思考过程",
+          "emoji": "✨",
+          "author": "何嘉悦",
+          "hash": "1ca90ca",
+          "source": "commit"
+        }
+      ]
+    },
+    {
       "version": "unreleased",
       "date": "2026-02-28",
       "changes": [

@@ -200,11 +200,13 @@ watch(virtualEnabled, enabled => {
  */
 function scheduleVirtualBottomAlign() {
   nextTick(() => {
-    if (!virtualEnabled.value) return;
+    if (!virtualEnabled.value)
+      return;
     scrollToBottom(false);
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        if (!virtualEnabled.value) return;
+        if (!virtualEnabled.value)
+          return;
         scrollToBottom(false);
       });
     });
@@ -236,7 +238,8 @@ watch(
 watch(
   () => props.list.length,
   () => {
-    if (virtualEnabled.value) return;
+    if (virtualEnabled.value)
+      return;
 
     if (props.list.length > 0) {
       nextTick(() => {
@@ -281,7 +284,8 @@ watch(latestItemSignal, (current, previous) => {
     }
   }
 
-  if (!virtualEnabled.value || current.length === 0) return;
+  if (!virtualEnabled.value || current.length === 0)
+    return;
 
   if (current.length > previous.length) {
     // Initialization: empty → filled, force instant scroll to avoid smooth overwrites
@@ -292,7 +296,8 @@ watch(latestItemSignal, (current, previous) => {
 
     const index = current.length - 1;
     const item = props.list[index];
-    if (!item) return;
+    if (!item)
+      return;
 
     const addedCount = current.length - previous.length;
     const isMessageItem = isDefaultBubbleItem(item, index);
@@ -322,11 +327,13 @@ watch(latestItemSignal, (current, previous) => {
     (current.content !== previous.content ||
       current.loading !== previous.loading);
 
-  if (!lastItemChanged) return;
+  if (!lastItemChanged)
+    return;
 
   const index = current.length - 1;
   const item = props.list[index];
-  if (!item) return;
+  if (!item)
+    return;
 
   const shouldFollow = shouldFollowNewContent('streaming', item, index);
 
@@ -340,7 +347,8 @@ function normalizeItemType(itemType: string | undefined) {
 }
 
 function resolveItemType(item: T | undefined, index: number) {
-  if (!item) return undefined;
+  if (!item)
+    return undefined;
 
   const resolver = props.itemType;
   let resolved: unknown;
@@ -366,7 +374,8 @@ function isDefaultBubbleItem(item: T | undefined, index: number) {
 }
 
 function resolveStableItemKey(item: T | undefined, index: number) {
-  if (!item) return index;
+  if (!item)
+    return index;
 
   const resolver = props.itemKey;
   let resolved: string | number | undefined;
@@ -551,7 +560,13 @@ function scheduleFollowToBottom(
   smooth = props.smoothScroll
 ) {
   nextTick(() => {
-    if (!shouldFollowNewContent(reason, item, index)) {
+    // 对于 streaming：外层 watcher 在 DOM 更新前已经基于"内容更新前的滚动状态"
+    // 通过了 shouldFollowNewContent 门禁。此处再次基于"DOM 已更新后的实时状态"
+    // 进行二次校验会出现误判——新内容渲染后 scrollHeight 增大但 scrollTop 未变，
+    // distanceToBottom 会瞬时大于 BOTTOM_TOLERANCE，导致状态被判定为 SCROLLED_UP，
+    // 进而阻断本次追底（典型场景：全量替换式 SSE，每次 chunk 高度增量 > 4px）。
+    // own-message / new-message 仍保留二次校验，避免用户在 nextTick 间隙手动滚走后强行打断。
+    if (reason !== 'streaming' && !shouldFollowNewContent(reason, item, index)) {
       return;
     }
 
@@ -564,7 +579,8 @@ function scrollBoundaryIntoView(
   smooth = props.smoothScroll
 ) {
   const container = scrollContainerRef.value;
-  if (!container) return;
+  if (!container)
+    return;
 
   container.scrollTo({
     top: position === 'top' ? 0 : container.scrollHeight,
@@ -695,7 +711,8 @@ function resolveDistanceMetrics(container: HTMLElement) {
 
 function updateScrollStateFromContainer() {
   const container = scrollContainerRef.value;
-  if (!container) return;
+  if (!container)
+    return;
 
   const { effectiveDistanceToBottom } = resolveDistanceMetrics(container);
 
@@ -765,7 +782,8 @@ function requestLoadMoreBottom() {
 
 function handleLegacyScroll() {
   const container = scrollContainerRef.value;
-  if (!container) return;
+  if (!container)
+    return;
 
   const { effectiveDistanceToBottom } = resolveDistanceMetrics(container);
 
@@ -778,7 +796,8 @@ function handleLegacyScroll() {
 
 function handleVirtualScroll() {
   const container = scrollContainerRef.value;
-  if (!container) return;
+  if (!container)
+    return;
 
   const { scrollTop } = container;
   const { effectiveDistanceToBottom } = resolveDistanceMetrics(container);
@@ -814,7 +833,8 @@ function handleScroll() {
 
 function legacyScrollToTop(smooth = props.smoothScroll) {
   const container = scrollContainerRef.value;
-  if (!container) return;
+  if (!container)
+    return;
 
   stopAutoScrollToBottom.value = true;
   container.scrollTo({
@@ -825,7 +845,8 @@ function legacyScrollToTop(smooth = props.smoothScroll) {
 
 function legacyScrollToBottom(smooth = props.smoothScroll) {
   const container = scrollContainerRef.value;
-  if (!container) return;
+  if (!container)
+    return;
 
   container.scrollTo({
     top: container.scrollHeight,
@@ -836,10 +857,12 @@ function legacyScrollToBottom(smooth = props.smoothScroll) {
 
 function legacyScrollToBubble(index: number, smooth = props.smoothScroll) {
   const container = scrollContainerRef.value;
-  if (!container) return;
+  if (!container)
+    return;
 
   const items = container.querySelectorAll(`.${listItemClassName}`);
-  if (index >= items.length) return;
+  if (index >= items.length)
+    return;
 
   stopAutoScrollToBottom.value = true;
   const targetBubble = items[index] as HTMLElement;
@@ -856,13 +879,15 @@ function legacyScrollToBubble(index: number, smooth = props.smoothScroll) {
 
 function legacyAutoScroll() {
   const container = scrollContainerRef.value;
-  if (!container) return;
+  if (!container)
+    return;
 
   const listBubbles = container.querySelectorAll(`.${listItemClassName}`);
   const lastItem = listBubbles[listBubbles.length - 1] as
     | HTMLElement
     | undefined;
-  if (!lastItem) return;
+  if (!lastItem)
+    return;
 
   let shouldScroll = true;
   if (listBubbles.length > 1) {
