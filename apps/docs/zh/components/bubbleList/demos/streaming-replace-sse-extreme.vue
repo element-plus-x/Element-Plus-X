@@ -1,26 +1,23 @@
 <docs>
 ---
-title: 模拟真实 SSE（全量累计）复现自动触底失效
+title: 极端场景：动态插槽高度与自动触底压力测试
 ---
 
 ::: warning 复现目的
-某些后端为了简化前端处理，会把每次 SSE 事件的 `data.content` 设计为**已拼接好的累计全量内容**，前端只需在每次 `onmessage` 里把最后一次的 `content` 直接 **赋值（替换）** 到 AI 气泡上即可，无需自己拼接。
+这个 demo 用来覆盖更极端的组合场景：在 `#header`、`#topStatus`、`#item` 这些不同插槽里同时放入会随流式内容增高、并在思考结束后 `auto-collapse` 的 `Thinking` 组件。
 
-这种「全量替换」模式与示例库里常见的「增量追加（`content += chunk`）」模式行为非常接近，但在某些情况下会导致 `BubbleList` 的自动触底/流式跟随失效。这个 demo 用来稳定复现该问题。
+用于观察：当多个非正文区域出现高度突变时，`BubbleList` 的自动触底是否仍然稳定，尤其是非虚拟列表模式和高速 SSE 全量替换模式。
 :::
 
-**关键差异**：
-- 常规 demo：`currentItem.content += chunk`（字符串原地变长）
-- 本 demo：`currentItem.content = latestSSEEvent.content`（每次都替换为新的完整字符串）
-
-操作步骤：
-1. 点击「开始模拟 SSE 流」
-2. 观察 AI 气泡内容持续变长 —— **预期**：列表始终贴底；**实际**：列表停在初始位置，不会跟随
-3. 如需对比，可点击「切换到增量追加模式」再试一次
+操作建议：
+1. 关闭虚拟列表，保持「全量替换」模式，输出速度拉满
+2. 依次打开/关闭 `#header`、`#topStatus`、`#item` 压力开关，观察滚动状态
+3. 对比开启虚拟列表后的表现
 </docs>
 
 <script setup lang="ts">
 import type {
+  BubbleListBoundaryState,
   BubbleListInstance,
   BubbleListItemProps,
   BubbleListProps,
@@ -36,14 +33,15 @@ import {
 
 interface MessageItem extends BubbleListItemProps {
   key: number;
-  role: 'user' | 'ai';
+  role: 'user' | 'ai' | 'system';
   placement: 'start' | 'end';
   content: string;
   avatar: string;
+  itemType?: 'stress-thinking';
 }
 
-// ============== <think> 解析 ==============
 type ThinkingStatus = 'start' | 'thinking' | 'end';
+
 interface ParsedThink {
   thinking: string;
   body: string;
@@ -52,26 +50,28 @@ interface ParsedThink {
 
 function parseThink(raw: string): ParsedThink {
   if (!raw) return { thinking: '', body: '', status: 'start' };
+
   const open = raw.indexOf('<think>');
   if (open < 0) return { thinking: '', body: raw, status: 'start' };
+
   const close = raw.indexOf('</think>', open + 7);
   if (close < 0) {
-    // 思考进行中：还没看到闭合标签，全部内容都是思考
     return {
       thinking: raw.slice(open + 7),
       body: '',
       status: 'thinking'
     };
   }
+
   const thinking = raw.slice(open + 7, close);
   const body = (raw.slice(0, open) + raw.slice(close + 8)).replace(/^\s+/, '');
   return { thinking, body, status: 'end' };
 }
 
-// ============== 异步加载 MarkdownRenderer ==============
 const MarkdownRenderer = shallowRef();
 onMounted(async () => {
   if (typeof window === 'undefined') return;
+
   // @ts-expect-error style entry is runtime-only in x-markdown-vue
   await import('x-markdown-vue/style');
   const mod = await import('x-markdown-vue');
@@ -80,7 +80,7 @@ onMounted(async () => {
 });
 
 const MyEchartsBlock = defineComponent({
-  name: 'SseReplaceEchartsBlock',
+  name: 'SseExtremeEchartsBlock',
   props: {
     option: { type: Object, required: true }
   },
@@ -91,6 +91,7 @@ const MyEchartsBlock = defineComponent({
 
     vOnMounted(async () => {
       if (!chartEl.value) return;
+
       try {
         const echarts = await import('echarts');
         chart = echarts.init(chartEl.value);
@@ -98,7 +99,7 @@ const MyEchartsBlock = defineComponent({
         resizeObserver = new ResizeObserver(() => chart?.resize());
         resizeObserver.observe(chartEl.value);
       } catch (e) {
-        console.warn('[streaming-replace-sse] echarts init failed', e);
+        console.warn('[streaming-replace-sse-extreme] echarts init failed', e);
       }
     });
 
@@ -126,18 +127,15 @@ function safeJsonParse(raw: string) {
 const codeXRender = {
   'my-echarts': (props: any) => {
     const parsed = safeJsonParse(props.raw.content);
-    if (parsed.ok) {
-      return h(MyEchartsBlock, { option: parsed.value });
-    }
+    if (parsed.ok) return h(MyEchartsBlock, { option: parsed.value });
 
     return h('div', { class: 'chart-loading' }, '图表数据加载中...');
   }
 };
 
-// ============== 代码围栏符号（避免模板字面量嵌套三反引号）==============
 const CF = '```';
 
-const LONG_THINKING_DETAIL = Array.from({ length: 28 }, (_, i) => {
+const LONG_THINKING_DETAIL = Array.from({ length: 36 }, (_, i) => {
   const area = ['青秀区', '兴宁区', '江南区', '西乡塘区', '良庆区', '邕宁区'][
     i % 6
   ];
@@ -146,112 +144,95 @@ const LONG_THINKING_DETAIL = Array.from({ length: 28 }, (_, i) => {
 
   return [
     `推理片段 ${i + 1}：正在比对 ${area} 的 ${factor} 监测指标。`,
-    `- 临时样本量：${128 + i * 17} 条`,
+    `- 临时样本量：${128 + i * 19} 条`,
     `- 异常点位：${(i % 5) + 1} 个`,
     `- 风险等级：${risk}`,
     `- 处理策略：先按小时聚合，再按站点类型回填缺失值，最后校验累计总数是否仍为 175。`,
-    `- 备注：这是一段专门用于拉高 Thinking 高度的假数据，观察 think 闭合标签出现后自动折叠是否会影响 BubbleList 追底。`
+    `- 高度压力：这一段会同时影响 header / topStatus / item 插槽中的 Thinking 展开高度。`
   ].join('\n');
 }).join('\n\n');
 
-// ============== 模拟后端：包含多种 Markdown 要素的「最终全量内容」 ==============
+const TOP_STATUS_THINKING_DETAIL = Array.from({ length: 16 }, (_, i) => {
+  return `顶部插槽压力 ${i + 1}：模拟顶部加载区中存在动态高度组件，当前正在同步第 ${i + 1} 批监测站点上下文。`;
+}).join('\n\n');
+
+const ITEM_SLOT_THINKING_DETAIL = Array.from({ length: 18 }, (_, i) => {
+  return `#item 插槽压力 ${i + 1}：这是一个非 Bubble 节点，由 itemType 命中 #item 插槽渲染，并在思考结束后自动折叠。`;
+}).join('\n\n');
+
 const FINAL_FULL_CONTENT = `<think>
-正在理解问题中……用户需要查看南宁市环境监测站点综合统计，包含数据表、图表、流程图、数学公式与参考图片。
+正在理解问题中……本次用于测试多个插槽共同产生动态高度变化时，BubbleList 是否仍能持续追底。
 
-第一步：整理站点数量汇总表格。
-第二步：构建 ECharts 环形图，可视化各类站点占比。
-第三步：用 Mermaid 流程图描述监测数据处理流程。
-第四步：给出 AQI 空气质量指数计算公式（LaTeX）。
-第五步：附上南宁市区位示意图。
-
-下面开始模拟较长的内部思考过程，用于测试 Thinking 内容很长时自动折叠造成的高度突变：
+第一步：在 Bubble 的 #header 中渲染 Thinking。
+第二步：在 BubbleList 的 #topStatus 中渲染 Thinking。
+第三步：插入一个 itemType=stress-thinking 的非气泡节点，在 #item 中渲染 Thinking。
+第四步：正文继续输出 Markdown 表格、ECharts、Mermaid、数学公式和图片。
 
 ${LONG_THINKING_DETAIL}
 
-准备就绪，开始输出……</think>
+准备就绪，开始输出最终回答。</think>
 
-## 南宁市环境监测站点统计报告
+## 极端场景 SSE 输出报告
 
-### 一、站点数量汇总
+### 一、压力场景矩阵
 
-| 监测类型 | 站点数量 | 细分说明 | 占比 |
-|:---------|:-------:|:---------|-----:|
-| 大气监测 | 22 | 国控 4 / 省控 8 / 市控 10 | 12.6% |
-| 地表水手动站 | 18 | 邕江沿线为主 | 10.3% |
-| 地表水自动站 | 18 | 实时在线 | 10.3% |
-| 饮用水手动站 | 15 | 水厂取水口 | 8.6% |
-| 秸秆焚烧监测 | 92 | 覆盖全市 12 个县区 | 52.6% |
-| 酸雨监测 | 10 | 均匀分布 | 5.7% |
-| **合计** | **175** | — | **100%** |
+| 插槽位置 | 动态组件 | 高度变化来源 | 预期行为 |
+|:---------|:---------|:-------------|:---------|
+| #header | Thinking | 流式展开 + 自动折叠 | 不打断 AI 回复追底 |
+| #topStatus | Thinking | 顶部边界区域动态高度 | 不误判用户上滑 |
+| #item | Thinking | 非气泡节点动态高度 | 不阻断后续流式追底 |
+| #content | MarkdownRenderer | 表格/图表/公式/图片异步渲染 | 持续贴底 |
 
-### 二、站点类型分布（ECharts 环形图）
+### 二、站点类型分布（ECharts）
 
 ${CF}my-echarts
 {
-  "title": { "text": "南宁市监测站点类型分布", "left": "center" },
+  "title": { "text": "极端场景站点分布", "left": "center" },
   "tooltip": { "trigger": "item", "formatter": "{b}: {c} 个 ({d}%)" },
-  "legend": { "orient": "vertical", "left": "left", "top": "middle" },
+  "legend": { "bottom": "0" },
   "series": [{
     "type": "pie",
-    "radius": ["40%", "70%"],
-    "avoidLabelOverlap": false,
-    "label": { "show": false, "position": "center" },
-    "emphasis": { "label": { "show": true, "fontSize": 14, "fontWeight": "bold" } },
-    "labelLine": { "show": false },
+    "radius": ["42%", "72%"],
     "data": [
       { "value": 22, "name": "大气监测" },
-      { "value": 36, "name": "地表水监测" },
-      { "value": 15, "name": "饮用水监测" },
-      { "value": 92, "name": "秸秆焚烧监测" },
+      { "value": 51, "name": "水质监测" },
+      { "value": 92, "name": "秸秆焚烧" },
       { "value": 10, "name": "酸雨监测" }
     ]
   }]
 }
 ${CF}
 
-### 三、监测数据处理流程（Mermaid）
+### 三、动态高度触发链路（Mermaid）
 
 ${CF}mermaid
 flowchart TD
-  A[传感器采集原始数据] --> B{数据校验}
-  B -- 通过 --> C[写入实时数据库]
-  B -- 异常 --> D[触发告警通知]
-  C --> E[实时看板展示]
-  C --> F[历史数据归档]
-  D --> G[人工复核]
-  G --> B
-  F --> H[统计分析报告]
-  E --> I[公众发布平台]
+  A[SSE 全量替换] --> B[AI item content 更新]
+  B --> C[#header Thinking 增高]
+  B --> D[#item Thinking 增高]
+  B --> E[Markdown 正文增高]
+  B --> F[#topStatus Thinking 增高]
+  C --> G{是否仍在底部}
+  D --> G
+  E --> G
+  F --> G
+  G -->|是| H[继续自动触底]
+  G -->|否| I[保持用户阅读位置]
 ${CF}
 
-### 四、AQI 空气质量指数计算公式
-
-AQI 采用分段线性插值方法：
+### 四、AQI 公式
 
 $$AQI = \\frac{I_{hi} - I_{lo}}{C_{hi} - C_{lo}} \\times (C_p - C_{lo}) + I_{lo}$$
 
-**参数说明：**
-
-- $C_p$：污染物实测浓度（μg/m³）
-- $C_{hi}$、$C_{lo}$：浓度分段上下断点
-- $I_{hi}$、$I_{lo}$：对应 AQI 分段上下断点
-
-各等级区间：$0 \\sim 50$ 优；$51 \\sim 100$ 良；$101 \\sim 150$ 轻度污染；$151 \\sim 200$ 中度污染。
-
-### 五、南宁市区位示意图
+### 五、图片
 
 ![生态监测示意图](https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80)
 
-> 图：生态环境监测场景示意
+### 六、长段结论
 
-### 六、综合结论
-
-南宁市各类环境监测站点共 **175 个**，形成覆盖大气、水质、秸秆焚烧和酸雨四大领域的综合监测网络。
-
-${Array.from({ length: 10 }, (_, i) => `**详细说明 ${i + 1}**：秸秆焚烧监测站点数量最多（92 个，占 52.6%），主要因广西农业规模大，监管需求强烈。水质监测站点合计 51 个，沿邕江、左江、右江主要水体分布。酸雨监测站点 10 个均匀覆盖全市。大气监测站 22 个中，国控/省控/市控三级网络数据实时上传国家平台，支持智能告警联动。`).join('\n\n')}
+${Array.from({ length: 14 }, (_, i) => `**结论段 ${i + 1}**：当前压力用例会同时让 header、topStatus、item 和 content 区域产生高度变化。理想情况下，只要用户没有主动上滑，BubbleList 都应该维持 AT_BOTTOM；一旦用户主动上滑，则应该进入 SCROLLED_UP 并停止追底。`).join('\n\n')}
 `;
 
-// ============== 模拟后端 SSE：每次推送都是「拼接好的全量内容」 ==============
 interface SSEEvent {
   content: string;
   completed: boolean;
@@ -270,7 +251,7 @@ function createMockSSE(
   let offset = 0;
   const timer = window.setInterval(() => {
     offset = Math.min(offset + charsPerTick, finalContent.length);
-    const accumulated = finalContent.slice(0, offset); // 关键：每次发出的是「累计后的完整字符串」
+    const accumulated = finalContent.slice(0, offset);
     const done = offset >= finalContent.length;
     onMessage({ content: accumulated, completed: done });
     if (done) {
@@ -281,29 +262,81 @@ function createMockSSE(
   return () => window.clearInterval(timer);
 }
 
-// ============== 组件状态 ==============
 const bubbleListRef = ref<BubbleListInstance | null>(null);
 const bubbleItems = ref<BubbleListProps<MessageItem>['list']>([]);
 const scrollState = ref<BubbleListScrollState>('AT_BOTTOM');
 const unreadCount = ref(0);
 const isStreaming = ref(false);
+const hasStreamStarted = ref(false);
 const mode = ref<'replace' | 'append'>('replace');
 const lastEventLength = ref(0);
 const eventCount = ref(0);
 const virtualEnabled = ref(false);
+const headerStressEnabled = ref(true);
+const topStatusStressEnabled = ref(true);
+const itemStressEnabled = ref(true);
+const speed = ref(10);
 
-// 速度档位 1~10（1 最慢，10 最快）
-const speed = ref(4);
+let nextKey = 0;
+let stopSSE: (() => void) | null = null;
+
+const latestAiItem = computed(() => {
+  for (let i = bubbleItems.value.length - 1; i >= 0; i--) {
+    const item = bubbleItems.value[i];
+    if (item?.role === 'ai') return item;
+  }
+  return undefined;
+});
+
+const currentStreamingThink = computed(() => {
+  const item = latestAiItem.value;
+  if (!item)
+    return { thinking: '', body: '', status: 'start' as ThinkingStatus };
+
+  return parseThink(item.content);
+});
+
+const topStatus = computed<BubbleListBoundaryState | null>(() => {
+  if (!topStatusStressEnabled.value || !hasStreamStarted.value) return null;
+
+  return { type: 'loading', text: '顶部动态 Thinking 压力区' };
+});
+
+const topStatusThinkingContent = computed(() => {
+  if (currentStreamingThink.value.status === 'thinking') {
+    return [
+      'BubbleList #topStatus 动态高度压力测试。',
+      TOP_STATUS_THINKING_DETAIL,
+      currentStreamingThink.value.thinking
+    ].join('\n\n');
+  }
+
+  return [
+    'BubbleList #topStatus 动态高度压力测试。',
+    TOP_STATUS_THINKING_DETAIL
+  ].join('\n\n');
+});
+
+const itemSlotThinkingContent = computed(() => {
+  if (currentStreamingThink.value.status === 'thinking') {
+    return [
+      'BubbleList #item 动态高度压力测试。',
+      ITEM_SLOT_THINKING_DETAIL,
+      currentStreamingThink.value.thinking
+    ].join('\n\n');
+  }
+
+  return [
+    'BubbleList #item 动态高度压力测试。',
+    ITEM_SLOT_THINKING_DETAIL
+  ].join('\n\n');
+});
+
 function speedToTiming(s: number) {
-  // tickMs: 200ms (s=1) -> 20ms (s=10)
-  // charsPerTick: 2 (s=1) -> 56 (s=10)
   const tickMs = Math.round(200 - (s - 1) * 20);
   const charsPerTick = Math.round(2 + (s - 1) * 6);
   return { tickMs, charsPerTick };
 }
-
-let nextKey = 0;
-let stopSSE: (() => void) | null = null;
 
 function createMessage(
   key: number,
@@ -327,6 +360,18 @@ function createMessage(
   };
 }
 
+function createStressItem(): MessageItem {
+  return {
+    key: ++nextKey,
+    role: 'system',
+    placement: 'start',
+    content: '',
+    avatar: '',
+    itemType: 'stress-thinking',
+    noStyle: true
+  };
+}
+
 function buildSeed() {
   bubbleItems.value = [];
   for (let i = 0; i < 6; i++) {
@@ -341,6 +386,7 @@ function buildSeed() {
       )
     );
   }
+  hasStreamStarted.value = false;
   scrollState.value = 'AT_BOTTOM';
   unreadCount.value = 0;
   eventCount.value = 0;
@@ -356,19 +402,21 @@ function stopStreaming() {
 
 function startStreaming() {
   if (isStreaming.value) return;
-  stopStreaming();
 
-  // 用户消息
+  stopStreaming();
+  hasStreamStarted.value = true;
+
   bubbleItems.value.push(
-    createMessage(++nextKey, 'user', '请用 SSE 流式输出南宁市监测站点统计。')
+    createMessage(++nextKey, 'user', '请用极端插槽组合压测 SSE 自动触底能力。')
   );
 
-  // AI 占位消息（content 初始为空）
+  if (itemStressEnabled.value) bubbleItems.value.push(createStressItem());
+
   bubbleItems.value.push(createMessage(++nextKey, 'ai', ''));
 
   isStreaming.value = true;
   eventCount.value = 0;
-  let lastReceivedContent = ''; // 用于 append 模式计算 delta
+  let lastReceivedContent = '';
 
   const { tickMs, charsPerTick } = speedToTiming(speed.value);
   stopSSE = createMockSSE(FINAL_FULL_CONTENT, {
@@ -377,14 +425,12 @@ function startStreaming() {
     onMessage: e => {
       eventCount.value += 1;
       lastEventLength.value = e.content.length;
-      const aiItem = bubbleItems.value[bubbleItems.value.length - 1];
-      if (!aiItem || aiItem.role !== 'ai') return;
+      const aiItem = latestAiItem.value;
+      if (!aiItem) return;
 
       if (mode.value === 'replace') {
-        // ❗ 复现模式：每次 SSE 都是「全量累计内容」，前端直接整体替换
         aiItem.content = e.content;
       } else {
-        // 对照模式：按 delta 增量追加（这才是 demo 库默认演示的方式）
         const delta = e.content.slice(lastReceivedContent.length);
         aiItem.content += delta;
       }
@@ -404,12 +450,14 @@ function resetConversation() {
 
 function toggleMode() {
   if (isStreaming.value) return;
+
   mode.value = mode.value === 'replace' ? 'append' : 'replace';
 }
 
 function handleScrollStateChange(s: BubbleListScrollState) {
   scrollState.value = s;
 }
+
 function handleUnreadCountChange(c: number) {
   unreadCount.value = c;
 }
@@ -419,14 +467,14 @@ onUnmounted(stopStreaming);
 </script>
 
 <template>
-  <div class="sse-replace-demo">
+  <div class="sse-extreme-demo">
     <div class="tip">
-      <strong>当前接收模式：</strong>
+      <strong>极端场景：</strong>
       <span :class="`mode-tag mode-${mode}`">
-        {{ mode === 'replace' ? '全量替换（复现 Bug）' : '增量追加（正常）' }}
+        {{ mode === 'replace' ? '全量替换' : '增量追加' }}
       </span>
       <span class="hint">
-        全量替换模式下，预期 BubbleList 应当持续贴底，但实际可能不会自动滚动。
+        同时压测 #header、#topStatus、#item 与 Markdown 正文的动态高度变化。
       </span>
     </div>
 
@@ -438,7 +486,7 @@ onUnmounted(stopStreaming);
         :disabled="isStreaming"
         @click="startStreaming"
       >
-        开始模拟 SSE 流
+        开始极端 SSE 流
       </el-button>
       <el-button
         size="small"
@@ -473,8 +521,55 @@ onUnmounted(stopStreaming);
           style="width: 180px"
         />
         <span class="speed-hint">{{
-          speed <= 3 ? '慢（看清过程）' : speed >= 8 ? '快（接近真实）' : '中'
+          speed <= 3 ? '慢' : speed >= 8 ? '快（极端）' : '中'
         }}</span>
+      </div>
+    </div>
+
+    <div class="switch-row">
+      <div class="chip switch-chip">
+        虚拟列表：
+        <el-switch
+          v-model="virtualEnabled"
+          size="small"
+          :disabled="isStreaming"
+          inline-prompt
+          active-text="开"
+          inactive-text="关"
+        />
+      </div>
+      <div class="chip switch-chip">
+        #header Thinking：
+        <el-switch
+          v-model="headerStressEnabled"
+          size="small"
+          :disabled="isStreaming"
+          inline-prompt
+          active-text="开"
+          inactive-text="关"
+        />
+      </div>
+      <div class="chip switch-chip">
+        #topStatus Thinking：
+        <el-switch
+          v-model="topStatusStressEnabled"
+          size="small"
+          :disabled="isStreaming"
+          inline-prompt
+          active-text="开"
+          inactive-text="关"
+        />
+      </div>
+      <div class="chip switch-chip">
+        #item Thinking：
+        <el-switch
+          v-model="itemStressEnabled"
+          size="small"
+          :disabled="isStreaming"
+          inline-prompt
+          active-text="开"
+          inactive-text="关"
+        />
       </div>
     </div>
 
@@ -496,17 +591,6 @@ onUnmounted(stopStreaming);
       <div class="chip">
         流式状态：<strong>{{ isStreaming ? '进行中' : '空闲' }}</strong>
       </div>
-      <div class="chip switch-chip">
-        虚拟列表：
-        <el-switch
-          v-model="virtualEnabled"
-          size="small"
-          :disabled="isStreaming"
-          inline-prompt
-          active-text="开"
-          inactive-text="关"
-        />
-      </div>
     </div>
 
     <div class="stage">
@@ -514,12 +598,27 @@ onUnmounted(stopStreaming);
         ref="bubbleListRef"
         :list="bubbleItems"
         :virtual="virtualEnabled"
+        :top-status="topStatus"
         @scroll-state-change="handleScrollStateChange"
         @unread-count-change="handleUnreadCountChange"
       >
+        <template #topStatus>
+          <div class="top-status-stress">
+            <Thinking
+              :content="topStatusThinkingContent"
+              :status="
+                currentStreamingThink.status === 'thinking' ? 'thinking' : 'end'
+              "
+              auto-collapse
+              max-width="100%"
+            />
+          </div>
+        </template>
+
         <template #header="{ item }">
           <Thinking
             v-if="
+              headerStressEnabled &&
               item.role === 'ai' &&
               (parseThink(item.content).thinking ||
                 parseThink(item.content).status === 'thinking')
@@ -535,9 +634,9 @@ onUnmounted(stopStreaming);
             max-width="100%"
           />
         </template>
+
         <template #content="{ item }">
           <template v-if="item.role === 'ai'">
-            <!-- 正文：用 Markdown 渲染 -->
             <component
               :is="MarkdownRenderer"
               v-if="MarkdownRenderer && parseThink(item.content).body"
@@ -551,7 +650,7 @@ onUnmounted(stopStreaming);
                 !parseThink(item.content).body &&
                 parseThink(item.content).status !== 'thinking'
               "
-              style="color: #999"
+              class="waiting-text"
               >正在等待回复...</span
             >
           </template>
@@ -559,13 +658,30 @@ onUnmounted(stopStreaming);
             <span class="user-msg-text">{{ item.content }}</span>
           </template>
         </template>
+
+        <template #item="{ item }">
+          <div v-if="item.itemType === 'stress-thinking'" class="item-stress">
+            <div class="item-stress-title">#item 插槽动态高度节点</div>
+            <Thinking
+              :content="itemSlotThinkingContent"
+              :status="
+                currentStreamingThink.status === 'thinking' ? 'thinking' : 'end'
+              "
+              auto-collapse
+              max-width="100%"
+            />
+          </div>
+          <div v-else class="item-stress">
+            {{ item.content }}
+          </div>
+        </template>
       </BubbleList>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.sse-replace-demo {
+.sse-extreme-demo {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -602,7 +718,9 @@ onUnmounted(stopStreaming);
   color: #78350f;
   font-size: 12px;
 }
-.toolbar {
+.toolbar,
+.switch-row,
+.status-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -627,11 +745,6 @@ onUnmounted(stopStreaming);
   font-size: 12px;
   color: #64748b;
   min-width: 64px;
-}
-.status-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
 }
 .chip {
   display: inline-flex;
@@ -658,9 +771,12 @@ onUnmounted(stopStreaming);
     }
   }
 }
+.switch-chip {
+  padding-right: 8px;
+}
 .stage {
-  min-height: 520px;
-  height: 520px;
+  min-height: 560px;
+  height: 560px;
   padding: 10px;
   border-radius: 16px;
   background: #f8fafc;
@@ -675,11 +791,27 @@ onUnmounted(stopStreaming);
   min-height: 0;
   overflow: hidden;
 }
-.switch-chip {
-  padding-right: 8px;
+.top-status-stress {
+  padding: 8px 12px 6px;
+  border-bottom: 1px solid #dbeafe;
+  background: #eff6ff;
 }
 .message-thinking {
   margin-bottom: 8px;
+}
+.item-stress {
+  width: min(720px, calc(100% - 40px));
+  margin: 8px auto;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px dashed #cbd5e1;
+  background: #fff;
+}
+.item-stress-title {
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
 }
 .chart-loading {
   margin: 16px 0;
@@ -689,6 +821,9 @@ onUnmounted(stopStreaming);
   background: #f8fafc;
   color: #64748b;
   font-size: 13px;
+}
+.waiting-text {
+  color: #999;
 }
 .user-msg-text {
   display: inline-block;

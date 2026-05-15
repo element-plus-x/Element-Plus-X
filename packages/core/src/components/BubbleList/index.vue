@@ -54,7 +54,6 @@ const instance = getCurrentInstance();
 const ns = useNamespace('bubble-list');
 const MESSAGE_ITEM_TYPES = new Set(['bubble', 'message']);
 const BOTTOM_TOLERANCE = 4;
-const LEGACY_TOLERANCE = 30;
 const LOAD_RESET_DELAY = 2000;
 const PROGRAMMATIC_SCROLL_MAX_DURATION = 2000;
 
@@ -86,11 +85,15 @@ const pendingTopLoad = ref(false);
 const pendingBottomLoad = ref(false);
 const lastScrollTop = ref(0);
 const legacyResizeObserver = ref<ResizeObserver | null>(null);
+const legacyMutationObserver = ref<MutationObserver | null>(null);
+const hasRecentUserScrollIntent = ref(false);
 let programmaticScrollTimer: number | null = null;
 let programmaticScrollFrame: number | null = null;
 let programmaticScrollTarget: ProgrammaticScrollTarget | null = null;
 let loadTopResetTimer: number | null = null;
 let loadBottomResetTimer: number | null = null;
+let legacyResizeFollowFrame: number | null = null;
+let userScrollIntentTimer: number | null = null;
 
 const listItemClassName = `${ns.namespace.value}-bubble-list__item`;
 const bottomBoundaryClassName = ns.em('boundary', 'bottom');
@@ -200,13 +203,11 @@ watch(virtualEnabled, enabled => {
  */
 function scheduleVirtualBottomAlign() {
   nextTick(() => {
-    if (!virtualEnabled.value)
-      return;
+    if (!virtualEnabled.value) return;
     scrollToBottom(false);
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        if (!virtualEnabled.value)
-          return;
+        if (!virtualEnabled.value) return;
         scrollToBottom(false);
       });
     });
@@ -238,8 +239,7 @@ watch(
 watch(
   () => props.list.length,
   () => {
-    if (virtualEnabled.value)
-      return;
+    if (virtualEnabled.value) return;
 
     if (props.list.length > 0) {
       nextTick(() => {
@@ -284,8 +284,7 @@ watch(latestItemSignal, (current, previous) => {
     }
   }
 
-  if (!virtualEnabled.value || current.length === 0)
-    return;
+  if (!virtualEnabled.value || current.length === 0) return;
 
   if (current.length > previous.length) {
     // Initialization: empty → filled, force instant scroll to avoid smooth overwrites
@@ -296,8 +295,7 @@ watch(latestItemSignal, (current, previous) => {
 
     const index = current.length - 1;
     const item = props.list[index];
-    if (!item)
-      return;
+    if (!item) return;
 
     const addedCount = current.length - previous.length;
     const isMessageItem = isDefaultBubbleItem(item, index);
@@ -327,13 +325,11 @@ watch(latestItemSignal, (current, previous) => {
     (current.content !== previous.content ||
       current.loading !== previous.loading);
 
-  if (!lastItemChanged)
-    return;
+  if (!lastItemChanged) return;
 
   const index = current.length - 1;
   const item = props.list[index];
-  if (!item)
-    return;
+  if (!item) return;
 
   const shouldFollow = shouldFollowNewContent('streaming', item, index);
 
@@ -347,8 +343,7 @@ function normalizeItemType(itemType: string | undefined) {
 }
 
 function resolveItemType(item: T | undefined, index: number) {
-  if (!item)
-    return undefined;
+  if (!item) return undefined;
 
   const resolver = props.itemType;
   let resolved: unknown;
@@ -374,8 +369,7 @@ function isDefaultBubbleItem(item: T | undefined, index: number) {
 }
 
 function resolveStableItemKey(item: T | undefined, index: number) {
-  if (!item)
-    return index;
+  if (!item) return index;
 
   const resolver = props.itemKey;
   let resolved: string | number | undefined;
@@ -518,7 +512,12 @@ function buildFollowContext(
   item: T,
   index: number
 ): BubbleListFollowContext<T> {
-  const liveScrollState = syncScrollStateFromContainer();
+  const liveScrollState =
+    reason === 'streaming' &&
+    !virtualEnabled.value &&
+    !stopAutoScrollToBottom.value
+      ? 'AT_BOTTOM'
+      : syncScrollStateFromContainer();
 
   return {
     reason,
@@ -560,13 +559,24 @@ function scheduleFollowToBottom(
   smooth = props.smoothScroll
 ) {
   nextTick(() => {
+    if (
+      reason === 'streaming' &&
+      !virtualEnabled.value &&
+      stopAutoScrollToBottom.value
+    ) {
+      return;
+    }
+
     // 对于 streaming：外层 watcher 在 DOM 更新前已经基于"内容更新前的滚动状态"
     // 通过了 shouldFollowNewContent 门禁。此处再次基于"DOM 已更新后的实时状态"
     // 进行二次校验会出现误判——新内容渲染后 scrollHeight 增大但 scrollTop 未变，
     // distanceToBottom 会瞬时大于 BOTTOM_TOLERANCE，导致状态被判定为 SCROLLED_UP，
     // 进而阻断本次追底（典型场景：全量替换式 SSE，每次 chunk 高度增量 > 4px）。
     // own-message / new-message 仍保留二次校验，避免用户在 nextTick 间隙手动滚走后强行打断。
-    if (reason !== 'streaming' && !shouldFollowNewContent(reason, item, index)) {
+    if (
+      reason !== 'streaming' &&
+      !shouldFollowNewContent(reason, item, index)
+    ) {
       return;
     }
 
@@ -579,8 +589,7 @@ function scrollBoundaryIntoView(
   smooth = props.smoothScroll
 ) {
   const container = scrollContainerRef.value;
-  if (!container)
-    return;
+  if (!container) return;
 
   container.scrollTo({
     top: position === 'top' ? 0 : container.scrollHeight,
@@ -597,6 +606,34 @@ function cleanupProgrammaticScrollTracking() {
   if (programmaticScrollFrame !== null) {
     window.cancelAnimationFrame(programmaticScrollFrame);
     programmaticScrollFrame = null;
+  }
+}
+
+function cleanupUserScrollIntentTimer() {
+  if (userScrollIntentTimer !== null) {
+    window.clearTimeout(userScrollIntentTimer);
+    userScrollIntentTimer = null;
+  }
+}
+
+function markUserScrollIntent() {
+  hasRecentUserScrollIntent.value = true;
+  cleanupUserScrollIntentTimer();
+  userScrollIntentTimer = window.setTimeout(() => {
+    hasRecentUserScrollIntent.value = false;
+    userScrollIntentTimer = null;
+  }, 400);
+}
+
+function handleWheelIntent(event: WheelEvent) {
+  if (event.deltaY < 0) {
+    markUserScrollIntent();
+  }
+}
+
+function handleKeydownIntent(event: KeyboardEvent) {
+  if (['ArrowUp', 'PageUp', 'Home'].includes(event.key)) {
+    markUserScrollIntent();
   }
 }
 
@@ -681,6 +718,59 @@ function scheduleLoadReset(kind: 'top' | 'bottom') {
 function cleanupLegacyResizeObserver() {
   legacyResizeObserver.value?.disconnect();
   legacyResizeObserver.value = null;
+  legacyMutationObserver.value?.disconnect();
+  legacyMutationObserver.value = null;
+  if (legacyResizeFollowFrame !== null) {
+    window.cancelAnimationFrame(legacyResizeFollowFrame);
+    legacyResizeFollowFrame = null;
+  }
+}
+
+function scheduleLegacyResizeFollow() {
+  if (legacyResizeFollowFrame !== null) return;
+
+  legacyResizeFollowFrame = window.requestAnimationFrame(() => {
+    legacyResizeFollowFrame = null;
+    if (
+      virtualEnabled.value ||
+      !props.autoScroll ||
+      stopAutoScrollToBottom.value
+    ) {
+      return;
+    }
+
+    legacyScrollToBottom(false);
+  });
+}
+
+function syncLegacyResizeObserverTargets() {
+  const container = scrollContainerRef.value;
+  const observer = legacyResizeObserver.value;
+  if (!container || !observer) return;
+
+  observer.disconnect();
+  Array.from(container.children).forEach(child => observer.observe(child));
+}
+
+function ensureLegacyContentObservers() {
+  const container = scrollContainerRef.value;
+  if (!container || virtualEnabled.value) return;
+
+  if (!legacyResizeObserver.value) {
+    legacyResizeObserver.value = new ResizeObserver(() => {
+      scheduleLegacyResizeFollow();
+    });
+  }
+
+  syncLegacyResizeObserverTargets();
+
+  if (!legacyMutationObserver.value) {
+    legacyMutationObserver.value = new MutationObserver(() => {
+      syncLegacyResizeObserverTargets();
+      scheduleLegacyResizeFollow();
+    });
+    legacyMutationObserver.value.observe(container, { childList: true });
+  }
 }
 
 function setScrollState(state: BubbleListScrollState) {
@@ -711,8 +801,7 @@ function resolveDistanceMetrics(container: HTMLElement) {
 
 function updateScrollStateFromContainer() {
   const container = scrollContainerRef.value;
-  if (!container)
-    return;
+  if (!container) return;
 
   const { effectiveDistanceToBottom } = resolveDistanceMetrics(container);
 
@@ -720,11 +809,7 @@ function updateScrollStateFromContainer() {
     props.showBackButton &&
     effectiveDistanceToBottom > props.backButtonThreshold;
 
-  if (
-    virtualEnabled.value &&
-    isProgrammaticScrolling.value &&
-    programmaticScrollTarget === 'bottom'
-  ) {
+  if (isProgrammaticScrolling.value && programmaticScrollTarget === 'bottom') {
     setScrollState('AT_BOTTOM');
     showBackToBottom.value = false;
     if (unreadCount.value !== 0) {
@@ -782,22 +867,52 @@ function requestLoadMoreBottom() {
 
 function handleLegacyScroll() {
   const container = scrollContainerRef.value;
-  if (!container)
-    return;
+  if (!container) return;
+
+  const { scrollTop } = container;
+  const scrollingUp = scrollTop < lastScrollTop.value - BOTTOM_TOLERANCE;
+  const userScrollingUp = scrollingUp && hasRecentUserScrollIntent.value;
+
+  if (isProgrammaticScrolling.value && programmaticScrollTarget === 'bottom') {
+    if (!userScrollingUp) {
+      stopAutoScrollToBottom.value = false;
+      updateScrollStateFromContainer();
+      lastScrollTop.value = scrollTop;
+      return;
+    }
+
+    finishProgrammaticScroll();
+  }
 
   const { effectiveDistanceToBottom } = resolveDistanceMetrics(container);
 
   showBackToBottom.value =
     props.showBackButton &&
     effectiveDistanceToBottom > props.backButtonThreshold;
-  stopAutoScrollToBottom.value = effectiveDistanceToBottom > LEGACY_TOLERANCE;
-  updateScrollStateFromContainer();
+
+  if (userScrollingUp) {
+    stopAutoScrollToBottom.value = effectiveDistanceToBottom > BOTTOM_TOLERANCE;
+    updateScrollStateFromContainer();
+  } else if (effectiveDistanceToBottom <= BOTTOM_TOLERANCE) {
+    stopAutoScrollToBottom.value = false;
+    updateScrollStateFromContainer();
+  } else if (!stopAutoScrollToBottom.value && props.autoScroll) {
+    setScrollState('AT_BOTTOM');
+    showBackToBottom.value = false;
+    if (unreadCount.value !== 0) {
+      unreadCount.value = 0;
+    }
+    scheduleLegacyResizeFollow();
+  } else {
+    updateScrollStateFromContainer();
+  }
+
+  lastScrollTop.value = scrollTop;
 }
 
 function handleVirtualScroll() {
   const container = scrollContainerRef.value;
-  if (!container)
-    return;
+  if (!container) return;
 
   const { scrollTop } = container;
   const { effectiveDistanceToBottom } = resolveDistanceMetrics(container);
@@ -833,8 +948,7 @@ function handleScroll() {
 
 function legacyScrollToTop(smooth = props.smoothScroll) {
   const container = scrollContainerRef.value;
-  if (!container)
-    return;
+  if (!container) return;
 
   stopAutoScrollToBottom.value = true;
   container.scrollTo({
@@ -845,9 +959,9 @@ function legacyScrollToTop(smooth = props.smoothScroll) {
 
 function legacyScrollToBottom(smooth = props.smoothScroll) {
   const container = scrollContainerRef.value;
-  if (!container)
-    return;
+  if (!container) return;
 
+  beginProgrammaticScroll('bottom', smooth ? 320 : 80);
   container.scrollTo({
     top: container.scrollHeight,
     behavior: smooth ? 'smooth' : 'auto'
@@ -857,12 +971,10 @@ function legacyScrollToBottom(smooth = props.smoothScroll) {
 
 function legacyScrollToBubble(index: number, smooth = props.smoothScroll) {
   const container = scrollContainerRef.value;
-  if (!container)
-    return;
+  if (!container) return;
 
   const items = container.querySelectorAll(`.${listItemClassName}`);
-  if (index >= items.length)
-    return;
+  if (index >= items.length) return;
 
   stopAutoScrollToBottom.value = true;
   const targetBubble = items[index] as HTMLElement;
@@ -879,15 +991,13 @@ function legacyScrollToBubble(index: number, smooth = props.smoothScroll) {
 
 function legacyAutoScroll() {
   const container = scrollContainerRef.value;
-  if (!container)
-    return;
+  if (!container) return;
 
   const listBubbles = container.querySelectorAll(`.${listItemClassName}`);
   const lastItem = listBubbles[listBubbles.length - 1] as
     | HTMLElement
     | undefined;
-  if (!lastItem)
-    return;
+  if (!lastItem) return;
 
   let shouldScroll = true;
   if (listBubbles.length > 1) {
@@ -904,12 +1014,7 @@ function legacyAutoScroll() {
   }
 
   cleanupLegacyResizeObserver();
-  legacyResizeObserver.value = new ResizeObserver(() => {
-    if (!stopAutoScrollToBottom.value) {
-      legacyScrollToBottom(false);
-    }
-  });
-  legacyResizeObserver.value.observe(lastItem);
+  ensureLegacyContentObservers();
 }
 
 function handleBackButtonClick() {
@@ -1016,6 +1121,7 @@ onMounted(() => {
 onUnmounted(() => {
   cleanupLegacyResizeObserver();
   cleanupProgrammaticScrollTracking();
+  cleanupUserScrollIntentTimer();
   if (loadTopResetTimer !== null) {
     window.clearTimeout(loadTopResetTimer);
   }
@@ -1052,6 +1158,10 @@ defineExpose({
         virtualEnabled ? ns.em('list', 'virtual') : ''
       ]"
       @scroll="handleScroll"
+      @wheel.passive="handleWheelIntent"
+      @touchmove.passive="markUserScrollIntent"
+      @pointerdown="markUserScrollIntent"
+      @keydown="handleKeydownIntent"
     >
       <div
         v-if="topBoundaryVisible"

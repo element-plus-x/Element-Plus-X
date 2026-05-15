@@ -1,6 +1,22 @@
 {
   "Core": [
     {
+      "version": "2.0.3",
+      "date": "2026-05-14",
+      "changes": [
+        {
+          "type": "fix",
+          "content": "Fixed BubbleList legacy auto-follow when dynamic slot heights from #topStatus, #item, or #header change during SSE full-replace streaming, while preserving manual scroll-up interruption",
+          "emoji": "🐛"
+        },
+        {
+          "type": "docs",
+          "content": "Added English BubbleList SSE full-replacement and extreme dynamic-slot stress demos to document the auto-follow behavior",
+          "emoji": "📚"
+        }
+      ]
+    },
+    {
       "version": "unreleased",
       "date": "2026-02-28",
       "changes": [

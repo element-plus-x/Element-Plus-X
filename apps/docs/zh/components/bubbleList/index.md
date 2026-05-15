@@ -32,6 +32,10 @@ title: 'BubbleList'
 
 <demo src="./demos/streaming-replace-sse.vue"></demo>
 
+### 极端场景：动态插槽高度与自动触底压力测试
+
+<demo src="./demos/streaming-replace-sse-extreme.vue"></demo>
+
 ### 双向分页加载
 
 <demo src="./demos/bidirectional-loading.vue"></demo>

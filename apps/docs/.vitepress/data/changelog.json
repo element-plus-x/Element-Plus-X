@@ -1,40 +1,28 @@
 {
   "Core": [
     {
-      "version": "2.0.2",
-      "date": "2026-05-11",
+      "version": "2.0.3",
+      "date": "2026-05-14",
       "changes": [
         {
           "type": "fix",
-          "content": "修复 BubbleList 在 SSE 全量替换模式下流式自动触底失效的问题（streaming 跳过 nextTick 二次校验，避免 DOM 高度增量误判为用户滚走）",
-          "emoji": "🐛",
-          "author": "何嘉悦",
-          "hash": "1ca90ca",
-          "source": "commit"
+          "content": "修复 BubbleList legacy 模式下 #topStatus、#item、#header 等动态插槽高度变化导致 SSE 全量替换流式自动触底被误判中断的问题，同时保留用户主动上滑后的阅读位置",
+          "emoji": "🐛"
         },
         {
           "type": "fix",
-          "content": "Fixed BubbleList auto-scroll-to-bottom failing under SSE full-replace mode (skip the nextTick re-validation for streaming so DOM height growth is no longer misread as user-scrolled-up)",
-          "emoji": "🐛",
-          "author": "何嘉悦",
-          "hash": "1ca90ca",
-          "source": "commit"
+          "content": "Fixed BubbleList legacy auto-follow when dynamic slot heights from #topStatus, #item, or #header change during SSE full-replace streaming, while preserving manual scroll-up interruption",
+          "emoji": "🐛"
         },
         {
-          "type": "feat",
-          "content": "BubbleList 文档与 Storybook 新增 SSE 全量替换 + Thinking + Markdown 综合演示（streaming-replace-sse），支持 1-10 档输出速度滑块以观察思考过程",
-          "emoji": "✨",
-          "author": "何嘉悦",
-          "hash": "1ca90ca",
-          "source": "commit"
+          "type": "docs",
+          "content": "BubbleList 英文文档补充 SSE 全量替换与极端动态插槽压力测试案例，完善自动触底行为说明",
+          "emoji": "📚"
         },
         {
-          "type": "feat",
-          "content": "Added BubbleList SSE replace-mode demo (streaming-replace-sse) for both docs and Storybook with Thinking + Markdown integration and a 1-10 speed slider",
-          "emoji": "✨",
-          "author": "何嘉悦",
-          "hash": "1ca90ca",
-          "source": "commit"
+          "type": "docs",
+          "content": "Added English BubbleList SSE full-replacement and extreme dynamic-slot stress demos to document the auto-follow behavior",
+          "emoji": "📚"
         }
       ]
     },

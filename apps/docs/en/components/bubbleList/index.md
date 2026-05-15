@@ -28,6 +28,14 @@ title: 'BubbleList'
 
 <demo src="./demos/streaming-follow.vue"></demo>
 
+### Simulated SSE Full Replacement Auto-Follow Test
+
+<demo src="./demos/streaming-replace-sse.vue"></demo>
+
+### Extreme Scenario: Dynamic Slot Heights and Auto-Follow Stress Test
+
+<demo src="./demos/streaming-replace-sse-extreme.vue"></demo>
+
 ### Bidirectional Pagination Loading
 
 <demo src="./demos/bidirectional-loading.vue"></demo>
