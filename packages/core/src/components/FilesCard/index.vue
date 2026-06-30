@@ -77,11 +77,18 @@ const _description = computed(() => {
 
 const isImageFile = computed(() => _fileType.value === 'image');
 const isSquareVariant = computed(() => imgVariant.value === 'square');
-const _previewImgUrl = computed(() => {
+// 缩略图展示：优先 thumbUrl，其次 url / 本地预览
+const _displayImgUrl = computed(() => {
   if (!isImageFile.value) return undefined;
   if (thumbUrl.value) return thumbUrl.value;
   if (url.value) return url.value;
   return _previewImg.value;
+});
+// 大图预览：优先原图 url，无原图时回退到缩略图
+const _previewSrcList = computed(() => {
+  if (!isImageFile.value || !props.imgPreview) return [];
+  const previewUrl = url.value || thumbUrl.value || _previewImg.value;
+  return previewUrl ? [previewUrl] : [];
 });
 
 const _iconSize = computed(() => {
@@ -118,7 +125,12 @@ function handleDelete() {
 // 遮罩展开时触发预览
 const imgRef = ref();
 function handlePreviewAction(type: 'self' | 'mask') {
-  if (props.imgPreview && imgRef.value && _previewImgUrl && type === 'mask') {
+  if (
+    props.imgPreview &&
+    imgRef.value &&
+    _displayImgUrl.value &&
+    type === 'mask'
+  ) {
     imgRef.value!.showPreview();
   }
   if (type === 'self') {
@@ -178,11 +190,11 @@ defineExpose({
           @mouseleave="imageHovered = false"
         >
           <el-image
-            v-if="_previewImgUrl"
+            v-if="_displayImgUrl"
             ref="imgRef"
             class="elx-files-card-img"
-            :src="_previewImgUrl"
-            :preview-src-list="props.imgPreview ? [_previewImgUrl] : []"
+            :src="_displayImgUrl"
+            :preview-src-list="_previewSrcList"
             fit="cover"
             :show-progress="false"
             hide-on-click-modal
@@ -203,7 +215,7 @@ defineExpose({
             <slot
               v-if="
                 imageHovered &&
-                _previewImgUrl &&
+                _displayImgUrl &&
                 props.imgPreviewMask &&
                 props.imgPreview
               "
