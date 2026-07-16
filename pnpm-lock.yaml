@@ -163,8 +163,8 @@ importers:
         specifier: ^3.5.17
         version: 3.5.18(typescript@5.8.3)
       x-sender:
-        specifier: ^1.3.3
-        version: 1.3.3
+        specifier: ^1.4.3
+        version: 1.4.6
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^4.16.1
@@ -6198,9 +6198,8 @@ packages:
       shiki-stream:
         optional: true
 
-  x-sender@1.3.3:
-    resolution: {integrity: sha512-ts9zRKhMFSXIa4mhEGM3q+HQzFwSH/1Iq0vnD0qdVyFSuO5deZSGeXyFPWj8ClMF0EM5f/Irph2GtgxAKRqVEA==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+  x-sender@1.4.6:
+    resolution: {integrity: sha512-B2aKDunizbkaBHan0MX3cu0Kv6kT7eSRqVQzc2r+7ZqwuiMjOfhz3hyvM+jEvpuQWu5fhTZORWHqtzt368mctw==}
 
   xml-name-validator@4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
@@ -13400,7 +13399,7 @@ snapshots:
       - '@vue/composition-api'
       - supports-color
 
-  x-sender@1.3.3: {}
+  x-sender@1.4.6: {}
 
   xml-name-validator@4.0.0: {}
 
