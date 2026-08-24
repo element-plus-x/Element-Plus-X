@@ -9,14 +9,21 @@ export default function xSenderCssLayerPlugin(): Plugin {
   return {
     name: 'vite-plugin-x-sender-css-layer',
     transform(code, id) {
-      if (id.includes('x-sender') && id.endsWith('.css')) {
-        return {
-          code: `@layer element-plus-x-third-party {
+      const cleanId = id.split('?')[0].replaceAll('\\', '/');
+      const isXSenderStyle =
+        cleanId.includes('/node_modules/x-sender/') &&
+        cleanId.endsWith('/lib/XSender.css');
+
+      if (!isXSenderStyle) {
+        return;
+      }
+
+      return {
+        code: `@layer element-plus-x-third-party {
 ${code}
 }`,
-          map: null
-        };
-      }
+        map: null
+      };
     }
   };
 }
