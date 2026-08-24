@@ -31,6 +31,11 @@ const meta: Meta<typeof ConversationsSource> = {
       control: 'boolean',
       defaultValue: false
     },
+    loadMoreText: {
+      description: '加载更多状态的提示文案',
+      control: 'text',
+      defaultValue: '加载更多...'
+    },
     showToTopBtn: {
       description: '是否显示返回顶部按钮',
       control: 'boolean',

@@ -61,6 +61,7 @@ const props = withDefaults(defineProps<Conversation<T>>(), {
   menuTeleported: true,
   menuStyle: () => ({}),
   loadMoreLoading: false,
+  loadMoreText: '加载更多...',
   showToTopBtn: false,
   labelKey: 'label',
   rowKey: 'id'
@@ -533,11 +534,11 @@ onMounted(() => {
 
           <!-- 加载更多 -->
           <div v-if="props.loadMoreLoading" :class="ns.e('load-more')">
-            <slot name="load-more">
+            <slot name="load-more" :text="props.loadMoreText">
               <el-icon :class="ns.e('load-more-icon')">
                 <Loading />
               </el-icon>
-              <span>加载更多...</span>
+              <span>{{ props.loadMoreText }}</span>
             </slot>
           </div>
         </el-scrollbar>
