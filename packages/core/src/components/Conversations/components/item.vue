@@ -121,25 +121,23 @@ function handleClick(key: string) {
 }
 
 const isTextOverflow = computed(() => {
-  return (label: string = '') => {
-    // 如果没有设置labelMaxWidth，直接返回false
-    if (!labelMaxWidth.value || !isClient) return false;
+  // 如果没有设置labelMaxWidth，直接返回false
+  if (!labelMaxWidth.value || !isClient) return false;
 
-    // 创建一个临时的span元素来测量文本宽度
-    const span = document.createElement('span');
-    span.style.visibility = 'hidden';
-    span.style.position = 'absolute';
-    span.style.whiteSpace = 'nowrap';
-    span.style.fontSize = '14px'; // 与CSS中定义的字体大小一致
-    span.textContent = label;
+  // 仅在 label 或 maxWidth 变化时测量一次，避免每次 render 重复操作 DOM
+  const span = document.createElement('span');
+  span.style.visibility = 'hidden';
+  span.style.position = 'absolute';
+  span.style.whiteSpace = 'nowrap';
+  span.style.fontSize = '14px'; // 与CSS中定义的字体大小一致
+  span.textContent = item.value.label ?? '';
 
-    document.body.appendChild(span);
-    const textWidth = span.offsetWidth;
-    document.body.removeChild(span);
+  document.body.appendChild(span);
+  const textWidth = span.offsetWidth;
+  document.body.removeChild(span);
 
-    // 如果文本宽度大于最大宽度，则返回true表示溢出
-    return textWidth > labelMaxWidth.value;
-  };
+  // 如果文本宽度大于最大宽度，则返回true表示溢出
+  return textWidth > labelMaxWidth.value;
 });
 
 // 计算标签样式
@@ -310,7 +308,7 @@ function closeDropdown() {
           <!-- 标签和时间戳 -->
           <div :class="ns.be('item', 'label-container')">
             <ElTooltip
-              v-if="showTooltip && isTextOverflow(item.label)"
+              v-if="showTooltip && isTextOverflow"
               :content="item.label"
               :placement="tooltipPlacement"
               :offset="tooltipOffset"
@@ -319,9 +317,7 @@ function closeDropdown() {
               <span
                 :class="[
                   ns.be('item', 'label'),
-                  isTextOverflow(item.label)
-                    ? ns.bem('item', 'label', 'gradient')
-                    : ''
+                  isTextOverflow ? ns.bem('item', 'label', 'gradient') : ''
                 ]"
                 :style="labelStyle"
                 >{{ item.label }}</span
@@ -331,9 +327,7 @@ function closeDropdown() {
               v-else
               :class="[
                 ns.be('item', 'label'),
-                isTextOverflow(item.label)
-                  ? ns.bem('item', 'label', 'gradient')
-                  : ''
+                isTextOverflow ? ns.bem('item', 'label', 'gradient') : ''
               ]"
               :style="labelStyle"
               >{{ item.label }}</span
