@@ -55,6 +55,27 @@ export interface BubbleListItemContext<
   autoScroll: boolean;
 }
 
+export interface BubbleListBubbleSlotContext<
+  T extends BubbleListItemProps = BubbleListItemProps
+> {
+  item: T;
+  index: number;
+}
+
+export interface BubbleListSlots<
+  T extends BubbleListItemProps = BubbleListItemProps
+> {
+  avatar?: (context: BubbleListBubbleSlotContext<T>) => unknown;
+  header?: (context: BubbleListBubbleSlotContext<T>) => unknown;
+  content?: (context: BubbleListBubbleSlotContext<T>) => unknown;
+  footer?: (context: BubbleListBubbleSlotContext<T>) => unknown;
+  loading?: (context: BubbleListBubbleSlotContext<T>) => unknown;
+  item?: (context: BubbleListItemContext<T>) => unknown;
+  topStatus?: (context: BubbleListBoundaryContext) => unknown;
+  bottomStatus?: (context: BubbleListBoundaryContext) => unknown;
+  backToBottom?: (context: BubbleListBackButtonContext) => unknown;
+}
+
 export interface BubbleListBoundaryState {
   type: BubbleListBoundaryStateType;
   text?: string;
