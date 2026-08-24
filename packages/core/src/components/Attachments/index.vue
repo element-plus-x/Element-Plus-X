@@ -143,11 +143,13 @@ function getTargetElement() {
 }
 
 function targetDragEnter(event: DragEvent) {
+  if (props.hideUpload) return;
   event.preventDefault();
   debouncedStyle(true);
 }
 
 function targetDropLeave(event: DragEvent) {
+  if (props.hideUpload) return;
   event.preventDefault();
   // 新增逻辑：若离开后进入的元素仍在目标元素内部，不执行样式移除
   const relatedTarget = event.relatedTarget as Node;
@@ -158,6 +160,7 @@ function targetDropLeave(event: DragEvent) {
 }
 
 function targetDrop(event: DragEvent) {
+  if (props.hideUpload) return;
   event.preventDefault();
   debouncedStyle(false);
   if (event.dataTransfer) {
@@ -169,7 +172,39 @@ function targetDrop(event: DragEvent) {
 }
 
 function targetDragOver(event: DragEvent) {
+  if (props.hideUpload) return;
   event.preventDefault();
+}
+
+function removeDragListenersFrom(element: HTMLElement) {
+  element.removeEventListener('dragenter', targetDragEnter, false);
+  element.removeEventListener('dragleave', targetDropLeave, false);
+  element.removeEventListener('drop', targetDrop, false);
+  element.removeEventListener('dragover', targetDragOver, false);
+}
+
+function removeDragListeners() {
+  if (targetElement.value) {
+    removeDragListenersFrom(targetElement.value);
+  }
+  debouncedStyle(false);
+}
+
+function addDragListeners() {
+  if (!wrapperRef.value || props.hideUpload) return;
+
+  const element = getTargetElement() || wrapperRef.value;
+  if (!element) return;
+
+  if (targetElement.value && targetElement.value !== element) {
+    removeDragListenersFrom(targetElement.value);
+  }
+
+  targetElement.value = element;
+  element.addEventListener('dragenter', targetDragEnter, false);
+  element.addEventListener('dragleave', targetDropLeave, false);
+  element.addEventListener('drop', targetDrop, false);
+  element.addEventListener('dragover', targetDragOver, false);
 }
 
 /* 上传相关 结束 */
@@ -187,33 +222,12 @@ onMounted(() => {
   nextTick(() => debouncedCheckPing());
   window.addEventListener('resize', debouncedCheckPing);
 
-  // 如果有拖拽目标元素，则监听拖拽事件
-  if (wrapperRef.value) {
-    targetElement.value = getTargetElement() || wrapperRef.value;
-    // 监听拖拽事件
-    targetElement.value.addEventListener('dragenter', targetDragEnter, false);
-    targetElement.value.addEventListener('dragleave', targetDropLeave, false);
-    targetElement.value.addEventListener('drop', targetDrop, false);
-    targetElement.value.addEventListener('dragover', targetDragOver, false);
-  }
+  addDragListeners();
 });
 
 onUnmounted(() => {
   window.removeEventListener('resize', debouncedCheckPing);
-  if (targetElement.value) {
-    targetElement.value.removeEventListener(
-      'dragenter',
-      targetDragEnter,
-      false
-    );
-    targetElement.value.removeEventListener(
-      'dragleave',
-      targetDropLeave,
-      false
-    );
-    targetElement.value.removeEventListener('drop', targetDrop, false);
-    targetElement.value.removeEventListener('dragover', targetDragOver, false);
-  }
+  removeDragListeners();
 });
 
 watch(
@@ -228,33 +242,16 @@ watch(
   }
 );
 
-// 监听 props.dragTarget
+// 监听 dragTarget / hideUpload，动态绑定或解绑拖拽上传
 watch(
-  () => props.dragTarget,
+  () => [props.dragTarget, props.hideUpload],
   () => {
-    // 确保 DOM 更新后再调用 checkPing
     nextTick(() => {
-      // 如果有拖拽目标元素，则监听拖拽事件
-      if (wrapperRef.value) {
-        targetElement.value = getTargetElement() || wrapperRef.value;
-        // 监听拖拽事件
-        targetElement.value.addEventListener(
-          'dragenter',
-          targetDragEnter,
-          false
-        );
-        targetElement.value.addEventListener(
-          'dragleave',
-          targetDropLeave,
-          false
-        );
-        targetElement.value.addEventListener('drop', targetDrop, false);
-        targetElement.value.addEventListener('dragover', targetDragOver, false);
-      }
+      removeDragListeners();
+      addDragListeners();
     });
   },
   {
-    immediate: true, // 组件初始化时立即调用一次
     deep: true
   }
 );
@@ -410,7 +407,10 @@ defineExpose({
     </slot>
 
     <!-- 使用 DropArea 组件 -->
-    <teleport v-if="targetElement && isTargetDrag" :to="targetElement">
+    <teleport
+      v-if="targetElement && isTargetDrag && !props.hideUpload"
+      :to="targetElement"
+    >
       <slot name="drop-area">
         <div ref="dropAreaRef" class="elx-attachments-drop-area">
           <el-icon class="elx-attachments-drop-area-icon">
