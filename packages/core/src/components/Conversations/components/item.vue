@@ -314,6 +314,7 @@ function closeDropdown() {
               :content="item.label"
               :placement="tooltipPlacement"
               :offset="tooltipOffset"
+              :popper-class="ns.b('tooltip')"
               effect="dark"
             >
               <span
