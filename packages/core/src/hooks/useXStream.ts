@@ -13,16 +13,14 @@ function splitStream() {
     transform(chunk, controller) {
       buffer += chunk;
       const parts = buffer.split(DEFAULT_STREAM_SEPARATOR);
-      parts.slice(0, -1).forEach((part) => {
-        if (isValidString(part))
-          controller.enqueue(part);
+      parts.slice(0, -1).forEach(part => {
+        if (isValidString(part)) controller.enqueue(part);
       });
       buffer = parts[parts.length - 1];
     },
     flush(controller) {
-      if (isValidString(buffer))
-        controller.enqueue(buffer);
-    },
+      if (isValidString(buffer)) controller.enqueue(buffer);
+    }
   });
 }
 
@@ -32,20 +30,17 @@ function splitPart() {
       const lines = partChunk.split(DEFAULT_PART_SEPARATOR);
       const sseEvent = lines.reduce<SSEOutput>((acc, line) => {
         const sepIndex = line.indexOf(DEFAULT_KV_SEPARATOR);
-        if (sepIndex === -1)
-          return acc;
+        if (sepIndex === -1) return acc;
 
         const key = line.slice(0, sepIndex);
-        if (!isValidString(key))
-          return acc;
+        if (!isValidString(key)) return acc;
 
         const value = line.slice(sepIndex + 1);
         return { ...acc, [key]: value };
       }, {});
 
-      if (Object.keys(sseEvent).length > 0)
-        controller.enqueue(sseEvent);
-    },
+      if (Object.keys(sseEvent).length > 0) controller.enqueue(sseEvent);
+    }
   });
 }
 
@@ -67,44 +62,47 @@ type XReadableStream<R = SSEOutput> = ReadableStream<R> & {
 // 核心流处理函数（支持中断）
 function XStream<Output = SSEOutput>(
   options: XStreamOptions<Output>,
-  signal?: AbortSignal,
+  signal?: AbortSignal
 ): XReadableStream<Output> {
   const { readableStream, transformStream } = options;
   if (!(readableStream instanceof ReadableStream)) {
-    throw new TypeError('options.readableStream 必须是 ReadableStream 的实例。');
+    throw new TypeError(
+      'options.readableStream 必须是 ReadableStream 的实例。'
+    );
   }
 
   const decoderStream = new TextDecoderStream();
   const processedStream = transformStream
-    ? readableStream
+    ? readableStream.pipeThrough(decoderStream).pipeThrough(transformStream)
+    : (readableStream
         .pipeThrough(decoderStream)
-        .pipeThrough(transformStream)
-    : readableStream
-      .pipeThrough(decoderStream)
-      .pipeThrough(splitStream())
-      .pipeThrough(splitPart()) as XReadableStream<Output>;
+        .pipeThrough(splitStream())
+        .pipeThrough(splitPart()) as XReadableStream<Output>);
 
   // 为流添加异步迭代器并处理中断信号
-  (processedStream as XReadableStream<Output>)[Symbol.asyncIterator] = async function* () {
-    const reader = this.getReader();
-    (this as XReadableStream<Output>).reader = reader; // 保存读取器引用
-    try {
-      while (true) {
+  (processedStream as XReadableStream<Output>)[Symbol.asyncIterator] =
+    async function* () {
+      const reader = this.getReader();
+      const cancelReader = () => {
+        void reader.cancel().catch(() => undefined);
+      };
+      (this as XReadableStream<Output>).reader = reader; // 保存读取器引用
+      signal?.addEventListener('abort', cancelReader, { once: true });
+      try {
         if (signal?.aborted) {
-          await reader.cancel(); // 主动取消 reader
-          break;
+          await reader.cancel();
+          return;
         }
-        const { done, value } = await reader.read();
-        if (done)
-          break;
-        if (value)
-          yield value;
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done || signal?.aborted) break;
+          if (value) yield value;
+        }
+      } finally {
+        signal?.removeEventListener('abort', cancelReader);
+        reader.releaseLock(); // 释放锁
       }
-    }
-    finally {
-      reader.releaseLock(); // 释放锁
-    }
-  };
+    };
 
   return processedStream as XReadableStream<Output>;
 }
@@ -116,44 +114,65 @@ export function useXStream() {
   const isLoading = ref<boolean>(false);
   const abortController = shallowRef<AbortController | null>(null);
   const currentStream = shallowRef<XReadableStream<SSEOutput> | null>(null);
+  let streamGeneration = 0;
+
+  const stopCurrentStream = () => {
+    abortController.value?.abort();
+    const reader = currentStream.value?.reader;
+    if (reader) {
+      void reader.cancel().catch(() => undefined);
+    }
+    currentStream.value = null;
+    abortController.value = null;
+  };
 
   // 启动流式请求
   const startStream = async (options: XStreamOptions<SSEOutput>) => {
+    stopCurrentStream();
+    const generation = ++streamGeneration;
+    const controller = new AbortController();
+
     isLoading.value = true;
     error.value = null;
     data.value = [];
-    abortController.value = new AbortController();
-    currentStream.value = XStream(options, abortController.value.signal);
+    abortController.value = controller;
 
     try {
-      for await (const item of currentStream.value!) {
+      const stream = XStream(options, controller.signal);
+      currentStream.value = stream;
+      for await (const item of stream) {
+        if (controller.signal.aborted || generation !== streamGeneration) break;
         data.value.push(item);
       }
-    }
-    catch (err) {
-      if (err instanceof Error) {
+    } catch (err) {
+      if (
+        generation === streamGeneration &&
+        !controller.signal.aborted &&
+        err instanceof Error
+      ) {
         error.value = err;
       }
-    }
-    finally {
-      isLoading.value = false;
-      currentStream.value = null; // 释放流引用
-      abortController.value = null; // 释放控制器
+    } finally {
+      if (generation === streamGeneration) {
+        isLoading.value = false;
+        currentStream.value = null;
+        abortController.value = null;
+      }
     }
   };
 
   // 中断流式请求（强制关闭流）
   const cancel = () => {
-    if (abortController.value) {
-      abortController.value.abort();
-    }
+    streamGeneration += 1;
+    stopCurrentStream();
+    isLoading.value = false;
   };
 
   return {
     startStream,
-    cancel, // 新增中断方法
+    cancel,
     data,
     error,
-    isLoading,
+    isLoading
   };
 }
