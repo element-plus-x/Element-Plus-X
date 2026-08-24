@@ -65,7 +65,15 @@ const meta: Meta<typeof ConversationsSource> = {
       description: '会话项菜单打开时样式',
       control: 'object',
       defaultValue: {}
+    },
+    style: {
+      description: '会话列表容器样式',
+      control: 'object',
+      defaultValue: { width: '100%' }
     }
+  },
+  args: {
+    style: { width: '100%' }
   }
 } satisfies Meta<typeof ConversationsSource>;
 

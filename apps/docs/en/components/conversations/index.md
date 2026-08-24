@@ -61,6 +61,7 @@ Override `Conversations` theme tokens via `ConfigProvider.themeOverrides`. See t
 | `showToTopBtn`         | `boolean`                     | No       | `false`   | Whether to show back to top button                                                       |
 | `labelKey`             | `string`                      | No       | `'label'` | Session item label field name                                                            |
 | `rowKey`               | `string`                      | No       | `'id'`    | Session item unique identifier field name                                                |
+| `style`                | `CSSProperties`               | No       | `{}`      | Container styles; use `width` to set the conversation list width                         |
 | `itemsStyle`           | `CSSProperties`               | No       | `{}`      | Session item default style                                                               |
 | `itemsHoverStyle`      | `CSSProperties`               | No       | `{}`      | Session item hover style                                                                 |
 | `itemsActiveStyle`     | `CSSProperties`               | No       | `{}`      | Session item active style                                                                |

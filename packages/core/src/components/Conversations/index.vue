@@ -117,7 +117,9 @@ const mergedStyle = computed(() => {
 });
 
 const containerStyle = computed(() => {
+  const width = mergedStyle.value.width;
   return ns.cssVarBlock({
+    'container-width': typeof width === 'number' ? `${width}px` : width,
     'label-height': `${props.labelHeight}px`,
     'list-auto-bg-color': mergedStyle.value.backgroundColor as string
   });

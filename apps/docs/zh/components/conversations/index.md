@@ -61,6 +61,7 @@ title: 'Conversations'
 | `showToTopBtn`         | `boolean`                     | 否       | `false`   | 是否显示返回顶部按钮                                      |
 | `labelKey`             | `string`                      | 否       | `'label'` | 会话项标签字段名                                          |
 | `rowKey`               | `string`                      | 否       | `'id'`    | 会话项唯一标识字段名                                      |
+| `style`                | `CSSProperties`               | 否       | `{}`      | 容器样式，可通过 `width` 设置会话列表宽度                 |
 | `itemsStyle`           | `CSSProperties`               | 否       | `{}`      | 会话项默认样式                                            |
 | `itemsHoverStyle`      | `CSSProperties`               | 否       | `{}`      | 会话项悬停样式                                            |
 | `itemsActiveStyle`     | `CSSProperties`               | 否       | `{}`      | 会话项激活样式                                            |
