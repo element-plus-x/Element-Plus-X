@@ -113,7 +113,11 @@ const mergedStyle = computed(() => {
     width: '280px',
     height: '0'
   };
-  return { ...defaultStyle, ...props.style };
+  return {
+    ...defaultStyle,
+    ...props.style,
+    width: props.style?.width ?? defaultStyle.width
+  };
 });
 
 const containerStyle = computed(() => {
