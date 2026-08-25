@@ -122,6 +122,7 @@ function handleClick(key: string) {
 
 const labelRef = ref<HTMLElement | null>(null);
 const isTextOverflow = ref(false);
+let labelResizeObserver: ResizeObserver | null = null;
 
 async function updateTextOverflow() {
   if (!labelMaxWidth.value || !isClient) {
@@ -140,6 +141,29 @@ watch(
   updateTextOverflow,
   { deep: true, immediate: true }
 );
+
+watch(
+  labelRef,
+  label => {
+    labelResizeObserver?.disconnect();
+    labelResizeObserver = null;
+
+    if (!label || typeof ResizeObserver === 'undefined') {
+      return;
+    }
+
+    labelResizeObserver = new ResizeObserver(() => {
+      updateTextOverflow();
+    });
+    labelResizeObserver.observe(label);
+  },
+  { flush: 'post' }
+);
+
+onBeforeUnmount(() => {
+  labelResizeObserver?.disconnect();
+  labelResizeObserver = null;
+});
 
 // 计算标签样式
 const labelStyle = computed(() => {
