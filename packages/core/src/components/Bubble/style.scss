@@ -83,13 +83,6 @@
     word-break: break-word;
   }
 
-  .elx-bubble__content--empty {
-    min-height: 0;
-    padding: 0;
-    border: 0;
-    box-shadow: none;
-  }
-
   // 气泡圆角
   .elx-bubble__content--round {
     border-radius: var(--el-border-radius-round);
@@ -116,6 +109,13 @@
     background: none;
     // box-shadow: var(--el-box-shadow-tertiary);
     box-shadow: var(--elx-bubble-shadow, var(--el-box-shadow));
+  }
+
+  .elx-bubble__content--empty {
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
   }
 
   .elx-bubble__content--loading {
