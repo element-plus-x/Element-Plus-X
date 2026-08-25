@@ -106,6 +106,9 @@ defineExpose({
         :class="[
           ns.e('content'),
           loading ? ns.em('content', 'loading') : '',
+          !loading && !content && !$slots.content
+            ? ns.em('content', 'empty')
+            : '',
           shape === 'round' && !noStyle ? ns.em('content', 'round') : '',
           shape === 'corner' && !noStyle ? ns.em('content', 'corner') : '',
           variant === 'filled' && !noStyle ? ns.em('content', 'filled') : '',

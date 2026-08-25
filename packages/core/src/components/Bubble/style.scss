@@ -81,12 +81,6 @@
         var(--el-font-size-base)
     );
     word-break: break-word;
-
-    // 打字器没有内容时候展示高度
-    .no-content {
-      // height: 16px;
-      height: 0;
-    }
   }
 
   // 气泡圆角
@@ -115,6 +109,13 @@
     background: none;
     // box-shadow: var(--el-box-shadow-tertiary);
     box-shadow: var(--elx-bubble-shadow, var(--el-box-shadow));
+  }
+
+  .elx-bubble__content--empty {
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
   }
 
   .elx-bubble__content--loading {
