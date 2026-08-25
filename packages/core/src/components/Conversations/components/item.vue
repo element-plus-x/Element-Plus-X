@@ -120,25 +120,26 @@ function handleClick(key: string) {
   emit('click', key);
 }
 
-const isTextOverflow = computed(() => {
-  // 如果没有设置labelMaxWidth，直接返回false
-  if (!labelMaxWidth.value || !isClient) return false;
+const labelRef = ref<HTMLElement | null>(null);
+const isTextOverflow = ref(false);
 
-  // 仅在 label 或 maxWidth 变化时测量一次，避免每次 render 重复操作 DOM
-  const span = document.createElement('span');
-  span.style.visibility = 'hidden';
-  span.style.position = 'absolute';
-  span.style.whiteSpace = 'nowrap';
-  span.style.fontSize = '14px'; // 与CSS中定义的字体大小一致
-  span.textContent = item.value.label ?? '';
+async function updateTextOverflow() {
+  if (!labelMaxWidth.value || !isClient) {
+    isTextOverflow.value = false;
+    return;
+  }
 
-  document.body.appendChild(span);
-  const textWidth = span.offsetWidth;
-  document.body.removeChild(span);
+  await nextTick();
+  const label = labelRef.value;
+  isTextOverflow.value =
+    label !== null && label.scrollWidth > label.clientWidth;
+}
 
-  // 如果文本宽度大于最大宽度，则返回true表示溢出
-  return textWidth > labelMaxWidth.value;
-});
+watch(
+  [() => item.value.label, labelMaxWidth, itemsStyle, labelRef],
+  updateTextOverflow,
+  { deep: true, immediate: true }
+);
 
 // 计算标签样式
 const labelStyle = computed(() => {
@@ -316,6 +317,7 @@ function closeDropdown() {
               effect="dark"
             >
               <span
+                ref="labelRef"
                 :class="[
                   ns.be('item', 'label'),
                   isTextOverflow ? ns.bem('item', 'label', 'gradient') : ''
@@ -326,6 +328,7 @@ function closeDropdown() {
             </ElTooltip>
             <span
               v-else
+              ref="labelRef"
               :class="[
                 ns.be('item', 'label'),
                 isTextOverflow ? ns.bem('item', 'label', 'gradient') : ''

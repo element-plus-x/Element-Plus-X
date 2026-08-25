@@ -121,6 +121,11 @@ const mergedStyle = computed(() => {
   };
 });
 
+const listStyle = computed(() => ({
+  ...mergedStyle.value,
+  width: undefined
+}));
+
 const containerStyle = computed(() => {
   const width = mergedStyle.value.width;
   return ns.cssVarBlock({
@@ -389,7 +394,7 @@ onMounted(() => {
 <template>
   <div :class="ns.b()" :style="containerStyle">
     <slot name="header" />
-    <ul :class="ns.e('list')" :style="mergedStyle">
+    <ul :class="ns.e('list')" :style="listStyle">
       <!-- 滚动区域容器 -->
       <li :class="ns.e('scroll-wrapper')">
         <el-scrollbar
