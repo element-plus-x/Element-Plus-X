@@ -9,7 +9,8 @@ import type {
   BubbleListItemContext,
   BubbleListItemProps,
   BubbleListProps,
-  BubbleListScrollState
+  BubbleListScrollState,
+  BubbleListSlots
 } from './types';
 import { ArrowDownBold } from '@element-plus/icons-vue';
 import { Virtualizer } from 'virtua/vue';
@@ -50,6 +51,9 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
 });
 
 const emit = defineEmits<BubbleListEmits>();
+
+defineSlots<BubbleListSlots<T>>();
+
 const instance = getCurrentInstance();
 const ns = useNamespace('bubble-list');
 const MESSAGE_ITEM_TYPES = new Set(['bubble', 'message']);
@@ -1209,19 +1213,19 @@ defineExpose({
               :no-style="item.noStyle"
             >
               <template v-if="$slots.avatar" #avatar>
-                <slot name="avatar" :item="item" />
+                <slot name="avatar" :item="item" :index="index" />
               </template>
               <template v-if="$slots.header" #header>
-                <slot name="header" :item="item" />
+                <slot name="header" :item="item" :index="index" />
               </template>
               <template v-if="$slots.content" #content>
-                <slot name="content" :item="item" />
+                <slot name="content" :item="item" :index="index" />
               </template>
               <template v-if="$slots.footer" #footer>
-                <slot name="footer" :item="item" />
+                <slot name="footer" :item="item" :index="index" />
               </template>
               <template v-if="$slots.loading" #loading>
-                <slot name="loading" :item="item" />
+                <slot name="loading" :item="item" :index="index" />
               </template>
             </Bubble>
           </template>
@@ -1276,19 +1280,19 @@ defineExpose({
                   :no-style="item.noStyle"
                 >
                   <template v-if="$slots.avatar" #avatar>
-                    <slot name="avatar" :item="item" />
+                    <slot name="avatar" :item="item" :index="index" />
                   </template>
                   <template v-if="$slots.header" #header>
-                    <slot name="header" :item="item" />
+                    <slot name="header" :item="item" :index="index" />
                   </template>
                   <template v-if="$slots.content" #content>
-                    <slot name="content" :item="item" />
+                    <slot name="content" :item="item" :index="index" />
                   </template>
                   <template v-if="$slots.footer" #footer>
-                    <slot name="footer" :item="item" />
+                    <slot name="footer" :item="item" :index="index" />
                   </template>
                   <template v-if="$slots.loading" #loading>
-                    <slot name="loading" :item="item" />
+                    <slot name="loading" :item="item" :index="index" />
                   </template>
                 </Bubble>
               </template>
