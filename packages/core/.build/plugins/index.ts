@@ -9,14 +9,14 @@ import xSenderCssLayerPlugin from './xSenderCssLayer';
 const plugins: PluginOption[] = [
   vue({
     script: {
-      propsDestructure: true
-    }
+      propsDestructure: true,
+    },
   }) as PluginOption,
   // prismjsPlugin,
   ...autoImportPlugin,
   dtsPlugin as PluginOption,
   libInjectCss() as PluginOption,
-  xSenderCssLayerPlugin() as PluginOption
+  xSenderCssLayerPlugin() as PluginOption,
 ];
 
 export default plugins;
