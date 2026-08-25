@@ -160,7 +160,7 @@ watch(
     <Transition :name="`${ns.b()}-slide`">
       <div
         v-show="isExpanded"
-        v-if="displayedContent"
+        v-if="displayedContent || $slots.content"
         :class="[
           ns.e('content-wrapper'),
           status === 'error' ? ns.em('content-wrapper', 'error-state') : ''
