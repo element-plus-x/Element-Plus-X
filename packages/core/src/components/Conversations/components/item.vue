@@ -143,12 +143,12 @@ watch(
 );
 
 watch(
-  labelRef,
-  label => {
+  [labelRef, labelMaxWidth],
+  ([label, maxWidth]) => {
     labelResizeObserver?.disconnect();
     labelResizeObserver = null;
 
-    if (!label || typeof ResizeObserver === 'undefined') {
+    if (!label || !maxWidth || typeof ResizeObserver === 'undefined') {
       return;
     }
 
