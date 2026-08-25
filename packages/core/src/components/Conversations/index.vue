@@ -61,6 +61,7 @@ const props = withDefaults(defineProps<Conversation<T>>(), {
   menuTeleported: true,
   menuStyle: () => ({}),
   loadMoreLoading: false,
+  loadMoreText: '加载更多...',
   showToTopBtn: false,
   labelKey: 'label',
   rowKey: 'id'
@@ -113,11 +114,22 @@ const mergedStyle = computed(() => {
     width: '280px',
     height: '0'
   };
-  return { ...defaultStyle, ...props.style };
+  return {
+    ...defaultStyle,
+    ...props.style,
+    width: props.style?.width ?? defaultStyle.width
+  };
 });
 
+const listStyle = computed(() => ({
+  ...mergedStyle.value,
+  width: undefined
+}));
+
 const containerStyle = computed(() => {
+  const width = mergedStyle.value.width;
   return ns.cssVarBlock({
+    'container-width': typeof width === 'number' ? `${width}px` : width,
     'label-height': `${props.labelHeight}px`,
     'list-auto-bg-color': mergedStyle.value.backgroundColor as string
   });
@@ -382,7 +394,7 @@ onMounted(() => {
 <template>
   <div :class="ns.b()" :style="containerStyle">
     <slot name="header" />
-    <ul :class="ns.e('list')" :style="mergedStyle">
+    <ul :class="ns.e('list')" :style="listStyle">
       <!-- 滚动区域容器 -->
       <li :class="ns.e('scroll-wrapper')">
         <el-scrollbar
@@ -527,11 +539,11 @@ onMounted(() => {
 
           <!-- 加载更多 -->
           <div v-if="props.loadMoreLoading" :class="ns.e('load-more')">
-            <slot name="load-more">
+            <slot name="load-more" :text="props.loadMoreText">
               <el-icon :class="ns.e('load-more-icon')">
                 <Loading />
               </el-icon>
-              <span>加载更多...</span>
+              <span>{{ props.loadMoreText }}</span>
             </slot>
           </div>
         </el-scrollbar>

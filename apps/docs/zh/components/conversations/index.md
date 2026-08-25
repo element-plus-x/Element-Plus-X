@@ -51,20 +51,22 @@ title: 'Conversations'
 
 ## 属性
 
-| 属性名                 | 类型                          | 是否必填 | 默认值    | 描述                                                      |
-| ---------------------- | ----------------------------- | -------- | --------- | --------------------------------------------------------- |
-| `items`                | `ConversationItem<T>[]`       | 否       | `[]`      | 会话项数据列表，包含 `label`、`group`、`disabled` 等字段  |
-| `groupable`            | `boolean \| GroupableOptions` | 否       | `false`   | 是否启用分组功能，传入对象可自定义分组排序（`sort` 函数） |
-| `showBuiltInMenu`      | `boolean`                     | 否       | `false`   | 是否显示内置菜单（重命名、删除）                          |
-| `loadMore`             | `() => void`                  | 否       | -         | 懒加载回调函数，滚动至底部时触发                          |
-| `loadMoreLoading`      | `boolean`                     | 否       | `false`   | 加载更多状态，控制加载动画显示                            |
-| `showToTopBtn`         | `boolean`                     | 否       | `false`   | 是否显示返回顶部按钮                                      |
-| `labelKey`             | `string`                      | 否       | `'label'` | 会话项标签字段名                                          |
-| `rowKey`               | `string`                      | 否       | `'id'`    | 会话项唯一标识字段名                                      |
-| `itemsStyle`           | `CSSProperties`               | 否       | `{}`      | 会话项默认样式                                            |
-| `itemsHoverStyle`      | `CSSProperties`               | 否       | `{}`      | 会话项悬停样式                                            |
-| `itemsActiveStyle`     | `CSSProperties`               | 否       | `{}`      | 会话项激活样式                                            |
-| `itemsMenuOpenedStyle` | `CSSProperties`               | 否       | `{}`      | 会话项菜单打开时样式                                      |
+| 属性名                 | 类型                          | 是否必填 | 默认值          | 描述                                                      |
+| ---------------------- | ----------------------------- | -------- | --------------- | --------------------------------------------------------- |
+| `items`                | `ConversationItem<T>[]`       | 否       | `[]`            | 会话项数据列表，包含 `label`、`group`、`disabled` 等字段  |
+| `groupable`            | `boolean \| GroupableOptions` | 否       | `false`         | 是否启用分组功能，传入对象可自定义分组排序（`sort` 函数） |
+| `showBuiltInMenu`      | `boolean`                     | 否       | `false`         | 是否显示内置菜单（重命名、删除）                          |
+| `loadMore`             | `() => void`                  | 否       | -               | 懒加载回调函数，滚动至底部时触发                          |
+| `loadMoreLoading`      | `boolean`                     | 否       | `false`         | 加载更多状态，控制加载动画显示                            |
+| `loadMoreText`         | `string`                      | 否       | `'加载更多...'` | 加载更多状态的提示文案                                    |
+| `showToTopBtn`         | `boolean`                     | 否       | `false`         | 是否显示返回顶部按钮                                      |
+| `labelKey`             | `string`                      | 否       | `'label'`       | 会话项标签字段名                                          |
+| `rowKey`               | `string`                      | 否       | `'id'`          | 会话项唯一标识字段名                                      |
+| `style`                | `CSSProperties`               | 否       | `{}`            | 容器样式，可通过 `width` 设置会话列表宽度                 |
+| `itemsStyle`           | `CSSProperties`               | 否       | `{}`            | 会话项默认样式                                            |
+| `itemsHoverStyle`      | `CSSProperties`               | 否       | `{}`            | 会话项悬停样式                                            |
+| `itemsActiveStyle`     | `CSSProperties`               | 否       | `{}`            | 会话项激活样式                                            |
+| `itemsMenuOpenedStyle` | `CSSProperties`               | 否       | `{}`            | 会话项菜单打开时样式                                      |
 
 ## 插槽
 
@@ -74,6 +76,7 @@ title: 'Conversations'
 | `#label`       | `{ item: ConversationItem<T> }`                           | 自定义会话项标签内容，支持文本溢出处理或富文本                                                                               |
 | `#more-filled` | `{ item, isHovered, isActive, isMenuOpened, isDisabled }` | 会话项右侧附加内容，显示状态标识（如：禁用标记、操作图标）                                                                   |
 | `#menu`        | `{ item: ConversationItem<T>, handleOpen, handleClose }`  | 自定义菜单内容，支持按钮、图标或复杂交互组件,`handleOpen`用来手动控制下拉菜单的开启,`handleClose`用来手动控制下拉菜单的关闭. |
+| `#load-more`   | `{ text: string }`                                        | 自定义加载更多区域                                                                                                           |
 | `#header`      | -                                                         | 容器头部插槽，用于添加搜索栏、筛选按钮等自定义内容                                                                           |
 | `#footer`      | -                                                         | 容器底部插槽，用于添加分页、统计信息等自定义内容                                                                             |
 

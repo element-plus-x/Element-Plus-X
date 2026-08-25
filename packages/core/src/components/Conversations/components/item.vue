@@ -120,26 +120,49 @@ function handleClick(key: string) {
   emit('click', key);
 }
 
-const isTextOverflow = computed(() => {
-  return (label: string = '') => {
-    // 如果没有设置labelMaxWidth，直接返回false
-    if (!labelMaxWidth.value || !isClient) return false;
+const labelRef = ref<HTMLElement | null>(null);
+const isTextOverflow = ref(false);
+let labelResizeObserver: ResizeObserver | null = null;
 
-    // 创建一个临时的span元素来测量文本宽度
-    const span = document.createElement('span');
-    span.style.visibility = 'hidden';
-    span.style.position = 'absolute';
-    span.style.whiteSpace = 'nowrap';
-    span.style.fontSize = '14px'; // 与CSS中定义的字体大小一致
-    span.textContent = label;
+async function updateTextOverflow() {
+  if (!labelMaxWidth.value || !isClient) {
+    isTextOverflow.value = false;
+    return;
+  }
 
-    document.body.appendChild(span);
-    const textWidth = span.offsetWidth;
-    document.body.removeChild(span);
+  await nextTick();
+  const label = labelRef.value;
+  isTextOverflow.value =
+    label !== null && label.scrollWidth > label.clientWidth;
+}
 
-    // 如果文本宽度大于最大宽度，则返回true表示溢出
-    return textWidth > labelMaxWidth.value;
-  };
+watch(
+  [() => item.value.label, labelMaxWidth, itemsStyle, labelRef],
+  updateTextOverflow,
+  { deep: true, immediate: true }
+);
+
+watch(
+  [labelRef, labelMaxWidth],
+  ([label, maxWidth]) => {
+    labelResizeObserver?.disconnect();
+    labelResizeObserver = null;
+
+    if (!label || !maxWidth || typeof ResizeObserver === 'undefined') {
+      return;
+    }
+
+    labelResizeObserver = new ResizeObserver(() => {
+      updateTextOverflow();
+    });
+    labelResizeObserver.observe(label);
+  },
+  { flush: 'post' }
+);
+
+onBeforeUnmount(() => {
+  labelResizeObserver?.disconnect();
+  labelResizeObserver = null;
 });
 
 // 计算标签样式
@@ -310,18 +333,18 @@ function closeDropdown() {
           <!-- 标签和时间戳 -->
           <div :class="ns.be('item', 'label-container')">
             <ElTooltip
-              v-if="showTooltip && isTextOverflow(item.label)"
+              v-if="showTooltip && isTextOverflow"
               :content="item.label"
               :placement="tooltipPlacement"
               :offset="tooltipOffset"
+              :popper-class="ns.b('tooltip')"
               effect="dark"
             >
               <span
+                ref="labelRef"
                 :class="[
                   ns.be('item', 'label'),
-                  isTextOverflow(item.label)
-                    ? ns.bem('item', 'label', 'gradient')
-                    : ''
+                  isTextOverflow ? ns.bem('item', 'label', 'gradient') : ''
                 ]"
                 :style="labelStyle"
                 >{{ item.label }}</span
@@ -329,11 +352,10 @@ function closeDropdown() {
             </ElTooltip>
             <span
               v-else
+              ref="labelRef"
               :class="[
                 ns.be('item', 'label'),
-                isTextOverflow(item.label)
-                  ? ns.bem('item', 'label', 'gradient')
-                  : ''
+                isTextOverflow ? ns.bem('item', 'label', 'gradient') : ''
               ]"
               :style="labelStyle"
               >{{ item.label }}</span

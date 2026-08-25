@@ -51,20 +51,22 @@ Override `Conversations` theme tokens via `ConfigProvider.themeOverrides`. See t
 
 ## Properties
 
-| Property Name          | Type                          | Required | Default   | Description                                                                              |
-| ---------------------- | ----------------------------- | -------- | --------- | ---------------------------------------------------------------------------------------- |
-| `items`                | `ConversationItem<T>[]`       | No       | `[]`      | Session item data list, containing `label`, `group`, `disabled` and other fields         |
-| `groupable`            | `boolean \| GroupableOptions` | No       | `false`   | Whether to enable grouping, passing object can customize group sorting (`sort` function) |
-| `showBuiltInMenu`      | `boolean`                     | No       | `false`   | Whether to show built-in menu (rename, delete)                                           |
-| `loadMore`             | `() => void`                  | No       | -         | Lazy loading callback function, triggered when scrolling to bottom                       |
-| `loadMoreLoading`      | `boolean`                     | No       | `false`   | Load more state, controls loading animation display                                      |
-| `showToTopBtn`         | `boolean`                     | No       | `false`   | Whether to show back to top button                                                       |
-| `labelKey`             | `string`                      | No       | `'label'` | Session item label field name                                                            |
-| `rowKey`               | `string`                      | No       | `'id'`    | Session item unique identifier field name                                                |
-| `itemsStyle`           | `CSSProperties`               | No       | `{}`      | Session item default style                                                               |
-| `itemsHoverStyle`      | `CSSProperties`               | No       | `{}`      | Session item hover style                                                                 |
-| `itemsActiveStyle`     | `CSSProperties`               | No       | `{}`      | Session item active style                                                                |
-| `itemsMenuOpenedStyle` | `CSSProperties`               | No       | `{}`      | Session item style when menu is opened                                                   |
+| Property Name          | Type                          | Required | Default         | Description                                                                              |
+| ---------------------- | ----------------------------- | -------- | --------------- | ---------------------------------------------------------------------------------------- |
+| `items`                | `ConversationItem<T>[]`       | No       | `[]`            | Session item data list, containing `label`, `group`, `disabled` and other fields         |
+| `groupable`            | `boolean \| GroupableOptions` | No       | `false`         | Whether to enable grouping, passing object can customize group sorting (`sort` function) |
+| `showBuiltInMenu`      | `boolean`                     | No       | `false`         | Whether to show built-in menu (rename, delete)                                           |
+| `loadMore`             | `() => void`                  | No       | -               | Lazy loading callback function, triggered when scrolling to bottom                       |
+| `loadMoreLoading`      | `boolean`                     | No       | `false`         | Load more state, controls loading animation display                                      |
+| `loadMoreText`         | `string`                      | No       | `'加载更多...'` | Text displayed while loading more items                                                  |
+| `showToTopBtn`         | `boolean`                     | No       | `false`         | Whether to show back to top button                                                       |
+| `labelKey`             | `string`                      | No       | `'label'`       | Session item label field name                                                            |
+| `rowKey`               | `string`                      | No       | `'id'`          | Session item unique identifier field name                                                |
+| `style`                | `CSSProperties`               | No       | `{}`            | Container styles; use `width` to set the conversation list width                         |
+| `itemsStyle`           | `CSSProperties`               | No       | `{}`            | Session item default style                                                               |
+| `itemsHoverStyle`      | `CSSProperties`               | No       | `{}`            | Session item hover style                                                                 |
+| `itemsActiveStyle`     | `CSSProperties`               | No       | `{}`            | Session item active style                                                                |
+| `itemsMenuOpenedStyle` | `CSSProperties`               | No       | `{}`            | Session item style when menu is opened                                                   |
 
 ## Slots
 
@@ -74,6 +76,7 @@ Override `Conversations` theme tokens via `ConfigProvider.themeOverrides`. See t
 | `#label`       | `{ item: ConversationItem<T> }`                           | Custom session item label content, supports text overflow handling or rich text                                                                                                                            |
 | `#more-filled` | `{ item, isHovered, isActive, isMenuOpened, isDisabled }` | Session item right side additional content, displays status indicators (e.g.: disabled mark, action icons)                                                                                                 |
 | `#menu`        | `{ item: ConversationItem<T>, handleOpen, handleClose }`  | Custom menu content, supports buttons, icons or complex interactive components,`handleOpen`used to control the opening of the drop-down menu, `handleClose`used to control the closing of drop-down menus. |
+| `#load-more`   | `{ text: string }`                                        | Custom load-more area                                                                                                                                                                                      |
 | `#header`      | -                                                         | Container header slot, for adding search bars, filter buttons and other custom content                                                                                                                     |
 | `#footer`      | -                                                         | Container footer slot, for adding pagination, statistics and other custom content                                                                                                                          |
 

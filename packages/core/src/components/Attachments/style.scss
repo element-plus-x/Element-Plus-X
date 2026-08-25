@@ -138,6 +138,10 @@
 
 .elx-attachments-upload-btn {
   display: flex;
+
+  &--custom.el-upload {
+    border: none;
+  }
 }
 
 :deep() {

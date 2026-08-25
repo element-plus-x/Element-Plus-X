@@ -86,6 +86,7 @@ export interface Conversation<T extends AnyObject = AnyObject> {
   menuTeleported?: boolean;
   loadMore?: () => void;
   loadMoreLoading?: boolean;
+  loadMoreText?: string;
   showToTopBtn?: boolean;
   rowKey?: keyof T;
   labelKey?: keyof T;
