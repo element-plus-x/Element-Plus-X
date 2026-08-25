@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ThinkingEmits, ThinkingProps, ThinkingStatus } from './types';
 import {
-  ArrowUpBold,
+  ArrowDownBold,
   CircleCloseFilled,
   Loading,
   Opportunity,
@@ -149,7 +149,7 @@ watch(
         >
           <slot name="arrow">
             <el-icon :class="ns.e('icon-center')">
-              <ArrowUpBold />
+              <ArrowDownBold />
             </el-icon>
           </slot>
         </span>
