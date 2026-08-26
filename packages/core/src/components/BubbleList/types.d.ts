@@ -119,6 +119,7 @@ export interface BubbleListProps<
 > {
   list: T[];
   autoScroll?: boolean;
+  maxWidth?: string;
   maxHeight?: string;
   showBackButton?: boolean;
   backButtonThreshold?: number;

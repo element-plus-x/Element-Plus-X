@@ -23,6 +23,7 @@ const meta = {
   },
   argTypes: {
     autoScroll: { control: 'boolean' },
+    maxWidth: { control: 'text' },
     maxHeight: { control: 'text' },
     alwaysShowScrollbar: { control: 'boolean' },
     showBackButton: { control: 'boolean' },
@@ -44,6 +45,7 @@ const meta = {
   args: {
     list: messageArr,
     autoScroll: true,
+    maxWidth: 'none',
     maxHeight: '100%',
     alwaysShowScrollbar: true,
     showBackButton: true,

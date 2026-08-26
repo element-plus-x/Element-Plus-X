@@ -1,6 +1,7 @@
 .elx-bubble-list {
   position: relative;
   height: 100%;
+  max-width: var(--elx-bubble-list-max-width, none);
 }
 
 .elx-bubble-list__list {

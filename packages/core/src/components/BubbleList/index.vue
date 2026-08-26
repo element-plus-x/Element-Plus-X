@@ -31,6 +31,7 @@ import loadingBg from './loading.vue';
 const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   list: () => [] as T[],
   autoScroll: true,
+  maxWidth: '',
   maxHeight: '',
   alwaysShowScrollbar: false,
   backButtonThreshold: 80,
@@ -66,6 +67,7 @@ type ProgrammaticScrollTarget = 'top' | 'bottom' | 'bubble';
 const wrapperStyle = computed(() => {
   return {
     ...ns.cssVarBlock({
+      'max-width': props.maxWidth || 'none',
       'max-height': props.maxHeight || '100%',
       'btn-size': `${props.btnIconSize}px`
     }),
