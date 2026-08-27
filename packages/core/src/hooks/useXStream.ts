@@ -123,7 +123,11 @@ export function useXStream() {
   const currentStream = shallowRef<XReadableStream<SSEOutput> | null>(null);
   let streamGeneration = 0;
 
-  const stopCurrentStream = () => {
+  const stopCurrentStream = (): boolean => {
+    const hasActiveStream =
+      abortController.value !== null || currentStream.value !== null;
+    if (!hasActiveStream) return false;
+
     abortController.value?.abort();
     const reader = currentStream.value?.reader;
     if (reader) {
@@ -131,6 +135,7 @@ export function useXStream() {
     }
     currentStream.value = null;
     abortController.value = null;
+    return true;
   };
 
   // 启动流式请求
@@ -172,10 +177,11 @@ export function useXStream() {
   };
 
   // 中断流式请求（强制关闭流）
-  const cancel = () => {
+  const cancel = (): boolean => {
     streamGeneration += 1;
-    stopCurrentStream();
+    const didStop = stopCurrentStream();
     isLoading.value = false;
+    return didStop;
   };
 
   return {
