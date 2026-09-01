@@ -33,7 +33,7 @@
 
 | Resource Type                    | <div style="width: 300px;">Link</div>                                                                                      |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Documentation**                | [📖 Development Documentation](https://element-plus-x.com)                                                                 |
+| **Documentation**                | [📖 Development Documentation](https://v2.element-plus-x.com/en/)                                                                 |
 | **Online Demo**                  | [👁️ Online Preview](https://v.element-plus-x.com)                                                                          |
 | **Code Repository**              | [🐙 GitHub](https://github.com/HeJiaYue520/Element-Plus-X) <br> [🚠 Gitee](https://gitee.com/he-jiayue/element-plus-x)     |
 | **NPM Package**                  | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)                                                                 |
@@ -114,19 +114,19 @@ app.mount('#app');
 
 | Component Name       | Description                                                        | Documentation Link                                                          |
 | -------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------- |
-| `Bubble`             | Extended bubble message component                                  | [📄 Documentation](https://element-plus-x.com/en/components/bubble/)        |
-| `BubbleList`         | Extended bubble message list component                             | [📄 Documentation](https://element-plus-x.com/en/components/bubbleList/)    |
-| `Conversations`      | Extended conversation management component                         | [📄 Documentation](https://element-plus-x.com/en/components/conversations/) |
-| `Welcome`            | Welcome component                                                  | [📄 Documentation](https://element-plus-x.com/en/components/welcome/)       |
-| `Prompts`            | Prompt set component                                               | [📄 Documentation](https://element-plus-x.com/en/components/prompts/)       |
-| `FilesCard`          | File card component                                                | [📄 Documentation](https://element-plus-x.com/en/components/filesCard/)     |
-| `Attachments`        | File attachment upload component                                   | [📄 Documentation](https://element-plus-x.com/en/components/attachments/)   |
-| `XSender`            | Intelligent input box (with voice interaction and mention support) | [📄 Documentation](https://element-plus-x.com/zh/components/xsender/)       |
-| `Thinking`           | Extended "Thinking..." component                                   | [📄 Documentation](https://element-plus-x.com/en/components/thinking/)      |
-| `ThoughtChain`       | Thought chain component                                            | [📄 Documentation](https://element-plus-x.com/en/components/thoughtChain/)  |
-| `useRecord`          | Browser-built voice recognition API Hooks                          | [📄 Documentation](https://element-plus-x.com/en/components/useRecord/)     |
-| `useXStream`         | Stream mode interface Hooks                                        | [📄 Documentation](https://element-plus-x.com/en/components/useXStream/)    |
-| `useSend & XRequest` | Split version of stream mode Hooks (extended)                      | [📄 Documentation](https://element-plus-x.com/en/components/useSend/)       |
+| `Bubble`             | Extended bubble message component                                  | [📄 Documentation](https://v2.element-plus-x.com/en/components/bubble/)        |
+| `BubbleList`         | Extended bubble message list component                             | [📄 Documentation](https://v2.element-plus-x.com/en/components/bubbleList/)    |
+| `Conversations`      | Extended conversation management component                         | [📄 Documentation](https://v2.element-plus-x.com/en/components/conversations/) |
+| `Welcome`            | Welcome component                                                  | [📄 Documentation](https://v2.element-plus-x.com/en/components/welcome/)       |
+| `Prompts`            | Prompt set component                                               | [📄 Documentation](https://v2.element-plus-x.com/en/components/prompts/)       |
+| `FilesCard`          | File card component                                                | [📄 Documentation](https://v2.element-plus-x.com/en/components/filesCard/)     |
+| `Attachments`        | File attachment upload component                                   | [📄 Documentation](https://v2.element-plus-x.com/en/components/attachments/)   |
+| `XSender`            | Intelligent input box (with voice interaction and mention support) | [📄 Documentation](https://v2.element-plus-x.com/zh/components/xsender/)       |
+| `Thinking`           | Extended "Thinking..." component                                   | [📄 Documentation](https://v2.element-plus-x.com/en/components/thinking/)      |
+| `ThoughtChain`       | Thought chain component                                            | [📄 Documentation](https://v2.element-plus-x.com/en/components/thoughtChain/)  |
+| `useRecord`          | Browser-built voice recognition API Hooks                          | [📄 Documentation](https://v2.element-plus-x.com/en/components/useRecord/)     |
+| `useXStream`         | Stream mode interface Hooks                                        | [📄 Documentation](https://v2.element-plus-x.com/en/components/useXStream/)    |
+| `useSend & XRequest` | Split version of stream mode Hooks (extended)                      | [📄 Documentation](https://v2.element-plus-x.com/en/components/useSend/)       |
 
 ## 🎯 Development Plan (Updated Weekly)
 
@@ -136,7 +136,7 @@ app.mount('#app');
 
 1. **Fork the repository** → 2. **Create a Feature branch** → 3. **Submit a Pull Request**
 
-Details can be moved 👉 **[📄 Documentation](https://element-plus-x.com/en/guide/develop.html)**
+Details can be moved 👉 **[📄 Documentation](https://v2.element-plus-x.com/en/guide/develop.html)**
 
 We welcome:
 
