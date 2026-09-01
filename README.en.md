@@ -33,7 +33,7 @@
 
 | Resource Type                    | <div style="width: 300px;">Link</div>                                                                                      |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Documentation**                | [📖 Development Documentation](https://element-plus-x.com)                                                                 |
+| **Documentation**                | [📖 Development Documentation](https://v2.element-plus-x.com/en/)                                                                 |
 | **Online Demo**                  | [👁️ Online Preview](https://v.element-plus-x.com)                                                                          |
 | **Code Repository**              | [🐙 GitHub](https://github.com/HeJiaYue520/Element-Plus-X) <br> [🚠 Gitee](https://gitee.com/he-jiayue/element-plus-x)     |
 | **NPM Package**                  | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)                                                                 |
