@@ -70,6 +70,10 @@ export function useRecord({
   const value = ref<string>('');
 
   const start = () => {
+    // 忽略重复启动，等待当前会话结束。
+    if (recognition.value)
+      return;
+
     if ('webkitSpeechRecognition' in window) {
       recognition.value = new webkitSpeechRecognition();
       recognition.value!.continuous = true;
@@ -81,6 +85,7 @@ export function useRecord({
         onStart?.();
       };
       recognition.value.onend = () => {
+        recognition.value = null;
         loading.value = false;
         onEnd?.(value.value);
       };
@@ -96,7 +101,13 @@ export function useRecord({
         value.value = results;
         onResult?.(results);
       };
-      recognition.value.start();
+      try {
+        recognition.value.start();
+      }
+      catch (error) {
+        recognition.value = null;
+        throw error;
+      }
     } else {
       onError?.({
         code: -1,
