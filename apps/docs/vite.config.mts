@@ -24,6 +24,13 @@ export default defineConfig({
       eslintrc: {
         enabled: true
       },
+      // 不转换构建产物：core dist 的 vendor chunk 里含 ElFocusGroupCollection
+      // 等 element-plus 内部别名组件，被 resolver 扫描后会注入无法解析的样式导入
+      exclude: [
+        /[\\/]node_modules[\\/]/,
+        /[\\/]\.git[\\/]/,
+        /[\\/]dist[\\/]/
+      ],
       resolvers: [
         ElementPlusResolver({
           exclude: /ElButtonGroup/ // 忽略自动导入 ElButtonGroup
