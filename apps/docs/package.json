@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vitepress dev --port 5174",
-    "build": "vitepress build",
+    "build": "vitepress build && node scripts/llms.mjs",
     "preview": "vitepress preview"
   },
   "dependencies": {
