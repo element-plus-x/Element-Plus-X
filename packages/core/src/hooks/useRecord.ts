@@ -95,7 +95,8 @@ export function useRecord({
       };
       recognition.value.onresult = e => {
         let results = '';
-        for (let i = 0; i <= e.resultIndex; i++) {
+        // resultIndex 是最早变化的位置，完整文本需要遍历当前所有结果。
+        for (let i = 0; i < e.results.length; i++) {
           results += e.results[i][0].transcript;
         }
         value.value = results;
