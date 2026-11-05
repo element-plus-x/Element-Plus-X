@@ -64,8 +64,8 @@
     "types/index.d.ts"
   ],
   "scripts": {
-    "build:es": "set NODE_OPTIONS=\"--max-old-space-size=4096\" && pnpm run generate-types && vue-tsc -b --noEmit && vite build",
-    "build:umd": "set NODE_OPTIONS=\"--max-old-space-size=4096\" && pnpm run generate-types && vue-tsc -b --noEmit && vite build --config vite.config.umd.ts",
+    "build:es": "cross-env-shell NODE_OPTIONS=--max-old-space-size=4096 \"pnpm run generate-types && vue-tsc -b --noEmit && vite build\"",
+    "build:umd": "cross-env-shell NODE_OPTIONS=--max-old-space-size=4096 \"pnpm run generate-types && vue-tsc -b --noEmit && vite build --config vite.config.umd.ts\"",
     "build": "rimraf dist && rimraf types && pnpm run aeac && pnpm run build:es && pnpm run build:umd",
     "preview": "vite preview",
     "dev": "storybook dev -p 6006",
@@ -106,6 +106,7 @@
     "@types/markdown-it": "^14.1.2",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/tsconfig": "^0.7.0",
+    "cross-env": "^7.0.3",
     "element-plus": "^2.9.7",
     "esno": "^4.8.0",
     "fast-glob": "^3.3.3",
