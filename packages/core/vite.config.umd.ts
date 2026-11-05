@@ -35,9 +35,10 @@ export default defineConfig({
       fileName: format => {
         return `${format}/index.js`;
       },
-      cssFileName: 'styles.css'
+      // vite 会自动追加 .css 后缀（vite 8 语义）
+      cssFileName: 'styles'
     },
-    rollupOptions: {
+    rolldownOptions: {
       // 外部依赖配置，这些依赖不会被打包，需要用户自行提供
       external: [
         'vue', // Vue 3 核心库
@@ -53,9 +54,12 @@ export default defineConfig({
     emptyOutDir: false,
     sourcemap: true,
     minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    },
     cssCodeSplit: false
-  },
-  esbuild: {
-    drop: ['console', 'debugger']
   }
 });

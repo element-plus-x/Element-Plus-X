@@ -78,7 +78,7 @@ const buildConfig: BuildEnvironmentOptions = {
     },
     formats: ['es']
   },
-  rollupOptions: {
+  rolldownOptions: {
     // 确保外部化处理那些你不想打包进库的依赖
     external: [
       'vue', // Vue 3 核心库
@@ -91,23 +91,29 @@ const buildConfig: BuildEnvironmentOptions = {
         vue: 'Vue'
       },
       exports: 'named', // 确保有命名导出
+      // rolldown (vite 8) 下 asset 的 originalFileNames 为空，改从 names 推断
+      // 组件 css 归属目录，其余资源走统一目录
       assetFileNames: ((info: any) => {
-        const srcName = info.originalFileNames[0];
-        if (srcName) {
-          if (srcName.includes('src/components/')) {
-            const fileName = srcName
-              .replace('src/components/', '')
-              .replace('index.vue', 'index.css');
-            return `es/${fileName}`;
-          }
+        const names: string[] = info.names ?? (info.name ? [info.name] : []);
+        const cssName = names.find(
+          (n: string) => /\.css$/.test(n) && !/^css\d*\.css$/.test(n)
+        );
+        if (cssName) {
+          return `es/${cssName.replace(/\.css$/, '')}/index.css`;
         }
-        return info.name;
+        return `es/${info.name ?? names[0] ?? 'asset'}`;
       }) as unknown as string
     }
   },
   sourcemap: true,
   // 减少文件大小
   minify: 'terser',
+  terserOptions: {
+    compress: {
+      drop_console: true,
+      drop_debugger: true
+    }
+  },
   // CSS 处理
   cssCodeSplit: true,
   // 确保只生成一个CSS文件

@@ -2,7 +2,7 @@ import { resolve } from 'node:path';
 import dts from 'vite-plugin-dts';
 
 export default dts({
-  outDir: 'types',
+  outDirs: 'types',
   tsconfigPath: resolve(__dirname, '../../tsconfig.app.json'),
   copyDtsFiles: true,
   exclude: [
