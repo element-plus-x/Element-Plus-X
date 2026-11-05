@@ -78,7 +78,7 @@ const debouncedCheckPing = debounce({ delay: 100 }, checkPing);
 const targetElement = ref<HTMLElement | null>(null);
 // 是否在 targetElement 上进行了拖拽
 const isTargetDrag = ref(false);
-const debouncedStyle = debounce({ delay: 100 }, toggleDragStyle);
+let debouncedStyle = debounce({ delay: 100 }, toggleDragStyle);
 // 是否超过上传长度限制
 const _isOverLimit = computed(() => {
   if (props.limit && props.items.length >= props.limit) {
@@ -89,6 +89,7 @@ const _isOverLimit = computed(() => {
 
 // 添加/移除 拖拽类名和定位信息
 const dropAreaRef = ref();
+let restoreTargetPosition: (() => void) | undefined;
 function toggleDragStyle(isDrag: boolean) {
   isTargetDrag.value = isDrag;
   if (targetElement.value) {
@@ -103,12 +104,23 @@ function toggleDragStyle(isDrag: boolean) {
         dropAreaRef.value.style.height = '100vh'; // 视口高度
         dropAreaRef.value.style.left = '0';
         dropAreaRef.value.style.top = '0';
-      } else {
-        // 其他元素保持原逻辑
-        targetElement.value.style.position = 'relative';
+      } else if (!isBodyTarget && getComputedStyle(targetElement.value).position === 'static') {
+        const target = targetElement.value;
+        const position = target.style.getPropertyValue('position');
+        const priority = target.style.getPropertyPriority('position');
+        restoreTargetPosition = () => {
+          if (position) {
+            target.style.setProperty('position', position, priority);
+          }
+          else {
+            target.style.removeProperty('position');
+          }
+        };
+        target.style.position = 'relative';
       }
     } else {
-      targetElement.value.style.position = '';
+      restoreTargetPosition?.();
+      restoreTargetPosition = undefined;
     }
   }
 }
@@ -184,10 +196,14 @@ function removeDragListenersFrom(element: HTMLElement) {
 }
 
 function removeDragListeners() {
+  debouncedStyle.cancel();
+  // radash 的 cancel 会永久禁用防抖，重新绑定前需要创建新实例。
+  debouncedStyle = debounce({ delay: 100 }, toggleDragStyle);
+  toggleDragStyle(false);
   if (targetElement.value) {
     removeDragListenersFrom(targetElement.value);
   }
-  debouncedStyle(false);
+  targetElement.value = null;
 }
 
 function addDragListeners() {
@@ -197,7 +213,7 @@ function addDragListeners() {
   if (!element) return;
 
   if (targetElement.value && targetElement.value !== element) {
-    removeDragListenersFrom(targetElement.value);
+    removeDragListeners();
   }
 
   targetElement.value = element;
